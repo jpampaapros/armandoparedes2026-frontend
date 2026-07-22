@@ -1,0 +1,281 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useForm } from "react-hook-form";
+import { SmartLink } from "@/components/SmartLink";
+import { useCf7Submit, type Cf7FormValues } from "@/hooks/useCf7Submit";
+import type { ACFLink, ProjectDormitorio } from "@/lib/types";
+
+type PlanosProyectoProps = {
+  titulo?: string;
+  dormitorios?: ProjectDormitorio[];
+  boton_mas_planos?: ACFLink;
+  texto_adicional?: string;
+  leyenda?: { etiqueta?: string; valor?: string }[];
+};
+
+export function PlanosProyecto({
+  titulo,
+  dormitorios = [],
+  boton_mas_planos,
+  texto_adicional,
+  leyenda = [],
+}: PlanosProyectoProps) {
+  const [activeDorm, setActiveDorm] = useState(0);
+  const [activeTipo, setActiveTipo] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalTipologia, setModalTipologia] = useState("");
+  const { register, handleSubmit, reset } = useForm<Cf7FormValues>();
+  const { submit, isPending, status } = useCf7Submit("4");
+
+  const dormitorio = dormitorios[activeDorm];
+  const tipologias = dormitorio?.tipologias ?? [];
+  const tipologia = tipologias[activeTipo] ?? tipologias[0];
+
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setModalOpen(false);
+    };
+    window.addEventListener("keydown", onEsc);
+    return () => window.removeEventListener("keydown", onEsc);
+  }, []);
+
+  useEffect(() => {
+    if (modalOpen) {
+      reset({
+        nombre: "",
+        email: "",
+        asunto: `Interés en ${modalTipologia}`,
+        mensaje: `Me interesa el departamento ${modalTipologia}`,
+      });
+    }
+  }, [modalOpen, modalTipologia, reset]);
+
+  const openModal = (nombre?: string) => {
+    setModalTipologia(nombre || "");
+    setModalOpen(true);
+  };
+
+  const onSubmit = async (values: Cf7FormValues) => {
+    const ok = await submit(values);
+    if (ok) reset();
+  };
+
+  return (
+    <section data-layout="planos" className="w-full bg-white">
+      <div className="mx-auto max-w-1440 px-24 py-60 md:px-80 md:py-100">
+        {titulo && (
+          <h2 className="m-0 text-center font-gotham text-36 font-bold text-slate md:text-60">
+            {titulo}
+          </h2>
+        )}
+
+        <div className="mt-30 flex flex-wrap justify-center gap-12 md:mt-50">
+          {dormitorios.map((d, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => {
+              setActiveDorm(i);
+              setActiveTipo(0);
+            }}
+            className={`min-w-120 border px-20 py-12 font-gotham text-14 font-bold transition-colors md:text-18 ${
+              i === activeDorm
+                ? "border-peach bg-peach text-white"
+                : "border-peach text-near-black hover:bg-peach/10"
+            }`}
+          >
+              {d.numero}
+            </button>
+          ))}
+        </div>
+
+        {tipologias.length > 1 && (
+          <div className="mt-16 flex flex-wrap justify-center gap-12">
+            {tipologias.map((t, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setActiveTipo(i)}
+                className={`border px-20 py-10 font-gotham text-14 font-bold transition-colors md:text-18 ${
+                  i === activeTipo
+                    ? "border-peach bg-peach text-white"
+                    : "border-peach text-near-black hover:bg-peach/10"
+                }`}
+              >
+                {t.titulo || t.nombre}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {tipologia && (
+          <div className="mt-40 grid grid-cols-1 gap-24 md:mt-60 md:grid-cols-[1fr_auto_1fr]">
+            <div className="relative">
+              <div className="relative h-304 w-full md:h-470">
+                {tipologia.imagen?.url ? (
+                  <Image
+                    src={tipologia.imagen.url}
+                    alt={tipologia.imagen.alt || tipologia.titulo || ""}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-contain"
+                  />
+                ) : (
+                  <div className="h-full w-full bg-neutral-100" />
+                )}
+              </div>
+
+              {leyenda.length > 0 && (
+                <div className="mt-24 grid grid-cols-2 gap-12 md:grid-cols-3">
+                  {leyenda.map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-8 border border-light-gray p-12"
+                    >
+                      <span className="flex h-24 min-w-24 items-center justify-center bg-peach font-poppins text-12 text-white">
+                        {item.valor || ""}
+                      </span>
+                      <span className="font-poppins text-14 text-near-black">
+                        {item.etiqueta}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="hidden md:block" />
+
+            <div className="flex flex-col justify-center gap-24">
+              <h3 className="font-gotham text-40 font-bold text-near-black md:text-60">
+                {tipologia.nombre}
+              </h3>
+              <p className="font-gotham text-24 font-bold text-near-black md:text-32">
+                {dormitorio?.numero}
+              </p>
+
+              <hr className="h-px w-full border-0 bg-near-black" />
+
+              <div className="flex flex-col gap-9">
+                {tipologia.area_techada && (
+                  <span className="font-poppins text-16 text-near-black md:text-18">
+                    Área techada: {tipologia.area_techada}
+                  </span>
+                )}
+                {tipologia.area_libre && (
+                  <span className="font-poppins text-16 text-near-black md:text-18">
+                    Área libre: {tipologia.area_libre}
+                  </span>
+                )}
+                {tipologia.area_total && (
+                  <span className="font-poppins text-16 text-near-black md:text-18">
+                    Área total: {tipologia.area_total}
+                  </span>
+                )}
+                {tipologia.descripcion && (
+                  <span className="font-poppins text-16 text-near-black md:text-18">
+                    {tipologia.descripcion}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-16">
+                <button
+                  type="button"
+                  onClick={() => openModal(tipologia.nombre)}
+                  className="inline-flex h-50 w-full items-center justify-center bg-slate px-20 font-gotham text-14 font-bold uppercase text-white transition-colors hover:bg-slate/90 md:text-18"
+                >
+                  QUIERO ESTE DEPA
+                </button>
+                {boton_mas_planos?.url && boton_mas_planos.url !== "#" && (
+                <SmartLink
+                  link={boton_mas_planos}
+                  className="inline-flex h-50 w-full items-center justify-center border border-slate px-20 font-gotham text-14 font-bold uppercase text-slate transition-colors hover:bg-slate hover:text-white md:text-18"
+                >
+                  {boton_mas_planos.title || "MÁS PLANOS"}
+                </SmartLink>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {texto_adicional && (
+          <p className="mt-24 text-center font-poppins text-12 text-near-black md:text-14">
+            {texto_adicional}
+          </p>
+        )}
+      </div>
+
+      {modalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-24"
+          onClick={() => setModalOpen(false)}
+        >
+          <div
+            className="w-full max-w-520 bg-white p-24 md:p-40"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-24 flex items-center justify-between">
+              <h3 className="font-gotham text-24 font-bold text-near-black md:text-32">
+                Quiero este departamento
+              </h3>
+              <button
+                type="button"
+                onClick={() => setModalOpen(false)}
+                className="font-poppins text-16 text-near-black"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-16">
+              <input
+                type="hidden"
+                {...register("asunto")}
+              />
+              <input
+                type="text"
+                placeholder="Nombre"
+                required
+                className="w-full border border-light-gray px-16 py-12 font-poppins text-14 text-near-black outline-none focus:border-peach"
+                {...register("nombre", { required: true })}
+              />
+              <input
+                type="email"
+                placeholder="Correo"
+                required
+                className="w-full border border-light-gray px-16 py-12 font-poppins text-14 text-near-black outline-none focus:border-peach"
+                {...register("email", { required: true })}
+              />
+              <textarea
+                placeholder="Mensaje"
+                rows={4}
+                className="w-full border border-light-gray px-16 py-12 font-poppins text-14 text-near-black outline-none focus:border-peach"
+                {...register("mensaje")}
+              />
+              <button
+                type="submit"
+                disabled={isPending}
+                className="inline-flex h-50 items-center justify-center bg-peach px-24 font-poppins text-14 font-semibold uppercase text-white disabled:opacity-50 md:text-16"
+              >
+                {isPending ? "Enviando..." : "Enviar"}
+              </button>
+              {status && (
+                <p
+                  className={`text-center font-poppins text-14 ${
+                    status.ok ? "text-green-700" : "text-red-700"
+                  }`}
+                >
+                  {status.message}
+                </p>
+              )}
+            </form>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}

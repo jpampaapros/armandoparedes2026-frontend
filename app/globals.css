@@ -1,0 +1,139 @@
+/* sin preflight: ver lecciones.md 2026-07-17 */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "tailwindcss-calc";
+
+:root {
+  /* Frame mobile = 414, desktop = 1440. El switch de escala ocurre en md. */
+  --width-screen: 414;
+  --width-max: 1440px;
+  --fx: calc(clamp(0px, 100vw, var(--width-max)) / var(--width-screen));
+  /* tailwindcss-calc (w-10, text-16, ...) multiplica por --calc-ratio; ligado
+     aquí a las variables del proyecto, sus utilidades equivalen a N*var(--fx)
+     en TODOS los viewports (este :root sin layer le gana al @layer theme del
+     plugin, incluido su switch md interno). */
+  --window-width: var(--width-screen);
+  --window-max-width: var(--width-max);
+
+  --color-bg: #f8fafc;
+  --color-text: #0f172a;
+  --font-system: Arial, Helvetica, sans-serif;
+  --header-height: calc(87 * var(--fx));
+  --header-padding-x: calc(16 * var(--fx));
+}
+
+@media (min-width: 768px) {
+  :root {
+    --width-screen: 1440;
+    --header-height: calc(90 * var(--fx));
+    --header-padding-x: calc(80 * var(--fx));
+  }
+}
+
+/* --spacing = --fx: w-264, gap-12, pt-31... quedan en px de diseño proporcional (medidas-proporcionales) en vez de la escala rem de Tailwind. */
+@theme inline {
+  --spacing: var(--fx);
+  --color-header-bg: #000000;
+  --color-header-text: #ffffff;
+  --color-modal-bg: #1d1d1b;
+  --color-modal-overlay: rgba(0, 0, 0, 0.2);
+  --color-slate: #748ca4;
+  --color-peach: #dda783;
+  --color-near-black: #1d1d1b;
+  --color-whatsapp: #25d366;
+  --color-dark: #1b1b1b;
+  --color-warm-gray: #79796f;
+  --color-light-gray: #bdbdbd;
+  --color-card-dark: #1d1f1c;
+  --color-text-muted: #707070;
+  --color-border-light: #c5c5c5;
+  --color-dots-active: #bdbdbd;
+  --color-dots-inactive: rgba(221, 221, 221, 0.8);
+  --font-gotham: 'Gotham', Arial, sans-serif;
+  --font-gotham-black: 'Gotham Black', 'Gotham', Arial, sans-serif;
+  --font-inter: var(--font-google-inter);
+  --font-sans: var(--font-google-poppins);
+  --font-poppins: var(--font-google-poppins);
+  --font-ga-maamli: var(--font-google-ga-maamli);
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/Gotham-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/Gotham-Book.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham Black';
+  src: url('/fonts/gotham/Gotham-Black.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-gotham-black {
+  font-family: 'Gotham Black', 'Gotham', sans-serif;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/Gotham-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/Gotham-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham Black';
+  src: url('/fonts/gotham/Gotham-Black.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham Black';
+  src: url('/fonts/gotham/Gotham-Black.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  color-scheme: light;
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+body {
+  margin: 0;
+  padding-top: var(--header-height);
+}
+
+a,
+a:any-link,
+a:-webkit-any-link {
+  text-decoration: none;
+}
