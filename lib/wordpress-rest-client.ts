@@ -78,7 +78,7 @@ export function createWordPressRestClient(options: {
     async getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
       try {
         const response = await collection<BlogPost[]>(
-          `/wp-json/wp/v2/blog?slug=${encodeURIComponent(slug)}&acf_format=standard&_embed=1`,
+          `/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&acf_format=standard&_embed=1`,
         );
         return response.data[0] ?? null;
       } catch {
@@ -88,7 +88,7 @@ export function createWordPressRestClient(options: {
     async getBlogPosts(): Promise<BlogPost[]> {
       try {
         const response = await collection<BlogPost[]>(
-          "/wp-json/wp/v2/blog?per_page=100&_fields=slug&status=publish",
+          "/wp-json/wp/v2/posts?per_page=100&_fields=slug&status=publish",
         );
         return response.data;
       } catch {
@@ -105,7 +105,7 @@ export function createWordPressRestClient(options: {
     async getBlogCategories(): Promise<WPCategory[]> {
       try {
         const response = await collection<WPCategory[]>(
-          "/wp-json/wp/v2/categoria_blog?per_page=100&hide_empty=false",
+          "/wp-json/wp/v2/categories?per_page=100&hide_empty=true",
         );
         return response.data;
       } catch {
