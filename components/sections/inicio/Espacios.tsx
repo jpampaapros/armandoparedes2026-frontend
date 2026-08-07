@@ -14,39 +14,34 @@ export function Espacios({ titulo, subtitulo, indicadores }: EspaciosProps) {
       <div className="mx-auto max-w-1440 px-4 md:px-80">
         <div className="mx-auto mb-60 max-w-799 text-center md:mb-100">
           {subtitulo && (
-            <p className="mb-27 font-poppins text-14 font-light uppercase tracking-[0.05em] text-near-black md:text-18" /* tracking-[0.05em] no tiene utilidad proporcional; se mantiene como em de diseño */>
+            <p className="mb-27 font-poppins text-14 font-light uppercase tracking-[0.05em] text-near-black md:text-18">
               {subtitulo}
             </p>
           )}
           {titulo && (
-            <h2 className="font-gotham text-36 font-medium leading-[1.1] text-near-black md:text-60" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
-              {titulo}
-            </h2>
+            <h2 className="font-gotham text-36 font-normal leading-[1.1] md:text-60 [&_strong]:font-medium" dangerouslySetInnerHTML={{ __html: titulo }} />
           )}
         </div>
 
         <div className="border-t border-b border-near-black py-24 md:py-40">
-          <div className="flex flex-col gap-24 md:flex-row md:items-center md:justify-center md:gap-107">
+          <div className="flex flex-col md:grid md:grid-cols-3 gap-24 md:gap-0">
             {items.map((item, i) => (
-              <div key={i} className="flex items-center gap-24 md:gap-0">
-                <div className="flex flex-col items-center gap-10 md:w-277">
-                  <span className="font-gotham text-52 font-bold leading-[1] text-peach md:text-100" /* leading-[1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+              <div key={i} className={`flex items-center justify-center gap-24 md:gap-0 ${i !== items.length - 1 && 'border-r-2'}`}>
+                <div className="flex flex-col items-center md:gap-10">
+                  <span className="font-gotham text-52 font-bold leading-75 md:leading-120 text-peach md:text-100">
                     {item.numero}
                   </span>
                   <div className="text-center">
-                    <p className="font-poppins text-22 font-light leading-[1.3] text-black" /* leading-[1.3] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+                    <div className="font-poppins text-22 font-light leading-30 text-black">
                       {item.texto}
-                    </p>
+                    </div>
                     {item.ubicacion && (
-                      <p className="font-poppins text-14 font-medium leading-[1.3] text-black" /* leading-[1.3] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+                      <div className="font-poppins text-14 font-medium leading-20 text-black">
                         {item.ubicacion}
-                      </p>
+                      </div>
                     )}
                   </div>
                 </div>
-                {i < items.length - 1 && (
-                  <div className="hidden h-250 w-px bg-near-black md:block" />
-                )}
               </div>
             ))}
           </div>
