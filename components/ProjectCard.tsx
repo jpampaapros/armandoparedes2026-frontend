@@ -11,7 +11,7 @@ export function ProjectCard({ project }: { project: Project }) {
     .find((t) => t.taxonomy === "distrito");
 
   return (
-    <article className="group relative flex h-465 w-full min-w-0 max-w-382 flex-col overflow-hidden bg-black md:h-825 md:max-w-630">
+    <article className="group relative flex h-465 w-full min-w-0 md:max-w-382 flex-col overflow-hidden bg-black md:h-825 md:max-w-630">
       {image?.source_url && (
         <Image
           src={image.source_url}
@@ -31,13 +31,13 @@ export function ProjectCard({ project }: { project: Project }) {
       )}
 
       <div className="relative z-10 mt-auto flex flex-col gap-16 p-24 md:p-54">
-        <div className="flex flex-col gap-10">
-          <h3 className="font-gotham text-26 font-bold uppercase leading-[1.1] text-white md:text-36" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+        <div className="flex flex-col">
+          <h3 className="mb-20 font-gotham text-26 font-bold uppercase leading-26 text-white md:text-36" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
             {project.title.rendered}
           </h3>
-          <hr className="h-px w-full border-0 bg-white" />
+          <hr className="my-0 h-px w-full border-0 bg-white" />
         </div>
-        <div className="whitespace-pre-line font-poppins text-16 font-light leading-20 text-white md:text-24 md:leading-30"
+        <div className="font-poppins text-16 font-light leading-20 text-white md:text-24 md:leading-30 [&_p]:my-0"
           dangerouslySetInnerHTML={{ __html: project.acf.descripcion || "" }}
         />
         <SmartLink

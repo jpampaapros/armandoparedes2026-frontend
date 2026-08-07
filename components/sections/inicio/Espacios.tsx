@@ -10,7 +10,7 @@ export function Espacios({ titulo, subtitulo, indicadores }: EspaciosProps) {
   const items = indicadores?.filter(Boolean) ?? [];
 
   return (
-    <section className="w-full bg-white px-4 py-60 md:pt-60 md:pb-120">
+    <section className="w-full bg-white px-4 pt-49 md:pt-60">
       <div className="mx-auto max-w-1440 px-4 md:px-80">
         <div className="mx-auto mb-60 max-w-799 text-center md:mb-100">
           {subtitulo && (
@@ -19,7 +19,7 @@ export function Espacios({ titulo, subtitulo, indicadores }: EspaciosProps) {
             </p>
           )}
           {titulo && (
-            <h2 className="font-gotham text-36 font-normal leading-[1.1] md:text-60 [&_strong]:font-medium" dangerouslySetInnerHTML={{ __html: titulo }} />
+            <h2 className="my-0  font-gotham text-36 font-normal leading-[1.1] md:text-60 [&_strong]:font-medium" dangerouslySetInnerHTML={{ __html: titulo }} />
           )}
         </div>
 

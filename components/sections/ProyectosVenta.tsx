@@ -72,11 +72,11 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
   }, [proyectos, tags, distrito, tipo, area]);
 
   return (
-    <section className="w-full bg-white px-4 py-60 md:py-120">
+    <section className="w-full bg-white px-4 pt-49 pb-35 md:pt-101 md:pb-60">
       <div className="mx-auto max-w-1440 px-4 md:px-80">
         <div className="mb-40 flex flex-col gap-24 md:flex-row md:items-start md:justify-between">
           {titulo && (
-            <h2 className="font-gotham text-36 font-bold leading-[1.1] text-slate md:text-55" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+            <h2 className="my-0 text-center md:text-left font-gotham text-36 font-medium leading-[1.1] text-slate md:text-55" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
               {titulo}
             </h2>
           )}
@@ -125,22 +125,22 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
               />
             </div>
 
-            <div className="hidden md:mt-10 md:flex md:justify-end md:gap-16">
+            <div className="hidden md:mt-35 md:flex md:justify-end md:gap-16">
               <button
                 type="button"
                 onClick={() => emblaApi?.scrollPrev()}
                 aria-label="Slide anterior"
-                className="flex h-50 w-50 items-center justify-center bg-slate text-white transition-opacity hover:opacity-80"
+                className="flex h-50 w-50 items-center justify-center bg-slate text-white transition-opacity hover:opacity-80 border-none"
               >
-                <ChevronLeft className="h-24 w-24" />
+                <ChevronLeft className="h-28 w-28" />
               </button>
               <button
                 type="button"
                 onClick={() => emblaApi?.scrollNext()}
                 aria-label="Siguiente slide"
-                className="flex h-50 w-50 items-center justify-center bg-slate text-white transition-opacity hover:opacity-80"
+                className="flex h-50 w-50 items-center justify-center bg-slate text-white transition-opacity hover:opacity-80 border-none"
               >
-                <ChevronRight className="h-24 w-24" />
+                <ChevronRight className="h-28 w-28" />
               </button>
             </div>
           </>

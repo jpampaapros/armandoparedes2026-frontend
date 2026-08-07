@@ -18,23 +18,23 @@ export function ProyectosEntregados({ texto, subtitulo, boton, entregados }: Pro
   const [first, ...rest] = sorted.slice(0, 5);
 
   return (
-    <section className="w-full bg-white px-4 py-60 md:py-120">
+    <section className="w-full bg-white px-4 pb-37 pt-52 md:pt-75 md:pb-119">
       <div className="mx-auto max-w-1440 px-4 md:px-80">
         <div className="mb-40 flex flex-col items-center gap-24 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-col items-center gap-13 md:items-start">
             {texto && (
-              <h2 className="font-gotham text-36 font-bold leading-[1.1] text-slate md:text-55" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+              <h2 className="text-center md:text-left my-0 font-gotham text-36 font-bold leading-[1.1] text-slate md:text-55">
                 {texto}
               </h2>
             )}
-            <p className="font-poppins text-16 font-light text-black md:text-24">
+            <div className="font-poppins text-16 font-light text-black md:text-24">
               {subtitulo ?? "Muchas formas de habitar."}
-            </p>
+            </div>
           </div>
           {boton && (
             <SmartLink
               link={boton}
-              className="inline-flex h-50 w-250 items-center justify-center bg-peach px-10 font-gotham text-16 font-bold text-white transition-opacity hover:opacity-90 md:text-18"
+              className="hidden md:inline-flex h-50 w-250 items-center justify-center bg-peach px-10 font-gotham text-16 font-bold text-white transition-opacity hover:opacity-90 md:text-18"
             />
           )}
         </div>
