@@ -21,6 +21,10 @@
   --font-system: Arial, Helvetica, sans-serif;
   --header-height: calc(87 * var(--fx));
   --header-padding-x: calc(16 * var(--fx));
+  /* El banner del home lo anima la intro (intro-banner-pad), por eso su
+     padding-top vive aquí y no como utilidad suelta. */
+  --banner-padding-top: calc(57 * var(--fx));
+  --intro-duration: 3600ms;
 }
 
 @media (min-width: 768px) {
@@ -28,6 +32,7 @@
     --width-screen: 1440;
     --header-height: calc(90 * var(--fx));
     --header-padding-x: calc(80 * var(--fx));
+    --banner-padding-top: calc(185 * var(--fx));
   }
 }
 
@@ -136,4 +141,118 @@ a,
 a:any-link,
 a:-webkit-any-link {
   text-decoration: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Intro de entrada del home (componente HomeIntro).
+
+   Una sola linea de tiempo de --intro-duration:
+     0 - 30%   telon negro con el logo al centro
+    30 - 55%   el telon sube y descubre la pagina
+    55 - 75%   solo el titulo del banner, centrado sobre blanco a pantalla completa
+    75 - 100%  el resto aparece en opacidad y el bloque blanco se achica
+
+   Va en @keyframes y no en transiciones para que corra sola aunque la hidratacion
+   se demore; el JS solo desmonta el telon y libera el scroll. Los valores finales
+   coinciden con los del estado normal, asi que al quitar .intro-start no hay salto.
+--------------------------------------------------------------------------- */
+
+@keyframes intro-lift {
+  0%,
+  55% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes intro-logo {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  30%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes intro-fade-in {
+  0%,
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-hero {
+  0%,
+  75% {
+    min-height: 100svh;
+  }
+  100% {
+    min-height: 0;
+  }
+}
+
+@keyframes intro-body-pad {
+  0%,
+  75% {
+    padding-top: 0;
+  }
+  100% {
+    padding-top: var(--header-height);
+  }
+}
+
+@keyframes intro-banner-pad {
+  0%,
+  75% {
+    padding-top: 0;
+  }
+  100% {
+    padding-top: var(--banner-padding-top);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .intro-curtain {
+    animation: intro-lift 2000ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+
+  .intro-curtain img {
+    animation: intro-logo 2000ms ease-out forwards;
+  }
+
+  /* El header ocupa su alto solo cuando vuelve a aparecer. */
+  body:has(.intro-start) {
+    animation: intro-body-pad var(--intro-duration) cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+
+  /* Todo menos el titulo: header, footer, los puntos y la imagen del banner,
+     y las secciones que siguen (el primer hijo del wrapper es el banner). */
+  body:has(.intro-start) > header,
+  body:has(.intro-start) > footer,
+  .intro-start > :not(:first-child),
+  .intro-start [data-intro-fade] {
+    animation: intro-fade-in var(--intro-duration) ease-out forwards;
+  }
+
+  .intro-start [data-intro-banner] {
+    animation: intro-banner-pad var(--intro-duration) cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+
+  .intro-start [data-intro-hero] {
+    animation: intro-hero var(--intro-duration) cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-curtain {
+    display: none;
+  }
 }
