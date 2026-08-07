@@ -47,7 +47,7 @@ export function ProyectosEntregados({ texto, subtitulo, boton, entregados }: Pro
           )}
           <div className="grid grid-cols-1 gap-16 md:h-full md:grid-cols-2 md:grid-rows-2 md:gap-25">
             {rest.map((project) => (
-              <div key={project.id} className="h-full">
+              <div key={project.id} className="h-391 md:h-full">
                 <DeliveredCard project={project} size="small" priority />
               </div>
             ))}

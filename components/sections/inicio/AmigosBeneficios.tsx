@@ -12,13 +12,13 @@ export function AmigosBeneficios({ titulo, descripcion, boton }: AmigosBeneficio
     <section className="flex w-full items-center justify-center bg-dark px-4 py-61 md:py-120">
       <div className="mx-auto flex max-w-381 flex-col items-center gap-25 text-center md:max-w-685">
         {titulo && (
-          <h2 className="font-gotham text-36 font-bold leading-[1.1] text-white md:font-gotham-black md:text-95 md:font-medium md:leading-100" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+          <h2 className="font-gotham text-36 font-bold leading-[1.1] text-white md:font-gotham-black md:text-95 md:font-medium md:leading-100">
             {titulo}
           </h2>
         )}
         {descripcion && (
           <div
-            className="whitespace-pre-line font-poppins text-16 font-light leading-[1.2] text-white [&_p]:m-0 [&_em]:font-semibold [&_em]:italic"
+            className="font-poppins text-16 [&_p]:font-light [&_strong]:font-medium md:text-28 leading-[1.2] text-white"
             dangerouslySetInnerHTML={{ __html: descripcion }}
           />
         )}

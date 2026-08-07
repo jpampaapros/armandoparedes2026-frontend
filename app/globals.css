@@ -143,6 +143,24 @@ a:-webkit-any-link {
   text-decoration: none;
 }
 
+/* Sin preflight, headings y parrafos traen el margen del user-agent. Va en
+   @layer base (no suelto) para ganarle al UA pero perder contra
+   @layer utilities: asi un mb-60 o un [&_h2]:mt-32 siguen mandando.
+   Ojo: el HTML de WordPress/ACF que dependa del margen entre <p> necesita su
+   propio [&_p+p]:mt-* en el wrapper, como en app/blog/[slug]/page.tsx. */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+    font-weight: initial;
+  }
+}
+
 /* ---------------------------------------------------------------------------
    Intro de entrada del home (componente HomeIntro).
 

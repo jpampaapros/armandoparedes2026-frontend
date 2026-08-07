@@ -22,24 +22,22 @@ export function QuienEsArmando({ titulo, imagen_fondo, descripcion, boton }: Qui
           priority
         />
       )}
-      <div className="absolute inset-0 bg-slate/79" />
+      <div className="absolute inset-0 bg-slate/50" />
 
-      <div className="relative z-10 mx-auto flex max-w-372 flex-col items-center gap-16 px-4 py-80 text-center md:max-w-685 md:gap-31">
+      <div className="relative z-10 mx-auto md:block max-w-372 gap-16 px-4 py-80 md:max-w-1280 md:gap-31 w-full text-center md:text-left">
         {titulo && (
-          <h2 className="font-gotham text-36 font-medium leading-[1.1] text-white md:text-65" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
-            {titulo}
-          </h2>
+          <h2 className="font-gotham text-36 leading-[1.1] mb-15 text-white md:text-65" dangerouslySetInnerHTML={{__html: titulo}} />
         )}
         {descripcion && (
           <div
-            className="whitespace-pre-line font-poppins text-16 font-light leading-[1.4] text-white md:text-26 md:leading-35"
+            className="whitespace-pre-line font-poppins text-16 font-light leading-[1.4] text-white md:text-26 md:leading-35 [&_p]:my-0 max-w-430"
             dangerouslySetInnerHTML={{ __html: descripcion }}
           />
         )}
         {boton && (
           <SmartLink
             link={boton}
-            className="inline-flex h-50 min-w-250 items-center justify-center bg-peach px-24 font-gotham text-18 font-bold text-white transition-opacity hover:opacity-90 md:h-50"
+            className="flex md:inline-flex h-50 min-w-250 items-center justify-center bg-peach px-24 font-gotham text-18 font-bold text-white transition-opacity hover:opacity-90 md:h-50"
           />
         )}
       </div>
