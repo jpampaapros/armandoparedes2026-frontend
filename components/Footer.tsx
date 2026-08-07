@@ -142,7 +142,7 @@ export async function Footer() {
 
         <div className="grid grid-cols-2 gap-x-16 gap-y-60 md:grid-cols-[calc(105*var(--fx))_calc(125*var(--fx))_calc(249*var(--fx))_calc(249*var(--fx))] md:gap-x-193 md:gap-y-0">
           {infoColumn && (
-            <div className="col-span-2 order-1 row-start-1 flex flex-col justify-between md:col-auto md:col-start-4 md:row-start-1 md:order-none">
+            <div className="col-span-2 order-1 row-start-1 flex flex-col justify-between gap-26 md:justify-start md:col-auto md:col-start-4 md:row-start-1 md:order-none">
               <div className="flex flex-col gap-16">
                 {infoColumn.title && (
                   <h3 className="m-0 text-18 font-bold leading-24">
@@ -152,7 +152,7 @@ export async function Footer() {
                 <Description text={infoColumn.description} />
               </div>
               {infoColumn.redes && infoColumn.redes.length > 0 && (
-                <div className="mt-16 flex items-center gap-14 md:mt-0">
+                <div className="flex items-center gap-14 md:mt-0">
                   {infoColumn.redes.map((item, i) => (
                     <SocialLink key={i} item={item} />
                   ))}
