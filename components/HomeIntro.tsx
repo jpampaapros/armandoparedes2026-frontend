@@ -17,19 +17,29 @@ export function HomeIntro({ src, width, height, children }: HomeIntroProps) {
   const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const previousOverflow = document.body.style.overflow;
-
-    if (!reduceMotion) {
-      document.body.style.overflow = "hidden";
-      window.scrollTo(0, 0);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setIsDone(true);
+      return;
     }
 
-    const timer = window.setTimeout(() => setIsDone(true), reduceMotion ? 0 : INTRO_DURATION);
+    /* El scroll se libera al terminar la intro, no al desmontar: el componente
+       envuelve a la pagina y sigue montado despues de que el telon se va. */
+    const previousOverflow = document.body.style.overflow;
+    const releaseScroll = () => {
+      document.body.style.overflow = previousOverflow;
+    };
+
+    document.body.style.overflow = "hidden";
+    window.scrollTo(0, 0);
+
+    const timer = window.setTimeout(() => {
+      releaseScroll();
+      setIsDone(true);
+    }, INTRO_DURATION);
 
     return () => {
       window.clearTimeout(timer);
-      if (!reduceMotion) document.body.style.overflow = previousOverflow;
+      releaseScroll();
     };
   }, []);
 
