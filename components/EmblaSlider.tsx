@@ -34,6 +34,8 @@ export interface EmblaSliderProps<T> {
   onSelectChange?: (index: number) => void;
   onApiReady?: (api: EmblaCarouselType) => void;
   slidesPerView?: SlidesPerView;
+  /** Cuántos slides avanza cada paso (flecha/drag). Default 1. Acepta el mismo mapa responsive que `slidesPerView` o `"auto"` (avanza los que entren en vista). */
+  slidesToScroll?: SlidesToScroll;
   /** Espacio entre slides (px CSS). En fade no afecta entre slides superpuestos; útil si cambias a slide. */
   gap?: number;
   effect?: SliderEffect;
@@ -65,6 +67,11 @@ interface ScaleTweenConfig {
 type SlidesPerView =
   | number
   | Partial<Record<Breakpoint, number>>;
+
+type SlidesToScroll =
+  | number
+  | "auto"
+  | Partial<Record<Breakpoint, number | "auto">>;
 
 type SliderEffect = "slide" | "fade";
 type ResponsiveVisibility =
@@ -99,6 +106,28 @@ function resolveSlidesPerView(
   return 1;
 }
 
+function resolveSlidesToScroll(
+  value: SlidesToScroll | undefined,
+  bp: Breakpoint,
+): number | "auto" {
+  if (value == null) return 1;
+  if (typeof value !== "object")
+    return value === "auto"
+      ? "auto"
+      : Math.max(1, Math.round(value));
+
+  const bpIndex = BREAKPOINT_ORDER.indexOf(bp);
+
+  for (let i = bpIndex; i >= 0; i--) {
+    const v = value[BREAKPOINT_ORDER[i]];
+    if (v === "auto") return "auto";
+    if (v != null && v > 0)
+      return Math.max(1, Math.round(v));
+  }
+
+  return 1;
+}
+
 function resolveVisibility(
   value: ResponsiveVisibility | undefined,
   bp: Breakpoint,
@@ -124,6 +153,7 @@ export function EmblaSlider<T>({
   onSelectChange,
   onApiReady,
   slidesPerView = 1,
+  slidesToScroll = 1,
   gap = 0,
   effect = "slide",
   loop = true,
@@ -161,6 +191,21 @@ export function EmblaSlider<T>({
     );
   }, [slidesPerView, bp, effect]);
 
+  // En fade cada slide es un snap propio: avanzar de a más rompe el efecto.
+  const stepToScroll = useMemo(() => {
+    if (effect === "fade" || autoScrollEnabled)
+      return 1;
+    return resolveSlidesToScroll(
+      slidesToScroll,
+      bp,
+    );
+  }, [
+    slidesToScroll,
+    bp,
+    effect,
+    autoScrollEnabled,
+  ]);
+
   const gapPx = Math.max(0, gap);
   const shouldShowArrows = resolveVisibility(
     showArrows,
@@ -187,7 +232,7 @@ export function EmblaSlider<T>({
         effect === "fade" || autoScrollEnabled
           ? (false as const)
           : ("trimSnaps" as const),
-      slidesToScroll: 1,
+      slidesToScroll: stepToScroll,
       skipSnaps: false,
       watchDrag: draggable,
       // dragFree evita el "snap" peleando contra el desplazamiento continuo
@@ -201,6 +246,7 @@ export function EmblaSlider<T>({
       draggable,
       autoScrollEnabled,
       duration,
+      stepToScroll,
     ],
   );
 
