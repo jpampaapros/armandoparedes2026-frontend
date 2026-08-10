@@ -26,7 +26,7 @@ export function FichaTecnicaDetallada({
     >
       <div className="grid grid-cols-1 md:grid-cols-2">
         {imagen?.url && (
-          <div className="relative h-[calc(475*var(--fx))] w-full md:h-[calc(763*var(--fx))]">
+          <div className="relative h-475 w-full md:h-763">
             <Image
               src={imagen.url}
               alt={imagen.alt || titulo || ""}

@@ -39,7 +39,7 @@ export function ProyectosEntregados({ texto, subtitulo, boton, entregados }: Pro
           )}
         </div>
 
-        <div className="grid grid-cols-1 gap-16 md:h-630 md:grid-cols-[calc(630*var(--fx))_1fr] md:gap-25">
+        <div className="grid grid-cols-1 gap-16 md:h-630 md:grid-cols-[--spacing(630)_1fr] md:gap-25">
           {first && (
             <div className="h-391 md:h-full">
               <DeliveredCard project={first} size="large" priority />

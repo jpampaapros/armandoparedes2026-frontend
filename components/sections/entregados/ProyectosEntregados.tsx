@@ -40,7 +40,7 @@ export function ProyectosEntregados({
       className="w-full bg-white px-4 py-60 md:py-120"
     >
       <div className="mx-auto max-w-1440 px-4 md:px-80">
-        <div className="grid grid-cols-1 gap-24 md:grid-cols-[calc(300*var(--fx))_1fr] md:gap-40">
+        <div className="grid grid-cols-1 gap-24 md:grid-cols-[--spacing(300)_1fr] md:gap-40">
           <div className="md:sticky md:top-24 md:self-start">
             {titulo && (
               <h2 className="text-center font-gotham text-36 font-bold leading-[1.1] text-slate md:text-left md:text-50">

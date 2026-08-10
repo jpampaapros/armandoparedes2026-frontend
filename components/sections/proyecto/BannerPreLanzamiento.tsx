@@ -24,7 +24,7 @@ export function BannerPreLanzamiento({
   return (
     <section
       data-layout="banner_pre_lanzamiento"
-      className="relative h-[calc(672*var(--fx))] w-full overflow-hidden md:h-[calc(700*var(--fx))]"
+      className="relative h-672 w-full overflow-hidden md:h-700"
     >
       {badge && (
         <span className="absolute top-0 left-1/2 z-20 hidden -translate-x-1/2 bg-peach px-24 py-12 font-poppins text-20 font-medium text-white md:inline-block">
@@ -40,9 +40,9 @@ export function BannerPreLanzamiento({
         draggable={slides.length > 1}
         showArrows={false}
         showBullets={{ mobile: false, desktop: slides.length > 1 }}
-        bulletClassName="h-[calc(6*var(--fx))] rounded-none transition-all"
-        bulletActiveClassName="w-[calc(91*var(--fx))] bg-white"
-        bulletInactiveClassName="w-[calc(27*var(--fx))] bg-white/80"
+        bulletClassName="h-6 rounded-none transition-all"
+        bulletActiveClassName="w-91 bg-white"
+        bulletInactiveClassName="w-27 bg-white/80"
         renderSlide={(slide) => (
           <div className="relative h-full w-full">
             {slide.imagen_fondo?.url && (

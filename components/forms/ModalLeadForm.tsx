@@ -168,7 +168,7 @@ export function ModalLeadForm({
     >
       <div
         ref={modalRef}
-        className="relative h-auto w-full max-w-full bg-white p-24 shadow-[0_calc(4*var(--fx))_calc(4*var(--fx))_rgba(0,0,0,0.25)] md:h-auto md:min-h-443 md:w-737 md:px-44 md:pb-18 md:pt-20"
+        className="relative h-auto w-full max-w-full bg-white p-24 shadow-[0_--spacing(4)_--spacing(4)_rgba(0,0,0,0.25)] md:h-auto md:min-h-443 md:w-737 md:px-44 md:pb-18 md:pt-20"
         onClick={(e) => e.stopPropagation()}
       >
         <button

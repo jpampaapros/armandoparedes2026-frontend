@@ -140,7 +140,7 @@ export async function Footer() {
           </h2>
         )}
 
-        <div className="grid grid-cols-2 gap-x-16 gap-y-60 md:grid-cols-[calc(105*var(--fx))_calc(125*var(--fx))_calc(249*var(--fx))_calc(249*var(--fx))] md:gap-x-193 md:gap-y-0">
+        <div className="grid grid-cols-2 gap-x-16 gap-y-60 md:grid-cols-[--spacing(105)_--spacing(125)_--spacing(249)_--spacing(249)] md:gap-x-193 md:gap-y-0">
           {infoColumn && (
             <div className="col-span-2 order-1 row-start-1 flex flex-col justify-between gap-26 md:justify-start md:col-auto md:col-start-4 md:row-start-1 md:order-none">
               <div className="flex flex-col gap-16">

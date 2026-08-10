@@ -109,7 +109,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
 
   return (
     <section data-layout="se_parte" className="w-full bg-slate px-16 py-60 md:px-24 md:py-100">
-      <div className="mx-auto max-w-[calc(1025*var(--fx))]">
+      <div className="mx-auto max-w-1025">
         {title && (
           <h2 className="m-0 whitespace-pre-line text-center font-gotham-black text-36 text-white md:text-60">
             {title}
@@ -359,7 +359,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
           <button
             type="submit"
             disabled={isPending || !isClient}
-            className="mx-auto inline-flex h-50 w-full items-center justify-center bg-peach font-gotham text-18 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50 md:w-[calc(372*var(--fx))]"
+            className="mx-auto inline-flex h-50 w-full items-center justify-center bg-peach font-gotham text-18 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50 md:w-372"
           >
             {isPending ? "Enviando..." : "ENVIAR"}
           </button>
