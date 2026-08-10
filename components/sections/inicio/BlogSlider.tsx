@@ -1,7 +1,9 @@
 "use client";
 
+import { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Autoplay from "embla-carousel-autoplay";
 import { resolveWordPressUrl } from "@/lib/urls";
 import { EmblaSlider } from "@/components/EmblaSlider";
 import { SmartLink } from "@/components/SmartLink";
@@ -45,43 +47,8 @@ function formatDate(dateString: string) {
   });
 }
 
-function CompactBlogCard({ post }: { post: WPPost }) {
-  const image = post._embedded?.["wp:featuredmedia"]?.[0];
-  const category = post._embedded?.["wp:term"]
-    ?.flat()
-    .find((t) => t.taxonomy === "category")?.name;
-
-  return (
-    <Link
-      href={resolveWordPressUrl(post.link)}
-      className="group relative flex h-391 w-full flex-col justify-end overflow-hidden p-16 text-white md:p-24"
-    >
-      {image?.source_url && (
-        <Image
-          src={image.source_url}
-          alt={image.alt_text || post.title.rendered}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, 33vw"
-        />
-      )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-      <div className="relative z-10 flex flex-col gap-8">
-        {category && (
-          <span className="font-poppins text-14 font-medium uppercase tracking-[0.05em] text-white/80">
-            {category}
-          </span>
-        )}
-        <h3
-          className="font-gotham text-20 font-bold leading-[1.1] text-white"
-          dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-        />
-      </div>
-    </Link>
-  );
-}
-
-function DetailedBlogCard({ post }: { post: WPPost }) {
+// Card única: el fondo oscuro no depende de la variante del section.
+function BlogCard({ post }: { post: WPPost }) {
   const image = post._embedded?.["wp:featuredmedia"]?.[0];
   const category = post._embedded?.["wp:term"]
     ?.flat()
@@ -92,49 +59,49 @@ function DetailedBlogCard({ post }: { post: WPPost }) {
   return (
     <Link
       href={resolveWordPressUrl(post.link)}
-      className="group flex h-398 w-[calc(281*var(--fx))] flex-col gap-16 bg-card-dark p-12 text-white md:h-full md:w-full md:flex-row md:gap-12"
+      className="group flex flex-col md:flex-row h-full w-full gap-12 bg-card-dark p-20 text-white md:gap-24"
     >
       {image?.source_url && (
-        <div className="relative aspect-[280/200] w-full shrink-0 overflow-hidden md:aspect-auto md:h-full md:w-1/2">
+        <div className="relative shrink-0 overflow-hidden md:w-[53%] min-h-200">
           <Image
             src={image.source_url}
             alt={image.alt_text || post.title.rendered}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 768px) 90vw, 25vw"
+            sizes="(max-width: 768px) 45vw, 40vw"
           />
           {category && (
-            <span className="absolute bottom-0 left-0 bg-white px-12 py-6 font-poppins text-14 font-medium text-near-black">
+            <span className="absolute bottom-16 left-0 bg-white px-12 py-6 font-poppins text-12 font-normal leading-18 text-near-black md:px-16 md:py-8 md:text-14">
               {category}
             </span>
           )}
         </div>
       )}
 
-      <div className="flex min-w-0 flex-1 flex-col gap-8">
+      <div className="flex min-w-0 flex-1 flex-col">
         {date && (
-          <span className="self-start bg-slate px-10 py-4 font-poppins text-14 font-normal text-white">
+          <span className="self-start bg-slate px-10 py-4 font-poppins text-12 font-normal leading-18 text-white md:px-12 md:py-5 md:text-14">
             {date}
           </span>
         )}
 
         <h3
-          className="font-gotham text-20 font-bold leading-24 text-white md:text-22"
+          className="mt-12 font-gotham text-18 font-bold leading-22 text-white md:mt-16 md:text-24 md:leading-28"
           dangerouslySetInnerHTML={{ __html: post.title.rendered }}
         />
 
         {author && (
-          <span className="font-poppins text-14 font-normal leading-18 text-light-gray">
+          <span className="mt-6 font-poppins text-12 font-normal italic leading-18 text-light-gray md:text-14">
             {author}
           </span>
         )}
 
         <div
-          className="hidden font-poppins text-14 font-normal leading-18 text-white md:line-clamp-8"
+          className="mt-14 line-clamp-6 font-poppins text-12 font-normal leading-18 text-white md:mt-20 md:line-clamp-8 md:text-14 md:leading-20"
           dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
         />
 
-        <span className="mt-auto font-poppins text-14 font-normal leading-24 underline text-white">
+        <span className="mt-auto pt-12 font-poppins text-12 font-normal leading-24 underline text-white md:pt-16 md:text-14">
           Leer más
         </span>
       </div>
@@ -145,11 +112,24 @@ function DetailedBlogCard({ post }: { post: WPPost }) {
 export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSliderProps) {
   const isLight = variant === "light";
 
+  // Referencia estable: si el plugin se recrea en cada render, Embla reinicia
+  // el carrusel y el autoplay nunca llega a avanzar.
+  const plugins = useMemo(
+    () => [
+      Autoplay({
+        delay: 4000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
+    ],
+    [],
+  );
+
   return (
     <section className={isLight ? "bg-white" : "bg-slate"}>
       <div className="mx-auto max-w-1440 px-16 py-56 md:px-80 md:py-120">
         <div className="flex flex-col gap-40 md:flex-row md:items-start md:justify-between">
-          <div className="flex w-full flex-col items-start gap-25 md:max-w-402">
+          <div className="flex w-full flex-col items-start gap-25 md:max-w-402 my-auto">
             {titulo && (
               <h2
                 className={`font-gotham text-36 font-bold leading-[1.1] md:text-60 ${
@@ -167,20 +147,19 @@ export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSlide
             )}
           </div>
 
-          <div className="h-398 w-full md:h-391 md:w-[calc(848*var(--fx))]">
+          <div className="min-h-398 w-full md:min-h-391 md:w-848">
             <EmblaSlider
               slides={posts}
-              slidesPerView={{ base: 1, md: isLight ? 2.2 : 3 }}
-              gap={isLight ? 16 : 25}
-              loop={false}
+              // 1 card + peek de la siguiente. La fracción sale de
+              // (W + gap) / (card + gap): mobile 407/306 (card 281, peek ~76),
+              // desktop 873/746 (card 721, peek ~102).
+              slidesPerView={{ base: 1.33, md: 1.60 }}
+              slidesToScroll={1}
+              gap={25}
+              loop
+              plugins={plugins}
               showArrows={false}
-              renderSlide={(post) =>
-                isLight ? (
-                  <DetailedBlogCard key={post.id} post={post} />
-                ) : (
-                  <CompactBlogCard key={post.id} post={post} />
-                )
-              }
+              renderSlide={(post) => <BlogCard key={post.id} post={post} />}
             />
           </div>
 
