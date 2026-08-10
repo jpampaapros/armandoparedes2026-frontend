@@ -5,11 +5,14 @@ import type { ProyectosPageSection, Project } from "@/lib/types";
 type ProyectosPageSectionMapperProps = {
   sections?: ProyectosPageSection[];
   proyectos?: Project[];
+  /* Respaldo cuando la sección no trae Título en ACF: el título de la página. */
+  tituloPagina?: string;
 };
 
 export function ProyectosPageSectionMapper({
   sections = [],
   proyectos = [],
+  tituloPagina,
 }: ProyectosPageSectionMapperProps) {
   return (
     <>
@@ -27,7 +30,7 @@ export function ProyectosPageSectionMapper({
             return (
               <ProyectosLista
                 key={`${section.acf_fc_layout}-${index}`}
-                titulo={section.titulo}
+                titulo={section.titulo || tituloPagina}
                 proyectos={proyectos}
               />
             );

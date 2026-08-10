@@ -159,6 +159,9 @@ a:-webkit-any-link {
     margin: 0;
     font-weight: initial;
   }
+  button {
+    border: initial;
+  }
 }
 
 /* ---------------------------------------------------------------------------

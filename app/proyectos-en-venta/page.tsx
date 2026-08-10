@@ -59,11 +59,16 @@ export default async function ProyectosEnVentaPage() {
   const proyectos = await getProjects();
   const sections = page?.acf?.sections ?? [];
   const hasProjectList = sections.some((s) => s.acf_fc_layout === "proyectos_lista");
+  const tituloPagina = stripHtml(page?.title?.rendered);
 
   return (
     <main className="w-full max-w-none p-0">
-      <ProyectosPageSectionMapper sections={sections} proyectos={proyectos} />
-      {!hasProjectList && <ProyectosLista proyectos={proyectos} />}
+      <ProyectosPageSectionMapper
+        sections={sections}
+        proyectos={proyectos}
+        tituloPagina={tituloPagina}
+      />
+      {!hasProjectList && <ProyectosLista proyectos={proyectos} titulo={tituloPagina} />}
     </main>
   );
 }

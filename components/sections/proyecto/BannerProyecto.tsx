@@ -44,7 +44,7 @@ export function BannerProyecto({ badge, distrito, logo, slides = [] }: BannerPro
         showBullets={{ mobile: false, desktop: items.length > 1 }}
         gap={0}
         bulletsContainerClassName="bottom-120 gap-3"
-        bulletClassName="h-6 w-27 rounded-none bg-white/80"
+        bulletClassName="h-6 w-27 rounded-none bg-white/80 shrink-0"
         bulletActiveClassName="w-91 bg-white"
       />
 
@@ -70,8 +70,8 @@ export function BannerProyecto({ badge, distrito, logo, slides = [] }: BannerPro
       )}
 
       {distrito && (
-        <div className="absolute left-1/2 top-405 w-274 -translate-x-1/2 border border-white px-24 py-10 md:top-312 md:px-48 md:py-12">
-          <span className="font-poppins text-18 text-center text-white md:text-24">
+        <div className="absolute left-1/2 top-405 w-274 -translate-x-1/2 border border-white px-24 py-10 md:top-312 md:px-48 md:py-12 text-center">
+          <span className="font-poppins text-18 text-white md:text-24">
             {distrito}
           </span>
         </div>

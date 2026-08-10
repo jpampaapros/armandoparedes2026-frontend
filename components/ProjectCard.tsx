@@ -46,7 +46,7 @@ export function ProjectCard({ project }: { project: Project }) {
             url: `/proyectos/${project.slug}`,
             target: "",
           }}
-          className="inline-flex h-50 w-full items-center justify-center border border-white px-10 font-poppins text-16 font-semibold text-white transition-colors hover:bg-white/10 md:w-250 md:text-18"
+          className="inline-flex h-50 w-full items-center justify-center border border-white px-10 font-poppins text-16 font-semibold text-white transition-colors hover:text-card-dark hover:bg-white md:w-250 md:text-18"
         >
           Ver proyecto
         </SmartLink>

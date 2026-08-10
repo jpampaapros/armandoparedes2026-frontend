@@ -22,11 +22,11 @@ function FilterSelect({
   placeholder: string;
 }) {
   return (
-    <div className="relative flex h-54 w-full items-center justify-between border-b border-text md:w-205">
+    <div className="relative flex w-full items-center justify-between border-b border-text md:w-205">
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-full w-full appearance-none border-0 bg-transparent pr-8 font-poppins text-16 font-extralight text-text-muted outline-none focus:ring-0"
+        className="w-full appearance-none border-0 bg-transparent pr-8 font-poppins text-16 font-extralight text-text-muted outline-none focus:ring-0 pb-15 pt-15 pl-8"
       >
         <option value="">{placeholder}</option>
         {options.map((opt) => (
@@ -41,6 +41,7 @@ function FilterSelect({
 }
 
 export function ProyectosLista({ titulo, proyectos }: ProyectosListaProps) {
+
   const [distrito, setDistrito] = useState("");
   const [tipo, setTipo] = useState("");
   const [area, setArea] = useState("");
@@ -69,14 +70,13 @@ export function ProyectosLista({ titulo, proyectos }: ProyectosListaProps) {
   return (
     <section data-section="proyectos_lista" className="w-full bg-white px-4 py-60 md:py-120">
       <div className="mx-auto max-w-1440 px-4 md:px-80">
-        <div className="mb-40 flex flex-col gap-24">
-          {/* Mobile: título arriba, filtros abajo; desktop: filtros arriba, título abajo */}
+        <div className="mb-40 flex flex-col md:flex-row gap-24 justify-between">
           {titulo && (
-            <h2 className="order-1 font-gotham text-36 font-bold leading-[1.1] text-slate md:order-2 md:text-40" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+            <h2 className="order-1 font-gotham text-36 font-semibold leading-[1.1] text-slate md:order-1 md:text-40 text-center md:text-left">
               {titulo}
             </h2>
           )}
-          <div className="order-2 flex flex-col gap-16 md:order-1 md:flex-row md:justify-end md:gap-24">
+          <div className="order-2 flex flex-col gap-16 md:order-2 md:flex-row md:justify-end md:gap-24">
             <FilterSelect placeholder="Distrito" value={distrito} onChange={setDistrito} options={distritoOptions} />
             <FilterSelect placeholder="Tipo" value={tipo} onChange={setTipo} options={tipoOptions} />
             <FilterSelect placeholder="M2" value={area} onChange={setArea} options={AREA_FILTER_LABELS} />
@@ -88,7 +88,7 @@ export function ProyectosLista({ titulo, proyectos }: ProyectosListaProps) {
             No hay proyectos que coincidan con los filtros.
           </p>
         ) : (
-          <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-20">
+          <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-49">
             {filtered.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}

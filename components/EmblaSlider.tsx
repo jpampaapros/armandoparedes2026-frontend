@@ -492,7 +492,7 @@ export function EmblaSlider<T>({
                   bulletClassName,
                   isActive
                     ? cn("w-8 bg-white active-slides-bullets", bulletActiveClassName)
-                    : cn("w-2 bg-white/50", bulletInactiveClassName),
+                    : cn("w-27 bg-white/50", bulletInactiveClassName),
                 )}
               />
             );
