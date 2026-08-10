@@ -22,6 +22,7 @@ export type WPPost = {
       media_details?: { width?: number; height?: number };
     }[];
     "wp:term"?: { taxonomy: string; name: string }[][];
+    author?: { name?: string }[];
   };
 };
 
@@ -86,44 +87,50 @@ function DetailedBlogCard({ post }: { post: WPPost }) {
     ?.flat()
     .find((t) => t.taxonomy === "category")?.name;
   const date = formatDate(post.date);
+  const author = post._embedded?.author?.[0]?.name;
 
   return (
     <Link
       href={resolveWordPressUrl(post.link)}
-      className="group flex h-398 w-[calc(281*var(--fx))] flex-col gap-16 bg-card-dark p-12 pb-16 text-white md:h-auto md:w-full"
+      className="group flex h-398 w-[calc(281*var(--fx))] flex-col gap-16 bg-card-dark p-12 text-white md:h-full md:w-full md:flex-row md:gap-12"
     >
       {image?.source_url && (
-        <div className="relative aspect-[280/200] w-full overflow-hidden">
+        <div className="relative aspect-[280/200] w-full shrink-0 overflow-hidden md:aspect-auto md:h-full md:w-1/2">
           <Image
             src={image.source_url}
             alt={image.alt_text || post.title.rendered}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 768px) 90vw, 33vw"
+            sizes="(max-width: 768px) 90vw, 25vw"
           />
-        </div>
-      )}
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-wrap items-center gap-8">
           {category && (
-            <span className="bg-white px-10 py-6 font-poppins text-14 font-medium text-near-black">
+            <span className="absolute bottom-0 left-0 bg-white px-12 py-6 font-poppins text-14 font-medium text-near-black">
               {category}
             </span>
           )}
-          {date && (
-            <span className="bg-slate px-10 py-6 font-poppins text-14 font-normal text-white">
-              {date}
-            </span>
-          )}
         </div>
+      )}
+
+      <div className="flex min-w-0 flex-1 flex-col gap-8">
+        {date && (
+          <span className="self-start bg-slate px-10 py-4 font-poppins text-14 font-normal text-white">
+            {date}
+          </span>
+        )}
 
         <h3
           className="font-gotham text-20 font-bold leading-24 text-white md:text-22"
           dangerouslySetInnerHTML={{ __html: post.title.rendered }}
         />
 
+        {author && (
+          <span className="font-poppins text-14 font-normal leading-18 text-light-gray">
+            {author}
+          </span>
+        )}
+
         <div
-          className="hidden font-poppins text-14 font-normal leading-18 text-white md:line-clamp-3"
+          className="hidden font-poppins text-14 font-normal leading-18 text-white md:line-clamp-8"
           dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
         />
 
