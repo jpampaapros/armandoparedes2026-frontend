@@ -5,6 +5,9 @@ import Image from "next/image";
 
 /* Debe coincidir con --intro-duration en globals.css. */
 const INTRO_DURATION = 3600;
+const CURTAIN_DURATION = 2000;
+const HERO_EXIT_DURATION = 1400;
+const TYPEWRITER_COMPLETE_EVENT = "home-typewriter-complete";
 
 type HomeIntroProps = {
   src: string;
@@ -15,11 +18,15 @@ type HomeIntroProps = {
 
 export function HomeIntro({ src, width, height, children }: HomeIntroProps) {
   const [isDone, setIsDone] = useState(false);
+  const [isCurtainDone, setIsCurtainDone] = useState(false);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setIsDone(true);
-      return;
+      const reducedMotionTimer = window.setTimeout(() => {
+        setIsCurtainDone(true);
+        setIsDone(true);
+      }, 0);
+      return () => window.clearTimeout(reducedMotionTimer);
     }
 
     /* El scroll se libera al terminar la intro, no al desmontar: el componente
@@ -32,20 +39,32 @@ export function HomeIntro({ src, width, height, children }: HomeIntroProps) {
     document.body.style.overflow = "hidden";
     window.scrollTo(0, 0);
 
-    const timer = window.setTimeout(() => {
+    const curtainTimer = window.setTimeout(() => {
+      setIsCurtainDone(true);
+    }, CURTAIN_DURATION);
+    const scrollTimer = window.setTimeout(() => {
       releaseScroll();
-      setIsDone(true);
     }, INTRO_DURATION);
+    let finishTimer: number | undefined;
+
+    const finishIntro = () => {
+      finishTimer = window.setTimeout(() => setIsDone(true), HERO_EXIT_DURATION);
+    };
+
+    window.addEventListener(TYPEWRITER_COMPLETE_EVENT, finishIntro, { once: true });
 
     return () => {
-      window.clearTimeout(timer);
+      window.clearTimeout(curtainTimer);
+      window.clearTimeout(scrollTimer);
+      if (finishTimer !== undefined) window.clearTimeout(finishTimer);
+      window.removeEventListener(TYPEWRITER_COMPLETE_EVENT, finishIntro);
       releaseScroll();
     };
   }, []);
 
   return (
     <>
-      {!isDone && (
+      {!isCurtainDone && (
         <div
           className="intro-curtain fixed inset-0 z-200 flex items-center justify-center bg-black"
           aria-hidden="true"

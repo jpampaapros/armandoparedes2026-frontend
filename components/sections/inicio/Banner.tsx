@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ACFImage } from "@/lib/types";
+import { TypewriterTitle } from "./TypewriterTitle";
 
 type BannerProps = {
   titulo?: string;
@@ -23,12 +24,10 @@ export function Banner({ titulo, imagen }: BannerProps) {
         data-intro-hero
         className="mx-auto flex w-full max-w-382 flex-col justify-center px-4 text-center md:max-w-760 md:px-0 [&_p]:m-0"
       >
-        {titulo ? (
-          <div
-            className="font-gotham font-light text-36 leading-[1.11] text-black md:text-80 md:leading-[1.14]"
-            dangerouslySetInnerHTML={{ __html: processTitle(titulo) }}
-          />
-        ) : null}
+        <TypewriterTitle
+          className="font-gotham font-light text-36 leading-[1.11] text-black md:text-80 md:leading-[1.14]"
+          html={processTitle(titulo)}
+        />
       </div>
 
       <div data-intro-fade className="mt-57 flex gap-3 md:mt-153">

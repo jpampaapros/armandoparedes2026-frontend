@@ -1,4 +1,5 @@
 import type { ACFIndicator } from "@/lib/types";
+import { CountUpNumber } from "@/components/CountUpNumber";
 
 type EspaciosProps = {
   titulo?: string;
@@ -28,9 +29,10 @@ export function Espacios({ titulo, subtitulo, indicadores }: EspaciosProps) {
             {items.map((item, i) => (
               <div key={i} className={`flex items-center justify-center gap-24 md:gap-0 ${i !== items.length - 1 && 'border-r-2'}`}>
                 <div className="flex flex-col items-center md:gap-10">
-                  <span className="font-gotham text-52 font-bold leading-75 md:leading-120 text-peach md:text-100">
-                    {item.numero}
-                  </span>
+                  <CountUpNumber
+                    value={item.numero}
+                    className="font-gotham text-52 font-bold leading-75 tabular-nums md:leading-120 text-peach md:text-100"
+                  />
                   <div className="text-center">
                     <div className="font-poppins text-22 font-light leading-30 text-black">
                       {item.texto}
