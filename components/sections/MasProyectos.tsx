@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { EmblaSlider } from "@/components/EmblaSlider";
 import { ProjectCard, getProjectFilterTags, formatAreaFilter, AREA_FILTER_LABELS } from "@/components/ProjectCard";
 import { getPublicCmsUrl } from "@/lib/urls";
@@ -78,45 +79,54 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
             </h2>
           )}
 
-          <div className="flex flex-wrap gap-12">
-            <select
-              value={filtroDistrito}
-              onChange={(e) => setFiltroDistrito(e.target.value)}
-              className="h-44 min-w-140 appearance-none border border-slate bg-white px-16 py-10 font-poppins text-14 text-near-black outline-none focus:border-peach"
-            >
-              <option value="">Distrito</option>
-              {distritos.map((d) => (
-                <option key={d} value={d}>
-                  {d}
-                </option>
-              ))}
-            </select>
+          <div className="flex flex-wrap gap-24">
+            <div className="relative w-146 border-b border-slate">
+              <select
+                value={filtroDistrito}
+                onChange={(e) => setFiltroDistrito(e.target.value)}
+                className={`h-36 w-full appearance-none border-0 bg-transparent px-7 pr-30 font-poppins text-13 outline-none ${filtroDistrito ? "text-slate" : "text-light-gray"}`}
+              >
+                <option value="">Distrito</option>
+                {distritos.map((d) => (
+                  <option key={d} value={d}>
+                    {d}
+                  </option>
+                ))}
+              </select>
+              <Image src="/images/proyecto/select-chevron.svg" alt="" width={24} height={24} className="pointer-events-none absolute right-4 top-1/2 h-24 w-24 -translate-y-1/2" />
+            </div>
 
-            <select
-              value={filtroTipo}
-              onChange={(e) => setFiltroTipo(e.target.value)}
-              className="h-44 min-w-140 appearance-none border border-slate bg-white px-16 py-10 font-poppins text-14 text-near-black outline-none focus:border-peach"
-            >
-              <option value="">Tipo</option>
-              {tipos.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
-            </select>
+            <div className="relative w-146 border-b border-slate">
+              <select
+                value={filtroTipo}
+                onChange={(e) => setFiltroTipo(e.target.value)}
+                className={`h-36 w-full appearance-none border-0 bg-transparent px-7 pr-30 font-poppins text-13 outline-none ${filtroTipo ? "text-slate" : "text-light-gray"}`}
+              >
+                <option value="">Tipo</option>
+                {tipos.map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+              <Image src="/images/proyecto/select-chevron.svg" alt="" width={24} height={24} className="pointer-events-none absolute right-4 top-1/2 h-24 w-24 -translate-y-1/2" />
+            </div>
 
-            <select
-              value={filtroArea}
-              onChange={(e) => setFiltroArea(e.target.value)}
-              className="h-44 min-w-140 appearance-none border border-slate bg-white px-16 py-10 font-poppins text-14 text-near-black outline-none focus:border-peach"
-            >
-              <option value="">Metros</option>
-              {AREA_FILTER_LABELS.map((a) => (
-                <option key={a} value={a}>
-                  {a}
-                </option>
-              ))}
-            </select>
+            <div className="relative w-146 border-b border-slate">
+              <select
+                value={filtroArea}
+                onChange={(e) => setFiltroArea(e.target.value)}
+                className={`h-36 w-full appearance-none border-0 bg-transparent px-7 pr-30 font-poppins text-13 outline-none ${filtroArea ? "text-slate" : "text-light-gray"}`}
+              >
+                <option value="">M2</option>
+                {AREA_FILTER_LABELS.map((a) => (
+                  <option key={a} value={a}>
+                    {a}
+                  </option>
+                ))}
+              </select>
+              <Image src="/images/proyecto/select-chevron.svg" alt="" width={24} height={24} className="pointer-events-none absolute right-4 top-1/2 h-24 w-24 -translate-y-1/2" />
+            </div>
           </div>
         </div>
 
@@ -131,7 +141,12 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
                   <ProjectCard project={project} />
                 </div>
               )}
-              showArrows={false}
+              showArrows
+              arrowIconSrc="/images/proyecto/slider-arrow.svg"
+              arrowButtonClassName="cursor-pointer rounded-none bg-transparent p-0"
+              previousArrowClassName="left-[calc(16*var(--fx))]"
+              nextArrowClassName="right-[calc(16*var(--fx))]"
+              arrowIconClassName="h-[calc(83.824*var(--fx))] w-[calc(41.768*var(--fx))]"
               showBullets={false}
               gap={0}
             />

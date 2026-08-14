@@ -91,6 +91,24 @@
   font-family: 'Gotham Black', 'Gotham', sans-serif;
 }
 
+.header-menu-link {
+  font-size: calc(32 * var(--fx));
+}
+
+.header-menu-list {
+  margin-top: calc(75 * var(--fx));
+}
+
+@media (min-width: 768px) {
+  .header-menu-link {
+    font-size: calc(45 * var(--fx));
+  }
+
+  .header-menu-list {
+    margin-top: calc(91 * var(--fx));
+  }
+}
+
 @font-face {
   font-family: 'Gotham';
   src: url('/fonts/gotham/Gotham-Medium.woff2') format('woff2');
@@ -123,7 +141,10 @@
   font-display: swap;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+  outline: 1px solid red;
+}
 
 html {
   color-scheme: light;

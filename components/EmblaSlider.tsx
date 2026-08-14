@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import Image from "next/image";
 import type {
   EmblaCarouselType,
   EmblaPluginType,
@@ -55,6 +56,12 @@ export interface EmblaSliderProps<T> {
   bulletClassName?: string;
   bulletActiveClassName?: string;
   bulletInactiveClassName?: string;
+  /** Reemplaza los chevrons por una imagen; la flecha siguiente se rota 180 grados. */
+  arrowIconSrc?: string;
+  arrowButtonClassName?: string;
+  previousArrowClassName?: string;
+  nextArrowClassName?: string;
+  arrowIconClassName?: string;
 }
 
 interface ScaleTweenConfig {
@@ -167,6 +174,11 @@ export function EmblaSlider<T>({
   bulletClassName,
   bulletActiveClassName,
   bulletInactiveClassName,
+  arrowIconSrc,
+  arrowButtonClassName,
+  previousArrowClassName,
+  nextArrowClassName,
+  arrowIconClassName,
 }: EmblaSliderProps<T>) {
   const bp = useBreakpoint();
   const [selectedIndex, setSelectedIndex] =
@@ -452,20 +464,36 @@ export function EmblaSlider<T>({
         <div className="slide-arrows--contain">
           <button
             type="button"
-            className="absolute left-6 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/30 p-2.5 text-white flex items-center justify-center slide-arrows--prev"
+            className={cn(
+              "absolute left-6 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full bg-black/30 p-2.5 text-white slide-arrows--prev",
+              arrowButtonClassName,
+              previousArrowClassName,
+            )}
             onClick={() => emblaApi?.scrollPrev()}
             aria-label="Slide anterior"
           >
-            <ChevronLeft className="w-5 h-5" />
+            {arrowIconSrc ? (
+              <Image src={arrowIconSrc} alt="" width={51} height={90} className={cn("h-auto w-24", arrowIconClassName)} />
+            ) : (
+              <ChevronLeft className="w-5 h-5" />
+            )}
           </button>
 
           <button
             type="button"
-            className="absolute right-6 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/30 p-2.5 text-white flex items-center justify-center slide-arrows--next"
+            className={cn(
+              "absolute right-6 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full bg-black/30 p-2.5 text-white slide-arrows--next",
+              arrowButtonClassName,
+              nextArrowClassName,
+            )}
             onClick={() => emblaApi?.scrollNext()}
             aria-label="Siguiente slide"
           >
-            <ChevronRight className="w-5 h-5" />
+            {arrowIconSrc ? (
+              <Image src={arrowIconSrc} alt="" width={51} height={90} className={cn("h-auto w-24 rotate-180", arrowIconClassName)} />
+            ) : (
+              <ChevronRight className="w-5 h-5" />
+            )}
           </button>
         </div>
       )}

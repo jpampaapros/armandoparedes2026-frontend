@@ -111,7 +111,7 @@ export function PlanosProyecto({
         )}
 
         {tipologia && (
-          <div className="mt-40 grid grid-cols-1 gap-24 md:mt-60 md:grid-cols-[1fr_auto_1fr]">
+          <div className="mt-40 grid grid-cols-1 gap-24 md:mt-60 md:grid-cols-[minmax(0,1fr)_calc(382*var(--fx))] md:gap-[calc(109*var(--fx))]">
             <div className="relative">
               <div className="relative h-304 w-full md:h-470">
                 {tipologia.imagen?.url ? (
@@ -146,9 +146,7 @@ export function PlanosProyecto({
               )}
             </div>
 
-            <div className="hidden md:block" />
-
-            <div className="flex flex-col justify-center gap-24">
+            <div className="mx-auto flex w-[calc(382*var(--fx))] max-w-full flex-col justify-center gap-18">
               <h3 className="font-gotham text-40 font-bold text-near-black md:text-60">
                 {tipologia.nombre}
               </h3>
@@ -156,7 +154,7 @@ export function PlanosProyecto({
                 {dormitorio?.numero}
               </p>
 
-              <hr className="h-px w-full border-0 bg-near-black" />
+              <hr className="h-px w-full border-0 bg-near-black m-0" />
 
               <div className="flex flex-col gap-9">
                 {tipologia.area_techada && (
@@ -181,7 +179,7 @@ export function PlanosProyecto({
                 )}
               </div>
 
-              <div className="flex flex-col gap-16">
+              <div className="mt-[calc(26*var(--fx))] flex flex-col gap-16">
                 <button
                   type="button"
                   onClick={() => openModal(tipologia.nombre)}

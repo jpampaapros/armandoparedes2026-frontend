@@ -20,9 +20,14 @@ function getYouTubeId(url = ""): string | null {
   }
 }
 
+function getPlainText(html = "") {
+  return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+
 export function VideoProyecto({ titulo, imagen_previa, url_youtube }: VideoProyectoProps) {
   const [open, setOpen] = useState(false);
   const videoId = getYouTubeId(url_youtube || "");
+  const plainTitle = getPlainText(titulo);
 
   return (
     <section
@@ -32,7 +37,7 @@ export function VideoProyecto({ titulo, imagen_previa, url_youtube }: VideoProye
       {imagen_previa?.url ? (
         <Image
           src={imagen_previa.url}
-          alt={titulo || ""}
+          alt={plainTitle}
           fill
           sizes="100vw"
           className="object-cover"
@@ -47,7 +52,7 @@ export function VideoProyecto({ titulo, imagen_previa, url_youtube }: VideoProye
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Reproducir video"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white transition-transform hover:scale-105"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-transparent text-white transition-transform hover:scale-105"
       >
         <div className="relative h-72 w-72 md:h-204 md:w-204">
           <Image
@@ -60,9 +65,12 @@ export function VideoProyecto({ titulo, imagen_previa, url_youtube }: VideoProye
       </button>
 
       <div className="absolute bottom-47 left-16 md:bottom-104 md:left-80">
-         <h2 className="m-0 font-ga-maamli text-32 leading-[1.1] text-white md:text-80 md:leading-80" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
-          {titulo}
-        </h2>
+        {titulo && (
+          <div
+            className="font-gotham text-32 leading-[1.1] text-white md:text-80 md:leading-80 [&_em]:font-light [&_em]:text-peach [&_h1]:m-0 [&_h2]:m-0 [&_h3]:m-0 [&_p]:m-0" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */
+            dangerouslySetInnerHTML={{ __html: titulo }}
+          />
+        )}
       </div>
 
       {open && videoId && (
@@ -77,14 +85,14 @@ export function VideoProyecto({ titulo, imagen_previa, url_youtube }: VideoProye
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="absolute -top-40 right-0 text-16 text-white"
+              className="absolute -top-40 right-0 bg-transparent text-16 text-white"
             >
               Cerrar
             </button>
             <div className="aspect-video w-full">
               <iframe
                 src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-                title={titulo || "Video"}
+                title={plainTitle || "Video"}
                 className="h-full w-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen

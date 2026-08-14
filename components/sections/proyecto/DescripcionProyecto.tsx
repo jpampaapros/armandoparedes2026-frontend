@@ -43,7 +43,7 @@ export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado 
 
   const textCell = (
     <div className="flex flex-col justify-start px-16 pt-48 pb-38 md:pb-0 md:pt-0 md:px-0">
-      <div className={`max-w-573 ${cambiar_lado ? "md:mr-auto" : "md:ml-auto"}`}>
+      <div className="mx-auto w-full max-w-573">
         <div className={cambiar_lado ? "text-left" : "text-right"}>
           {tail ? (
             <h2
@@ -75,7 +75,7 @@ export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado 
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div className={cambiar_lado ? "md:order-2" : "md:order-1"}>{imageCell}</div>
         <div
-          className={`${cambiar_lado ? "md:order-1" : "md:order-2"} md:w-721 md:pr-77 md:flex items-center justify-end`}
+          className={`${cambiar_lado ? "md:order-1" : "md:order-2"} w-full items-center justify-center md:flex`}
         >
           {textCell}
         </div>
