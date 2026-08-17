@@ -40,60 +40,62 @@ export function ProyectosEntregados({
       className="w-full bg-white px-4 py-60 md:py-120"
     >
       <div className="mx-auto max-w-1440 px-4 md:px-80">
-        <div className="grid grid-cols-1 gap-24 md:grid-cols-[--spacing(300)_1fr] md:gap-40">
-          <div className="md:sticky md:top-24 md:self-start">
-            {titulo && (
-              <h2 className="text-center font-gotham text-36 font-bold leading-[1.1] text-slate md:text-left md:text-50">
-                {titulo}
-              </h2>
-            )}
-          </div>
+        {titulo && (
+          <h2 className="m-0 w-full font-gotham text-36 font-bold leading-[1.1] text-slate md:text-[calc(50*var(--fx))]">
+            {titulo}
+          </h2>
+        )}
 
-          <div className="relative">
-            <div className="absolute left-4 top-0 bottom-0 w-px bg-slate md:left-auto md:right-0" />
-            {grouped.map(([year, projects]) => {
-              return (
-                <div
-                  key={year}
-                  className="relative mb-40 grid grid-cols-1 gap-24 pl-12 md:mb-80 md:grid-cols-[1fr_auto] md:gap-40 md:pl-0 md:pr-12"
-                >
-                  <div className="h-359 md:h-582">
-                    <EmblaSlider
-                      slides={projects}
-                      slidesPerView={{ base: 1.1, md: 2 }}
-                      gap={20}
-                      loop={projects.length > 1}
-                      draggable={projects.length > 1}
-                      showArrows={
-                        projects.length > 1
-                          ? { mobile: false, desktop: true }
-                          : false
-                      }
-                      renderSlide={(project) => (
-                        <div className="h-full w-full">
-                          <DeliveredCard
-                            project={project}
-                            size="large"
-                            showButton
-                            showYear={false}
-                            distrito={project.acf.distrito}
-                          />
-                        </div>
-                      )}
-                    />
-                  </div>
-                  <div className="absolute left-4 top-0 -translate-x-1/2 md:static md:translate-x-0">
-                    <div className="relative flex items-center gap-12 md:gap-16">
-                      <span className="font-gotham text-36 font-bold leading-[1.1] text-slate md:text-55">
-                        {year}
-                      </span>
-                      <div className="h-10 w-10 shrink-0 rounded-full border-5 border-white bg-slate md:h-14 md:w-14" />
-                    </div>
+        <div className="relative mt-40 min-w-0 md:mt-[calc(60*var(--fx))]">
+          <div className="absolute bottom-0 right-[calc(5*var(--fx))] top-0 w-px bg-slate" />
+          {grouped.map(([year, projects]) => {
+            const hasSingleProject = projects.length === 1;
+
+            return (
+              <div
+                key={year}
+                className="relative mb-40 grid min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-16 pr-0 md:mb-80 md:gap-[calc(40*var(--fx))]"
+              >
+                <div className="h-359 min-w-0 md:h-582">
+                  <EmblaSlider
+                    slides={projects}
+                    slidesPerView={{ base: 1, md: hasSingleProject ? 1 : 2 }}
+                    gap={20}
+                    loop={projects.length > 1}
+                    draggable={projects.length > 1}
+                    showArrows={
+                      projects.length > 1
+                        ? { mobile: false, desktop: true }
+                        : false
+                    }
+                    arrowButtonClassName="!-top-[calc(60*var(--fx))] h-[calc(48*var(--fx))] w-[calc(48*var(--fx))] !translate-y-0 cursor-pointer rounded-none bg-slate p-0 hover:opacity-80"
+                    previousArrowClassName="!left-auto !right-[calc(56*var(--fx))]"
+                    nextArrowClassName="!right-0"
+                    arrowChevronClassName="h-[calc(32*var(--fx))] w-[calc(32*var(--fx))]"
+                    renderSlide={(project) => (
+                      <div className="h-full w-full">
+                        <DeliveredCard
+                          project={project}
+                          size="large"
+                          showButton
+                          showYear={false}
+                          distrito={project.acf.distrito}
+                        />
+                      </div>
+                    )}
+                  />
+                </div>
+                <div className="relative flex min-w-[calc(90*var(--fx))] justify-end">
+                  <div className="relative flex h-fit items-center gap-[calc(14*var(--fx))]">
+                    <span className="font-gotham text-[calc(20*var(--fx))] font-medium leading-none text-near-black">
+                      {year}
+                    </span>
+                    <div className="relative z-10 h-[calc(10*var(--fx))] w-[calc(10*var(--fx))] shrink-0 rounded-full bg-slate [outline:calc(3*var(--fx))_solid_white]" />
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

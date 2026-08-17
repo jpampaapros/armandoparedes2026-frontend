@@ -15,68 +15,52 @@ function renderTitle(titulo?: string) {
   const separator = " / ";
   const index = titulo.indexOf(separator);
   if (index === -1) {
-    return <h1 className="font-gotham text-48 font-light leading-[1] text-near-black md:text-90">{titulo}</h1>;
+    return <h1 className="m-0 font-gotham text-48 font-medium leading-[1] text-near-black md:text-[calc(100*var(--fx))]">{titulo}</h1>;
   }
 
   const first = titulo.slice(0, index); // "Armando"
   const second = titulo.slice(index + separator.length); // "el Arquitecto"
 
   return (
-    <h1 className="font-gotham text-48 font-light leading-[1] text-near-black md:text-90">
-      <span className="block">{first}</span>
-      <span className="block w-fit border-b-2 border-near-black pb-2 font-gotham-black md:border-b-4 md:pb-4">
+    <h1 className="m-0 font-gotham text-48 leading-[normal] text-near-black md:text-[calc(100*var(--fx))]">
+      <span className="block font-medium">{first}</span>
+      <span className="block w-fit border-b border-near-black pb-[calc(4*var(--fx))] font-light">
         {second}
       </span>
     </h1>
   );
 }
 
-export function Banner({ titulo, descripcion, imagen_fondo, imagen_decorativa }: BannerProps) {
+export function Banner({ titulo, descripcion, imagen_decorativa }: BannerProps) {
   return (
-    <section className="relative w-full overflow-hidden">
-      {imagen_fondo?.url ? (
-        <Image
-          src={imagen_fondo.url}
-          alt={imagen_fondo.alt || stripHtml(titulo) || ""}
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority
-        />
-      ) : null}
-      <div className="absolute inset-0 bg-white/90 md:bg-white/80" />
-
-      <div className="relative mx-auto max-w-1440 px-16 py-80 md:px-80 md:py-120">
-        <div className="grid items-end gap-40 md:grid-cols-2 md:gap-24">
-          <div className="flex flex-col gap-24 md:gap-31">
+    <section className="relative w-full overflow-hidden bg-white md:h-[calc(700*var(--fx))]">
+      <div className="relative mx-auto flex min-h-[calc(620*var(--fx))] max-w-1440 flex-col px-16 py-60 md:h-full md:min-h-0 md:px-[calc(80*var(--fx))] md:pt-[calc(210*var(--fx))] md:pb-[calc(90*var(--fx))]">
+        <div className="relative z-10 grid flex-1 gap-40 md:grid-cols-2 md:grid-rows-2 md:gap-0">
+          <div className="md:col-start-1 md:row-start-1">
             {renderTitle(titulo)}
           </div>
 
-          <div className="flex flex-col gap-24 md:items-end md:gap-31">
-            {descripcion && (
-              <div
-                className="max-w-480 font-poppins text-16 font-light leading-[1.5] text-warm-gray md:text-right md:text-22"
-                dangerouslySetInnerHTML={{ __html: descripcion }}
-              />
-            )}
-
-            {imagen_decorativa?.url ? (
-              <div className="relative h-280 w-full md:h-420 md:w-480">
-                <Image
-                  src={imagen_decorativa.url}
-                  alt={stripHtml(imagen_decorativa.alt || titulo) || ""}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 480px"
-                  priority
-                />
-              </div>
-            ) : (
-              <div className="h-280 w-full bg-light-gray md:h-420 md:w-480" />
-            )}
-          </div>
+          {descripcion && (
+            <div
+              className="font-poppins text-16 font-light leading-[1.45] text-near-black md:col-start-2 md:row-start-2 md:max-w-[calc(650*var(--fx))] md:self-center md:text-[calc(20*var(--fx))] [&_p]:m-0 [&_p+p]:mt-[calc(24*var(--fx))] [&_strong]:font-semibold [&_strong]:italic"
+              dangerouslySetInnerHTML={{ __html: descripcion }}
+            />
+          )}
         </div>
       </div>
+
+      {imagen_decorativa?.url && (
+        <div className="pointer-events-none absolute right-0 top-0 hidden h-[calc(315*var(--fx))] w-[calc(480*var(--fx))] md:block">
+          <Image
+            src={imagen_decorativa.url}
+            alt={stripHtml(imagen_decorativa.alt || titulo) || ""}
+            fill
+            className="object-contain object-right-top"
+            sizes="480px"
+            priority
+          />
+        </div>
+      )}
     </section>
   );
 }

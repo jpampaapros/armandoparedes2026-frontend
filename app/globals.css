@@ -99,6 +99,24 @@
   margin-top: calc(75 * var(--fx));
 }
 
+.armando-life-title {
+  font-size: calc(36 * var(--fx));
+}
+
+.armando-life-label {
+  font-size: calc(18 * var(--fx));
+}
+
+.armando-project-title {
+  color: #fff;
+  text-align: center;
+  font-family: 'Gotham', Arial, sans-serif;
+  font-size: calc(60 * var(--fx));
+  font-style: normal;
+  font-weight: 400;
+  line-height: calc(60 * var(--fx));
+}
+
 @media (min-width: 768px) {
   .header-menu-link {
     font-size: calc(45 * var(--fx));
@@ -107,6 +125,15 @@
   .header-menu-list {
     margin-top: calc(91 * var(--fx));
   }
+
+  .armando-life-title {
+    font-size: calc(40 * var(--fx));
+  }
+
+  .armando-life-label {
+    font-size: calc(19 * var(--fx));
+  }
+
 }
 
 @font-face {
@@ -143,7 +170,6 @@
 
 * {
   box-sizing: border-box;
-  outline: 1px solid red;
 }
 
 html {
@@ -165,6 +191,13 @@ a,
 a:any-link,
 a:-webkit-any-link {
   text-decoration: none;
+}
+
+.referral-legal a,
+.referral-legal a:any-link {
+  color: #000;
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 /* Sin preflight, headings y parrafos traen el margen del user-agent. Va en

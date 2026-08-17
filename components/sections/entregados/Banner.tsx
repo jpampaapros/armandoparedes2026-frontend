@@ -31,7 +31,7 @@ export function Banner({ titulo, descripcion, imagen }: BannerProps) {
       <div className="flex w-full flex-col justify-center bg-white px-16 py-40 md:w-1/2 md:px-80 md:py-60">
         {titulo && (
           <h1
-            className="font-ga-maamli text-36 leading-[1.1] text-near-black md:text-60 [&_span]:font-light [&_strong]:font-medium [&_strong]:text-peach"
+            className="m-0 font-gotham text-36 font-medium leading-[1.1] text-near-black md:text-60 [&_em]:block [&_em]:font-light [&_em]:text-peach [&_p]:m-0 [&_span]:font-light [&_strong]:font-medium [&_strong]:italic [&_strong]:text-peach"
             dangerouslySetInnerHTML={{ __html: titulo }}
           />
         )}
