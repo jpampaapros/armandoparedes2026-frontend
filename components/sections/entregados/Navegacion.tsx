@@ -68,9 +68,9 @@ export function Navegacion({ current, entregados }: NavegacionProps) {
   return (
     <nav
       data-section="navegacion"
-      className="w-full bg-peach px-10 py-10 md:px-574 md:py-10"
+      className="h-[calc(87*var(--fx))] w-full bg-peach px-[calc(10*var(--fx))] md:px-[calc(80*var(--fx))]"
     >
-      <div className="mx-auto flex max-w-1440 items-center justify-between gap-16">
+      <div className="mx-auto flex h-full max-w-1440 items-center justify-between gap-[calc(16*var(--fx))]">
         <div className="flex-1">
           {prev?.url ? (
             <Link
@@ -79,16 +79,16 @@ export function Navegacion({ current, entregados }: NavegacionProps) {
               prefetch={false}
               className="group flex items-center gap-10 text-black transition-opacity hover:opacity-70"
             >
-              <ChevronLeft className="h-24 w-24" />
+              <ChevronLeft className="h-[calc(24*var(--fx))] w-[calc(24*var(--fx))]" />
             </Link>
           ) : (
             <span className="invisible flex items-center gap-10">
-              <ChevronLeft className="h-24 w-24" />
+              <ChevronLeft className="h-[calc(24*var(--fx))] w-[calc(24*var(--fx))]" />
             </span>
           )}
         </div>
 
-        <div className="flex flex-col items-center gap-4 text-center text-black">
+        <div className="flex flex-col items-center gap-[calc(4*var(--fx))] text-center text-black">
           {year && (
             <span className="font-poppins text-16 font-light">{year}</span>
           )}
@@ -105,11 +105,11 @@ export function Navegacion({ current, entregados }: NavegacionProps) {
               prefetch={false}
               className="group inline-flex items-center justify-end gap-10 text-black transition-opacity hover:opacity-70"
             >
-              <ChevronRight className="h-24 w-24" />
+              <ChevronRight className="h-[calc(24*var(--fx))] w-[calc(24*var(--fx))]" />
             </Link>
           ) : (
             <span className="invisible inline-flex items-center gap-10">
-              <ChevronRight className="h-24 w-24" />
+              <ChevronRight className="h-[calc(24*var(--fx))] w-[calc(24*var(--fx))]" />
             </span>
           )}
         </div>

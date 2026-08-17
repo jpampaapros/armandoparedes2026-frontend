@@ -55,7 +55,7 @@ export function Detalle({
       data-section="detalle"
       className="w-full bg-slate"
     >
-      <div className="mx-auto flex max-w-1440 flex-col md:h-800 md:flex-row">
+      <div className="flex w-full flex-col md:h-800 md:flex-row">
         {imagen?.url && (
           <div className="relative order-2 h-397 w-full md:order-1 md:h-full md:w-1/2">
             <Image

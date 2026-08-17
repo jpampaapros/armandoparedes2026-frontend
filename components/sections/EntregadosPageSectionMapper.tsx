@@ -1,4 +1,4 @@
-import { Banner } from "@/components/sections/entregados/Banner";
+import { BannerEntregadosPage } from "@/components/sections/entregados/BannerEntregadosPage";
 import { ProyectosEntregados } from "@/components/sections/entregados/ProyectosEntregados";
 import type { EntregadosPageSection, Delivered } from "@/lib/types";
 
@@ -17,7 +17,7 @@ export function EntregadosPageSectionMapper({
         switch (section.acf_fc_layout) {
           case "banner":
             return (
-              <Banner
+              <BannerEntregadosPage
                 key={`${section.acf_fc_layout}-${index}`}
                 titulo={section.titulo}
                 descripcion={section.descripcion}

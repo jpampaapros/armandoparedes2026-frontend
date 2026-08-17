@@ -26,11 +26,11 @@ type ReferidosFormValues = {
 
 type PhoneInputProps = {
   name: "tu-telefono" | "referido-telefono";
-  placeholder: string;
+  label: string;
   register: ReturnType<typeof useForm<ReferidosFormValues>>["register"];
 };
 
-function PhoneInput({ name, placeholder, register }: PhoneInputProps) {
+function PhoneInput({ name, label, register }: PhoneInputProps) {
   return (
     <div className="flex h-50">
       <div className="flex shrink-0 items-center gap-4 border border-r-0 border-white bg-transparent px-10">
@@ -52,12 +52,14 @@ function PhoneInput({ name, placeholder, register }: PhoneInputProps) {
           className="h-18 w-18"
         />
       </div>
-      <input
-        type="tel"
-        placeholder={placeholder}
-        className="h-full min-w-0 flex-1 border border-white bg-transparent px-10 py-12 font-poppins text-18 text-white outline-none placeholder:text-white/60"
-        {...register(name)}
-      />
+      <label className="flex min-w-0 flex-1 flex-col justify-center border border-white px-10">
+        <span className="font-poppins text-10 font-semibold leading-none text-white">{label}</span>
+        <input
+          type="tel"
+          className="min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-18 leading-[1.2] text-white outline-none"
+          {...register(name)}
+        />
+      </label>
     </div>
   );
 }
@@ -103,8 +105,10 @@ export function SeParte({ title, form_id }: SeParteProps) {
     if (ok) reset();
   };
 
+  const fieldClass = "flex h-50 flex-col justify-center border border-white px-10";
+  const fieldLabelClass = "font-poppins text-10 font-semibold leading-none text-white";
   const inputClass =
-    "h-50 w-full border border-white bg-transparent px-10 py-12 font-poppins text-18 text-white outline-none placeholder:text-white";
+    "min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-18 leading-[1.2] text-white outline-none";
   const errorClass = "text-12 text-red-300";
 
   return (
@@ -128,74 +132,43 @@ export function SeParte({ title, form_id }: SeParteProps) {
             </p>
 
             <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-30">
-              <input
-                type="text"
-                placeholder="Nombres*"
-                aria-label="Nombres"
-                className={inputClass}
-                {...register("tu-nombre", { required: true })}
-              />
-              {errors["tu-nombre"] && (
-                <span className={errorClass} role="alert">
-                  Completa este campo
-                </span>
-              )}
-
-              <input
-                type="text"
-                placeholder="Apellido*"
-                aria-label="Apellido"
-                className={inputClass}
-                {...register("tu-apellido", { required: true })}
-              />
-              {errors["tu-apellido"] && (
-                <span className={errorClass} role="alert">
-                  Completa este campo
-                </span>
-              )}
-
-              <input
-                type="email"
-                placeholder="Email*"
-                aria-label="Email"
-                className={`${inputClass} md:col-span-2`}
-                {...register("tu-email", { required: true })}
-              />
-              {errors["tu-email"] && (
-                <span className={errorClass} role="alert">
-                  Completa este campo
-                </span>
-              )}
-
-              <PhoneInput name="tu-telefono" placeholder="Celular*" register={register} />
-              {errors["tu-telefono"] && (
-                <span className={errorClass} role="alert">
-                  Completa este campo
-                </span>
-              )}
-
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="DNI*"
-                  aria-label="DNI"
-                  className={inputClass}
-                  {...register("tu-dni", { required: true })}
-                />
-                <Image
-                  unoptimized
-                  src="/images/referidos/icon-dropdown.svg"
-                  alt=""
-                  width={24}
-                  height={24}
-                  className="pointer-events-none absolute right-10 top-1/2 h-18 w-18 -translate-y-1/2"
-                />
+              <div>
+                <label className={fieldClass}>
+                  <span className={fieldLabelClass}>Nombres*</span>
+                  <input type="text" className={inputClass} {...register("tu-nombre", { required: true })} />
+                </label>
+                {errors["tu-nombre"] && <span className={errorClass} role="alert">Completa este campo</span>}
               </div>
-              {errors["tu-dni"] && (
-                <span className={errorClass} role="alert">
-                  Completa este campo
-                </span>
-              )}
+
+              <div>
+                <label className={fieldClass}>
+                  <span className={fieldLabelClass}>Apellido*</span>
+                  <input type="text" className={inputClass} {...register("tu-apellido", { required: true })} />
+                </label>
+                {errors["tu-apellido"] && <span className={errorClass} role="alert">Completa este campo</span>}
+              </div>
+
+              <div className="md:col-span-2">
+                <label className={fieldClass}>
+                  <span className={fieldLabelClass}>Correo electrónico*</span>
+                  <input type="email" className={inputClass} {...register("tu-email", { required: true })} />
+                </label>
+                {errors["tu-email"] && <span className={errorClass} role="alert">Completa este campo</span>}
+              </div>
+
+              <div>
+                <PhoneInput name="tu-telefono" label="Celular*" register={register} />
+                {errors["tu-telefono"] && <span className={errorClass} role="alert">Completa este campo</span>}
+              </div>
+
+              <div>
+                <label className={`${fieldClass} relative`}>
+                  <span className={fieldLabelClass}>DNI*</span>
+                  <input type="text" className={`${inputClass} pr-24`} {...register("tu-dni", { required: true })} />
+                  <Image unoptimized src="/images/referidos/icon-dropdown.svg" alt="" width={24} height={24} className="pointer-events-none absolute right-10 top-1/2 h-18 w-18 -translate-y-1/2" />
+                </label>
+                {errors["tu-dni"] && <span className={errorClass} role="alert">Completa este campo</span>}
+              </div>
             </div>
           </div>
 
@@ -206,55 +179,34 @@ export function SeParte({ title, form_id }: SeParteProps) {
             </p>
 
             <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-30">
-              <input
-                type="text"
-                placeholder="Nombres*"
-                aria-label="Nombres de tu referido"
-                className={inputClass}
-                {...register("referido-nombre", { required: true })}
-              />
-              {errors["referido-nombre"] && (
-                <span className={errorClass} role="alert">
-                  Completa este campo
-                </span>
-              )}
+              <div>
+                <label className={fieldClass}>
+                  <span className={fieldLabelClass}>Nombres*</span>
+                  <input type="text" className={inputClass} {...register("referido-nombre", { required: true })} />
+                </label>
+                {errors["referido-nombre"] && <span className={errorClass} role="alert">Completa este campo</span>}
+              </div>
 
-              <input
-                type="text"
-                placeholder="Apellido*"
-                aria-label="Apellido de tu referido"
-                className={inputClass}
-                {...register("referido-apellido", { required: true })}
-              />
-              {errors["referido-apellido"] && (
-                <span className={errorClass} role="alert">
-                  Completa este campo
-                </span>
-              )}
+              <div>
+                <label className={fieldClass}>
+                  <span className={fieldLabelClass}>Apellido*</span>
+                  <input type="text" className={inputClass} {...register("referido-apellido", { required: true })} />
+                </label>
+                {errors["referido-apellido"] && <span className={errorClass} role="alert">Completa este campo</span>}
+              </div>
 
-              <input
-                type="email"
-                placeholder="Email*"
-                aria-label="Email de tu referido"
-                className={inputClass}
-                {...register("referido-email", { required: true })}
-              />
-              {errors["referido-email"] && (
-                <span className={errorClass} role="alert">
-                  Completa este campo
-                </span>
-              )}
+              <div>
+                <label className={fieldClass}>
+                  <span className={fieldLabelClass}>Correo electrónico*</span>
+                  <input type="email" className={inputClass} {...register("referido-email", { required: true })} />
+                </label>
+                {errors["referido-email"] && <span className={errorClass} role="alert">Completa este campo</span>}
+              </div>
 
-              <PhoneInput
-                name="referido-telefono"
-                placeholder="Celular*"
-                register={register}
-              />
-              {errors["referido-telefono"] && (
-                <span className={errorClass} role="alert">
-                  Completa este campo
-                </span>
-              )}
+              <div>
+                <PhoneInput name="referido-telefono" label="Celular*" register={register} />
+                {errors["referido-telefono"] && <span className={errorClass} role="alert">Completa este campo</span>}
+              </div>
             </div>
           </div>
 

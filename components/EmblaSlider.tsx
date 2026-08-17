@@ -62,6 +62,7 @@ export interface EmblaSliderProps<T> {
   previousArrowClassName?: string;
   nextArrowClassName?: string;
   arrowIconClassName?: string;
+  arrowChevronClassName?: string;
 }
 
 interface ScaleTweenConfig {
@@ -179,6 +180,7 @@ export function EmblaSlider<T>({
   previousArrowClassName,
   nextArrowClassName,
   arrowIconClassName,
+  arrowChevronClassName,
 }: EmblaSliderProps<T>) {
   const bp = useBreakpoint();
   const [selectedIndex, setSelectedIndex] =
@@ -475,7 +477,7 @@ export function EmblaSlider<T>({
             {arrowIconSrc ? (
               <Image src={arrowIconSrc} alt="" width={51} height={90} className={cn("h-auto w-24", arrowIconClassName)} />
             ) : (
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className={cn("w-5 h-5", arrowChevronClassName)} />
             )}
           </button>
 
@@ -492,7 +494,7 @@ export function EmblaSlider<T>({
             {arrowIconSrc ? (
               <Image src={arrowIconSrc} alt="" width={51} height={90} className={cn("h-auto w-24 rotate-180", arrowIconClassName)} />
             ) : (
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className={cn("w-5 h-5", arrowChevronClassName)} />
             )}
           </button>
         </div>
