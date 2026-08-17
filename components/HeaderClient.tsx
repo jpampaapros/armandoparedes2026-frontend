@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { resolveWordPressUrl, isExternalUrl } from "@/lib/urls";
@@ -55,6 +55,49 @@ function HeaderImage({ image, className, priority }: { image?: ACFImage; classNa
 
 export function HeaderClient({ data }: { data: HeaderData }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const isOpenRef = useRef(isOpen);
+
+  useEffect(() => {
+    let previousScrollY = window.scrollY;
+    let ticking = false;
+
+    const updateHeader = () => {
+      const currentScrollY = Math.max(window.scrollY, 0);
+      const distance = currentScrollY - previousScrollY;
+
+      if (currentScrollY <= 20 || isOpenRef.current) {
+        setIsHeaderVisible(true);
+      } else if (distance > 6) {
+        setIsHeaderVisible(false);
+      } else if (distance < -6) {
+        setIsHeaderVisible(true);
+      }
+
+      previousScrollY = currentScrollY;
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateHeader);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const openMenu = () => {
+    isOpenRef.current = true;
+    setIsHeaderVisible(true);
+    setIsOpen(true);
+  };
+
+  const closeMenu = () => {
+    isOpenRef.current = false;
+    setIsOpen(false);
+  };
 
   const menuItems = data.modal_menu?.menu?.filter((item) => item.link?.url) ?? [];
 
@@ -70,12 +113,16 @@ export function HeaderClient({ data }: { data: HeaderData }) {
         }
       `}</style>
 
-      <header className="fixed inset-x-0 top-0 z-50 h-[var(--header-height)] min-h-[56px] bg-header-bg font-gotham text-header-text backdrop-blur-md">
+      <header
+        className={`fixed inset-x-0 top-0 z-50 h-[var(--header-height)] min-h-[56px] bg-header-bg font-gotham text-header-text backdrop-blur-md transition-transform duration-500 ease-in-out motion-reduce:transition-none ${
+          isHeaderVisible ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
         <div className="relative flex h-full items-center justify-center px-16 md:justify-between md:px-80">
           <button
             type="button"
             className="absolute left-16 top-1/2 flex h-20 w-29 -translate-y-1/2 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-inherit md:hidden"
-            onClick={() => setIsOpen(true)}
+            onClick={openMenu}
             aria-label="Abrir menú"
           >
             <Image
@@ -99,7 +146,7 @@ export function HeaderClient({ data }: { data: HeaderData }) {
             <button
               type="button"
               className="flex h-20 w-29 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-inherit"
-              onClick={() => setIsOpen(true)}
+              onClick={openMenu}
               aria-label="Abrir menú"
             >
               <Image
@@ -121,13 +168,13 @@ export function HeaderClient({ data }: { data: HeaderData }) {
           aria-modal="true"
           aria-label="Menú principal"
           onClick={(e) => {
-            if (e.target === e.currentTarget) setIsOpen(false);
+            if (e.target === e.currentTarget) closeMenu();
           }}
         >
           <button
             type="button"
             className="absolute left-20 top-33 z-20 flex h-20 w-20 cursor-pointer items-center justify-center border-0 bg-transparent p-0 md:left-auto md:right-57 md:top-33 md:h-24 md:w-24"
-            onClick={() => setIsOpen(false)}
+            onClick={closeMenu}
             aria-label="Cerrar menú"
           >
             <Image
@@ -140,17 +187,17 @@ export function HeaderClient({ data }: { data: HeaderData }) {
           </button>
 
           <div className="relative flex h-full w-full shrink-0 flex-col items-center bg-black px-16 pt-31 md:w-721 md:items-start md:bg-modal-bg md:px-80 md:pb-122">
-            <Link href="/" className="block w-264" onClick={() => setIsOpen(false)}>
+            <Link href="/" className="block w-264" onClick={closeMenu}>
               <HeaderImage image={data.modal_menu?.logo} className="block h-auto w-full" priority />
             </Link>
 
-            <ul className="mt-75 flex w-256 list-none flex-col items-stretch gap-46 p-0 md:mt-91 md:gap-30">
+            <ul className="header-menu-list flex w-256 list-none flex-col items-stretch gap-46 p-0 md:gap-30">
               {menuItems.map((item, index) => (
                 <li key={index} className="text-center md:text-left">
                   <HeaderLink
                     link={item.link}
-                    className="block w-full text-32 font-light leading-[1.2] text-header-text no-underline md:inline-block md:text-45" /* leading-[1.2] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */
-                    onClick={() => setIsOpen(false)}
+                    className="header-menu-link block w-full font-light leading-[1.2] text-header-text no-underline md:inline-block"
+                    onClick={closeMenu}
                   />
                 </li>
               ))}

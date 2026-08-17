@@ -24,7 +24,7 @@ function TabButton({
     <button
       type="button"
       onClick={onClick}
-      className="relative pb-0 text-left"
+      className="relative bg-transparent pb-0 text-left"
     >
       <span
         className={`font-gotham text-20 md:text-32 ${

@@ -25,14 +25,14 @@ export function MapaProyecto({ titulo, imagen, ubicaciones = [] }: MapaProyectoP
           )}
         </div>
 
-        <div className="mt-27 w-full px-16 pt-34 pb-40 md:ml-16 md:mt-0 md:w-389 md:rounded-30 md:bg-near-black md:px-40 md:pt-53">
+        <div className="mt-27 w-full bg-transparent px-16 pt-34 pb-40 md:ml-16 md:mt-0 md:w-389 md:rounded-30 md:px-40 md:pt-53">
           {titulo && (
             <h2 className="m-0 font-gotham text-32 font-medium text-white">
               {titulo}
             </h2>
           )}
 
-          <ul className="mt-24 flex flex-col md:mt-40">
+          <ul className="mt-24 flex list-none flex-col p-0 md:mt-40">
             {ubicaciones.map((u, i) => (
               <li key={i} className="border-b border-white/20 py-12 first:pt-0 last:border-b-0">
                 <div className="flex items-center justify-between">

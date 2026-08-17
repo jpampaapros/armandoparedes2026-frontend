@@ -195,16 +195,15 @@ export function ModalLeadForm({
         >
           <div className="grid grid-cols-1 gap-x-12 gap-y-16 md:grid-cols-2 md:gap-y-22">
             <div className="flex flex-col gap-4">
-              <label className="font-poppins text-9 font-semibold text-near-black">
-                Nombres
+              <label className="flex h-38 flex-col justify-center border border-near-black px-7">
+                <span className="font-poppins text-9 font-semibold leading-none text-near-black">Nombres*</span>
+                <input
+                  type="text"
+                  aria-invalid={errors.nombres ? "true" : "false"}
+                  className="min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-13 leading-[1.2] text-near-black outline-none placeholder:text-near-black"
+                  {...register("nombres", { required: true })}
+                />
               </label>
-              <input
-                type="text"
-                placeholder="Ingresa tus nombres"
-                aria-invalid={errors.nombres ? "true" : "false"}
-                className="h-36 w-full border border-near-black px-7 py-4 font-poppins text-13 text-near-black outline-none placeholder:text-near-black"
-                {...register("nombres", { required: true })}
-              />
               {errors.nombres && (
                 <span className="text-10 text-red-700" role="alert">
                   Completa este campo
@@ -213,16 +212,15 @@ export function ModalLeadForm({
             </div>
 
             <div className="flex flex-col gap-4">
-              <label className="font-poppins text-9 font-semibold text-near-black">
-                Apellido
+              <label className="flex h-38 flex-col justify-center border border-near-black px-7">
+                <span className="font-poppins text-9 font-semibold leading-none text-near-black">Apellido*</span>
+                <input
+                  type="text"
+                  aria-invalid={errors.apellido ? "true" : "false"}
+                  className="min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-13 leading-[1.2] text-near-black outline-none placeholder:text-near-black"
+                  {...register("apellido", { required: true })}
+                />
               </label>
-              <input
-                type="text"
-                placeholder="Ingresa tu apellido"
-                aria-invalid={errors.apellido ? "true" : "false"}
-                className="h-36 w-full border border-near-black px-7 py-4 font-poppins text-13 text-near-black outline-none placeholder:text-near-black"
-                {...register("apellido", { required: true })}
-              />
               {errors.apellido && (
                 <span className="text-10 text-red-700" role="alert">
                   Completa este campo
@@ -231,16 +229,15 @@ export function ModalLeadForm({
             </div>
 
             <div className="flex flex-col gap-4">
-              <label className="font-poppins text-9 font-semibold text-near-black">
-                Correo
+              <label className="flex h-38 flex-col justify-center border border-near-black px-7">
+                <span className="font-poppins text-9 font-semibold leading-none text-near-black">Correo electrónico*</span>
+                <input
+                  type="email"
+                  aria-invalid={errors.correo ? "true" : "false"}
+                  className="min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-13 leading-[1.2] text-near-black outline-none placeholder:text-near-black"
+                  {...register("correo", { required: true })}
+                />
               </label>
-              <input
-                type="email"
-                placeholder="Ingresa tu correo"
-                aria-invalid={errors.correo ? "true" : "false"}
-                className="h-36 w-full border border-near-black px-7 py-4 font-poppins text-13 text-near-black outline-none placeholder:text-near-black"
-                {...register("correo", { required: true })}
-              />
               {errors.correo && (
                 <span className="text-10 text-red-700" role="alert">
                   Completa este campo
@@ -249,10 +246,7 @@ export function ModalLeadForm({
             </div>
 
             <div className="flex flex-col gap-4">
-              <label className="font-poppins text-9 font-semibold text-near-black">
-                Celular
-              </label>
-              <div className="flex h-36">
+              <div className="flex h-38">
                 <div className="flex shrink-0 items-center gap-4 border border-r-0 border-near-black px-8" aria-label="Prefijo Perú +51">
                   <Image unoptimized
                     src="/images/formulario-modal/bandera-peru.svg"
@@ -263,13 +257,15 @@ export function ModalLeadForm({
                   />
                   <span className="font-poppins text-13 text-near-black">+51</span>
                 </div>
-                <input
-                  type="tel"
-                  placeholder="Ingresa tu celular"
-                  aria-invalid={errors.celular ? "true" : "false"}
-                  className="h-full flex-1 border border-near-black px-7 py-4 font-poppins text-13 text-near-black outline-none placeholder:text-near-black"
-                  {...register("celular", { required: true })}
-                />
+                <label className="flex min-w-0 flex-1 flex-col justify-center border border-near-black px-7">
+                  <span className="font-poppins text-9 font-semibold leading-none text-near-black">Celular*</span>
+                  <input
+                    type="tel"
+                    aria-invalid={errors.celular ? "true" : "false"}
+                    className="min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-13 leading-[1.2] text-near-black outline-none placeholder:text-near-black"
+                    {...register("celular", { required: true })}
+                  />
+                </label>
               </div>
               {errors.celular && (
                 <span className="text-10 text-red-700" role="alert">
@@ -279,18 +275,14 @@ export function ModalLeadForm({
             </div>
 
             <div className="flex flex-col gap-4">
-              <label className="font-poppins text-9 font-semibold text-near-black">
-                Distrito
-              </label>
-              <div className="relative">
+              <label className="relative flex h-38 flex-col justify-center border border-near-black px-7">
+                <span className="font-poppins text-9 font-semibold leading-none text-near-black">Distrito de residencia</span>
                 <select
-                  className="h-36 w-full appearance-none border border-near-black bg-white px-7 py-4 font-poppins text-13 text-near-black outline-none"
+                  className="min-h-0 w-full appearance-none border-0 bg-transparent p-0 pr-24 font-poppins text-13 leading-[1.2] text-near-black outline-none"
                   aria-invalid={errors.distrito ? "true" : "false"}
                   {...register("distrito", { required: true })}
                 >
-                  <option value="" disabled>
-                    Selecciona tu distrito
-                  </option>
+                  <option value="" disabled hidden aria-label="Sin selección" />
                   {DISTRITOS.map((d) => (
                     <option key={d} value={d}>
                       {d}
@@ -304,7 +296,7 @@ export function ModalLeadForm({
                   height={18}
                   className="absolute right-8 top-1/2 h-18 w-18 -translate-y-1/2 pointer-events-none"
                 />
-              </div>
+              </label>
               {errors.distrito && (
                 <span className="text-10 text-red-700" role="alert">
                   Completa este campo
@@ -313,18 +305,14 @@ export function ModalLeadForm({
             </div>
 
             <div className="flex flex-col gap-4">
-              <label className="font-poppins text-9 font-semibold text-near-black">
-                Presupuesto
-              </label>
-              <div className="relative">
+              <label className="relative flex h-38 flex-col justify-center border border-near-black px-7">
+                <span className="font-poppins text-9 font-semibold leading-none text-near-black">Presupuesto</span>
                 <select
-                  className="h-36 w-full appearance-none border border-near-black bg-white px-7 py-4 font-poppins text-13 text-near-black outline-none"
+                  className="min-h-0 w-full appearance-none border-0 bg-transparent p-0 pr-24 font-poppins text-13 leading-[1.2] text-near-black outline-none"
                   aria-invalid={errors.presupuesto ? "true" : "false"}
                   {...register("presupuesto", { required: true })}
                 >
-                  <option value="" disabled>
-                    Selecciona tu presupuesto
-                  </option>
+                  <option value="" disabled hidden aria-label="Sin selección" />
                   {PRESUPUESTOS.map((p) => (
                     <option key={p} value={p}>
                       {p}
@@ -338,7 +326,7 @@ export function ModalLeadForm({
                   height={18}
                   className="absolute right-8 top-1/2 h-18 w-18 -translate-y-1/2 pointer-events-none"
                 />
-              </div>
+              </label>
               {errors.presupuesto && (
                 <span className="text-10 text-red-700" role="alert">
                   Completa este campo

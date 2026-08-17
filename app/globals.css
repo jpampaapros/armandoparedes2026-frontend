@@ -91,6 +91,24 @@
   font-family: 'Gotham Black', 'Gotham', sans-serif;
 }
 
+.header-menu-link {
+  font-size: calc(32 * var(--fx));
+}
+
+.header-menu-list {
+  margin-top: calc(75 * var(--fx));
+}
+
+@media (min-width: 768px) {
+  .header-menu-link {
+    font-size: calc(45 * var(--fx));
+  }
+
+  .header-menu-list {
+    margin-top: calc(91 * var(--fx));
+  }
+}
+
 @font-face {
   font-family: 'Gotham';
   src: url('/fonts/gotham/Gotham-Medium.woff2') format('woff2');
@@ -123,13 +141,19 @@
   font-display: swap;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+  outline: 1px solid red;
+}
 
 html {
   color-scheme: light;
   font-family: var(--font-sans);
   background: var(--color-bg);
   color: var(--color-text);
+  /* HomeIntro bloquea el scroll temporalmente. Reservar el canal evita que
+     toda la pagina cambie de ancho cuando la barra vuelve a aparecer. */
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -170,8 +194,11 @@ a:-webkit-any-link {
    Una sola linea de tiempo de --intro-duration:
      0 - 30%   telon negro con el logo al centro
     30 - 55%   el telon sube y descubre la pagina
-    55 - 75%   solo el titulo del banner, centrado sobre blanco a pantalla completa
-    75 - 100%  el resto aparece en opacidad y el bloque blanco se achica
+    55 - 75%   aparece el titulo y comienza la escritura sobre blanco
+    75 - 100%  aparece el resto; el bloque blanco espera a que termine el texto
+
+   Cuando acaba la escritura, intro-hero-finish mueve el contenido inferior y
+   HomeIntro desmonta el estado de entrada 1400ms despues.
 
    Va en @keyframes y no en transiciones para que corra sola aunque la hidratacion
    se demore; el JS solo desmonta el telon y libera el scroll. Los valores finales
@@ -210,32 +237,29 @@ a:-webkit-any-link {
   }
 }
 
-@keyframes intro-hero {
-  0%,
-  75% {
+@keyframes intro-hero-finish {
+  from {
     min-height: 100svh;
   }
-  100% {
+  to {
     min-height: 0;
   }
 }
 
 @keyframes intro-body-pad {
-  0%,
-  75% {
+  from {
     padding-top: 0;
   }
-  100% {
+  to {
     padding-top: var(--header-height);
   }
 }
 
 @keyframes intro-banner-pad {
-  0%,
-  75% {
+  from {
     padding-top: 0;
   }
-  100% {
+  to {
     padding-top: var(--banner-padding-top);
   }
 }
@@ -249,9 +273,14 @@ a:-webkit-any-link {
     animation: intro-logo 2000ms ease-out forwards;
   }
 
-  /* El header ocupa su alto solo cuando vuelve a aparecer. */
+  /* El espacio del header y del banner vuelve solo despues de terminar la
+     escritura, para que el titulo no cambie de posicion mientras se forma. */
   body:has(.intro-start) {
-    animation: intro-body-pad var(--intro-duration) cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    padding-top: 0;
+  }
+
+  body:has(.intro-start [data-typewriter-complete]) {
+    animation: intro-body-pad 1400ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
   }
 
   /* Todo menos el titulo: header, footer, los puntos y la imagen del banner,
@@ -264,11 +293,19 @@ a:-webkit-any-link {
   }
 
   .intro-start [data-intro-banner] {
-    animation: intro-banner-pad var(--intro-duration) cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    padding-top: 0;
+  }
+
+  .intro-start [data-intro-banner][data-typewriter-complete] {
+    animation: intro-banner-pad 1400ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
   }
 
   .intro-start [data-intro-hero] {
-    animation: intro-hero var(--intro-duration) cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    min-height: 100svh;
+  }
+
+  .intro-start [data-intro-banner][data-typewriter-complete] [data-intro-hero] {
+    animation: intro-hero-finish 1400ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
   }
 }
 
@@ -276,4 +313,37 @@ a:-webkit-any-link {
   .intro-curtain {
     display: none;
   }
+}
+
+@keyframes typewriter-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.typewriter-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.typewriter-character {
+  position: relative;
+  visibility: hidden;
+}
+
+.typewriter-character.typewriter-visible {
+  visibility: visible;
+}
+
+.typewriter-character.typewriter-current::after {
+  position: absolute;
+  left: 100%;
+  bottom: 0.08em;
+  content: "";
+  display: inline-block;
+  width: 0.06em;
+  height: 0.85em;
+  margin-left: 0.08em;
+  background: currentColor;
+  animation: typewriter-cursor-blink 700ms step-end infinite;
 }
