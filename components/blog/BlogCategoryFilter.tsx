@@ -49,7 +49,7 @@ export function BlogCategoryFilter({ categories }: BlogCategoryFilterProps) {
         id="blog-category"
         value={selected}
         onChange={(e) => handleChange(e.target.value)}
-        className="h-52 w-full appearance-none rounded-10 border border-border-light bg-white px-24 py-12 pr-52 font-gotham text-18 font-medium text-text-muted focus:outline-none focus:ring-2 focus:ring-peach md:text-22"
+        className="h-52 w-full appearance-none rounded-10 border border-border-light bg-white px-24 pb-0 pt-[calc(7px+6px)] pr-52 text-left font-gotham text-18 font-medium leading-normal text-text-muted focus:outline-none focus:ring-2 focus:ring-peach md:text-22"
       >
         <option value="" className="bg-white text-near-black">Categorías</option>
         {categories.map((category) => (

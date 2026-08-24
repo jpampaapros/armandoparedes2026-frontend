@@ -26,7 +26,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full appearance-none border-0 bg-transparent pr-8 font-poppins text-16 font-extralight text-text-muted outline-none focus:ring-0 pb-15 pt-15 pl-8"
+        className="w-full appearance-none border-0 bg-transparent pr-8 font-poppins text-16 font-extralight text-text-muted outline-none focus:ring-0 pb-0 pt-15 pl-8"
       >
         <option value="">{placeholder}</option>
         {options.map((opt) => (

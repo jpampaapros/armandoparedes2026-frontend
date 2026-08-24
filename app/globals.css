@@ -200,6 +200,22 @@ a:-webkit-any-link {
   text-decoration: underline;
 }
 
+.form-legal-link,
+.form-legal-link:any-link {
+  color: #1d1d1b;
+  font-family: var(--font-google-poppins), sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+}
+
 /* Sin preflight, headings y parrafos traen el margen del user-agent. Va en
    @layer base (no suelto) para ganarle al UA pero perder contra
    @layer utilities: asi un mb-60 o un [&_h2]:mt-32 siguen mandando.

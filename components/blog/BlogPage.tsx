@@ -25,24 +25,24 @@ export function BlogPage({
   totalPages,
 }: BlogPageProps) {
   const bannerTitle = bannerSection?.banner_title || page?.title?.rendered || "Blog";
-  const bannerDescription = bannerSection?.banner_description;
+  const bannerDescription = bannerSection?.banner_description || "Ideas, ciudad y proyectos";
 
   return (
     <main className="w-full bg-white">
       <section className="bg-white">
         <div className="mx-auto max-w-1440 px-16 pt-32 md:px-80 md:pt-50">
           <div className="flex flex-col gap-16 md:flex-row md:items-start md:justify-between">
-            <h1 className="font-gotham text-36 font-bold leading-[1.1] text-slate md:text-60">
-              {bannerTitle}
-            </h1>
+            <div>
+              <h1 className="font-gotham text-36 font-bold leading-[1.1] text-slate md:text-60">
+                {bannerTitle}
+              </h1>
+              <div
+                className="mt-8 font-poppins text-16 font-semibold leading-24 text-near-black md:text-24"
+                dangerouslySetInnerHTML={{ __html: bannerDescription }}
+              />
+            </div>
             <BlogCategoryFilter categories={categories} />
           </div>
-          {bannerDescription && (
-            <div
-              className="mt-16 font-poppins text-16 font-normal leading-24 text-near-black md:max-w-857 md:text-24"
-              dangerouslySetInnerHTML={{ __html: bannerDescription }}
-            />
-          )}
         </div>
       </section>
 
@@ -56,9 +56,8 @@ export function BlogPage({
 
       <section className="bg-white">
         <div className="mx-auto max-w-1440 px-16 py-32 md:px-80 md:py-50">
-          <div className="border-t border-black" />
           {posts.length > 0 ? (
-            <div className="grid grid-cols-1 divide-y divide-black md:grid-cols-2 md:divide-y-0 md:divide-x">
+            <div className="grid grid-cols-1 md:grid-cols-2">
               {posts.map((post) => (
                 <BlogPostCard key={post.id} post={post} />
               ))}

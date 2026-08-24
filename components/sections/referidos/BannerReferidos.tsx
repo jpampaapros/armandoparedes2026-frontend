@@ -9,6 +9,13 @@ type BannerReferidosProps = {
   legal_text?: string;
 };
 
+function formatPhrase(phrase: string) {
+  return phrase.replace(
+    /(?:<strong[^>]*>)?se recomiendan(?:<\/strong>)?/gi,
+    "<br><strong>se recomiendan</strong>",
+  );
+}
+
 export function BannerReferidos({
   background_image,
   title,
@@ -51,9 +58,10 @@ export function BannerReferidos({
 
         {phrase && (
           <div className="mt-16 rounded-15 bg-near-black px-24 py-24">
-            <p className="max-w-257 text-center font-poppins text-20 leading-[1.25] text-white">
-              {phrase}
-            </p>
+            <div
+              className="max-w-257 text-center font-poppins text-20 leading-[1.25] text-white [&_p]:m-0 [&_strong]:font-semibold [&_strong]:italic"
+              dangerouslySetInnerHTML={{ __html: formatPhrase(phrase) }}
+            />
           </div>
         )}
 
@@ -109,7 +117,7 @@ export function BannerReferidos({
           <div className="absolute top-[calc(500*var(--fx))] z-20 flex h-[calc(159*var(--fx))] w-[calc(375*var(--fx))] items-center justify-center rounded-[calc(15*var(--fx))] bg-near-black px-[calc(80*var(--fx))] py-[calc(24*var(--fx))]">
             <div
               className="whitespace-pre-line text-center font-poppins text-[calc(20*var(--fx))] font-light leading-[1.25] text-white [&_p]:m-0 [&_strong]:font-semibold [&_strong]:italic"
-              dangerouslySetInnerHTML={{ __html: phrase }}
+              dangerouslySetInnerHTML={{ __html: formatPhrase(phrase) }}
             />
           </div>
         )}
@@ -125,12 +133,23 @@ export function BannerReferidos({
                   <span className="font-poppins text-[calc(20*var(--fx))] font-semibold text-near-black">
                     {card.label}
                   </span>
-                  <span aria-hidden="true" className="font-poppins text-[calc(34*var(--fx))] font-light text-near-black">⟶</span>
-                  <span className="font-poppins text-[calc(11*var(--fx))] uppercase leading-[1.2] tracking-[0.09em] text-near-black">
+                  <svg
+                    aria-hidden="true"
+                    className="h-[calc(15*var(--fx))] w-[calc(74*var(--fx))]"
+                    viewBox="0 0 74 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M73.7071 8.07039C74.0976 7.67986 74.0976 7.0467 73.7071 6.65617L67.3431 0.292213C66.9526 -0.0983109 66.3195 -0.0983109 65.9289 0.292213C65.5384 0.682738 65.5384 1.3159 65.9289 1.70643L71.5858 7.36328L65.9289 13.0201C65.5384 13.4107 65.5384 14.0438 65.9289 14.4343C66.3195 14.8249 66.9526 14.8249 67.3431 14.4343L73.7071 8.07039ZM0 7.36328V8.36328H73V7.36328V6.36328H0V7.36328Z"
+                      fill="#1D1D1B"
+                    />
+                  </svg>
+                  <span className="pl-[calc(30*var(--fx))] font-poppins text-[calc(11*var(--fx))] uppercase leading-[1.2] tracking-[0.09em] text-near-black">
                     {card.subtitle}
                   </span>
                   {card.amount && (
-                    <span className="text-right font-gotham text-[calc(47*var(--fx))] font-bold text-peach">
+                    <span className="text-center font-gotham text-[calc(47*var(--fx))] font-bold text-peach">
                       {card.amount}
                     </span>
                   )}

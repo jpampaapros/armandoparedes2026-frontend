@@ -254,7 +254,7 @@ export function ProyectoLeadForm({
                   </span>
                   <span className="font-inter text-14 text-white">
                     He leído y acepto las{" "}
-                    <a href="/politicas-de-privacidad" className="text-white underline">
+                    <a href="/politicas-de-privacidad" className="form-legal-link">
                       Políticas de Privacidad
                     </a>
                     .
@@ -285,7 +285,7 @@ export function ProyectoLeadForm({
                   <span className="font-inter text-14 text-white">
                     Autorizo a Armando Paredes para que realice las actividades de
                     prospección comercial y marketing descritas en las{" "}
-                    <a href="/politicas-de-privacidad" className="text-white underline">
+                    <a href="/politicas-de-privacidad" className="form-legal-link">
                       Políticas de Privacidad
                     </a>
                     .

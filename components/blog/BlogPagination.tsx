@@ -64,28 +64,26 @@ export function BlogPagination({ currentPage, totalPages }: BlogPaginationProps)
 
   return (
     <nav aria-label="Paginación del blog">
-      <div className="flex flex-col items-center justify-center gap-16 md:flex-row md:gap-30">
-        <span className="hidden font-gotham text-22 font-medium text-peach md:block">
+      <div className="flex items-center justify-center gap-12">
+        <span className="font-gotham text-18 font-normal text-peach md:text-20">
           Ir a página
         </span>
-        <div className="flex items-center gap-16 md:gap-30">
-          <Link
-            href={currentPage > 1 ? buildHref(currentPage - 1) : "#"}
-            aria-disabled={currentPage <= 1}
-            className={`inline-flex h-32 w-32 items-center justify-center text-near-black transition-colors md:h-40 md:w-40 ${
-              currentPage <= 1
-                ? "pointer-events-none opacity-40"
-                : "hover:text-peach"
-            }`}
-          >
-            <DoubleChevron direction="left" />
-          </Link>
-          <ul className="flex list-none items-center gap-16 md:gap-30">
+        <div className="flex items-center gap-4">
+          {currentPage > 1 && (
+            <Link
+              href={buildHref(currentPage - 1)}
+              aria-label="Ir a la página anterior"
+              className="inline-flex h-30 w-30 items-center justify-center text-near-black transition-colors hover:text-peach"
+            >
+              <DoubleChevron direction="left" />
+            </Link>
+          )}
+          <ul className="flex list-none items-center gap-4">
             {pages.map((page, index) => {
               if (page === -1) {
                 return (
                   <li key={`ellipsis-${index}`}>
-                    <span className="inline-flex h-32 w-32 items-center justify-center font-gotham text-22 font-light text-near-black md:h-40 md:w-40 md:text-25">
+                    <span className="inline-flex h-30 w-24 items-center justify-center font-gotham text-20 font-normal text-near-black">
                       …
                     </span>
                   </li>
@@ -96,14 +94,14 @@ export function BlogPagination({ currentPage, totalPages }: BlogPaginationProps)
                 <li key={page}>
                   <Link
                     href={buildHref(page)}
-                    className={`inline-flex h-32 w-32 items-center justify-center font-gotham text-22 font-medium transition-colors md:h-40 md:w-40 md:text-25 ${
+                    className={`grid size-[30px] place-items-center rounded-full font-gotham text-20 font-normal leading-none transition-colors ${
                       isActive
-                        ? "rounded-full bg-peach text-near-black underline md:bg-transparent md:text-near-black md:underline"
-                        : "font-light text-near-black hover:text-peach"
+                        ? "bg-peach text-near-black"
+                        : "text-near-black hover:text-peach"
                     }`}
                     aria-current={isActive ? "page" : undefined}
                   >
-                    {page}
+                    <span className="block leading-none">{page}</span>
                   </Link>
                 </li>
               );
@@ -112,7 +110,8 @@ export function BlogPagination({ currentPage, totalPages }: BlogPaginationProps)
           <Link
             href={currentPage < totalPages ? buildHref(currentPage + 1) : "#"}
             aria-disabled={currentPage >= totalPages}
-            className={`inline-flex h-32 w-32 items-center justify-center text-near-black transition-colors md:h-40 md:w-40 ${
+            aria-label="Ir a la página siguiente"
+            className={`inline-flex h-30 w-30 items-center justify-center text-near-black transition-colors ${
               currentPage >= totalPages
                 ? "pointer-events-none opacity-40"
                 : "hover:text-peach"

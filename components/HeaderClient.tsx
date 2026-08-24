@@ -103,16 +103,6 @@ export function HeaderClient({ data }: { data: HeaderData }) {
 
   return (
     <>
-      <style>{`
-        @font-face {
-          font-family: 'Gotham';
-          src: url('/fonts/gotham/Gotham-Medium.woff2') format('woff2');
-          font-weight: 500;
-          font-style: normal;
-          font-display: swap;
-        }
-      `}</style>
-
       <header
         className={`fixed inset-x-0 top-0 z-50 h-[var(--header-height)] min-h-[56px] bg-header-bg font-gotham text-header-text backdrop-blur-md transition-transform duration-500 ease-in-out motion-reduce:transition-none ${
           isHeaderVisible ? "translate-y-0" : "-translate-y-full"
@@ -141,7 +131,7 @@ export function HeaderClient({ data }: { data: HeaderData }) {
           <div className="hidden items-center gap-12 md:flex">
             <HeaderLink
               link={data.main_menu?.contact_link}
-              className="text-18 font-medium uppercase tracking-[0.04em] text-inherit no-underline" /* tracking-[0.04em] no tiene utilidad proporcional; se mantiene como em de diseño */
+              className="inline-flex h-30 items-center text-18 leading-none uppercase tracking-[0.04em] text-inherit no-underline" /* tracking-[0.04em] no tiene utilidad proporcional; se mantiene como em de diseño */
             />
             <button
               type="button"

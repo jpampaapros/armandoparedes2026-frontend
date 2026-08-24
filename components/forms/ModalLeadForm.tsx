@@ -370,14 +370,14 @@ export function ModalLeadForm({
                   Acepto las{" "}
                   <a
                     href="/politicas-de-privacidad"
-                    className="underline"
+                    className="form-legal-link"
                   >
                     Políticas de Privacidad
                   </a>{" "}
                   y los{" "}
                   <a
                     href="/terminos-y-condiciones"
-                    className="underline"
+                    className="form-legal-link"
                   >
                     Términos y Condiciones
                   </a>

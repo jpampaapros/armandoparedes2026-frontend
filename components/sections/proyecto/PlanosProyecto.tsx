@@ -20,7 +20,6 @@ export function PlanosProyecto({
   dormitorios = [],
   boton_mas_planos,
   texto_adicional,
-  leyenda = [],
 }: PlanosProyectoProps) {
   const [activeDorm, setActiveDorm] = useState(0);
   const [activeTipo, setActiveTipo] = useState(0);
@@ -66,12 +65,12 @@ export function PlanosProyecto({
     <section data-layout="planos" className="w-full bg-white">
       <div className="mx-auto max-w-1440 px-24 py-60 md:px-80 md:py-100">
         {titulo && (
-          <h2 className="m-0 text-center font-gotham text-36 font-bold text-slate md:text-60">
+          <h2 className="mb-30 mt-0 text-center font-gotham text-36 font-bold text-slate md:mb-50 md:text-60">
             {titulo}
           </h2>
         )}
 
-        <div className="mt-30 flex flex-wrap justify-center gap-12 md:mt-50">
+        <div className={`flex flex-wrap justify-center gap-12 ${titulo ? "" : "mt-30 md:mt-50"} ${tipologias.length > 1 ? "" : "mb-40 md:mb-60"}`}>
           {dormitorios.map((d, i) => (
           <button
             key={i}
@@ -92,7 +91,7 @@ export function PlanosProyecto({
         </div>
 
         {tipologias.length > 1 && (
-          <div className="mt-16 flex flex-wrap justify-center gap-12">
+          <div className="mb-40 mt-16 flex flex-wrap justify-center gap-12 md:mb-60">
             {tipologias.map((t, i) => (
               <button
                 key={i}
@@ -111,7 +110,7 @@ export function PlanosProyecto({
         )}
 
         {tipologia && (
-          <div className="mt-40 grid grid-cols-1 gap-24 md:mt-60 md:grid-cols-[minmax(0,1fr)_calc(382*var(--fx))] md:gap-[calc(109*var(--fx))]">
+          <div className="grid grid-cols-1 gap-24 md:grid-cols-[minmax(0,1fr)_calc(382*var(--fx))] md:gap-[calc(109*var(--fx))]">
             <div className="relative">
               <div className="relative h-304 w-full md:h-470">
                 {tipologia.imagen?.url ? (
@@ -127,23 +126,6 @@ export function PlanosProyecto({
                 )}
               </div>
 
-              {leyenda.length > 0 && (
-                <div className="mt-24 grid grid-cols-2 gap-12 md:grid-cols-3">
-                  {leyenda.map((item, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-8 border border-light-gray p-12"
-                    >
-                      <span className="flex h-24 min-w-24 items-center justify-center bg-peach font-poppins text-12 text-white">
-                        {item.valor || ""}
-                      </span>
-                      <span className="font-poppins text-14 text-near-black">
-                        {item.etiqueta}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
 
             <div className="mx-auto flex w-[calc(382*var(--fx))] max-w-full flex-col justify-center gap-18">
@@ -173,9 +155,10 @@ export function PlanosProyecto({
                   </span>
                 )}
                 {tipologia.descripcion && (
-                  <span className="font-poppins text-16 text-near-black md:text-18">
-                    {tipologia.descripcion}
-                  </span>
+                  <div
+                    className="font-poppins text-16 text-near-black md:text-18 [&_p]:m-0"
+                    dangerouslySetInnerHTML={{ __html: tipologia.descripcion }}
+                  />
                 )}
               </div>
 
@@ -201,9 +184,10 @@ export function PlanosProyecto({
         )}
 
         {texto_adicional && (
-          <p className="mt-24 text-center font-poppins text-12 text-near-black md:text-14">
-            {texto_adicional}
-          </p>
+          <div
+            className="mt-24 text-center font-poppins text-12 text-near-black md:text-14 [&_p]:m-0"
+            dangerouslySetInnerHTML={{ __html: texto_adicional }}
+          />
         )}
       </div>
 

@@ -135,10 +135,10 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
             <EmblaSlider
               slides={filtered}
               slidesPerView={{ base: 1, md: 2 }}
-              className="h-465 md:h-825"
+              className="h-[calc(430*var(--fx))] md:h-[calc(680*var(--fx))]"
               renderSlide={(project) => (
                 <div className="h-full px-0 md:px-12">
-                  <ProjectCard project={project} />
+                  <ProjectCard project={project} compact />
                 </div>
               )}
               showArrows
