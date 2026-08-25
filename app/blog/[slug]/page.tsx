@@ -50,7 +50,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <main className="w-full bg-white">
-      <article className="mx-auto max-w-382 px-16 py-40 md:max-w-730 md:py-80">
+      <article className="mx-auto min-w-0 w-[calc(382*var(--fx))] overflow-hidden py-40 md:w-[calc(730*var(--fx))] md:py-80">
         <div className="flex flex-col gap-16 md:flex-row md:items-start md:justify-between md:gap-24">
           <BlogHeader post={post} />
           <div className="hidden shrink-0 md:block md:w-326">
@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <BlogSectionMapper sections={post.acf.sections} />
           ) : (
             <div
-              className="font-poppins text-16 font-normal leading-[1.6] text-near-black md:text-18 md:leading-[1.7] [&_p]:m-0 [&_p+p]:mt-16 [&_ul]:mt-16 [&_ul]:list-disc [&_ul]:pl-24 [&_ol]:mt-16 [&_ol]:list-decimal [&_ol]:pl-24 [&_li]:mb-8 [&_strong]:font-semibold [&_em]:italic [&_a]:text-peach [&_a]:underline [&_h2]:mt-32 [&_h2]:text-24 [&_h2]:font-semibold [&_h3]:mt-24 [&_h3]:text-20 [&_h3]:font-semibold [&_img]:my-24 [&_img]:rounded-10 [&_figure]:my-24 [&_figcaption]:mt-8 [&_figcaption]:text-14 [&_figcaption]:text-near-black/60"
+              className="min-w-0 max-w-full font-poppins text-16 font-normal leading-[1.6] text-near-black md:text-18 md:leading-[1.7] [&_p]:m-0 [&_p+p]:mt-16 [&_ul]:mt-16 [&_ul]:list-disc [&_ul]:pl-24 [&_ol]:mt-16 [&_ol]:list-decimal [&_ol]:pl-24 [&_li]:mb-8 [&_strong]:font-semibold [&_em]:italic [&_a]:text-peach [&_a]:underline [&_h2]:mt-32 [&_h2]:text-24 [&_h2]:font-semibold [&_h3]:mt-24 [&_h3]:text-20 [&_h3]:font-semibold [&_img]:mx-auto [&_img]:my-24 [&_img]:block [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-10 [&_figure]:mx-auto [&_figure]:my-24 [&_figure]:max-w-full [&_figure]:overflow-hidden [&_figcaption]:mt-8 [&_figcaption]:text-14 [&_figcaption]:text-near-black/60"
               dangerouslySetInnerHTML={{ __html: post.content?.rendered ?? "" }}
             />
           )}

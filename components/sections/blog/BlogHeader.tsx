@@ -21,9 +21,9 @@ export function formatBlogDate(dateString: string): string {
 }
 
 export function getBlogCategory(post: BlogPost): string | undefined {
-  return post._embedded?.["wp:term"]
-    ?.flat()
-    .find((t) => t.taxonomy === "categoria_blog")?.name;
+  const terms = post._embedded?.["wp:term"]?.flat();
+  return terms?.find((term) => term.taxonomy === "categoria_blog")?.name
+    ?? terms?.find((term) => term.taxonomy === "category")?.name;
 }
 
 export function BlogHeader({ post }: BlogHeaderProps) {
@@ -36,7 +36,7 @@ export function BlogHeader({ post }: BlogHeaderProps) {
       <button
         type="button"
         onClick={() => router.back()}
-        className="group inline-flex items-center gap-12 self-start font-poppins text-18 font-normal text-near-black transition-opacity hover:opacity-70"
+        className="group inline-flex appearance-none items-center gap-12 self-start border-0 bg-transparent p-0 font-poppins text-18 font-normal text-near-black shadow-none transition-opacity hover:opacity-70"
       >
         <Image
           src="/icons/arrow-back.svg"
@@ -49,23 +49,24 @@ export function BlogHeader({ post }: BlogHeaderProps) {
         <span>Volver</span>
       </button>
 
-      <div className="flex flex-wrap items-center gap-10">
+      <div className="flex flex-col items-start gap-[calc(30*var(--fx))]">
         {category && (
           <span className="inline-block border border-near-black px-10 py-8 font-poppins text-14 font-medium text-near-black md:text-18">
             {category}
           </span>
         )}
+
+        <h1
+          className="m-0 font-gotham-medium text-[calc(28*var(--fx))] font-medium leading-[calc(28*var(--fx))] text-near-black md:text-[calc(40*var(--fx))] md:leading-[calc(40*var(--fx))]"
+          dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+        />
+
         {date && (
           <time className="font-poppins text-16 font-light text-near-black" dateTime={post.date}>
             {date}
           </time>
         )}
       </div>
-
-      <h1
-        className="m-0 font-gotham text-28 font-medium leading-[1.15] text-near-black md:text-40"
-        dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-      />
     </header>
   );
 }

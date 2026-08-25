@@ -9,16 +9,15 @@ export function BlogImageSection({ imagen }: BlogImageSectionProps) {
   if (!imagen?.url) return null;
 
   return (
-    <figure className="m-0 w-full">
-      <div className="relative aspect-[382/314] w-full overflow-hidden md:aspect-[730/500]">
-        <Image
-          src={imagen.url}
-          alt={imagen.alt || ""}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 730px"
-        />
-      </div>
+    <figure className="mx-auto my-0 min-w-0 max-w-full overflow-hidden">
+      <Image
+        src={imagen.url}
+        alt={imagen.alt || ""}
+        width={imagen.width ?? 730}
+        height={imagen.height ?? 500}
+        className="block h-auto w-full"
+        sizes="(max-width: 768px) 92vw, calc(730 * var(--fx))"
+      />
     </figure>
   );
 }

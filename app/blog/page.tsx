@@ -96,6 +96,29 @@ async function getPostById(id: number): Promise<WPPost | null> {
   }
 }
 
+async function getStickyPost(categoryId?: number): Promise<WPPost | null> {
+  try {
+    const wordpress = createWordPressRestClient({
+      cache: { revalidate: 3600, tags: ["wordpress-content"] },
+    });
+    const params = new URLSearchParams({
+      sticky: "true",
+      per_page: "1",
+      orderby: "date",
+      order: "desc",
+      _embed: "1",
+    });
+    if (categoryId) params.set("categories", String(categoryId));
+
+    const response = await wordpress.collection<WPPost[]>(
+      `/wp-json/wp/v2/posts?${params.toString()}`,
+    );
+    return response.data[0] ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getBlogPage();
   const banner = getBannerBlogSection(page);
@@ -113,20 +136,25 @@ export default async function BlogRoute({ searchParams }: BlogRouteProps) {
   const bannerSection = getBannerBlogSection(page);
   const selectedCategory = categories.find((c) => c.slug === categoria);
   const currentPage = Math.max(1, Number(pagina) || 1);
-  const featuredPostId = getFeaturedPostId(bannerSection?.featured_post);
+  const configuredFeaturedPostId = getFeaturedPostId(bannerSection?.featured_post);
+  const stickyPost = await getStickyPost(selectedCategory?.id);
+  const configuredFeaturedPost = configuredFeaturedPostId
+    ? await getPostById(configuredFeaturedPostId)
+    : null;
+  const featuredPost = stickyPost ?? configuredFeaturedPost;
+  const featuredPostId = featuredPost?.id;
   const { posts, totalPages } = await getPosts({
     page: currentPage,
     categoryId: selectedCategory?.id,
     exclude: featuredPostId,
   });
-  const featuredPost = featuredPostId ? await getPostById(featuredPostId) : null;
 
   return (
     <BlogPage
       page={page}
       bannerSection={bannerSection}
       categories={categories}
-      featuredPost={featuredPost}
+      featuredPost={currentPage === 1 ? featuredPost : null}
       posts={posts}
       currentPage={currentPage}
       totalPages={totalPages}

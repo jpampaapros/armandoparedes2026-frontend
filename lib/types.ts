@@ -171,12 +171,14 @@ export type WPCategory = {
 export type WPPost = {
   id: number;
   slug: string;
+  sticky?: boolean;
   title: { rendered: string };
   excerpt: { rendered: string };
   link: string;
   date: string;
   featured_media: number;
   _embedded?: {
+    author?: { id: number; name: string }[];
     "wp:featuredmedia"?: {
       source_url: string;
       alt_text?: string;
@@ -229,6 +231,19 @@ export type ReferidosPageSection =
       legal_text?: string;
     }
   | { acf_fc_layout: "se_parte"; title?: string; form_id?: string | number };
+
+export type ContactoTab = {
+  label?: string;
+  url?: string;
+};
+
+export type ContactoPageFields = {
+  titulo?: string;
+  formulario_id?: string | number;
+  tabs?: ContactoTab[];
+  distritos?: string | string[];
+  medios?: string | string[];
+};
 
 export type BlogPostSection =
   | { acf_fc_layout: "texto"; contenido?: string }

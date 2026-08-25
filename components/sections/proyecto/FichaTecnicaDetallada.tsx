@@ -58,9 +58,12 @@ export function FichaTecnicaDetallada({
                 ) : (
                   <div className="h-30 w-30 shrink-0 rounded-full bg-slate" />
                 )}
-                <span className="font-poppins text-16 font-medium text-near-black md:text-24">
-                  {item.texto}
-                </span>
+                {item.texto && (
+                  <div
+                    className="font-poppins text-16 font-medium text-near-black md:text-24 [&_p]:m-0"
+                    dangerouslySetInnerHTML={{ __html: item.texto }}
+                  />
+                )}
               </div>
             ))}
           </div>

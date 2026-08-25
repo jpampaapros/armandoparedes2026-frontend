@@ -259,7 +259,7 @@ export function FormularioContacto({
                   </span>
                   <span className="font-inter text-14 text-near-black">
                     He leído y acepto las{" "}
-                    <a href="/politicas-de-privacidad" className="underline">
+                    <a href="/politicas-de-privacidad" className="form-legal-link">
                       Políticas de Privacidad
                     </a>
                     .
@@ -301,7 +301,7 @@ export function FormularioContacto({
                   <span className="font-inter text-14 text-near-black">
                     Autorizo a Armando Paredes para que realice las actividades de
                     prospección comercial y marketing descritas en las{" "}
-                    <a href="/politicas-de-privacidad" className="underline">
+                    <a href="/politicas-de-privacidad" className="form-legal-link">
                       Políticas de Privacidad
                     </a>
                     .

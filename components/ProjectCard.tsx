@@ -4,14 +4,18 @@ import Image from "next/image";
 import { SmartLink } from "@/components/SmartLink";
 import type { Project } from "@/lib/types";
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({ project, compact = false }: { project: Project; compact?: boolean }) {
   const image = project._embedded?.["wp:featuredmedia"]?.[0];
   const distrito = project._embedded?.["wp:term"]
     ?.flat()
     .find((t) => t.taxonomy === "distrito");
 
   return (
-    <article className="group relative flex h-465 w-full min-w-0 md:max-w-382 flex-col overflow-hidden bg-black md:h-825 md:max-w-630">
+    <article
+      className={`group relative flex w-full min-w-0 flex-col overflow-hidden bg-black md:max-w-630 ${
+        compact ? "h-[calc(430*var(--fx))] md:h-[calc(680*var(--fx))]" : "h-465 md:h-825"
+      }`}
+    >
       {image?.source_url && (
         <Image
           src={image.source_url}

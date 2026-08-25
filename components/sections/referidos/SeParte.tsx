@@ -22,6 +22,7 @@ type ReferidosFormValues = {
   "referido-telefono": string;
   aceptoTerminos: boolean;
   autorizoMarketing: boolean;
+  autorizoReferido: boolean;
 };
 
 type PhoneInputProps = {
@@ -53,7 +54,7 @@ function PhoneInput({ name, label, register }: PhoneInputProps) {
         />
       </div>
       <label className="flex min-w-0 flex-1 flex-col justify-center border border-white px-10">
-        <span className="font-poppins text-10 font-semibold leading-none text-white">{label}</span>
+        <span className="font-poppins text-10 font-normal leading-none text-white">{label}</span>
         <input
           type="tel"
           className="min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-18 leading-[1.2] text-white outline-none"
@@ -84,6 +85,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
       "referido-telefono": "",
       aceptoTerminos: false,
       autorizoMarketing: false,
+      autorizoReferido: false,
     },
   });
   const { submit, isPending, status } = useCf7Submit(form_id || "976", { raw: true });
@@ -100,13 +102,16 @@ export function SeParte({ title, form_id }: SeParteProps) {
       "referido-apellido": values["referido-apellido"],
       "referido-email": values["referido-email"],
       "referido-telefono": values["referido-telefono"],
+      aceptoTerminos: values.aceptoTerminos ? "1" : "",
+      autorizoMarketing: values.autorizoMarketing ? "1" : "",
+      autorizoReferido: values.autorizoReferido ? "1" : "",
     };
     const ok = await submit(payload);
     if (ok) reset();
   };
 
   const fieldClass = "flex h-50 flex-col justify-center border border-white px-10";
-  const fieldLabelClass = "font-poppins text-10 font-semibold leading-none text-white";
+  const fieldLabelClass = "font-poppins text-10 font-normal leading-none text-white";
   const inputClass =
     "min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-18 leading-[1.2] text-white outline-none";
   const errorClass = "text-12 text-red-300";
@@ -218,32 +223,27 @@ export function SeParte({ title, form_id }: SeParteProps) {
               rules={{ required: true }}
               render={({ field: { value, onChange, ref, name } }) => (
                 <label className="flex cursor-pointer items-start gap-8">
-                  <span className="relative flex h-18 w-18 shrink-0 items-center justify-center">
+                  <span className="relative flex h-18 w-24 shrink-0 items-center justify-center">
                     <input
                       ref={ref}
                       name={name}
                       type="checkbox"
+                      role="switch"
                       checked={Boolean(value)}
                       onChange={(e) => onChange(e.target.checked)}
                       className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
                       aria-checked={Boolean(value)}
                     />
-                    <Image
-                      unoptimized
-                      src={
-                        value
-                          ? "/images/referidos/icon-check-note.svg"
-                          : "/images/referidos/icon-checkbox.svg"
-                      }
-                      alt=""
-                      width={18}
-                      height={18}
-                      className="h-18 w-18"
-                    />
+                    <span aria-hidden="true" className="flex h-16 w-22 items-center overflow-hidden rounded-full border-2 border-white px-3">
+                      <span className={`h-6 w-6 shrink-0 rounded-full border-2 border-white transition-[margin] duration-200 ${value ? "ml-auto" : "mr-auto"}`} />
+                    </span>
                   </span>
-                  <span className="font-inter text-14 text-white [&_a]:underline">
+                  <span className="font-inter text-14 text-white">
                     He leído y acepto las{" "}
-                    <a href="/terminos-y-condiciones" className="text-white">
+                    <a
+                      href="/terminos-y-condiciones"
+                      className="form-legal-link"
+                    >
                       Políticas de Privacidad
                     </a>
                     .
@@ -257,33 +257,28 @@ export function SeParte({ title, form_id }: SeParteProps) {
               control={control}
               render={({ field: { value, onChange, ref, name } }) => (
                 <label className="flex cursor-pointer items-start gap-8">
-                  <span className="relative flex h-18 w-18 shrink-0 items-center justify-center">
+                  <span className="relative flex h-18 w-24 shrink-0 items-center justify-center">
                     <input
                       ref={ref}
                       name={name}
                       type="checkbox"
+                      role="switch"
                       checked={Boolean(value)}
                       onChange={(e) => onChange(e.target.checked)}
                       className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
                       aria-checked={Boolean(value)}
                     />
-                    <Image
-                      unoptimized
-                      src={
-                        value
-                          ? "/images/referidos/icon-check-note.svg"
-                          : "/images/referidos/icon-checkbox.svg"
-                      }
-                      alt=""
-                      width={18}
-                      height={18}
-                      className="h-18 w-18"
-                    />
+                    <span aria-hidden="true" className="flex h-16 w-22 items-center overflow-hidden rounded-full border-2 border-white px-3">
+                      <span className={`h-6 w-6 shrink-0 rounded-full border-2 border-white transition-[margin] duration-200 ${value ? "ml-auto" : "mr-auto"}`} />
+                    </span>
                   </span>
                   <span className="font-inter text-14 text-white">
                     Autorizo a Armando Paredes para que realice las actividades de
                     prospección comercial y marketing descritas en las{" "}
-                    <a href="/terminos-y-condiciones" className="underline">
+                    <a
+                      href="/terminos-y-condiciones"
+                      className="form-legal-link"
+                    >
                       Políticas de Privacidad
                     </a>
                     .
@@ -292,20 +287,34 @@ export function SeParte({ title, form_id }: SeParteProps) {
               )}
             />
 
-            <label className="flex cursor-pointer items-start gap-8">
-              <Image
-                unoptimized
-                src="/images/referidos/icon-check-note.svg"
-                alt=""
-                width={20}
-                height={14}
-                className="mt-2 h-14 w-20"
-              />
-              <span className="font-inter text-14 text-white">
-                He recibido la autorización de mi referido para compartir sus datos
-                personales.
-              </span>
-            </label>
+            <Controller
+              name="autorizoReferido"
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange, ref, name } }) => (
+                <label className="flex cursor-pointer items-start gap-8">
+                  <span className="relative flex h-18 w-24 shrink-0 items-center justify-center">
+                    <input
+                      ref={ref}
+                      name={name}
+                      type="checkbox"
+                      role="switch"
+                      checked={Boolean(value)}
+                      onChange={(e) => onChange(e.target.checked)}
+                      className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
+                      aria-checked={Boolean(value)}
+                    />
+                    <span aria-hidden="true" className="flex h-16 w-22 items-center overflow-hidden rounded-full border-2 border-white px-3">
+                      <span className={`h-6 w-6 shrink-0 rounded-full border-2 border-white transition-[margin] duration-200 ${value ? "ml-auto" : "mr-auto"}`} />
+                    </span>
+                  </span>
+                  <span className="font-inter text-14 text-white">
+                    He recibido la autorización de mi referido para compartir sus datos
+                    personales.
+                  </span>
+                </label>
+              )}
+            />
           </div>
 
           <button

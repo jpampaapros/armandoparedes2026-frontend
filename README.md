@@ -99,6 +99,7 @@ Alias de imports: `@/*` → raíz del repo (`tsconfig.json`).
 | Ruta | Archivo | Fuente en WordPress |
 |---|---|---|
 | `/` | `app/page.tsx` | Página ID **9** (`acf_full.sections`) + CPT `proyectos` + CPT `entregados` |
+| `/contacto` | `app/contacto/page.tsx` | Página con slug `contacto`, plantilla de WordPress **Contacto** + CPT `proyectos` |
 | `/armando` | `app/armando/page.tsx` | Página ID **12** |
 | `/proyectos-en-venta` | `app/proyectos-en-venta/page.tsx` | Página ID **10** + CPT `proyectos` |
 | `/proyectos-entregados` | `app/proyectos-entregados/page.tsx` | Página ID **11** + CPT `entregados` |

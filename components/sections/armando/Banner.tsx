@@ -1,4 +1,3 @@
-import { stripHtml } from "@/lib/utils";
 import Image from "next/image";
 import type { ACFImage } from "@/lib/types";
 
@@ -24,17 +23,28 @@ function renderTitle(titulo?: string) {
   return (
     <h1 className="m-0 font-gotham text-48 leading-[normal] text-near-black md:text-[calc(100*var(--fx))]">
       <span className="block font-medium">{first}</span>
-      <span className="block w-fit border-b border-near-black pb-[calc(4*var(--fx))] font-light">
+      <span className="block w-fit border-b-2 border-near-black pb-[calc(4*var(--fx))] font-light">
         {second}
       </span>
     </h1>
   );
 }
 
-export function Banner({ titulo, descripcion, imagen_decorativa }: BannerProps) {
+export function Banner({ titulo, descripcion }: BannerProps) {
   return (
     <section className="relative w-full overflow-hidden bg-white md:h-[calc(700*var(--fx))]">
-      <div className="relative mx-auto flex min-h-[calc(620*var(--fx))] max-w-1440 flex-col px-16 py-60 md:h-full md:min-h-0 md:px-[calc(80*var(--fx))] md:pt-[calc(210*var(--fx))] md:pb-[calc(90*var(--fx))]">
+      <div className="pointer-events-none relative mx-auto h-[calc(355*var(--fx))] w-[calc(349*var(--fx))] max-w-full md:hidden">
+        <Image
+          src="/images/armando/banner-superior-derecha.png"
+          alt=""
+          fill
+          className="object-contain brightness-0"
+          sizes="349px"
+          priority
+        />
+      </div>
+
+      <div className="relative mx-auto flex max-w-1440 flex-col px-16 pb-60 pt-30 md:h-full md:min-h-0 md:px-[calc(80*var(--fx))] md:pb-[calc(90*var(--fx))] md:pt-[calc(210*var(--fx))]">
         <div className="relative z-10 grid flex-1 gap-40 md:grid-cols-2 md:grid-rows-2 md:gap-0">
           <div className="md:col-start-1 md:row-start-1">
             {renderTitle(titulo)}
@@ -49,18 +59,16 @@ export function Banner({ titulo, descripcion, imagen_decorativa }: BannerProps) 
         </div>
       </div>
 
-      {imagen_decorativa?.url && (
-        <div className="pointer-events-none absolute right-0 top-0 hidden h-[calc(315*var(--fx))] w-[calc(480*var(--fx))] md:block">
-          <Image
-            src={imagen_decorativa.url}
-            alt={stripHtml(imagen_decorativa.alt || titulo) || ""}
-            fill
-            className="object-contain object-right-top"
-            sizes="480px"
-            priority
-          />
-        </div>
-      )}
+      <div className="pointer-events-none absolute right-0 top-0 z-20 hidden h-[calc(355*var(--fx))] w-[calc(349*var(--fx))] md:block">
+        <Image
+          src="/images/armando/banner-superior-derecha.png"
+          alt=""
+          fill
+          className="object-contain object-right-top brightness-0"
+          sizes="349px"
+          priority
+        />
+      </div>
     </section>
   );
 }
