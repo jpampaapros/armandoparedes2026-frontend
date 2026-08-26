@@ -18,8 +18,8 @@ export function ProyectosEntregados({ texto, subtitulo, boton, entregados }: Pro
   const [first, ...rest] = sorted.slice(0, 5);
 
   return (
-    <section className="w-full bg-white px-4 pb-37 pt-52 md:pt-75 md:pb-119">
-      <div className="mx-auto max-w-1440 px-4 md:px-80">
+    <section className="w-full bg-white px-[calc(15*var(--fx))] pb-37 pt-52 md:px-4 md:pb-119 md:pt-75">
+      <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col items-center gap-24 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-col items-center gap-13 md:items-start">
             {texto && (
@@ -42,13 +42,13 @@ export function ProyectosEntregados({ texto, subtitulo, boton, entregados }: Pro
         <div className="grid grid-cols-1 gap-16 md:h-630 md:grid-cols-[--spacing(630)_1fr] md:gap-25">
           {first && (
             <div className="h-391 md:h-full">
-              <DeliveredCard project={first} size="large" priority />
+              <DeliveredCard project={first} size="large" priority mobileYear24 />
             </div>
           )}
           <div className="grid grid-cols-1 gap-16 md:h-full md:grid-cols-2 md:grid-rows-2 md:gap-25">
             {rest.map((project) => (
               <div key={project.id} className="h-391 md:h-full">
-                <DeliveredCard project={project} size="small" priority />
+                <DeliveredCard project={project} size="small" priority mobileYear24 />
               </div>
             ))}
           </div>

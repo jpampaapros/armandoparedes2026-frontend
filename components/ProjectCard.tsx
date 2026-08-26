@@ -4,7 +4,15 @@ import Image from "next/image";
 import { SmartLink } from "@/components/SmartLink";
 import type { Project } from "@/lib/types";
 
-export function ProjectCard({ project, compact = false }: { project: Project; compact?: boolean }) {
+export function ProjectCard({
+  project,
+  compact = false,
+  mobileDescriptionSemibold = false,
+}: {
+  project: Project;
+  compact?: boolean;
+  mobileDescriptionSemibold?: boolean;
+}) {
   const image = project._embedded?.["wp:featuredmedia"]?.[0];
   const distrito = project._embedded?.["wp:term"]
     ?.flat()
@@ -41,7 +49,7 @@ export function ProjectCard({ project, compact = false }: { project: Project; co
           </h3>
           <hr className="my-0 h-px w-full border-0 bg-white" />
         </div>
-        <div className="font-poppins text-16 font-light leading-20 text-white md:text-24 md:leading-30 [&_p]:my-0"
+        <div className={`font-poppins text-16 leading-20 text-white md:text-24 md:leading-30 [&_p]:my-0 ${mobileDescriptionSemibold ? "[&_p]:font-semibold md:[&_p]:font-light" : "[&_p]:font-light"}`}
           dangerouslySetInnerHTML={{ __html: project.acf.descripcion || "" }}
         />
         <SmartLink

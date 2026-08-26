@@ -11,6 +11,7 @@ export function DeliveredCard({
   showYear = true,
   showButton = false,
   distrito,
+  mobileYear24 = false,
 }: {
   project: Delivered;
   size?: "large" | "small";
@@ -18,6 +19,7 @@ export function DeliveredCard({
   showYear?: boolean;
   showButton?: boolean;
   distrito?: string;
+  mobileYear24?: boolean;
 }) {
   const image = project._embedded?.["wp:featuredmedia"]?.[0];
   const isLarge = size === "large";
@@ -31,6 +33,11 @@ export function DeliveredCard({
   const paddingClass = isLarge
     ? "p-16 md:p-54"
     : "p-16 md:p-20";
+  const yearClass = mobileYear24
+    ? isLarge
+      ? "text-[calc(24*var(--fx))] md:text-24"
+      : "text-[calc(24*var(--fx))] md:text-16"
+    : metaClass;
 
   return (
     <Link
@@ -63,7 +70,7 @@ export function DeliveredCard({
           </p>
         )}
         {showYear && (
-          <p className={`font-poppins font-light leading-[1.2] text-white ${metaClass}`} /* leading-[1.2] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+          <p className={`font-poppins font-light leading-[1.2] text-white ${yearClass}`} /* leading-[1.2] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
             {project.acf.ano}
           </p>
         )}

@@ -72,8 +72,8 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
   }, [proyectos, tags, distrito, tipo, area]);
 
   return (
-    <section className="w-full bg-white px-4 pt-49 pb-35 md:pt-101 md:pb-60">
-      <div className="mx-auto max-w-1440 px-4 md:px-80">
+    <section className="w-full bg-white px-[calc(15*var(--fx))] pb-35 pt-49 md:px-4 md:pb-60 md:pt-101">
+      <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col gap-24 md:flex-row md:items-start md:justify-between">
           {titulo && (
             <h2 className="my-0 text-center md:text-left font-gotham text-36 font-medium leading-[1.1] text-slate md:text-55" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
@@ -110,7 +110,7 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
           <>
             <div className="flex flex-col gap-16 md:hidden">
               {filtered.map((project) => (
-                <ProjectCard key={project.id} project={project} />
+                <ProjectCard key={project.id} project={project} mobileDescriptionSemibold />
               ))}
             </div>
 
@@ -121,7 +121,7 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
                 gap={20}
                 showArrows={false}
                 onApiReady={setEmblaApi}
-                renderSlide={(project) => <ProjectCard key={project.id} project={project} />}
+                renderSlide={(project) => <ProjectCard key={project.id} project={project} mobileDescriptionSemibold />}
               />
             </div>
 

@@ -59,7 +59,7 @@ function BlogCard({ post }: { post: WPPost }) {
   return (
     <Link
       href={resolveWordPressUrl(post.link)}
-      className="group flex flex-col md:flex-row h-full w-full gap-12 bg-card-dark p-20 text-white md:gap-24"
+      className="group flex h-full w-full flex-col gap-12 bg-card-dark px-[calc(12*var(--fx))] pb-[calc(16*var(--fx))] pt-[calc(12*var(--fx))] text-white md:flex-row md:gap-24 md:p-20"
     >
       {image?.source_url && (
         <div className="relative min-h-200 shrink-0 overflow-hidden md:w-[calc(280*var(--fx))]">
@@ -71,7 +71,7 @@ function BlogCard({ post }: { post: WPPost }) {
             sizes="(max-width: 768px) 45vw, 40vw"
           />
           {category && (
-            <span className="absolute bottom-16 left-0 bg-white px-12 py-6 font-poppins text-12 font-normal leading-18 text-near-black md:px-16 md:py-8 md:text-14">
+            <span className="absolute left-[calc(16*var(--fx))] top-[calc(16*var(--fx))] bg-white px-12 py-6 font-poppins text-[calc(14*var(--fx))] font-medium not-italic leading-normal text-black md:bottom-16 md:left-0 md:top-auto md:px-16 md:py-8 md:text-14 md:font-normal md:leading-18 md:text-near-black">
               {category}
             </span>
           )}
@@ -97,7 +97,7 @@ function BlogCard({ post }: { post: WPPost }) {
         )}
 
         <div
-          className="mt-14 line-clamp-6 font-poppins text-12 font-normal leading-18 text-white md:mt-20 md:line-clamp-8 md:text-14 md:leading-20"
+          className="mt-14 hidden line-clamp-6 font-poppins text-12 font-normal leading-18 text-white md:mt-20 md:block md:line-clamp-8 md:text-14 md:leading-20"
           dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
         />
 
@@ -155,11 +155,10 @@ export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSlide
           <div className="min-h-398 w-full md:h-[calc(396*var(--fx))] md:min-h-0 md:w-848">
             <EmblaSlider
               slides={posts}
-              // 1 card + peek de la siguiente. La fracción sale de
-              // (W + gap) / (card + gap): mobile 407/306 (card 281, peek ~76).
+              // En mobile el slide mide 306: card de 281 + espacio de 25.
               // En desktop el slide mide 575: card de 550 + espacio de 25.
               slidesPerView={{ base: 1.33, md: 1 }}
-              slideClassName="md:!basis-[calc(575*var(--fx))]"
+              slideClassName="!basis-[calc(306*var(--fx))] md:!basis-[calc(575*var(--fx))]"
               slidesToScroll={1}
               gap={0}
               loop
@@ -167,7 +166,7 @@ export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSlide
               showArrows={false}
               onSelectChange={setActivePostIndex}
               renderSlide={(post) => (
-                <div className="h-full w-full pr-25 md:w-[calc(550*var(--fx))] md:pr-0">
+                <div className="h-auto w-[calc(281*var(--fx))] md:h-full md:w-[calc(550*var(--fx))]">
                   <BlogCard key={post.id} post={post} />
                 </div>
               )}
