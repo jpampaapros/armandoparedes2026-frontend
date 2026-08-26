@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Autoplay from "embla-carousel-autoplay";
@@ -62,7 +62,7 @@ function BlogCard({ post }: { post: WPPost }) {
       className="group flex flex-col md:flex-row h-full w-full gap-12 bg-card-dark p-20 text-white md:gap-24"
     >
       {image?.source_url && (
-        <div className="relative shrink-0 overflow-hidden md:w-[53%] min-h-200">
+        <div className="relative min-h-200 shrink-0 overflow-hidden md:w-[calc(280*var(--fx))]">
           <Image
             src={image.source_url}
             alt={image.alt_text || post.title.rendered}
@@ -111,6 +111,11 @@ function BlogCard({ post }: { post: WPPost }) {
 
 export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSliderProps) {
   const isLight = variant === "light";
+  const [activePostIndex, setActivePostIndex] = useState(0);
+  const activePost = posts[activePostIndex] ?? posts[0];
+  const activeBlogLink = boton && activePost
+    ? { ...boton, url: activePost.link }
+    : boton;
 
   // Referencia estable: si el plugin se recrea en cada render, Embla reinicia
   // el carrusel y el autoplay nunca llega a avanzar.
@@ -139,33 +144,39 @@ export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSlide
                 {titulo}
               </h2>
             )}
-            {boton && (
+            {activeBlogLink && (
               <SmartLink
-                link={boton}
+                link={activeBlogLink}
                 className="hidden h-50 min-w-250 items-center justify-center bg-peach px-24 font-gotham text-18 font-bold text-white transition-opacity hover:opacity-90 md:inline-flex"
               />
             )}
           </div>
 
-          <div className="min-h-398 w-full md:min-h-391 md:w-848">
+          <div className="min-h-398 w-full md:h-[calc(396*var(--fx))] md:min-h-0 md:w-848">
             <EmblaSlider
               slides={posts}
               // 1 card + peek de la siguiente. La fracción sale de
-              // (W + gap) / (card + gap): mobile 407/306 (card 281, peek ~76),
-              // desktop 873/746 (card 721, peek ~102).
-              slidesPerView={{ base: 1.33, md: 1.60 }}
+              // (W + gap) / (card + gap): mobile 407/306 (card 281, peek ~76).
+              // En desktop el slide mide 575: card de 550 + espacio de 25.
+              slidesPerView={{ base: 1.33, md: 1 }}
+              slideClassName="md:!basis-[calc(575*var(--fx))]"
               slidesToScroll={1}
-              gap={25}
+              gap={0}
               loop
               plugins={plugins}
               showArrows={false}
-              renderSlide={(post) => <BlogCard key={post.id} post={post} />}
+              onSelectChange={setActivePostIndex}
+              renderSlide={(post) => (
+                <div className="h-full w-full pr-25 md:w-[calc(550*var(--fx))] md:pr-0">
+                  <BlogCard key={post.id} post={post} />
+                </div>
+              )}
             />
           </div>
 
-          {boton && (
+          {activeBlogLink && (
             <SmartLink
-              link={boton}
+              link={activeBlogLink}
               className="inline-flex h-50 min-w-250 items-center justify-center bg-peach px-24 font-gotham text-18 font-bold text-white transition-opacity hover:opacity-90 md:hidden"
             />
           )}
