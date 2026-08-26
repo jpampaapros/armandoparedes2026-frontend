@@ -26,6 +26,8 @@ export interface EmblaSliderProps<T> {
   className?: string;
   /** Contenedor del carrusel (viewport) */
   viewportClassName?: string;
+  /** Clases aplicadas al contenedor de cada slide. Útil para fijar un ancho de diseño específico. */
+  slideClassName?: string;
   renderSlide: (
     slide: T,
     index: number,
@@ -155,6 +157,7 @@ export function EmblaSlider<T>({
   slides,
   className,
   viewportClassName,
+  slideClassName,
   renderSlide,
   showArrows = true,
   showBullets = false,
@@ -448,7 +451,7 @@ export function EmblaSlider<T>({
           {slides.map((slide, index) => (
             <div
               key={index}
-              className="min-w-0 shrink-0 grow-0"
+              className={cn("min-w-0 shrink-0 grow-0", slideClassName)}
               style={{
                 flex: `0 0 ${basisPercent}%`,
                 ...(gapPx > 0

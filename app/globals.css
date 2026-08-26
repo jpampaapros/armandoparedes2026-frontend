@@ -396,3 +396,24 @@ a:-webkit-any-link {
   background: currentColor;
   animation: typewriter-cursor-blink 700ms step-end infinite;
 }
+
+@keyframes armando-life-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.armando-life-marquee {
+  animation: armando-life-marquee var(--armando-life-duration, 18s) linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .armando-life-marquee {
+    animation-play-state: paused;
+  }
+}

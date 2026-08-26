@@ -241,8 +241,8 @@ export function SeParte({ title, form_id }: SeParteProps) {
                   <span className="font-inter text-14 text-white">
                     He leído y acepto las{" "}
                     <a
-                      href="/terminos-y-condiciones"
-                      className="form-legal-link"
+                      href="/politicas-de-privacidad"
+                      className="form-legal-link !text-white"
                     >
                       Políticas de Privacidad
                     </a>
@@ -276,8 +276,8 @@ export function SeParte({ title, form_id }: SeParteProps) {
                     Autorizo a Armando Paredes para que realice las actividades de
                     prospección comercial y marketing descritas en las{" "}
                     <a
-                      href="/terminos-y-condiciones"
-                      className="form-legal-link"
+                      href="/politicas-de-privacidad"
+                      className="form-legal-link !text-white"
                     >
                       Políticas de Privacidad
                     </a>
