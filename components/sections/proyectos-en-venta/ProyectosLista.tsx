@@ -26,7 +26,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full appearance-none border-0 bg-transparent pr-8 font-poppins text-16 font-extralight text-text-muted outline-none focus:ring-0 pb-0 pt-15 pl-8"
+        className="w-full appearance-none border-0 bg-transparent py-20 pl-8 pr-8 font-poppins text-16 font-extralight text-text-muted outline-none focus:ring-0"
       >
         <option value="">{placeholder}</option>
         {options.map((opt) => (
@@ -68,8 +68,8 @@ export function ProyectosLista({ titulo, proyectos }: ProyectosListaProps) {
   }, [proyectos, tags, distrito, tipo, area]);
 
   return (
-    <section data-section="proyectos_lista" className="w-full bg-white px-4 py-60 md:py-120">
-      <div className="mx-auto max-w-1440 px-4 md:px-80">
+    <section data-section="proyectos_lista" className="w-full bg-white px-[calc(15*var(--fx))] py-60 md:px-0 md:py-120">
+      <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col md:flex-row gap-24 justify-between">
           {titulo && (
             <h2 className="order-1 font-gotham text-36 font-semibold leading-[1.1] text-slate md:order-1 md:text-40 text-center md:text-left">
@@ -88,7 +88,7 @@ export function ProyectosLista({ titulo, proyectos }: ProyectosListaProps) {
             No hay proyectos que coincidan con los filtros.
           </p>
         ) : (
-          <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-49">
+          <div className="grid grid-cols-1 gap-[calc(15*var(--fx))] md:grid-cols-2">
             {filtered.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}

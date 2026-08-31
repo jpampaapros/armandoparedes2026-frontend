@@ -15,6 +15,10 @@ type PlanosProyectoProps = {
   leyenda?: { etiqueta?: string; valor?: string }[];
 };
 
+function abbreviateDormitorios(value?: string) {
+  return value?.replace(/\bdormitorios?\b/gi, "dorm.");
+}
+
 export function PlanosProyecto({
   titulo,
   dormitorios = [],
@@ -63,7 +67,7 @@ export function PlanosProyecto({
 
   return (
     <section data-layout="planos" className="w-full bg-white">
-      <div className="mx-auto max-w-1440 px-24 py-60 md:px-80 md:py-100">
+      <div className="mx-auto max-w-1440 px-0 py-60 md:px-80 md:py-100">
         {titulo && (
           <h2 className="mb-30 mt-0 text-center font-gotham text-36 font-bold text-slate md:mb-50 md:text-60">
             {titulo}
@@ -85,19 +89,20 @@ export function PlanosProyecto({
                 : "border-peach text-near-black hover:bg-peach/10"
             }`}
           >
-              {d.numero}
+              <span className="md:hidden">{abbreviateDormitorios(d.numero)}</span>
+              <span className="hidden md:inline">{d.numero}</span>
             </button>
           ))}
         </div>
 
         {tipologias.length > 1 && (
-          <div className="mb-40 mt-16 flex flex-wrap justify-center gap-12 md:mb-60">
+          <div className="mb-40 mt-16 flex flex-wrap justify-center gap-[calc(15*var(--fx))] px-[calc(15*var(--fx))] md:mb-60 md:gap-12 md:px-0">
             {tipologias.map((t, i) => (
               <button
                 key={i}
                 type="button"
                 onClick={() => setActiveTipo(i)}
-                className={`border px-20 py-10 font-gotham text-14 font-bold transition-colors md:text-18 ${
+                className={`min-w-0 flex-1 border px-20 py-10 font-gotham text-14 font-bold transition-colors md:flex-none md:text-18 ${
                   i === activeTipo
                     ? "border-peach bg-peach text-white"
                     : "border-peach text-near-black hover:bg-peach/10"
@@ -133,7 +138,8 @@ export function PlanosProyecto({
                 {tipologia.nombre}
               </h3>
               <p className="font-gotham text-24 font-bold text-near-black md:text-32">
-                {dormitorio?.numero}
+                <span className="md:hidden">{abbreviateDormitorios(dormitorio?.numero)}</span>
+                <span className="hidden md:inline">{dormitorio?.numero}</span>
               </p>
 
               <hr className="h-px w-full border-0 bg-near-black m-0" />

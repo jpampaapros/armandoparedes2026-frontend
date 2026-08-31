@@ -73,9 +73,13 @@ export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado 
   return (
     <section data-layout="descripcion_proyecto" className="w-full bg-white">
       <div className="grid grid-cols-1 md:grid-cols-2">
-        <div className={cambiar_lado ? "md:order-2" : "md:order-1"}>{imageCell}</div>
         <div
-          className={`${cambiar_lado ? "md:order-1" : "md:order-2"} w-full items-center justify-center md:flex`}
+          className={`${cambiar_lado ? "order-2 md:order-2" : "order-2 md:order-1"} px-[calc(15*var(--fx))] pb-[calc(15*var(--fx))] md:px-0 md:pb-0`}
+        >
+          {imageCell}
+        </div>
+        <div
+          className={`${cambiar_lado ? "order-1 md:order-1" : "order-1 md:order-2"} w-full items-center justify-center md:flex`}
         >
           {textCell}
         </div>
