@@ -24,7 +24,7 @@ function TabButton({
     <button
       type="button"
       onClick={onClick}
-      className="relative bg-transparent pb-0 text-left"
+      className="relative w-fit border-0 bg-transparent p-0 pb-[calc(16*var(--fx))] text-left md:pb-0"
     >
       <span
         className={`font-gotham text-20 md:text-32 ${
@@ -34,7 +34,7 @@ function TabButton({
         {label}
       </span>
       {active && (
-        <span className="absolute bottom-0 left-0 h-px w-120 bg-white md:w-192" />
+        <span className="absolute bottom-0 left-0 h-px w-full bg-white md:w-192" />
       )}
     </button>
   );
@@ -71,7 +71,10 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
           )}
           loop={false}
           showArrows={false}
-          showBullets={(activeTab.imagenes?.length ?? 0) > 1}
+          showBullets={{
+            mobile: false,
+            desktop: (activeTab.imagenes?.length ?? 0) > 1,
+          }}
         />
       </div>
 

@@ -9,7 +9,10 @@ type MapaProyectoProps = {
 
 export function MapaProyecto({ titulo, imagen, ubicaciones = [] }: MapaProyectoProps) {
   return (
-    <section data-layout="mapa" className="w-full bg-peach md:pb-153 md:pt-110">
+    <section
+      data-layout="mapa"
+      className="w-full bg-peach pt-[calc(63*var(--fx))] md:pb-153 md:pt-110"
+    >
       <div className="mx-auto flex max-w-1440 flex-col px-16 md:flex-row md:px-80">
         <div className="relative h-273 w-full overflow-hidden rounded-15 md:h-730 md:w-875 md:rounded-35">
           {imagen?.url ? (
@@ -25,7 +28,7 @@ export function MapaProyecto({ titulo, imagen, ubicaciones = [] }: MapaProyectoP
           )}
         </div>
 
-        <div className="mt-27 w-full bg-transparent px-16 pt-34 pb-40 md:ml-16 md:mt-0 md:w-389 md:rounded-30 md:px-40 md:pt-53">
+        <div className="mt-27 w-full bg-transparent px-0 pt-34 pb-40 md:ml-16 md:mt-0 md:w-389 md:rounded-30 md:px-40 md:pt-53">
           {titulo && (
             <h2 className="m-0 font-gotham text-32 font-medium text-white">
               {titulo}
@@ -34,7 +37,7 @@ export function MapaProyecto({ titulo, imagen, ubicaciones = [] }: MapaProyectoP
 
           <ul className="mt-24 flex list-none flex-col p-0 md:mt-40">
             {ubicaciones.map((u, i) => (
-              <li key={i} className="border-b border-white/20 py-12 first:pt-0 last:border-b-0">
+              <li key={i} className="border-b border-white py-12 first:pt-0 last:border-b-0 md:border-white/20">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-12">
                     {u.icono?.url && (

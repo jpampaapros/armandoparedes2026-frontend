@@ -104,7 +104,7 @@ export function HeaderClient({ data }: { data: HeaderData }) {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 h-[var(--header-height)] min-h-[56px] bg-header-bg font-gotham text-header-text backdrop-blur-md transition-transform duration-500 ease-in-out motion-reduce:transition-none ${
+        className={`fixed inset-x-0 top-0 z-50 h-[calc(var(--header-height)+1px)] min-h-[56px] bg-header-bg font-gotham text-header-text backdrop-blur-md transition-transform duration-500 ease-in-out motion-reduce:transition-none ${
           isHeaderVisible ? "translate-y-0" : "-translate-y-full"
         }`}
       >

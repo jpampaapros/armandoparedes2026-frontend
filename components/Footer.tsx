@@ -133,7 +133,7 @@ export async function Footer() {
       <div className="mx-auto max-w-1440 px-24 pt-59 pb-60 md:px-80 md:pt-66 md:pb-40">
         {data.title && (
                 <h2
-            className="mx-0 mb-60 mt-0 max-w-857 text-36 font-normal uppercase leading-44 md:mx-auto md:mb-70 md:font-gotham-black md:font-medium md:text-60 md:leading-66"
+            className="mx-0 mb-60 mt-0 w-[calc(255*var(--fx))] max-w-857 text-36 font-bold uppercase leading-44 md:mx-auto md:mb-70 md:w-auto md:font-gotham-black md:font-medium md:text-60 md:leading-66"
             style={{ marginTop: 0 }}
           >
             {data.title}
