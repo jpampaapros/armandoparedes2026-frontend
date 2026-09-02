@@ -37,7 +37,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
     return (
       <Link
         href={`/blog/${post.slug}`}
-        className="group relative flex w-full flex-col overflow-hidden bg-card-dark md:aspect-[1250/561] md:flex-row md:gap-[55px]"
+        className="group relative flex w-full flex-col overflow-hidden bg-card-dark p-[calc(16*var(--fx))] md:aspect-[1250/561] md:flex-row md:gap-[55px] md:p-0"
       >
         <div className="relative aspect-[16/10] w-full overflow-hidden md:aspect-auto md:w-[46%]">
           {image?.source_url ? (
@@ -55,13 +55,13 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
             </div>
           )}
           {category && (
-            <span className="absolute bottom-16 left-16 bg-white px-10 py-6 font-poppins text-14 font-medium text-near-black">
+            <span className="absolute left-0 top-[calc(16*var(--fx))] bg-white px-10 py-6 font-poppins text-14 font-medium text-near-black md:bottom-16 md:left-16 md:top-auto">
               {category}
             </span>
           )}
         </div>
-        <div className="flex flex-col gap-16 p-16 md:w-[calc(54%-55px)] md:gap-24 md:py-24 md:pl-0 md:pr-24">
-          <div className="mb-[50px] flex flex-wrap items-center gap-8">
+        <div className="flex flex-col gap-[calc(16*var(--fx))] px-0 pb-[calc(30*var(--fx))] pt-[calc(22*var(--fx))] md:w-[calc(54%-55px)] md:gap-24 md:py-24 md:pl-0 md:pr-24">
+          <div className="mb-0 flex flex-wrap items-center gap-8 md:mb-[50px]">
             {date && (
               <span className="bg-slate px-10 py-6 font-poppins text-14 font-normal text-white">
                 {date}
@@ -69,7 +69,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
             )}
           </div>
           <h2
-            className="font-gotham text-24 font-bold leading-30 text-white md:text-36 md:leading-42"
+            className="font-gotham text-[calc(28*var(--fx))] font-bold leading-[1.25] text-white md:text-36 md:leading-42"
             dangerouslySetInnerHTML={{ __html: post.title.rendered }}
           />
           <span className="font-poppins text-14 font-light italic leading-24 text-white">
@@ -79,7 +79,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
             className="line-clamp-3 font-poppins text-16 font-normal leading-24 text-white md:text-20"
             dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
           />
-          <span className="mt-auto font-poppins text-[calc(9.152*var(--fx))] font-light italic leading-[calc(17.409*var(--fx))] text-white underline decoration-solid [text-decoration-skip-ink:none] [text-decoration-thickness:auto] [text-underline-offset:auto] [text-underline-position:from-font]">
+          <span className="mt-auto font-poppins text-[calc(14*var(--fx))] font-light not-italic leading-[calc(17.409*var(--fx))] text-white underline decoration-solid md:text-[calc(9.152*var(--fx))] md:italic [text-decoration-skip-ink:none] [text-decoration-thickness:auto] [text-underline-offset:auto] [text-underline-position:from-font]">
             Leer más
           </span>
         </div>

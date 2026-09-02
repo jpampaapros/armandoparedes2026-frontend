@@ -9,7 +9,7 @@ type CadaProyectoProps = {
 
 export function CadaProyecto({ imagen_fondo, titulo }: CadaProyectoProps) {
   return (
-    <section className="relative h-[calc(768*var(--fx))] w-full overflow-hidden">
+    <section className="relative h-[calc(524*var(--fx))] w-full overflow-hidden md:h-[calc(768*var(--fx))]">
       {imagen_fondo?.url ? (
         <Image
           src={imagen_fondo.url}
@@ -28,7 +28,7 @@ export function CadaProyecto({ imagen_fondo, titulo }: CadaProyectoProps) {
       <div className="absolute inset-0 flex items-center justify-center px-16">
         {titulo && (
           <h2
-            className="armando-project-title max-w-906"
+            className="armando-project-title w-[calc(322*var(--fx))] max-w-full md:w-auto md:max-w-906"
             dangerouslySetInnerHTML={{ __html: titulo }}
           />
         )}

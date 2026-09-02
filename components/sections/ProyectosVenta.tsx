@@ -30,7 +30,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-full w-full appearance-none border-0 bg-transparent pr-8 font-poppins text-16 font-extralight text-warm-gray outline-none"
+        className="h-full w-full appearance-none border-0 bg-transparent pl-[calc(7*var(--fx))] pr-8 font-poppins text-16 font-extralight text-warm-gray outline-none md:pl-0"
       >
         <option value="">{placeholder}</option>
         {options.map((opt) => (
@@ -49,6 +49,7 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
   const [tipo, setTipo] = useState("");
   const [area, setArea] = useState("");
   const [emblaApi, setEmblaApi] = useState<EmblaCarouselType | null>(null);
+  const mobileTitle = titulo?.match(/^(.*?)\s+(en\s+venta)$/i);
 
   const tags = useMemo(() => proyectos.map((p) => getProjectFilterTags(p)), [proyectos]);
 
@@ -77,7 +78,15 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
         <div className="mb-40 flex flex-col gap-24 md:flex-row md:items-start md:justify-between">
           {titulo && (
             <h2 className="my-0 text-center md:text-left font-gotham text-36 font-medium leading-[1.1] text-slate md:text-55" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
-              {titulo}
+              {mobileTitle ? (
+                <>
+                  <span className="block md:hidden">{mobileTitle[1]}</span>
+                  <span className="block md:hidden">{mobileTitle[2]}</span>
+                  <span className="hidden md:inline">{titulo}</span>
+                </>
+              ) : (
+                titulo
+              )}
             </h2>
           )}
           <div className="flex flex-col gap-16 md:flex-row md:gap-24">
@@ -108,24 +117,22 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
           </p>
         ) : (
           <>
-            <div className="flex flex-col gap-16 md:hidden">
-              {filtered.map((project) => (
-                <ProjectCard key={project.id} project={project} mobileDescriptionSemibold />
-              ))}
-            </div>
-
-            <div className="-mx-4 hidden md:block md:mx-0">
+            <div className="md:-mx-10">
               <EmblaSlider
                 slides={filtered}
-                slidesPerView={2}
-                gap={20}
+                slidesPerView={{ base: 1, md: 2 }}
+                gap={0}
                 showArrows={false}
                 onApiReady={setEmblaApi}
-                renderSlide={(project) => <ProjectCard key={project.id} project={project} mobileDescriptionSemibold />}
+                renderSlide={(project) => (
+                  <div className="h-full md:px-10">
+                    <ProjectCard key={project.id} project={project} mobileDescriptionSemibold />
+                  </div>
+                )}
               />
             </div>
 
-            <div className="hidden md:mt-35 md:flex md:justify-end md:gap-16">
+            <div className="mt-16 flex justify-start gap-16 md:mt-35 md:justify-end">
               <button
                 type="button"
                 onClick={() => emblaApi?.scrollPrev()}

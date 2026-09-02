@@ -111,10 +111,10 @@
   color: #fff;
   text-align: center;
   font-family: 'Gotham', Arial, sans-serif;
-  font-size: calc(60 * var(--fx));
+  font-size: calc(36 * var(--fx));
   font-style: normal;
   font-weight: 400;
-  line-height: calc(60 * var(--fx));
+  line-height: calc(36 * var(--fx));
 }
 
 @media (min-width: 768px) {
@@ -132,6 +132,11 @@
 
   .armando-life-label {
     font-size: calc(19 * var(--fx));
+  }
+
+  .armando-project-title {
+    font-size: calc(60 * var(--fx));
+    line-height: calc(60 * var(--fx));
   }
 
 }

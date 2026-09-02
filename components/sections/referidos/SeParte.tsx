@@ -120,7 +120,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
     <section data-layout="se_parte" className="w-full bg-slate px-16 py-60 md:px-24 md:py-100">
       <div className="mx-auto max-w-1025">
         {title && (
-          <h2 className="m-0 whitespace-pre-line text-center font-gotham-black text-36 text-white md:text-60">
+          <h2 className="m-0 whitespace-pre-line text-center font-gotham text-36 font-normal text-white md:font-gotham-black md:text-60 md:font-bold">
             {title}
           </h2>
         )}

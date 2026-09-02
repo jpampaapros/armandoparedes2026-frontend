@@ -46,18 +46,19 @@ export function BannerReferidos({
         ) : (
           <div className="absolute inset-0 bg-near-black" />
         )}
+
+        {title && (
+          <h1 className="absolute bottom-[calc(52*var(--fx))] left-1/2 z-10 m-0 w-full -translate-x-1/2 px-24 text-center font-gotham-black text-[calc(36*var(--fx))] uppercase leading-[1.1] text-near-black md:hidden">
+            {titleFirstLine && <span className="block">{titleFirstLine}</span>}
+            {titleLastWord && <span className="block">{titleLastWord}</span>}
+          </h1>
+        )}
       </div>
 
       {/* Contenido mobile: flujo normal debajo de la imagen */}
-      <div className="relative z-10 mx-auto flex w-full max-w-1440 flex-col items-center bg-white px-16 py-24 md:hidden">
-        {title && (
-          <h1 className="mt-32 whitespace-pre-line text-center font-gotham-black text-36 uppercase leading-[1.1] text-near-black md:mt-256 md:text-76">
-            {title}
-          </h1>
-        )}
-
+      <div className="relative z-10 mx-auto flex w-full max-w-1440 flex-col items-center bg-white px-16 pb-48 md:hidden">
         {phrase && (
-          <div className="mt-16 rounded-15 bg-near-black px-24 py-24">
+          <div className="relative z-20 mt-[calc(16*var(--fx))] flex min-h-[calc(132*var(--fx))] w-[calc(256*var(--fx))] max-w-full items-center justify-center rounded-[calc(15*var(--fx))] bg-near-black px-[calc(24*var(--fx))] py-[calc(24*var(--fx))]">
             <div
               className="max-w-257 text-center font-poppins text-20 leading-[1.25] text-white [&_p]:m-0 [&_strong]:font-semibold [&_strong]:italic"
               dangerouslySetInnerHTML={{ __html: formatPhrase(phrase) }}
@@ -66,7 +67,7 @@ export function BannerReferidos({
         )}
 
         {cards && cards.length > 0 && (
-          <div className="mt-24 w-full rounded-16 bg-peach p-16">
+          <div className="relative z-10 -mt-[calc(55*var(--fx))] w-full rounded-[calc(16*var(--fx))] bg-peach px-16 pb-40 pt-[calc(95*var(--fx))]">
             <div className="flex flex-col gap-12">
               {cards.map((card, index) => (
                 <div
