@@ -107,7 +107,8 @@ export type ProjectSection =
   | { acf_fc_layout: "formulario_contacto"; titulo?: string; formulario_id?: string | number }
   | { acf_fc_layout: "quiero_mas_info"; titulo?: string; formulario_id?: string | number; imagen_fondo?: ACFImage; blog_titulo?: string; blog_boton?: ACFLink }
   | { acf_fc_layout: "banner_pre_lanzamiento"; badge?: string; slides?: { imagen_fondo?: ACFImage; titulo?: string; descripcion?: string }[] }
-  | { acf_fc_layout: "mas_proyectos"; titulo?: string };
+  | { acf_fc_layout: "mas_proyectos"; titulo?: string }
+  | { acf_fc_layout: "blog"; titulo?: string; boton?: ACFLink };
 
 export type WPTerm = {
   id: number;
