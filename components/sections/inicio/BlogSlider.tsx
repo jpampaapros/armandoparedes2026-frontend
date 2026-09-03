@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Autoplay from "embla-carousel-autoplay";
-import { resolveWordPressUrl } from "@/lib/urls";
 import { EmblaSlider } from "@/components/EmblaSlider";
 import { SmartLink } from "@/components/SmartLink";
 import type { ACFLink } from "@/lib/types";
@@ -58,7 +57,7 @@ function BlogCard({ post }: { post: WPPost }) {
 
   return (
     <Link
-      href={resolveWordPressUrl(post.link)}
+      href={`/blog/${post.slug}`}
       className="group flex h-full w-full flex-col gap-12 bg-card-dark px-[calc(12*var(--fx))] pb-[calc(16*var(--fx))] pt-[calc(12*var(--fx))] text-white md:flex-row md:gap-24 md:p-20"
     >
       {image?.source_url && (
@@ -114,7 +113,7 @@ export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSlide
   const [activePostIndex, setActivePostIndex] = useState(0);
   const activePost = posts[activePostIndex] ?? posts[0];
   const activeBlogLink = boton && activePost
-    ? { ...boton, url: activePost.link }
+    ? { ...boton, url: `/blog/${activePost.slug}` }
     : boton;
 
   // Referencia estable: si el plugin se recrea en cada render, Embla reinicia

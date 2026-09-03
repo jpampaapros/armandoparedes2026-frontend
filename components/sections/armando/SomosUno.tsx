@@ -33,7 +33,7 @@ export function SomosUno({
         </div>
 
         {frase && (
-          <div className="flex min-h-[calc(250*var(--fx))] w-full items-center justify-center bg-slate px-[calc(30*var(--fx))] py-[calc(40*var(--fx))] text-center md:hidden">
+          <div className="relative z-10 mx-auto -mb-[calc(160*var(--fx))] -mt-[calc(155*var(--fx))] flex min-h-[calc(315*var(--fx))] w-[calc(326*var(--fx))] max-w-[calc(100%_-_32*var(--fx))] items-center justify-center bg-slate px-[calc(30*var(--fx))] py-[calc(40*var(--fx))] text-center md:hidden">
             <div>
               <span
                 aria-hidden="true"
@@ -48,10 +48,10 @@ export function SomosUno({
           </div>
         )}
 
-        <div className="flex min-h-360 w-full flex-col justify-center bg-peach px-30 py-50 md:h-[calc(765*var(--fx))] md:min-h-0 md:px-[calc(80*var(--fx))] md:py-[calc(48*var(--fx))]">
+        <div className="flex min-h-360 w-full flex-col justify-center bg-peach px-30 pb-50 pt-[calc(210*var(--fx))] md:h-[calc(765*var(--fx))] md:min-h-0 md:px-[calc(80*var(--fx))] md:py-[calc(48*var(--fx))]">
           {titulo && (
             <h2
-              className="m-0 w-[calc(512*var(--fx))] max-w-full font-gotham text-32 font-light leading-[1.15] text-near-black md:text-[calc(42*var(--fx))] [&_strong]:font-medium"
+              className="mx-0 mb-0 mt-[calc(24*var(--fx))] w-[calc(512*var(--fx))] max-w-full font-gotham text-32 font-light leading-[1.15] text-near-black md:mt-0 md:text-[calc(42*var(--fx))] [&_strong]:font-medium"
               dangerouslySetInnerHTML={{ __html: titulo }}
             />
           )}

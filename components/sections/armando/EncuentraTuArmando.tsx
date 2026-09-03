@@ -22,7 +22,7 @@ export function EncuentraTuArmando({
         )}
         {texto && (
           <div
-            className="mt-24 max-w-685 font-poppins text-16 font-light leading-[1.5] text-white md:text-22"
+            className="mt-24 max-w-685 font-poppins text-16 font-light leading-[1.5] text-white md:text-22 [&_p]:text-[calc(24*var(--fx))] md:[&_p]:text-22"
             dangerouslySetInnerHTML={{ __html: texto }}
           />
         )}

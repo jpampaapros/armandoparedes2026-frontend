@@ -41,22 +41,22 @@ export function ProyectosEntregados({
     >
       <div className="mx-auto max-w-1440 px-4 md:px-80">
         {titulo && (
-          <h2 className="m-0 w-full font-gotham text-36 font-bold leading-[1.1] text-slate md:text-[calc(50*var(--fx))]">
+          <h2 className="m-0 w-full text-center font-gotham text-36 font-bold leading-[1.1] text-slate md:text-left md:text-[calc(50*var(--fx))]">
             {titulo}
           </h2>
         )}
 
-        <div className="relative mt-40 min-w-0 md:mt-[calc(60*var(--fx))]">
-          <div className="absolute bottom-0 right-[calc(5*var(--fx))] top-0 w-px bg-slate" />
+        <div className="relative mt-[calc(62*var(--fx))] min-w-0 md:mt-[calc(60*var(--fx))]">
+          <div className="absolute bottom-0 left-[calc(5*var(--fx))] top-60 w-px bg-slate md:left-auto md:right-[calc(5*var(--fx))] md:top-0" />
           {grouped.map(([year, projects]) => {
             const hasSingleProject = projects.length === 1;
 
             return (
               <div
                 key={year}
-                className="relative mb-40 grid min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-16 pr-0 md:mb-80 md:gap-[calc(40*var(--fx))]"
+                className="relative mb-40 grid min-w-0 grid-cols-[auto_minmax(0,1fr)] gap-[calc(26*var(--fx))] pr-0 pt-60 md:mb-80 md:grid-cols-[minmax(0,1fr)_auto] md:gap-[calc(40*var(--fx))] md:pt-0"
               >
-                <div className="h-359 min-w-0 md:h-582">
+                <div className="order-2 h-359 min-w-0 md:order-1 md:h-582">
                   <EmblaSlider
                     slides={projects}
                     slidesPerView={{ base: 1, md: hasSingleProject ? 1 : 2 }}
@@ -65,7 +65,7 @@ export function ProyectosEntregados({
                     draggable={projects.length > 1}
                     showArrows={
                       projects.length > 1
-                        ? { mobile: false, desktop: true }
+                        ? { mobile: true, desktop: true }
                         : false
                     }
                     arrowButtonClassName="!-top-[calc(60*var(--fx))] h-[calc(48*var(--fx))] w-[calc(48*var(--fx))] !translate-y-0 cursor-pointer rounded-none bg-slate p-0 hover:opacity-80"
@@ -85,9 +85,9 @@ export function ProyectosEntregados({
                     )}
                   />
                 </div>
-                <div className="relative flex min-w-[calc(90*var(--fx))] justify-end">
+                <div className="relative order-1 flex min-w-[calc(10*var(--fx))] justify-start md:order-2 md:min-w-[calc(90*var(--fx))] md:justify-end">
                   <div className="relative flex h-fit items-center gap-[calc(14*var(--fx))]">
-                    <span className="font-gotham text-[calc(20*var(--fx))] font-medium leading-none text-near-black">
+                    <span className="absolute left-[calc(24*var(--fx))] top-[calc(-34*var(--fx))] whitespace-nowrap font-gotham text-[calc(20*var(--fx))] font-medium leading-none text-near-black md:static">
                       {year}
                     </span>
                     <div className="relative z-10 h-[calc(10*var(--fx))] w-[calc(10*var(--fx))] shrink-0 rounded-full bg-slate [outline:calc(3*var(--fx))_solid_white]" />

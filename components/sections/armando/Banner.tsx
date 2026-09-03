@@ -32,19 +32,21 @@ function renderTitle(titulo?: string) {
 
 export function Banner({ titulo, descripcion }: BannerProps) {
   return (
-    <section className="relative w-full overflow-hidden bg-white md:h-[calc(700*var(--fx))]">
-      <div className="pointer-events-none relative mx-auto h-[calc(355*var(--fx))] w-[calc(349*var(--fx))] max-w-full md:hidden">
-        <Image
-          src="/images/armando/banner-superior-derecha.png"
-          alt=""
-          fill
-          className="object-contain brightness-0"
-          sizes="349px"
-          priority
-        />
+    <section className="relative w-full overflow-hidden bg-white pt-[calc(52*var(--fx))] md:h-[calc(700*var(--fx))] md:pt-0">
+      <div className="pointer-events-none mx-auto w-fit md:hidden">
+        <div className="relative h-[min(calc(154*var(--fx)),154px)] w-[min(calc(151*var(--fx)),151px)] max-w-full">
+          <Image
+            src="/images/armando/banner-superior-derecha.png"
+            alt=""
+            fill
+            className="object-contain brightness-0"
+            sizes="151px"
+            priority
+          />
+        </div>
       </div>
 
-      <div className="relative mx-auto flex max-w-1440 flex-col px-16 pb-60 pt-30 md:h-full md:min-h-0 md:px-[calc(80*var(--fx))] md:pb-[calc(90*var(--fx))] md:pt-[calc(210*var(--fx))]">
+      <div className="relative mx-auto flex max-w-1440 flex-col px-16 pb-60 pt-[calc(28*var(--fx))] md:h-full md:min-h-0 md:px-[calc(80*var(--fx))] md:pb-[calc(90*var(--fx))] md:pt-[calc(210*var(--fx))]">
         <div className="relative z-10 grid flex-1 gap-40 md:grid-cols-2 md:grid-rows-2 md:gap-0">
           <div className="md:col-start-1 md:row-start-1">
             {renderTitle(titulo)}

@@ -6,16 +6,18 @@ import type { WPCategory } from "@/lib/types";
 function ChevronDownIcon({ className }: { className?: string }) {
   return (
     <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="11"
       className={className}
-      viewBox="0 0 24 24"
+      viewBox="0 0 20 11"
       fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
       aria-hidden="true"
     >
-      <polyline points="6 9 12 15 18 9" />
+      <path
+        d="M0 1.19583L9.66917 10.865L19.3383 1.19583L18.1254 0L9.66917 8.45625L1.21292 0L0 1.19583Z"
+        fill="#707070"
+      />
     </svg>
   );
 }
@@ -58,7 +60,7 @@ export function BlogCategoryFilter({ categories }: BlogCategoryFilterProps) {
           </option>
         ))}
       </select>
-      <ChevronDownIcon className="pointer-events-none absolute right-20 top-1/2 h-20 w-20 -translate-y-1/2 text-text-muted" />
+      <ChevronDownIcon className="pointer-events-none absolute right-20 top-1/2 h-[11px] w-[20px] -translate-y-1/2" />
     </div>
   );
 }

@@ -81,7 +81,7 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
             </h2>
           )}
 
-          <div className="flex flex-wrap gap-24">
+          <div className="hidden flex-wrap gap-24 md:flex">
             <div className="relative w-146 border-b border-slate">
               <select
                 value={filtroDistrito}
@@ -151,7 +151,7 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
               />
 
               {filtered.length > 1 && (
-                <div className="mt-16 flex justify-end gap-16 md:mt-35">
+                <div className="mt-16 flex justify-start gap-16 md:mt-35 md:justify-end">
                   <button
                     type="button"
                     onClick={() => emblaApi?.scrollPrev()}
