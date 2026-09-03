@@ -37,28 +37,30 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
     return (
       <Link
         href={`/blog/${post.slug}`}
-        className="group relative flex w-full flex-col overflow-hidden bg-card-dark p-[calc(16*var(--fx))] md:aspect-[1250/561] md:flex-row md:gap-[55px] md:p-0"
+        className="group relative flex w-full flex-col overflow-hidden bg-card-dark md:aspect-[1250/561] md:flex-row md:gap-[55px]"
       >
-        <div className="relative aspect-[16/10] w-full overflow-hidden md:aspect-auto md:w-[46%]">
-          {image?.source_url ? (
-            <Image
-              src={image.source_url}
-              alt={image.alt_text || post.title.rendered}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 46vw"
-              priority
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center bg-light-gray">
-              <span className="text-14 text-text-muted">Sin imagen</span>
-            </div>
-          )}
-          {category && (
-            <span className="absolute left-0 top-[calc(16*var(--fx))] bg-white px-10 py-6 font-poppins text-14 font-medium text-near-black md:bottom-16 md:left-16 md:top-auto">
-              {category}
-            </span>
-          )}
+        <div className="w-full bg-card-dark p-[calc(20*var(--fx))] md:w-[46%] md:py-[calc(20*var(--fx))] md:pl-[calc(20*var(--fx))] md:pr-0">
+          <div className="relative aspect-[16/10] w-full overflow-hidden md:h-full md:aspect-auto">
+            {image?.source_url ? (
+              <Image
+                src={image.source_url}
+                alt={image.alt_text || post.title.rendered}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 46vw"
+                priority
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-light-gray">
+                <span className="text-14 text-text-muted">Sin imagen</span>
+              </div>
+            )}
+            {category && (
+              <span className="absolute left-0 top-[calc(16*var(--fx))] bg-white px-10 py-6 font-poppins text-14 font-medium text-near-black md:bottom-16 md:left-16 md:top-auto">
+                {category}
+              </span>
+            )}
+          </div>
         </div>
         <div className="flex flex-col gap-[calc(16*var(--fx))] px-0 pb-[calc(30*var(--fx))] pt-[calc(22*var(--fx))] md:w-[calc(54%-55px)] md:gap-24 md:py-24 md:pl-0 md:pr-24">
           <div className="mb-0 flex flex-wrap items-center gap-8 md:mb-[50px]">
@@ -76,10 +78,10 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
             {author}
           </span>
           <div
-            className="line-clamp-3 font-poppins text-16 font-normal leading-24 text-white md:text-20"
+            className="line-clamp-3 font-poppins text-16 font-normal leading-24 text-white md:text-[calc(20*var(--fx))]"
             dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
           />
-          <span className="mt-auto font-poppins text-[calc(14*var(--fx))] font-light not-italic leading-[calc(17.409*var(--fx))] text-white underline decoration-solid md:text-[calc(9.152*var(--fx))] md:italic [text-decoration-skip-ink:none] [text-decoration-thickness:auto] [text-underline-offset:auto] [text-underline-position:from-font]">
+          <span className="mt-auto font-poppins text-[calc(14*var(--fx))] font-light not-italic leading-[calc(17.409*var(--fx))] text-white underline decoration-solid md:italic [text-decoration-skip-ink:none] [text-decoration-thickness:auto] [text-underline-offset:auto] [text-underline-position:from-font]">
             Leer más
           </span>
         </div>

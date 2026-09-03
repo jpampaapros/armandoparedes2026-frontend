@@ -10,6 +10,7 @@ import { PlanosProyecto } from "@/components/sections/proyecto/PlanosProyecto";
 import { MapaProyecto } from "@/components/sections/proyecto/MapaProyecto";
 import { FormularioContacto } from "@/components/sections/FormularioContacto";
 import { MasProyectos } from "@/components/sections/MasProyectos";
+import { Blog } from "@/components/sections/Blog";
 import type { Project, ProjectSection } from "@/lib/types";
 
 type ProjectSectionMapperProps = {
@@ -135,6 +136,14 @@ export function ProjectSectionMapper({ sections, proyectos }: ProjectSectionMapp
                 key={key}
                 titulo={section.titulo}
                 proyectos={proyectos}
+              />
+            );
+          case "blog":
+            return (
+              <Blog
+                key={key}
+                titulo={section.titulo}
+                boton={section.boton}
               />
             );
           default:

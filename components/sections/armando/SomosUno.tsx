@@ -51,7 +51,7 @@ export function SomosUno({
         <div className="flex min-h-360 w-full flex-col justify-center bg-peach px-30 pb-50 pt-[calc(210*var(--fx))] md:h-[calc(765*var(--fx))] md:min-h-0 md:px-[calc(80*var(--fx))] md:py-[calc(48*var(--fx))]">
           {titulo && (
             <h2
-              className="mx-0 mb-0 mt-[calc(24*var(--fx))] w-[calc(512*var(--fx))] max-w-full font-gotham text-32 font-light leading-[1.15] text-near-black md:mt-0 md:text-[calc(42*var(--fx))] [&_strong]:font-medium"
+              className="mx-0 mb-0 mt-[calc(24*var(--fx))] w-[calc(512*var(--fx))] max-w-full font-gotham text-32 font-normal leading-[1.15] text-near-black md:mt-0 md:text-[calc(42*var(--fx))] [&_strong]:font-medium"
               dangerouslySetInnerHTML={{ __html: titulo }}
             />
           )}

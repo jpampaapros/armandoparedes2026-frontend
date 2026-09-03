@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { BlogHeader } from "@/components/sections/blog/BlogHeader";
 import { BlogSectionMapper } from "@/components/sections/blog/BlogSectionMapper";
-import { EncuentraArmandoSection } from "@/components/sections/blog/EncuentraArmandoSection";
 import { BlogCategoryFilter } from "@/components/blog/BlogCategoryFilter";
 
 type BlogPostPageProps = {
@@ -43,10 +42,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const [options, categories] = await Promise.all([
-    wordpress.getBlogOptions(),
-    wordpress.getBlogCategories(),
-  ]);
+  const categories = await wordpress.getBlogCategories();
 
   return (
     <main className="w-full bg-white">
@@ -70,7 +66,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           )}
         </div>
       </article>
-      <EncuentraArmandoSection options={options} />
     </main>
   );
 }
