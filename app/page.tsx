@@ -1,7 +1,5 @@
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { HomeSectionMapper } from "@/components/sections/HomeSectionMapper";
-import { HomeIntro } from "@/components/HomeIntro";
-import { getHeaderData } from "@/components/Header";
 import type { HomeSection, Project, Delivered } from "@/lib/types";
 
 type WordPressHomePage = {
@@ -53,38 +51,18 @@ async function getDelivered(): Promise<Delivered[]> {
   }
 }
 
-async function getIntroLogo() {
-  try {
-    const header = await getHeaderData();
-    return header.logo?.url ? header.logo : null;
-  } catch {
-    return null;
-  }
-}
-
 export default async function Home() {
   const page = await getHomePage();
   const proyectos = await getProjects();
   const entregados = await getDelivered();
-  const introLogo = await getIntroLogo();
-
-  const secciones = (
-    <HomeSectionMapper
-      sections={page?.acf_full?.sections}
-      proyectos={proyectos}
-      entregados={entregados}
-    />
-  );
 
   return (
     <main className="w-full max-w-none p-0">
-      {introLogo?.url ? (
-        <HomeIntro src={introLogo.url} width={introLogo.width} height={introLogo.height}>
-          {secciones}
-        </HomeIntro>
-      ) : (
-        secciones
-      )}
+      <HomeSectionMapper
+        sections={page?.acf_full?.sections}
+        proyectos={proyectos}
+        entregados={entregados}
+      />
     </main>
   );
 }

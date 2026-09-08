@@ -8,6 +8,7 @@ type TypewriterTitleProps = {
 };
 
 const INTRO_TITLE_DELAY = 2000;
+const TITLE_DELAY = 400;
 const CHARACTER_DELAY = 85;
 const TYPEWRITER_COMPLETE_EVENT = "home-typewriter-complete";
 
@@ -86,7 +87,7 @@ export function TypewriterTitle({ html, className }: TypewriterTitleProps) {
     const startTimer = window.setTimeout(() => {
       animatedTitle.style.visibility = "visible";
       typeNextCharacter();
-    }, hasHomeIntro ? INTRO_TITLE_DELAY : 0);
+    }, hasHomeIntro ? INTRO_TITLE_DELAY : TITLE_DELAY);
 
     return () => {
       window.clearTimeout(startTimer);

@@ -18,16 +18,23 @@ export function HomeSectionMapper({
   proyectos = [],
   entregados = [],
 }: HomeSectionMapperProps) {
+  const bannerSections = sections.filter(
+    (section) => section.acf_fc_layout === "banner",
+  );
+  const firstBannerIndex = sections.findIndex(
+    (section) => section.acf_fc_layout === "banner",
+  );
+
   return (
     <>
       {sections.map((section, index) => {
         switch (section.acf_fc_layout) {
           case "banner":
+            if (index !== firstBannerIndex) return null;
             return (
               <Banner
                 key={`${section.acf_fc_layout}-${index}`}
-                titulo={section.titulo}
-                imagen={section.imagen}
+                slides={bannerSections}
               />
             );
           case "espacios":

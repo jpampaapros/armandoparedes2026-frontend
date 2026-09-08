@@ -4,6 +4,12 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 @import "tailwindcss-calc";
 
+@media (hover: hover) {
+  [data-project-card]:hover .project-card-hover-image {
+    opacity: 1;
+  }
+}
+
 :root {
   /* Frame mobile = 414, desktop = 1440. El switch de escala ocurre en md. */
   --width-screen: 414;
@@ -97,6 +103,22 @@
 
 .header-menu-list {
   margin-top: calc(75 * var(--fx));
+}
+
+@media (min-width: 768px) and (max-height: 800px) {
+  .header-menu-panel {
+    padding-bottom: calc(24 * var(--fx));
+  }
+
+  .header-menu-panel .header-menu-list {
+    margin-top: min(calc(91 * var(--fx)), 7dvh);
+    margin-bottom: 0;
+    gap: min(calc(30 * var(--fx)), 3dvh);
+  }
+
+  .header-menu-panel .header-menu-link {
+    font-size: min(calc(45 * var(--fx)), 5dvh);
+  }
 }
 
 .armando-life-title {
@@ -205,6 +227,10 @@ a:-webkit-any-link {
   text-decoration: underline;
 }
 
+.form-legal-link.modal-form-legal-link:any-link {
+  font-size: calc(10.168 * var(--fx));
+}
+
 .form-legal-link,
 .form-legal-link:any-link {
   color: #1d1d1b;
@@ -291,15 +317,6 @@ a:-webkit-any-link {
   }
 }
 
-@keyframes intro-hero-finish {
-  from {
-    min-height: 100svh;
-  }
-  to {
-    min-height: 0;
-  }
-}
-
 @keyframes intro-body-pad {
   from {
     padding-top: 0;
@@ -354,13 +371,6 @@ a:-webkit-any-link {
     animation: intro-banner-pad 1400ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
   }
 
-  .intro-start [data-intro-hero] {
-    min-height: 100svh;
-  }
-
-  .intro-start [data-intro-banner][data-typewriter-complete] [data-intro-hero] {
-    animation: intro-hero-finish 1400ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

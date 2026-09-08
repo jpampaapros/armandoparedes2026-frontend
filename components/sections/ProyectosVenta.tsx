@@ -103,7 +103,7 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
               options={tipoOptions}
             />
             <FilterSelect
-              placeholder="M2"
+              placeholder="m²"
               value={area}
               onChange={setArea}
               options={AREA_FILTER_LABELS}
@@ -117,16 +117,17 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
           </p>
         ) : (
           <>
-            <div className="md:-mx-10">
+            <div className="md:w-[calc(50vw+50%)]">
               <EmblaSlider
                 slides={filtered}
-                slidesPerView={{ base: 1, md: 2 }}
+                slidesPerView={1}
+                slideClassName="md:basis-[calc(494*var(--fx))]! md:pr-20"
                 gap={0}
                 showArrows={false}
                 onApiReady={setEmblaApi}
                 renderSlide={(project) => (
-                  <div className="h-full md:px-10">
-                    <ProjectCard key={project.id} project={project} mobileDescriptionSemibold />
+                  <div className="h-full">
+                    <ProjectCard key={project.id} project={project} mobileDescriptionSemibold saleCarousel />
                   </div>
                 )}
               />

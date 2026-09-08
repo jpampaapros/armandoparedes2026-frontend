@@ -120,7 +120,7 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
                 onChange={(e) => setFiltroArea(e.target.value)}
                 className={`h-36 w-full appearance-none border-0 bg-transparent px-7 pr-30 font-poppins text-13 outline-none ${filtroArea ? "text-slate" : "text-light-gray"}`}
               >
-                <option value="">M2</option>
+                <option value="">m²</option>
                 {AREA_FILTER_LABELS.map((a) => (
                   <option key={a} value={a}>
                     {a}

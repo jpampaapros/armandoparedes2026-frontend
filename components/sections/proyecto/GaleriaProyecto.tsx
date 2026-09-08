@@ -3,12 +3,12 @@
 import { useState } from "react";
 import Image from "next/image";
 import { EmblaSlider } from "@/components/EmblaSlider";
-import type { ACFImage } from "@/lib/types";
+import type { ProjectGaleriaTab } from "@/lib/types";
 
 type GaleriaProyectoProps = {
   titulo?: string;
   descripcion?: string;
-  tabs?: { titulo?: string; imagenes?: { imagen?: ACFImage }[] }[];
+  tabs?: ProjectGaleriaTab[];
 };
 
 function TabButton({
@@ -24,6 +24,7 @@ function TabButton({
     <button
       type="button"
       onClick={onClick}
+      aria-pressed={active}
       className="relative w-fit border-0 bg-transparent p-0 pb-[calc(16*var(--fx))] text-left md:pb-0"
     >
       <span
@@ -45,6 +46,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
   // titulo se recibe por contrato de ACF pero no se rendera según Figma
   const [active, setActive] = useState(0);
   const activeTab = tabs[active] ?? { imagenes: [] };
+  const activeDescription = activeTab.descripcion ?? (active === 0 ? descripcion : undefined);
 
   return (
     <section
@@ -53,6 +55,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
     >
       <div className="relative h-430 w-full md:h-full md:flex-[1105]">
         <EmblaSlider
+          key={active}
           slides={activeTab.imagenes || []}
           renderSlide={(slide) => (
             <div className="relative h-full w-full">
@@ -90,10 +93,10 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
           ))}
         </div>
 
-        {descripcion && (
+        {activeDescription && (
           <div
             className="mt-61 font-poppins text-16 font-light leading-[1.4] text-white md:mt-auto md:text-20 [&_p]:m-0" /* leading-[1.4] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */
-            dangerouslySetInnerHTML={{ __html: descripcion }}
+            dangerouslySetInnerHTML={{ __html: activeDescription }}
           />
         )}
       </div>
