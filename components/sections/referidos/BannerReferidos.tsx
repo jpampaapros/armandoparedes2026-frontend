@@ -60,7 +60,7 @@ export function BannerReferidos({
         {phrase && (
           <div className="relative z-20 mt-[calc(16*var(--fx))] flex min-h-[calc(132*var(--fx))] w-[calc(256*var(--fx))] max-w-full items-center justify-center rounded-[calc(15*var(--fx))] bg-near-black px-[calc(24*var(--fx))] py-[calc(24*var(--fx))]">
             <div
-              className="max-w-257 text-center font-poppins text-20 leading-[1.25] text-white [&_p]:m-0 [&_strong]:font-semibold [&_strong]:italic"
+              className="max-w-257 text-center font-poppins text-[calc(22*var(--fx))] leading-[1.25] text-white [&_p]:m-0 [&_strong]:font-semibold [&_strong]:italic"
               dangerouslySetInnerHTML={{ __html: formatPhrase(phrase) }}
             />
           </div>
@@ -74,9 +74,9 @@ export function BannerReferidos({
                   key={index}
                   className="flex items-center justify-between rounded-12 bg-white p-12"
                 >
-                  <div className="flex flex-col items-start">
+                  <div className="flex flex-col items-center justify-center text-center">
                     {card.label && (
-                      <span className="font-poppins text-20 font-semibold text-near-black">
+                      <span className="font-poppins text-[calc(22*var(--fx))] font-semibold text-near-black">
                         {card.label}
                       </span>
                     )}
@@ -117,7 +117,7 @@ export function BannerReferidos({
         {phrase && (
           <div className="absolute top-[calc(500*var(--fx))] z-20 flex h-[calc(159*var(--fx))] w-[calc(375*var(--fx))] items-center justify-center rounded-[calc(15*var(--fx))] bg-near-black px-[calc(80*var(--fx))] py-[calc(24*var(--fx))]">
             <div
-              className="whitespace-pre-line text-center font-poppins text-[calc(20*var(--fx))] font-light leading-[1.25] text-white [&_p]:m-0 [&_strong]:font-semibold [&_strong]:italic"
+              className="whitespace-pre-line text-center font-poppins text-[calc(22*var(--fx))] font-light leading-[1.25] text-white [&_p]:m-0 [&_strong]:font-semibold [&_strong]:italic"
               dangerouslySetInnerHTML={{ __html: formatPhrase(phrase) }}
             />
           </div>
@@ -129,14 +129,14 @@ export function BannerReferidos({
               {cards.map((card, index) => (
                 <div
                   key={index}
-                  className="grid h-[calc(102*var(--fx))] grid-cols-[calc(180*var(--fx))_calc(72*var(--fx))_calc(110*var(--fx))_1fr] items-center rounded-[calc(22*var(--fx))] bg-white px-[calc(32*var(--fx))]"
+                  className="grid h-[calc(102*var(--fx))] grid-cols-[calc(196*var(--fx))_calc(122*var(--fx))_calc(90*var(--fx))_minmax(0,1fr)] items-center rounded-[calc(22*var(--fx))] bg-white px-[calc(32*var(--fx))]"
                 >
-                  <span className="font-poppins text-[calc(20*var(--fx))] font-semibold text-near-black">
+                  <span className="text-center font-poppins text-[calc(22*var(--fx))] font-semibold text-near-black">
                     {card.label}
                   </span>
                   <svg
                     aria-hidden="true"
-                    className="h-[calc(15*var(--fx))] w-[calc(74*var(--fx))]"
+                    className="h-[calc(15*var(--fx))] w-[calc(74*var(--fx))] justify-self-center"
                     viewBox="0 0 74 15"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -146,11 +146,13 @@ export function BannerReferidos({
                       fill="#1D1D1B"
                     />
                   </svg>
-                  <span className="pl-[calc(30*var(--fx))] font-poppins text-[calc(11*var(--fx))] uppercase leading-[1.2] tracking-[0.09em] text-near-black">
-                    {card.subtitle}
+                  <span className="text-left font-poppins text-[calc(13*var(--fx))] uppercase leading-[1.2] tracking-[0.09em] text-near-black">
+                    {card.subtitle?.trim().split(/\s+(?=de\s+hasta\b)/i).map((line, lineIndex) => (
+                      <span key={lineIndex} className="block whitespace-nowrap">{line}</span>
+                    ))}
                   </span>
                   {card.amount && (
-                    <span className="text-center font-gotham text-[calc(47*var(--fx))] font-bold text-peach">
+                    <span className="ml-[calc(15*var(--fx))] text-center font-gotham text-[calc(42*var(--fx))] font-bold not-italic leading-[normal] tracking-[calc(-1.26*var(--fx))] text-peach">
                       {card.amount}
                     </span>
                   )}

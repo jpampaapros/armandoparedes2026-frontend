@@ -79,7 +79,7 @@ export function ProyectosLista({ titulo, proyectos }: ProyectosListaProps) {
           <div className="order-2 flex flex-col gap-16 md:order-2 md:flex-row md:justify-end md:gap-24">
             <FilterSelect placeholder="Distrito" value={distrito} onChange={setDistrito} options={distritoOptions} />
             <FilterSelect placeholder="Tipo" value={tipo} onChange={setTipo} options={tipoOptions} />
-            <FilterSelect placeholder="M2" value={area} onChange={setArea} options={AREA_FILTER_LABELS} />
+            <FilterSelect placeholder="m²" value={area} onChange={setArea} options={AREA_FILTER_LABELS} />
           </div>
         </div>
 

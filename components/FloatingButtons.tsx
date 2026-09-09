@@ -52,7 +52,7 @@ export function FloatingButtons({ whatsapp, formId }: FloatingButtonsProps) {
           <button
             type="button"
             onClick={() => setFormOpen(true)}
-            className="flex h-78 w-77 items-center justify-center rounded-l-7 bg-near-black transition-opacity hover:opacity-90"
+            className="flex h-[calc(71*var(--fx))] w-[calc(70*var(--fx))] self-end items-center justify-center rounded-l-7 bg-near-black transition-opacity hover:opacity-90"
             aria-haspopup="dialog"
             aria-label="Abrir formulario de contacto"
           >

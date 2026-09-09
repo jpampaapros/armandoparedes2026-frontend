@@ -19,6 +19,11 @@ export type ACFIndicator = {
   ubicacion?: string;
 };
 
+export type HomeBannerSlide = {
+  titulo?: string;
+  imagen?: ACFImage;
+};
+
 export type HomeSection =
   | { acf_fc_layout: "banner"; titulo?: string; imagen?: ACFImage }
   | { acf_fc_layout: "espacios"; titulo?: string; subtitulo?: string; indicadores?: ACFIndicator[] }
@@ -81,6 +86,7 @@ export type ProjectDormitorio = {
 
 export type ProjectGaleriaTab = {
   titulo?: string;
+  descripcion?: string;
   imagenes?: { imagen?: ACFImage }[];
 };
 
@@ -132,6 +138,7 @@ export type Project = {
   slug: string;
   title: { rendered: string };
   acf: {
+    imagen_hover?: ACFImage | number | string | false | null;
     descripcion?: string;
     metros?: string | number;
     dormitorios?: string | number;

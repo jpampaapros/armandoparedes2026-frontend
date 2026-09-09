@@ -1,17 +1,71 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { SmartLink } from "@/components/SmartLink";
-import type { Project } from "@/lib/types";
+import { getPublicCmsUrl } from "@/lib/urls";
+import type { Project, WPMedia } from "@/lib/types";
+
+function ProjectHoverImage({ value, sizes }: {
+  value: Project["acf"]["imagen_hover"];
+  sizes: string;
+}) {
+  const directUrl = typeof value === "string" && !/^\d+$/.test(value)
+    ? value
+    : value && typeof value === "object" ? value.url : undefined;
+  const mediaId = typeof value === "number" || (typeof value === "string" && /^\d+$/.test(value))
+    ? Number(value)
+    : value && typeof value === "object" ? value.ID ?? value.id : undefined;
+  const [resolved, setResolved] = useState<{ id: number; url: string }>();
+  const [failedUrl, setFailedUrl] = useState<string>();
+
+  useEffect(() => {
+    if (directUrl || !mediaId) return;
+    const controller = new AbortController();
+    async function resolveImage() {
+      try {
+        const response = await fetch(
+          `${getPublicCmsUrl()}/wp-json/wp/v2/media/${mediaId}?_fields=source_url`,
+          { signal: controller.signal },
+        );
+        if (!response.ok) return;
+        const media: Pick<WPMedia, "source_url"> = await response.json();
+        if (!controller.signal.aborted && media.source_url) {
+          setResolved({ id: mediaId!, url: media.source_url });
+        }
+      } catch {
+        // Keep the featured image when the optional hover image is unavailable.
+      }
+    }
+    void resolveImage();
+    return () => controller.abort();
+  }, [directUrl, mediaId]);
+
+  const url = directUrl || (resolved?.id === mediaId ? resolved?.url : undefined);
+  if (!url || url === failedUrl) return null;
+
+  return (
+    <Image
+      src={url}
+      alt=""
+      fill
+      sizes={sizes}
+      onError={() => setFailedUrl(url)}
+      className="project-card-hover-image pointer-events-none object-cover opacity-0 transition-opacity duration-300 motion-reduce:transition-none"
+    />
+  );
+}
 
 export function ProjectCard({
   project,
   compact = false,
   mobileDescriptionSemibold = false,
+  saleCarousel = false,
 }: {
   project: Project;
   compact?: boolean;
   mobileDescriptionSemibold?: boolean;
+  saleCarousel?: boolean;
 }) {
   const image = project._embedded?.["wp:featuredmedia"]?.[0];
   const distrito = project._embedded?.["wp:term"]
@@ -20,8 +74,9 @@ export function ProjectCard({
 
   return (
     <article
-      className={`group relative flex w-full min-w-0 flex-col overflow-hidden bg-black md:max-w-630 ${
-        compact ? "h-[calc(430*var(--fx))] md:h-[calc(680*var(--fx))]" : "h-465 md:h-825"
+      data-project-card
+      className={`group relative flex w-full min-w-0 flex-col overflow-hidden bg-black ${
+        saleCarousel ? "h-465 md:w-[calc(474*var(--fx))] md:h-[calc(641*var(--fx))]" : compact ? "h-[calc(430*var(--fx))] md:max-w-630 md:h-[calc(680*var(--fx))]" : "h-465 md:max-w-630 md:h-825"
       }`}
     >
       {image?.source_url && (
@@ -30,9 +85,14 @@ export function ProjectCard({
           alt={image.alt_text || project.title.rendered}
           fill
           className="object-cover"
-          sizes="(max-width: 768px) 382px, 630px"
+          sizes={saleCarousel ? "(max-width: 768px) 382px, 474px" : "(max-width: 768px) 382px, 630px"}
         />
       )}
+
+      <ProjectHoverImage
+        value={project.acf.imagen_hover}
+        sizes={saleCarousel ? "(max-width: 768px) 382px, 474px" : "(max-width: 768px) 382px, 630px"}
+      />
 
       {distrito && (
         <div className="absolute right-16 top-16 z-10 bg-white px-10 py-6 md:right-20 md:top-61 md:py-8">
@@ -77,10 +137,10 @@ export function getProjectFilterTags(project: Project): { distrito?: string; tip
 }
 
 export function formatAreaFilter(area: number): string {
-  if (area < 60) return "0-60 m2";
-  if (area < 100) return "60-100 m2";
-  if (area < 150) return "100-150 m2";
-  return "150+ m2";
+  if (area < 60) return "0-60 m²";
+  if (area < 100) return "60-100 m²";
+  if (area < 150) return "100-150 m²";
+  return "150+ m²";
 }
 
-export const AREA_FILTER_LABELS = ["0-60 m2", "60-100 m2", "100-150 m2", "150+ m2"];
+export const AREA_FILTER_LABELS = ["0-60 m²", "60-100 m²", "100-150 m²", "150+ m²"];

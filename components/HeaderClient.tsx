@@ -59,6 +59,13 @@ export function HeaderClient({ data }: { data: HeaderData }) {
   const isOpenRef = useRef(isOpen);
 
   useEffect(() => {
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previousOverflow; };
+  }, [isOpen]);
+
+  useEffect(() => {
     let previousScrollY = window.scrollY;
     let ticking = false;
 
@@ -176,12 +183,12 @@ export function HeaderClient({ data }: { data: HeaderData }) {
             />
           </button>
 
-          <div className="relative flex h-full w-full shrink-0 flex-col items-center bg-black px-16 pt-31 md:w-721 md:items-start md:bg-modal-bg md:px-80 md:pb-122">
-            <Link href="/" className="block w-264" onClick={closeMenu}>
+          <div className="header-menu-panel relative flex h-full min-h-0 w-full shrink-0 flex-col items-center overflow-y-auto overscroll-contain bg-black px-16 pb-24 pt-31 md:w-721 md:items-start md:bg-modal-bg md:px-80 md:pb-122">
+            <Link href="/" className="block w-264 shrink-0" onClick={closeMenu}>
               <HeaderImage image={data.modal_menu?.logo} className="block h-auto w-full" priority />
             </Link>
 
-            <ul className="header-menu-list flex w-256 list-none flex-col items-stretch gap-46 p-0 md:gap-30">
+            <ul className="header-menu-list flex w-256 shrink-0 list-none flex-col items-stretch gap-46 p-0 md:gap-30">
               {menuItems.map((item, index) => (
                 <li key={index} className="text-center md:text-left">
                   <HeaderLink
