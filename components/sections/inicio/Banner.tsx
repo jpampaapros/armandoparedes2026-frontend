@@ -53,7 +53,7 @@ export function Banner({ slides }: BannerProps) {
   return (
     <section
       data-intro-banner
-      className="relative flex h-[100svh] w-full flex-col items-center overflow-hidden bg-white pt-[var(--banner-padding-top)]"
+      className="relative flex h-[100svh] w-full flex-col items-center overflow-hidden bg-white pt-[var(--banner-padding-top)] md:h-auto"
     >
       <div
         data-intro-hero
@@ -92,13 +92,13 @@ export function Banner({ slides }: BannerProps) {
       </div>
 
       {activeSlide.imagen?.url && (
-        <div data-intro-fade className="relative mt-61 min-h-0 w-full flex-1 md:mt-34">
+        <div data-intro-fade className="relative mt-61 min-h-0 w-full flex-1 md:mt-34 md:h-[calc(817*var(--fx))] md:flex-none">
           <Image
             key={activeSlide.imagen.url}
             src={activeSlide.imagen.url}
             alt={activeSlide.imagen.alt || ""}
             fill
-            className="object-cover md:object-fill"
+            className="object-cover"
             sizes="100vw"
             priority
           />
