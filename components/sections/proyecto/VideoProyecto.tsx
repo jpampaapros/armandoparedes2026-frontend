@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
 import type { ACFImage } from "@/lib/types";
 
 type VideoProyectoProps = {
@@ -24,8 +22,7 @@ function getPlainText(html = "") {
   return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
 
-export function VideoProyecto({ titulo, imagen_previa, url_youtube }: VideoProyectoProps) {
-  const [open, setOpen] = useState(false);
+export function VideoProyecto({ titulo, url_youtube }: VideoProyectoProps) {
   const videoId = getYouTubeId(url_youtube || "");
   const plainTitle = getPlainText(titulo);
 
@@ -34,73 +31,27 @@ export function VideoProyecto({ titulo, imagen_previa, url_youtube }: VideoProye
       data-layout="video"
       className="relative h-500 w-full overflow-hidden md:h-800"
     >
-      {imagen_previa?.url ? (
-        <Image
-          src={imagen_previa.url}
-          alt={plainTitle}
-          fill
-          sizes="100vw"
-          className="object-cover"
+      {videoId ? (
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&loop=1&playlist=${videoId}&rel=0`}
+          title={plainTitle || "Video del proyecto"}
+          className="absolute inset-0 h-full w-full border-0"
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          allowFullScreen
         />
       ) : (
         <div className="h-full w-full bg-neutral-800" />
       )}
 
-      <div className="absolute inset-0 bg-black/30" />
-
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        aria-label="Reproducir video"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-transparent text-white transition-transform hover:scale-105"
-      >
-        <div className="relative h-72 w-72 md:h-204 md:w-204">
-          <Image
-            src="/images/proyecto/play-outline.svg"
-            alt="Reproducir video"
-            fill
-            className="object-contain"
-          />
-        </div>
-      </button>
-
-      <div className="absolute bottom-47 left-16 md:bottom-104 md:left-80">
+      <div className="pointer-events-none absolute bottom-47 left-16 md:bottom-104 md:left-80">
         {titulo && (
           <div
-            className="font-gotham text-32 leading-[1.1] text-white md:text-80 md:leading-80 [&_em]:font-light [&_em]:text-peach [&_h1]:m-0 [&_h2]:m-0 [&_h3]:m-0 [&_p]:m-0" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */
+            className="font-gotham text-32 leading-[1.1] text-white md:text-80 md:leading-80 [&_em]:font-gotham [&_em]:font-medium [&_em]:not-italic [&_em]:text-peach md:[&_em]:text-[calc(80*var(--fx))] md:[&_em]:leading-[calc(80*var(--fx))] [&_h1]:m-0 [&_h2]:m-0 [&_h3]:m-0 [&_p]:m-0" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */
             dangerouslySetInnerHTML={{ __html: titulo }}
           />
         )}
       </div>
 
-      {open && videoId && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-24"
-          onClick={() => setOpen(false)}
-        >
-          <div
-            className="relative w-full max-w-5xl" /* max-w-5xl = 64rem (1024px); no hay token proporcional equivalente para este contenedor de video */
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="absolute -top-40 right-0 bg-transparent text-16 text-white"
-            >
-              Cerrar
-            </button>
-            <div className="aspect-video w-full">
-              <iframe
-                src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-                title={plainTitle || "Video"}
-                className="h-full w-full border-0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

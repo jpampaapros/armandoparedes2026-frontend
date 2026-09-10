@@ -2,10 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import type { ReactNode } from "react";
 import type { BlogPost } from "@/lib/types";
 
 type BlogHeaderProps = {
   post: BlogPost;
+  categoryFilter?: ReactNode;
 };
 
 export function formatBlogDate(dateString: string): string {
@@ -26,13 +28,14 @@ export function getBlogCategory(post: BlogPost): string | undefined {
     ?? terms?.find((term) => term.taxonomy === "category")?.name;
 }
 
-export function BlogHeader({ post }: BlogHeaderProps) {
+export function BlogHeader({ post, categoryFilter }: BlogHeaderProps) {
   const router = useRouter();
   const category = getBlogCategory(post);
   const date = formatBlogDate(post.date);
 
   return (
-    <header className="flex flex-col gap-16 md:gap-24">
+    <header className="flex w-full min-w-0 flex-col gap-16 md:gap-24">
+      <div className="flex items-start justify-between gap-[calc(24*var(--fx))]">
       <button
         type="button"
         onClick={() => router.back()}
@@ -48,6 +51,8 @@ export function BlogHeader({ post }: BlogHeaderProps) {
         />
         <span>Volver</span>
       </button>
+        {categoryFilter}
+      </div>
 
       <div className="flex flex-col items-start gap-[calc(30*var(--fx))]">
         {category && (
@@ -57,7 +62,7 @@ export function BlogHeader({ post }: BlogHeaderProps) {
         )}
 
         <h1
-          className="m-0 font-gotham-medium text-[calc(28*var(--fx))] font-medium leading-[calc(28*var(--fx))] text-near-black md:text-[calc(40*var(--fx))] md:leading-[calc(40*var(--fx))]"
+          className="m-0 w-full font-gotham-medium text-[calc(28*var(--fx))] font-medium leading-[calc(28*var(--fx))] text-near-black md:text-[calc(40*var(--fx))] md:leading-[calc(40*var(--fx))]"
           dangerouslySetInnerHTML={{ __html: post.title.rendered }}
         />
 

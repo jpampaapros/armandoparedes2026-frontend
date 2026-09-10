@@ -30,6 +30,7 @@ export function BlogCategoryFilter({ categories }: BlogCategoryFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selected = searchParams.get("categoria") || "";
+  const parentCategories = categories.filter((category) => category.parent === 0);
 
   function handleChange(value: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -49,12 +50,12 @@ export function BlogCategoryFilter({ categories }: BlogCategoryFilterProps) {
       </label>
       <select
         id="blog-category"
-        value={selected}
+        value={parentCategories.some((category) => category.slug === selected) ? selected : ""}
         onChange={(e) => handleChange(e.target.value)}
-        className="h-52 w-full appearance-none rounded-10 border border-border-light bg-white px-24 pb-0 pt-[calc(7px+6px)] pr-52 text-left font-gotham text-18 font-medium leading-normal text-text-muted focus:outline-none focus:ring-2 focus:ring-peach md:text-22"
+        className="h-52 w-full appearance-none rounded-10 border border-border-light bg-white px-24 py-0 pr-52 text-left font-poppins text-18 font-medium leading-normal text-text-muted focus:outline-none focus:ring-0 md:text-22"
       >
         <option value="" className="bg-white text-near-black">Categorías</option>
-        {categories.map((category) => (
+        {parentCategories.map((category) => (
           <option key={category.id} value={category.slug} className="bg-white text-near-black">
             {category.name}
           </option>
