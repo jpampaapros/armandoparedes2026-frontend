@@ -89,7 +89,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
       autorizoReferido: false,
     },
   });
-  const { submit, isPending, status } = useCf7Submit(form_id || "11093", { raw: true });
+  const { submit, isPending, status } = useCf7Submit(form_id || "976", { raw: true });
   const isClient = useIsClient();
 
   const onSubmit = async (values: ReferidosFormValues) => {
@@ -273,6 +273,12 @@ export function SeParte({ title, form_id }: SeParteProps) {
               )}
             />
 
+            {errors.aceptoTerminos && (
+              <span className={errorClass} role="alert">
+                Debes aceptar las Políticas de Privacidad para enviar el formulario.
+              </span>
+            )}
+
             <Controller
               name="autorizoMarketing"
               control={control}
@@ -354,7 +360,18 @@ export function SeParte({ title, form_id }: SeParteProps) {
                 </label>
               )}
             />
+            {errors.autorizoReferido && (
+              <span className={errorClass} role="alert">
+                Debes confirmar que tienes autorización para compartir los datos de tu referido.
+              </span>
+            )}
           </div>
+
+          {Object.keys(errors).length > 0 && (
+            <p className="text-center font-poppins text-14 text-red-300" role="alert">
+              Revisa los campos y las autorizaciones obligatorias indicados arriba.
+            </p>
+          )}
 
           <button
             type="submit"
@@ -365,13 +382,32 @@ export function SeParte({ title, form_id }: SeParteProps) {
           </button>
 
           {status && (
-            <p
+            <div
+              role={status.ok ? "status" : "alert"}
               className={`text-center font-poppins text-14 ${
                 status.ok ? "text-green-300" : "text-red-300"
               }`}
             >
-              {status.message}
-            </p>
+              <p>{status.message}</p>
+              {status.invalidFields?.map(({ field, message }) => {
+                const labels: Record<string, string> = {
+                  "tu-nombre": "Tus nombres",
+                  "tu-apellido": "Tu apellido",
+                  "tu-email": "Tu correo electrónico",
+                  "tu-telefono": "Tu celular",
+                  "tu-dni": "Tu DNI",
+                  "referido-nombre": "Nombres de tu referido",
+                  "referido-apellido": "Apellido de tu referido",
+                  "referido-email": "Correo electrónico de tu referido",
+                  "referido-telefono": "Celular de tu referido",
+                  aceptoTerminos: "Políticas de Privacidad",
+                  autorizoReferido: "Autorización de tu referido",
+                  autorizoMarketing: "Autorización de comunicaciones comerciales",
+                };
+
+                return <p key={field}>{labels[field] || "Campo del formulario"}: {message}</p>;
+              })}
+            </div>
           )}
         </form>
       </div>
