@@ -10,6 +10,7 @@ type TypewriterTitleProps = {
 const INTRO_TITLE_DELAY = 2000;
 const TITLE_DELAY = 400;
 const CHARACTER_DELAY = 85;
+const TITLE_HOLD_DELAY = 3000;
 const TYPEWRITER_COMPLETE_EVENT = "home-typewriter-complete";
 
 export function TypewriterTitle({ html, className }: TypewriterTitleProps) {
@@ -21,6 +22,7 @@ export function TypewriterTitle({ html, className }: TypewriterTitleProps) {
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       animatedTitle.style.visibility = "visible";
+      window.dispatchEvent(new CustomEvent("home-typewriter-progress", { detail: 1 }));
       return;
     }
 
@@ -66,6 +68,20 @@ export function TypewriterTitle({ html, className }: TypewriterTitleProps) {
 
     let characterIndex = 0;
     let characterTimer: number | undefined;
+    const typingDuration = characters.length * CHARACTER_DELAY;
+    const totalDuration = typingDuration + TITLE_HOLD_DELAY;
+
+    const holdTitle = (started: number) => {
+      const elapsed = Math.min(performance.now() - started, TITLE_HOLD_DELAY);
+      window.dispatchEvent(new CustomEvent("home-typewriter-progress", {
+        detail: (typingDuration + elapsed) / totalDuration,
+      }));
+      if (elapsed >= TITLE_HOLD_DELAY) {
+        window.dispatchEvent(new CustomEvent(TYPEWRITER_COMPLETE_EVENT));
+      } else {
+        characterTimer = window.setTimeout(() => holdTitle(started), Math.min(CHARACTER_DELAY, TITLE_HOLD_DELAY - elapsed));
+      }
+    };
 
     const typeNextCharacter = () => {
       characters.forEach((character) => character.classList.remove("typewriter-current"));
@@ -73,13 +89,16 @@ export function TypewriterTitle({ html, className }: TypewriterTitleProps) {
       if (characterIndex >= characters.length) {
         const banner = animatedTitle.closest<HTMLElement>("[data-intro-banner]");
         banner?.setAttribute("data-typewriter-complete", "true");
-        window.dispatchEvent(new CustomEvent(TYPEWRITER_COMPLETE_EVENT));
+        holdTitle(performance.now());
         return;
       }
 
       const character = characters[characterIndex];
       character.classList.add("typewriter-visible", "typewriter-current");
       characterIndex += 1;
+      window.dispatchEvent(new CustomEvent("home-typewriter-progress", {
+        detail: (characterIndex * CHARACTER_DELAY) / totalDuration,
+      }));
       characterTimer = window.setTimeout(typeNextCharacter, CHARACTER_DELAY);
     };
 

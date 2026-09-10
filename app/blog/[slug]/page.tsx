@@ -46,15 +46,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <main className="w-full bg-white">
-      <article className="mx-auto min-w-0 w-[calc(382*var(--fx))] overflow-hidden py-40 md:w-[calc(730*var(--fx))] md:py-80">
-        <div className="flex flex-col gap-16 md:flex-row md:items-start md:justify-between md:gap-24">
-          <BlogHeader post={post} />
+      <article className="mx-auto min-w-0 w-[calc(382*var(--fx))] overflow-hidden py-40 md:w-full md:px-[calc(355*var(--fx))] md:py-80">
+          <BlogHeader post={post} categoryFilter={
           <div className="hidden shrink-0 md:block md:w-326">
             <Suspense fallback={<div className="h-52 w-full rounded-10 border border-border-light bg-white md:w-326" />}>
               <BlogCategoryFilter categories={categories} />
             </Suspense>
           </div>
-        </div>
+          } />
         <div className="mt-32 md:mt-48">
           {post.acf?.sections?.length ? (
             <BlogSectionMapper sections={post.acf.sections} />

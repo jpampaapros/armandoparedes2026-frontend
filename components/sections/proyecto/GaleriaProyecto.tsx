@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { EmblaCarouselType } from "embla-carousel";
 import Image from "next/image";
 import { EmblaSlider } from "@/components/EmblaSlider";
 import type { ProjectGaleriaTab } from "@/lib/types";
@@ -25,7 +26,7 @@ function TabButton({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="relative w-fit border-0 bg-transparent p-0 pb-[calc(16*var(--fx))] text-left md:pb-0"
+      className="relative w-fit cursor-pointer border-0 bg-transparent p-0 pb-[calc(24*var(--fx))] text-left md:pb-[calc(8*var(--fx))]"
     >
       <span
         className={`font-gotham text-20 md:text-32 ${
@@ -45,8 +46,35 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
   const { descripcion, tabs = [] } = props;
   // titulo se recibe por contrato de ACF pero no se rendera según Figma
   const [active, setActive] = useState(0);
+  const [carousel, setCarousel] = useState<{ tab: number; api: EmblaCarouselType }>();
   const activeTab = tabs[active] ?? { imagenes: [] };
   const activeDescription = activeTab.descripcion ?? (active === 0 ? descripcion : undefined);
+
+  useEffect(() => {
+    if (!carousel || carousel.tab !== active || tabs.length === 0) return;
+    const { api } = carousel;
+    let timer: ReturnType<typeof setTimeout>;
+
+    const scheduleNext = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        if (api.canScrollNext()) {
+          api.scrollNext();
+        } else {
+          api.scrollTo(0);
+          scheduleNext();
+        }
+      }, 3000);
+    };
+    const pause = () => clearTimeout(timer);
+
+    scheduleNext();
+    api.on("select", scheduleNext).on("pointerDown", pause).on("pointerUp", scheduleNext);
+    return () => {
+      clearTimeout(timer);
+      api.off("select", scheduleNext).off("pointerDown", pause).off("pointerUp", scheduleNext);
+    };
+  }, [active, carousel, tabs.length]);
 
   return (
     <section
@@ -57,6 +85,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
         <EmblaSlider
           key={active}
           slides={activeTab.imagenes || []}
+          onApiReady={(api) => setCarousel({ tab: active, api })}
           renderSlide={(slide) => (
             <div className="relative h-full w-full">
               {slide?.imagen?.url ? (

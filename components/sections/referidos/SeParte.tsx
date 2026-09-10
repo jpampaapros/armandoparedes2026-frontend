@@ -89,7 +89,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
       autorizoReferido: false,
     },
   });
-  const { submit, isPending, status } = useCf7Submit(form_id || "976", { raw: true });
+  const { submit, isPending, status } = useCf7Submit(form_id || "11093", { raw: true });
   const isClient = useIsClient();
 
   const onSubmit = async (values: ReferidosFormValues) => {

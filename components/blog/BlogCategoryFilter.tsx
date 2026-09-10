@@ -30,6 +30,8 @@ export function BlogCategoryFilter({ categories }: BlogCategoryFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selected = searchParams.get("categoria") || "";
+  const parentCategories = categories.filter((category) => category.parent === 0);
+  const selectedCategory = parentCategories.find((category) => category.slug === selected);
 
   function handleChange(value: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -49,18 +51,24 @@ export function BlogCategoryFilter({ categories }: BlogCategoryFilterProps) {
       </label>
       <select
         id="blog-category"
-        value={selected}
+        value={selectedCategory ? selected : ""}
         onChange={(e) => handleChange(e.target.value)}
-        className="h-52 w-full appearance-none rounded-10 border border-border-light bg-white px-24 pb-0 pt-[calc(7px+6px)] pr-52 text-left font-gotham text-18 font-medium leading-normal text-text-muted focus:outline-none focus:ring-2 focus:ring-peach md:text-22"
+        className="block h-[calc(56*var(--fx))] w-full appearance-none rounded-10 border border-border-light bg-white px-24 py-0 pr-52 text-left font-sans md:font-gotham text-[calc(22*var(--fx))] font-medium not-italic leading-[normal] text-transparent focus:outline-none focus:ring-0 md:h-52 md:text-text-muted"
       >
         <option value="" className="bg-white text-near-black">Categorías</option>
-        {categories.map((category) => (
+        {parentCategories.map((category) => (
           <option key={category.id} value={category.slug} className="bg-white text-near-black">
             {category.name}
           </option>
         ))}
       </select>
-      <ChevronDownIcon className="pointer-events-none absolute right-20 top-1/2 h-[11px] w-[20px] -translate-y-1/2" />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 flex items-center px-24 pr-52 font-sans text-[calc(22*var(--fx))] font-medium leading-[1.3] text-text-muted md:hidden"
+      >
+        <span className="truncate">{selectedCategory?.name || "Categorías"}</span>
+      </span>
+      <ChevronDownIcon className="pointer-events-none absolute right-20 top-1/2 h-[calc(11*var(--fx))] w-[calc(20*var(--fx))] -translate-y-1/2 md:h-[11px] md:w-[20px]" />
     </div>
   );
 }

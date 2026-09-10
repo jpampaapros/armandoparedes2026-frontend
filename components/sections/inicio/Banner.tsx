@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { HomeBannerSlide } from "@/lib/types";
 import { TypewriterTitle } from "./TypewriterTitle";
@@ -21,7 +21,21 @@ function processTitle(html?: string) {
 export function Banner({ slides }: BannerProps) {
   const validSlides = slides.filter((slide) => slide.titulo || slide.imagen?.url);
   const [activeIndex, setActiveIndex] = useState(0);
+  const progressRef = useRef<HTMLSpanElement>(null);
   const activeSlide = validSlides[activeIndex] ?? validSlides[0];
+
+  useEffect(() => {
+    const updateProgress = (event: Event) => {
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${(event as CustomEvent<number>).detail})`;
+      }
+    };
+    window.addEventListener("home-typewriter-progress", updateProgress);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches && progressRef.current) {
+      progressRef.current.style.transform = "scaleX(1)";
+    }
+    return () => window.removeEventListener("home-typewriter-progress", updateProgress);
+  }, [activeIndex]);
 
   useEffect(() => {
     if (validSlides.length <= 1) return;
@@ -60,12 +74,20 @@ export function Banner({ slides }: BannerProps) {
             aria-label={`Ir al slide ${index + 1}`}
             aria-current={index === activeIndex ? "true" : undefined}
             onClick={() => setActiveIndex(index)}
-            className={`h-6 cursor-pointer rounded-full border-0 p-0 transition-[width,background-color] duration-300 ${
+            className={`relative h-[calc(6*var(--fx))] cursor-pointer overflow-hidden rounded-full border-0 bg-dots-inactive p-0 transition-[width] duration-300 ${
               index === activeIndex
-                ? "w-91 bg-dots-active"
-                : "w-27 bg-dots-inactive"
+                ? "w-[calc(91*var(--fx))]"
+                : "w-[calc(27*var(--fx))]"
             }`}
-          />
+          >
+            {index === activeIndex && (
+              <span
+                ref={progressRef}
+                className="absolute inset-0 origin-left rounded-full bg-dots-active motion-reduce:transition-none"
+                style={{ transform: "scaleX(0)", transition: "transform 85ms linear" }}
+              />
+            )}
+          </button>
         ))}
       </div>
 

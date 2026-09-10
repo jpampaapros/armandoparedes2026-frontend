@@ -106,7 +106,12 @@ export function HeaderClient({ data }: { data: HeaderData }) {
     setIsOpen(false);
   };
 
-  const menuItems = data.modal_menu?.menu?.filter((item) => item.link?.url) ?? [];
+  const menuItems = data.modal_menu?.menu?.filter(({ link }) => {
+    if (!link?.url) return false;
+
+    return link.title?.trim().toLowerCase() !== "armando"
+      && !/\/armando\/?(?:[?#].*)?$/i.test(link.url);
+  }) ?? [];
 
   return (
     <>

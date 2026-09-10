@@ -16,6 +16,33 @@ function formatPhrase(phrase: string) {
   );
 }
 
+function BenefitCards({ cards }: { cards: ReferidosCard[] }) {
+  return (
+    <div className="flex flex-col gap-12 [container-type:inline-size] md:gap-16">
+      {cards.map((card, index) => (
+        <div
+          key={index}
+          className="grid min-h-[18.6cqw] grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-[2.25cqw] rounded-[3.25cqw] bg-white px-[4.2cqw]"
+        >
+          <span className="font-poppins text-[5.18cqw] font-semibold leading-[1.2] text-near-black">
+            {card.label}
+          </span>
+          <span className="font-poppins text-[3.24cqw] uppercase leading-[1.4] tracking-[0.09em] text-near-black">
+            {card.subtitle?.trim().split(/^un\s+bono\b/i.test(card.subtitle.trim()) ? /\s+(?=hasta\b)/i : /\s+(?=de\s+hasta\b)/i).map((line, lineIndex) => (
+              <span key={lineIndex} className="block whitespace-nowrap">{line}</span>
+            ))}
+          </span>
+          {card.amount && (
+            <span className="whitespace-nowrap font-gotham text-[8.42cqw] font-bold leading-none tracking-[-0.03em] text-peach">
+              {card.amount}
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function BannerReferidos({
   background_image,
   title,
@@ -68,32 +95,7 @@ export function BannerReferidos({
 
         {cards && cards.length > 0 && (
           <div className="relative z-10 -mt-[calc(55*var(--fx))] w-full rounded-[calc(16*var(--fx))] bg-peach px-16 pb-40 pt-[calc(95*var(--fx))]">
-            <div className="flex flex-col gap-12">
-              {cards.map((card, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between rounded-12 bg-white p-12"
-                >
-                  <div className="flex flex-col items-center justify-center text-center">
-                    {card.label && (
-                      <span className="font-poppins text-[calc(22*var(--fx))] font-semibold text-near-black">
-                        {card.label}
-                      </span>
-                    )}
-                    {card.subtitle && (
-                      <span className="mt-2 font-poppins text-12 uppercase tracking-[0.09em] text-near-black">
-                        {card.subtitle}
-                      </span>
-                    )}
-                  </div>
-                  {card.amount && (
-                    <span className="font-gotham text-32 font-bold text-peach">
-                      {card.amount}
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
+            <BenefitCards cards={cards} />
 
             {legal_text && (
               <div
@@ -124,41 +126,8 @@ export function BannerReferidos({
         )}
 
         {cards && cards.length > 0 && (
-          <div className="absolute bottom-[calc(55*var(--fx))] left-1/2 h-[calc(454*var(--fx))] w-[calc(895*var(--fx))] -translate-x-[51%] rounded-[calc(25*var(--fx))] bg-peach px-[calc(92*var(--fx))] pt-[calc(94*var(--fx))] pb-[calc(50*var(--fx))]">
-            <div className="flex flex-col gap-[calc(16*var(--fx))]">
-              {cards.map((card, index) => (
-                <div
-                  key={index}
-                  className="grid h-[calc(102*var(--fx))] grid-cols-[calc(196*var(--fx))_calc(122*var(--fx))_calc(90*var(--fx))_minmax(0,1fr)] items-center rounded-[calc(22*var(--fx))] bg-white px-[calc(32*var(--fx))]"
-                >
-                  <span className="text-center font-poppins text-[calc(22*var(--fx))] font-semibold text-near-black">
-                    {card.label}
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    className="h-[calc(15*var(--fx))] w-[calc(74*var(--fx))] justify-self-center"
-                    viewBox="0 0 74 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M73.7071 8.07039C74.0976 7.67986 74.0976 7.0467 73.7071 6.65617L67.3431 0.292213C66.9526 -0.0983109 66.3195 -0.0983109 65.9289 0.292213C65.5384 0.682738 65.5384 1.3159 65.9289 1.70643L71.5858 7.36328L65.9289 13.0201C65.5384 13.4107 65.5384 14.0438 65.9289 14.4343C66.3195 14.8249 66.9526 14.8249 67.3431 14.4343L73.7071 8.07039ZM0 7.36328V8.36328H73V7.36328V6.36328H0V7.36328Z"
-                      fill="#1D1D1B"
-                    />
-                  </svg>
-                  <span className="text-left font-poppins text-[calc(13*var(--fx))] uppercase leading-[1.2] tracking-[0.09em] text-near-black">
-                    {card.subtitle?.trim().split(/\s+(?=de\s+hasta\b)/i).map((line, lineIndex) => (
-                      <span key={lineIndex} className="block whitespace-nowrap">{line}</span>
-                    ))}
-                  </span>
-                  {card.amount && (
-                    <span className="ml-[calc(15*var(--fx))] text-center font-gotham text-[calc(42*var(--fx))] font-bold not-italic leading-[normal] tracking-[calc(-1.26*var(--fx))] text-peach">
-                      {card.amount}
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
+          <div className="absolute bottom-[calc(55*var(--fx))] left-1/2 w-[calc(895*var(--fx))] -translate-x-[51%] rounded-[calc(25*var(--fx))] bg-peach px-[calc(92*var(--fx))] pt-[calc(94*var(--fx))] pb-[calc(50*var(--fx))]">
+            <BenefitCards cards={cards} />
 
             {legal_text && (
               <div

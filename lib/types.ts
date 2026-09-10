@@ -174,6 +174,7 @@ export type WPCategory = {
   id: number;
   name: string;
   slug: string;
+  parent: number;
 };
 
 export type WPPost = {
