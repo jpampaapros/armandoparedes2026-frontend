@@ -174,7 +174,7 @@ Tags en uso:
 
 ## Formularios
 
-Se envían desde el cliente directo a Contact Form 7 en el CMS (`hooks/useCf7Submit.ts` → `POST {NEXT_PUBLIC_CMS_URL}/wp-json/contact-form-7/v1/contact-forms/{id}/feedback`). El ID del formulario viene de ACF cuando existe, con fallback a `4` (contacto general) y `11093` (referidos).
+Se envían desde el cliente directo a Contact Form 7 en el CMS (`hooks/useCf7Submit.ts` → `POST {NEXT_PUBLIC_CMS_URL}/wp-json/contact-form-7/v1/contact-forms/{id}/feedback`). El ID del formulario viene de ACF cuando existe, con fallback a `4` (contacto general) y `976` (referidos).
 
 ## Estilos
 

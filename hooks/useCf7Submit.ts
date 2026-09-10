@@ -5,7 +5,12 @@ import { getPublicCmsUrl } from "@/lib/urls";
 
 export type Cf7FormValues = Record<string, string | boolean | undefined>;
 
-type Cf7SubmitStatus = { ok?: boolean; message?: string } | null;
+type Cf7InvalidField = { field: string; message: string };
+type Cf7SubmitStatus = {
+  ok?: boolean;
+  message?: string;
+  invalidFields?: Cf7InvalidField[];
+} | null;
 
 export function useCf7Submit(
   formId: string | number,
@@ -51,11 +56,16 @@ export function useCf7Submit(
           `${cmsUrl}/wp-json/contact-form-7/v1/contact-forms/${id}/feedback`,
           { method: "POST", body: forward },
         );
-        const data = (await res.json()) as { status?: string; message?: string };
-        const ok = data.status === "mail_sent";
+        const data = (await res.json()) as {
+          status?: string;
+          message?: string;
+          invalid_fields?: Cf7InvalidField[];
+        };
+        const ok = res.ok && data.status === "mail_sent";
         setStatus({
           ok,
-          message: data.message || "Gracias por contactarnos",
+          message: data.message || (ok ? "Gracias por contactarnos" : "No se pudo enviar el formulario. Inténtalo de nuevo."),
+          invalidFields: data.invalid_fields,
         });
         return ok;
       } catch {

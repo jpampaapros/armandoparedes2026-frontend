@@ -22,18 +22,32 @@ function BenefitCards({ cards }: { cards: ReferidosCard[] }) {
       {cards.map((card, index) => (
         <div
           key={index}
-          className="grid min-h-[18.6cqw] grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-[2.25cqw] rounded-[3.25cqw] bg-white px-[4.2cqw]"
+          className="grid min-h-[18.6cqw] grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-[2.25cqw] rounded-[3.25cqw] bg-white px-[4.2cqw] md:h-[calc(102*var(--fx))] md:min-h-0 md:grid-cols-[calc(196*var(--fx))_calc(122*var(--fx))_calc(90*var(--fx))_minmax(0,1fr)] md:gap-0 md:rounded-[calc(22*var(--fx))] md:px-[calc(32*var(--fx))]"
         >
-          <span className="font-poppins text-[5.18cqw] font-semibold leading-[1.2] text-near-black">
+          <span className="font-poppins text-[5.18cqw] font-semibold leading-[1.2] text-near-black md:text-center md:text-[calc(22*var(--fx))]">
             {card.label}
           </span>
-          <span className="font-poppins text-[3.24cqw] uppercase leading-[1.4] tracking-[0.09em] text-near-black">
+          <svg
+            width="74"
+            height="15"
+            viewBox="0 0 74 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            className="hidden md:block md:h-[calc(15*var(--fx))] md:w-[calc(74*var(--fx))] md:justify-self-center"
+          >
+            <path
+              d="M73.7071 8.07039C74.0976 7.67986 74.0976 7.0467 73.7071 6.65617L67.3431 0.292213C66.9526 -0.0983109 66.3195 -0.0983109 65.9289 0.292213C65.5384 0.682738 65.5384 1.3159 65.9289 1.70643L71.5858 7.36328L65.9289 13.0201C65.5384 13.4107 65.5384 14.0438 65.9289 14.4343C66.3195 14.8249 66.9526 14.8249 67.3431 14.4343L73.7071 8.07039ZM0 7.36328V8.36328H73V7.36328V6.36328H0V7.36328Z"
+              fill="#1D1D1B"
+            />
+          </svg>
+          <span className="font-poppins text-[3.24cqw] uppercase leading-[1.4] tracking-[0.09em] text-near-black md:text-[calc(13*var(--fx))] md:leading-[1.2]">
             {card.subtitle?.trim().split(/^un\s+bono\b/i.test(card.subtitle.trim()) ? /\s+(?=hasta\b)/i : /\s+(?=de\s+hasta\b)/i).map((line, lineIndex) => (
               <span key={lineIndex} className="block whitespace-nowrap">{line}</span>
             ))}
           </span>
           {card.amount && (
-            <span className="whitespace-nowrap font-gotham text-[8.42cqw] font-bold leading-none tracking-[-0.03em] text-peach">
+            <span className="whitespace-nowrap font-gotham text-[8.42cqw] font-bold leading-none tracking-[-0.03em] text-peach md:ml-[calc(15*var(--fx))] md:text-center md:text-[calc(42*var(--fx))] md:leading-[normal]">
               {card.amount}
             </span>
           )}
