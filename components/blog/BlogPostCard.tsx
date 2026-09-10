@@ -62,7 +62,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-[calc(16*var(--fx))] px-0 pb-[calc(30*var(--fx))] pt-[calc(22*var(--fx))] md:w-[calc(54%-55px)] md:gap-24 md:py-24 md:pl-0 md:pr-24">
+        <div className="flex flex-col gap-[calc(16*var(--fx))] p-[calc(16*var(--fx))] md:w-[calc(54%-55px)] md:gap-24 md:py-24 md:pl-0 md:pr-24">
           <div className="mb-0 flex flex-wrap items-center gap-8 md:mb-[50px]">
             {date && (
               <span className="bg-slate px-10 py-6 font-poppins text-14 font-normal text-white">
@@ -127,7 +127,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
           className="line-clamp-3 font-poppins text-14 font-normal leading-18 text-near-black md:text-10 md:leading-13"
           dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
         />
-        <span className="mt-auto font-poppins text-[calc(10.152*var(--fx))] font-light italic leading-[calc(17.409*var(--fx))] text-near-black underline decoration-solid [text-decoration-skip-ink:none] [text-decoration-thickness:auto] [text-underline-offset:auto] [text-underline-position:from-font]">
+        <span className="mt-auto font-poppins text-[calc(14*var(--fx))] font-light not-italic leading-[calc(17.409*var(--fx))] md:text-[calc(10.152*var(--fx))] md:italic text-near-black underline decoration-solid [text-decoration-skip-ink:none] [text-decoration-thickness:auto] [text-underline-offset:auto] [text-underline-position:from-font]">
           Leer más
         </span>
       </div>
