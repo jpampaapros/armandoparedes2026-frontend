@@ -103,10 +103,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
           )}
           loop={false}
           showArrows={false}
-          showBullets={{
-            mobile: false,
-            desktop: (activeTab.imagenes?.length ?? 0) > 1,
-          }}
+          showBullets={false}
         />
       </div>
 

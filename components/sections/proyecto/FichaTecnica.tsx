@@ -35,10 +35,10 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
           )}
 
           <div
-            className={`${direccion ? "mt-[calc(70*var(--fx))] md:mt-0" : ""} flex flex-col flex-wrap items-center justify-center gap-24 md:flex-row md:gap-60`}
+            className={`${direccion ? "mt-[calc(70*var(--fx))] md:mt-0" : ""} flex flex-col flex-wrap items-center justify-center gap-24 md:gap-[calc(90*var(--fx))] ${pisos && area && dormitorios ? "md:grid md:w-full md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]" : "md:flex-row"}`}
           >
             {pisos && (
-              <div className="flex items-center gap-14">
+              <div className="flex items-center gap-14 md:justify-self-end">
                 <BuildingIcon className="h-28 w-28 text-white md:h-30 md:w-30" />
                 <span className="font-poppins text-18 text-white md:text-24">
                   {pisos} pisos
@@ -46,15 +46,15 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
               </div>
             )}
             {area && (
-              <div className="flex items-center gap-14">
-                <AreaIcon className="h-28 w-28 text-white md:h-36 md:w-36" />
+              <div className="flex items-center justify-center gap-14 text-center">
+                <AreaIcon className="h-28 w-28 shrink-0 text-white md:h-36 md:w-36" />
                 <span className="font-poppins text-18 text-white md:text-24">
-                  {area} m2
+                  {area} m²
                 </span>
               </div>
             )}
             {dormitorios && (
-              <div className="flex items-center gap-14">
+              <div className="flex items-center gap-14 md:justify-self-start">
                 <BedIcon className="h-28 w-28 text-white md:h-36 md:w-36" />
                 <span className="font-poppins text-18 text-white md:text-24">
                   {dormitorios} dormitorios
