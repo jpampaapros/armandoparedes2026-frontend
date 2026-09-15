@@ -3,11 +3,9 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-/* Debe coincidir con --intro-duration en globals.css. */
-const INTRO_DURATION = 3600;
 const CURTAIN_DURATION = 2000;
 const HERO_EXIT_DURATION = 1400;
-const TYPEWRITER_COMPLETE_EVENT = "home-typewriter-complete";
+const TYPEWRITER_COMPLETE_EVENT = "home-typewriter-revealed";
 
 type HomeIntroProps = {
   src: string;
@@ -19,6 +17,7 @@ type HomeIntroProps = {
 export function HomeIntro({ src, width, height, children }: HomeIntroProps) {
   const [isDone, setIsDone] = useState(false);
   const [isCurtainDone, setIsCurtainDone] = useState(false);
+  const [isContentReady, setIsContentReady] = useState(false);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -42,12 +41,11 @@ export function HomeIntro({ src, width, height, children }: HomeIntroProps) {
     const curtainTimer = window.setTimeout(() => {
       setIsCurtainDone(true);
     }, CURTAIN_DURATION);
-    const scrollTimer = window.setTimeout(() => {
-      releaseScroll();
-    }, INTRO_DURATION);
     let finishTimer: number | undefined;
 
     const finishIntro = () => {
+      setIsContentReady(true);
+      releaseScroll();
       finishTimer = window.setTimeout(() => setIsDone(true), HERO_EXIT_DURATION);
     };
 
@@ -55,7 +53,6 @@ export function HomeIntro({ src, width, height, children }: HomeIntroProps) {
 
     return () => {
       window.clearTimeout(curtainTimer);
-      window.clearTimeout(scrollTimer);
       if (finishTimer !== undefined) window.clearTimeout(finishTimer);
       window.removeEventListener(TYPEWRITER_COMPLETE_EVENT, finishIntro);
       releaseScroll();
@@ -81,7 +78,7 @@ export function HomeIntro({ src, width, height, children }: HomeIntroProps) {
       )}
 
       {/* El wrapper es el ancla de las reglas .intro-start: su primer hijo es el banner. */}
-      <div className={isDone ? undefined : "intro-start"}>{children}</div>
+      <div className={isDone ? undefined : "intro-start"} data-intro-ready={isContentReady || undefined}>{children}</div>
     </>
   );
 }

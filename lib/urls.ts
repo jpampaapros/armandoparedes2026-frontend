@@ -47,3 +47,18 @@ export function getPublicCmsUrl(): string {
   }
   return url;
 }
+
+export function getPublicFormsUrl(): string {
+  const configured = process.env.NEXT_PUBLIC_FORMS_URL?.trim();
+  if (!configured) return getPublicCmsUrl();
+
+  const url = new URL(configured);
+  if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) {
+    throw new Error("NEXT_PUBLIC_FORMS_URL must be a public HTTP(S) WordPress URL.");
+  }
+  if (url.search || url.hash || /\/(?:wp-admin|wp-json)(?:\/|$)/.test(url.pathname)) {
+    throw new Error("NEXT_PUBLIC_FORMS_URL must point to the WordPress installation root.");
+  }
+
+  return url.href.replace(/\/+$/, "");
+}

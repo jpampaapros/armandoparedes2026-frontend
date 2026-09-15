@@ -89,6 +89,7 @@ export function TypewriterTitle({ html, className }: TypewriterTitleProps) {
       if (characterIndex >= characters.length) {
         const banner = animatedTitle.closest<HTMLElement>("[data-intro-banner]");
         banner?.setAttribute("data-typewriter-complete", "true");
+        window.dispatchEvent(new CustomEvent("home-typewriter-revealed"));
         holdTitle(performance.now());
         return;
       }
