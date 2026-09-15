@@ -109,7 +109,7 @@ export type ProjectSection =
   | { acf_fc_layout: "video"; titulo?: string; imagen_previa?: ACFImage; url_youtube?: string }
   | { acf_fc_layout: "galeria"; titulo?: string; descripcion?: string; tabs?: ProjectGaleriaTab[] }
   | { acf_fc_layout: "planos"; titulo?: string; dormitorios?: ProjectDormitorio[]; boton_mas_planos?: ACFLink; texto_adicional?: string; leyenda?: ProjectLeyendaItem[] }
-  | { acf_fc_layout: "mapa"; titulo?: string; imagen?: ACFImage; ubicaciones?: ProjectMapaUbicacion[] }
+  | { acf_fc_layout: "mapa"; titulo?: string; google_maps?: string; latitud?: number | string; longitud?: number | string; ubicaciones?: ProjectMapaUbicacion[] }
   | { acf_fc_layout: "formulario_contacto"; titulo?: string; formulario_id?: string | number }
   | { acf_fc_layout: "quiero_mas_info"; titulo?: string; formulario_id?: string | number; imagen_fondo?: ACFImage; blog_titulo?: string; blog_boton?: ACFLink }
   | { acf_fc_layout: "banner_pre_lanzamiento"; badge?: string; slides?: { imagen_fondo?: ACFImage; titulo?: string; descripcion?: string }[] }

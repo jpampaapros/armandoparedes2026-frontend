@@ -268,22 +268,8 @@ a:-webkit-any-link {
   }
 }
 
-/* ---------------------------------------------------------------------------
-   Intro de entrada del home (componente HomeIntro).
-
-   Una sola linea de tiempo de --intro-duration:
-     0 - 30%   telon negro con el logo al centro
-    30 - 55%   el telon sube y descubre la pagina
-    55 - 75%   aparece el titulo y comienza la escritura sobre blanco
-    75 - 100%  aparece el resto; el bloque blanco espera a que termine el texto
-
-   Cuando acaba la escritura, intro-hero-finish mueve el contenido inferior y
-   HomeIntro desmonta el estado de entrada 1400ms despues.
-
-   Va en @keyframes y no en transiciones para que corra sola aunque la hidratacion
-   se demore; el JS solo desmonta el telon y libera el scroll. Los valores finales
-   coinciden con los del estado normal, asi que al quitar .intro-start no hay salto.
---------------------------------------------------------------------------- */
+/* Intro del Home: el telón descubre la página y el contenido aparece por
+   opacidad, conservando siempre sus espacios y su posición final. */
 
 @keyframes intro-lift {
   0%,
@@ -308,30 +294,11 @@ a:-webkit-any-link {
 }
 
 @keyframes intro-fade-in {
-  0%,
-  75% {
+  0% {
     opacity: 0;
   }
   100% {
     opacity: 1;
-  }
-}
-
-@keyframes intro-body-pad {
-  from {
-    padding-top: 0;
-  }
-  to {
-    padding-top: var(--header-height);
-  }
-}
-
-@keyframes intro-banner-pad {
-  from {
-    padding-top: 0;
-  }
-  to {
-    padding-top: var(--banner-padding-top);
   }
 }
 
@@ -344,32 +311,22 @@ a:-webkit-any-link {
     animation: intro-logo 2000ms ease-out forwards;
   }
 
-  /* El espacio del header y del banner vuelve solo despues de terminar la
-     escritura, para que el titulo no cambie de posicion mientras se forma. */
-  body:has(.intro-start) {
-    padding-top: 0;
-  }
-
-  body:has(.intro-start [data-typewriter-complete]) {
-    animation: intro-body-pad 1400ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
-  }
-
   /* Todo menos el titulo: header, footer, los puntos y la imagen del banner,
      y las secciones que siguen (el primer hijo del wrapper es el banner). */
   body:has(.intro-start) > header,
   body:has(.intro-start) > footer,
   .intro-start > :not(:first-child),
   .intro-start [data-intro-fade] {
-    animation: intro-fade-in var(--intro-duration) ease-out forwards;
+    opacity: 0;
   }
 
-  .intro-start [data-intro-banner] {
-    padding-top: 0;
+  body:has(.intro-start[data-intro-ready]) > header,
+  body:has(.intro-start[data-intro-ready]) > footer,
+  .intro-start[data-intro-ready] > :not(:first-child),
+  .intro-start[data-intro-ready] [data-intro-fade] {
+    animation: intro-fade-in 1000ms ease-out forwards;
   }
 
-  .intro-start [data-intro-banner][data-typewriter-complete] {
-    animation: intro-banner-pad 1400ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
-  }
 
 }
 

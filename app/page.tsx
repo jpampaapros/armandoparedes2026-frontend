@@ -1,5 +1,7 @@
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { HomeSectionMapper } from "@/components/sections/HomeSectionMapper";
+import { HomeIntro } from "@/components/HomeIntro";
+import { getHeaderData } from "@/components/Header";
 import type { HomeSection, Project, Delivered } from "@/lib/types";
 
 type WordPressHomePage = {
@@ -51,18 +53,37 @@ async function getDelivered(): Promise<Delivered[]> {
   }
 }
 
+async function getIntroLogo() {
+  try {
+    const header = await getHeaderData();
+    return header.logo?.url ? header.logo : null;
+  } catch {
+    return null;
+  }
+}
+
 export default async function Home() {
   const page = await getHomePage();
   const proyectos = await getProjects();
   const entregados = await getDelivered();
+  const introLogo = await getIntroLogo();
+  const sections = page?.acf_full?.sections ?? [];
+  const hasBanner = sections.some((section) => section.acf_fc_layout === "banner" && section.titulo?.trim());
+  const content = (
+    <HomeSectionMapper
+      sections={sections}
+      proyectos={proyectos}
+      entregados={entregados}
+    />
+  );
 
   return (
     <main className="w-full max-w-none p-0">
-      <HomeSectionMapper
-        sections={page?.acf_full?.sections}
-        proyectos={proyectos}
-        entregados={entregados}
-      />
+      {introLogo?.url && hasBanner ? (
+        <HomeIntro src={introLogo.url} width={introLogo.width} height={introLogo.height}>
+          {content}
+        </HomeIntro>
+      ) : content}
     </main>
   );
 }

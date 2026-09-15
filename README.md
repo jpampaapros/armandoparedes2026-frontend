@@ -27,6 +27,7 @@ Se ejecuta dentro del stack Docker del repo `armando-paredes` (server): se clona
 |---|---|
 | `WORDPRESS_API_URL` | Base REST de WordPress, solo lado servidor (p. ej. `http://litespeed`) |
 | `NEXT_PUBLIC_CMS_URL` | URL pública del CMS para assets/enlaces y envíos de formularios (CF7) |
+| `NEXT_PUBLIC_FORMS_URL` | URL pública del WordPress que contiene los formularios CF7, si es distinto del CMS. Usar la raíz de la instalación, sin `/wp-admin` ni `/wp-json`. Si está vacía, se usa `NEXT_PUBLIC_CMS_URL`. |
 | `NEXT_PUBLIC_SITE_URL` | URL pública del propio frontend |
 | `REVALIDATE_SECRET` | Bearer que valida `POST /api/revalidate` |
 
@@ -174,7 +175,7 @@ Tags en uso:
 
 ## Formularios
 
-Se envían desde el cliente directo a Contact Form 7 en el CMS (`hooks/useCf7Submit.ts` → `POST {NEXT_PUBLIC_CMS_URL}/wp-json/contact-form-7/v1/contact-forms/{id}/feedback`). El ID del formulario viene de ACF cuando existe, con fallback a `4` (contacto general) y `976` (referidos).
+Se envían desde el cliente directo a Contact Form 7 (`hooks/useCf7Submit.ts` → `POST {NEXT_PUBLIC_FORMS_URL}/wp-json/contact-form-7/v1/contact-forms/{id}/feedback`). Si `NEXT_PUBLIC_FORMS_URL` no está configurada, se usa `NEXT_PUBLIC_CMS_URL`. El ID del formulario viene de ACF cuando existe, con fallback a `4` (contacto general) y `976` (referidos). Los IDs deben existir en la instalación de WordPress elegida para formularios. Esta configuración aplica a todos los formularios; el WordPress receptor debe permitir solicitudes desde el dominio del frontend. Al cambiar la variable en Vercel, se necesita un nuevo despliegue para incorporarla al código del navegador.
 
 ## Estilos
 

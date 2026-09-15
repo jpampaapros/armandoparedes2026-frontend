@@ -1,13 +1,17 @@
 import Image from "next/image";
+import { getGoogleMapsCoordinateUrl, getGoogleMapsEmbedUrl } from "@/lib/google-maps-embed";
 import type { ACFImage } from "@/lib/types";
 
 type MapaProyectoProps = {
   titulo?: string;
-  imagen?: ACFImage;
+  google_maps?: string;
+  latitud?: number | string;
+  longitud?: number | string;
   ubicaciones?: { nombre?: string; icono?: ACFImage; minutos?: string }[];
 };
 
-export function MapaProyecto({ titulo, imagen, ubicaciones = [] }: MapaProyectoProps) {
+export function MapaProyecto({ titulo, google_maps, latitud, longitud, ubicaciones = [] }: MapaProyectoProps) {
+  const mapUrl = getGoogleMapsCoordinateUrl(latitud, longitud) ?? getGoogleMapsEmbedUrl(google_maps);
   return (
     <section
       data-layout="mapa"
@@ -15,16 +19,19 @@ export function MapaProyecto({ titulo, imagen, ubicaciones = [] }: MapaProyectoP
     >
       <div className="mx-auto flex max-w-1440 flex-col px-16 md:flex-row md:px-80">
         <div className="relative h-273 w-full overflow-hidden rounded-15 md:h-730 md:w-875 md:rounded-35">
-          {imagen?.url ? (
-            <Image
-              src={imagen.url}
-              alt={imagen.alt || titulo || ""}
-              fill
-              sizes="(max-width: 768px) 100vw, 75vw"
-              className="object-cover"
+          {mapUrl ? (
+            <iframe
+              src={mapUrl}
+              title={titulo || "Ubicación del proyecto en Google Maps"}
+              className="block h-full w-full border-0"
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
             />
           ) : (
-            <div className="h-full w-full bg-neutral-200" />
+            <div className="flex h-full w-full items-center justify-center bg-neutral-200 px-24 text-center font-poppins text-16 text-near-black">
+              Ubicación próximamente disponible
+            </div>
           )}
         </div>
 

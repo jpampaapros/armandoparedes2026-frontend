@@ -107,7 +107,9 @@ export function ProjectSectionMapper({ sections, proyectos }: ProjectSectionMapp
               <MapaProyecto
                 key={key}
                 titulo={section.titulo}
-                imagen={section.imagen}
+                google_maps={section.google_maps}
+                latitud={section.latitud}
+                longitud={section.longitud}
                 ubicaciones={section.ubicaciones}
               />
             );

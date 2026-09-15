@@ -22,7 +22,46 @@ export function Banner({ slides }: BannerProps) {
   const validSlides = slides.filter((slide) => slide.titulo || slide.imagen?.url);
   const [activeIndex, setActiveIndex] = useState(0);
   const progressRef = useRef<HTMLSpanElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
   const activeSlide = validSlides[activeIndex] ?? validSlides[0];
+
+  useEffect(() => {
+    const element = imageRef.current;
+    if (!element || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const animation = element.animate(
+      [{ opacity: 0 }, { opacity: 1 }],
+      { duration: 1000, easing: "ease-out", fill: "both" },
+    );
+    animation.pause();
+
+    const intro = element.closest(".intro-start");
+    let textReady = !intro || intro.hasAttribute("data-intro-ready");
+    let inView = false;
+    let started = false;
+    const reveal = () => {
+      if (!textReady || !inView || started) return;
+      started = true;
+      animation.play();
+      observer.disconnect();
+    };
+    const onTextReady = () => {
+      textReady = true;
+      reveal();
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      reveal();
+    }, { threshold: 0.1 });
+    window.addEventListener("home-typewriter-revealed", onTextReady, { once: true });
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("home-typewriter-revealed", onTextReady);
+      animation.cancel();
+    };
+  }, [activeSlide?.imagen?.url]);
 
   useEffect(() => {
     const updateProgress = (event: Event) => {
@@ -93,15 +132,17 @@ export function Banner({ slides }: BannerProps) {
 
       {activeSlide.imagen?.url && (
         <div data-intro-fade className="relative mt-61 min-h-0 w-full flex-1 md:mt-34 md:h-[calc(817*var(--fx))] md:flex-none">
-          <Image
-            key={activeSlide.imagen.url}
-            src={activeSlide.imagen.url}
-            alt={activeSlide.imagen.alt || ""}
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority
-          />
+          <div ref={imageRef} className="absolute inset-0">
+            <Image
+              key={activeSlide.imagen.url}
+              src={activeSlide.imagen.url}
+              alt={activeSlide.imagen.alt || ""}
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority
+            />
+          </div>
         </div>
       )}
     </section>

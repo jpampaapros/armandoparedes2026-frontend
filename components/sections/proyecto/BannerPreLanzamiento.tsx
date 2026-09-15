@@ -40,7 +40,7 @@ export function BannerPreLanzamiento({
         draggable={slides.length > 1}
         showArrows={false}
         showBullets={{ mobile: false, desktop: slides.length > 1 }}
-        bulletClassName="h-6 rounded-none transition-all"
+        bulletClassName="h-6 rounded-full transition-all"
         bulletActiveClassName="w-91 bg-white"
         bulletInactiveClassName="w-27 bg-white/80"
         renderSlide={(slide) => (

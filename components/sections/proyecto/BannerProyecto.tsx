@@ -86,7 +86,7 @@ export function BannerProyecto({ badge, distrito, logo, slides = [] }: BannerPro
         showBullets={false}
         gap={0}
         bulletsContainerClassName="bottom-120 gap-3"
-        bulletClassName="h-6 w-27 rounded-none bg-white/80 shrink-0"
+        bulletClassName="h-6 w-27 rounded-full bg-white/80 shrink-0"
         bulletActiveClassName="w-91 bg-white"
       />
 
@@ -99,7 +99,7 @@ export function BannerProyecto({ badge, distrito, logo, slides = [] }: BannerPro
               aria-label={`Ir al slide ${index + 1}`}
               aria-current={selected === index ? "true" : undefined}
               onClick={() => { api?.scrollTo(index); restartRef.current(); }}
-              className="relative h-[calc(6*var(--fx))] shrink-0 cursor-pointer overflow-hidden border-0 bg-white/40 p-0"
+              className="relative h-[calc(6*var(--fx))] shrink-0 cursor-pointer overflow-hidden rounded-full border-0 bg-white/40 p-0"
               style={{ width: `calc(${selected === index ? 91 : 27}*var(--fx))` }}
             >
               {selected === index && (

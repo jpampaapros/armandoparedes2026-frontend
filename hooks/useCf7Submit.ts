@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { getPublicCmsUrl } from "@/lib/urls";
+import { getPublicFormsUrl } from "@/lib/urls";
 
 export type Cf7FormValues = Record<string, string | boolean | undefined>;
 
@@ -27,7 +27,7 @@ export function useCf7Submit(
       setStatus(null);
 
       try {
-        const cmsUrl = getPublicCmsUrl();
+        const formsUrl = getPublicFormsUrl();
         const forward = new FormData();
         forward.append("_wpcf7_unit_tag", `wpcf7-f${id}-p1-o1`);
 
@@ -53,7 +53,7 @@ export function useCf7Submit(
         }
 
         const res = await fetch(
-          `${cmsUrl}/wp-json/contact-form-7/v1/contact-forms/${id}/feedback`,
+          `${formsUrl}/wp-json/contact-form-7/v1/contact-forms/${id}/feedback`,
           { method: "POST", body: forward },
         );
         const data = (await res.json()) as {
