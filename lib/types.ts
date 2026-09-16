@@ -98,7 +98,7 @@ export type EntregadosSingleSection =
 
 export type ProyectosPageSection =
   | { acf_fc_layout: "banner"; titulo?: string; imagen?: ACFImage }
-  | { acf_fc_layout: "proyectos_lista"; titulo?: string };
+  | { acf_fc_layout: "proyectos_en_venta"; titulo?: string; post?: ACFList<ACFPostObject> };
 
 export type ProjectSlide = {
   imagen?: ACFImage;

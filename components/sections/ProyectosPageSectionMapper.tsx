@@ -1,6 +1,7 @@
 import { Banner } from "@/components/sections/proyectos-en-venta/Banner";
 import { ProyectosLista } from "@/components/sections/proyectos-en-venta/ProyectosLista";
 import type { ProyectosPageSection, Project } from "@/lib/types";
+import { selectByPostObject } from "@/lib/utils";
 
 type ProyectosPageSectionMapperProps = {
   sections?: ProyectosPageSection[];
@@ -26,12 +27,12 @@ export function ProyectosPageSectionMapper({
                  imagen={section.imagen}
                />
              );
-          case "proyectos_lista":
+          case "proyectos_en_venta":
             return (
               <ProyectosLista
                 key={`${section.acf_fc_layout}-${index}`}
                 titulo={section.titulo || tituloPagina}
-                proyectos={proyectos}
+                proyectos={selectByPostObject(proyectos, section.post)}
               />
             );
           default:

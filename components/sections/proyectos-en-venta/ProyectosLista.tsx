@@ -68,7 +68,7 @@ export function ProyectosLista({ titulo, proyectos }: ProyectosListaProps) {
   }, [proyectos, tags, distrito, tipo, area]);
 
   return (
-    <section data-section="proyectos_lista" className="w-full bg-white px-[calc(15*var(--fx))] py-60 md:px-0 md:py-120">
+    <section data-section="proyectos_en_venta" className="w-full bg-white px-[calc(15*var(--fx))] py-60 md:px-0 md:py-120">
       <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col md:flex-row gap-24 justify-between">
           {titulo && (

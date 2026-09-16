@@ -53,7 +53,7 @@ export default async function ProyectosEnVentaPage() {
   const page = await getProyectosPage();
   const proyectos = await getProjects();
   const sections = toArray(page?.acf?.sections);
-  const hasProjectList = sections.some((s) => s.acf_fc_layout === "proyectos_lista");
+  const hasProjectList = sections.some((s) => s.acf_fc_layout === "proyectos_en_venta");
   const tituloPagina = stripHtml(page?.title?.rendered);
 
   return (
