@@ -1,6 +1,6 @@
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { HeaderClient } from "./HeaderClient";
-import type { ACFLink, ACFImage } from "@/lib/types";
+import type { ACFLink, ACFImage, ACFList } from "@/lib/types";
 
 export type HeaderData = {
   logo?: ACFImage;
@@ -9,7 +9,7 @@ export type HeaderData = {
   };
   modal_menu?: {
     logo?: ACFImage;
-    menu?: { link?: ACFLink }[];
+    menu?: ACFList<{ link?: ACFLink }>;
     image?: ACFImage;
   };
 };

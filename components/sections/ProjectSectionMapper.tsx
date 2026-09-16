@@ -12,6 +12,7 @@ import { FormularioContacto } from "@/components/sections/FormularioContacto";
 import { MasProyectos } from "@/components/sections/MasProyectos";
 import { Blog } from "@/components/sections/Blog";
 import type { Project, ProjectSection } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
 type ProjectSectionMapperProps = {
   sections: ProjectSection[];
@@ -31,7 +32,7 @@ export function ProjectSectionMapper({ sections, proyectos }: ProjectSectionMapp
                 badge={section.badge}
                 distrito={section.distrito}
                 logo={section.logo}
-                slides={section.slides}
+                slides={toArray(section.slides)}
               />
             );
           case "banner_pre_lanzamiento":
@@ -39,7 +40,7 @@ export function ProjectSectionMapper({ sections, proyectos }: ProjectSectionMapp
               <BannerPreLanzamiento
                 key={key}
                 badge={section.badge}
-                slides={section.slides}
+                slides={toArray(section.slides)}
               />
             );
           case "descripcion_proyecto":
@@ -70,7 +71,7 @@ export function ProjectSectionMapper({ sections, proyectos }: ProjectSectionMapp
                 key={key}
                 imagen={section.imagen}
                 titulo={section.titulo}
-                info={section.info}
+                info={toArray(section.info)}
               />
             );
           case "video":
@@ -88,7 +89,7 @@ export function ProjectSectionMapper({ sections, proyectos }: ProjectSectionMapp
                 key={key}
                 titulo={section.titulo}
                 descripcion={section.descripcion}
-                tabs={section.tabs}
+                tabs={toArray(section.tabs)}
               />
             );
           case "planos":
@@ -96,10 +97,10 @@ export function ProjectSectionMapper({ sections, proyectos }: ProjectSectionMapp
               <PlanosProyecto
                 key={key}
                 titulo={section.titulo}
-                dormitorios={section.dormitorios}
+                dormitorios={toArray(section.dormitorios)}
                 boton_mas_planos={section.boton_mas_planos}
                 texto_adicional={section.texto_adicional}
-                leyenda={section.leyenda}
+                leyenda={toArray(section.leyenda)}
               />
             );
           case "mapa":
@@ -110,7 +111,7 @@ export function ProjectSectionMapper({ sections, proyectos }: ProjectSectionMapp
                 google_maps={section.google_maps}
                 latitud={section.latitud}
                 longitud={section.longitud}
-                ubicaciones={section.ubicaciones}
+                ubicaciones={toArray(section.ubicaciones)}
               />
             );
           case "formulario_contacto":

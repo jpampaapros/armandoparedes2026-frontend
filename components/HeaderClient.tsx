@@ -6,6 +6,7 @@ import Image from "next/image";
 import { resolveWordPressUrl, isExternalUrl } from "@/lib/urls";
 import type { HeaderData } from "./Header";
 import type { ACFLink, ACFImage } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
 function HeaderLink({ link, className, onClick }: { link?: ACFLink; className?: string; onClick?: () => void }) {
   if (!link?.url) return null;
@@ -106,12 +107,12 @@ export function HeaderClient({ data }: { data: HeaderData }) {
     setIsOpen(false);
   };
 
-  const menuItems = data.modal_menu?.menu?.filter(({ link }) => {
+  const menuItems = toArray(data.modal_menu?.menu).filter(({ link }) => {
     if (!link?.url) return false;
 
     return link.title?.trim().toLowerCase() !== "armando"
       && !/\/armando\/?(?:[?#].*)?$/i.test(link.url);
-  }) ?? [];
+  });
 
   return (
     <>

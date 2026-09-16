@@ -6,6 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useCf7Submit, type Cf7FormValues } from "@/hooks/useCf7Submit";
 import { useIsClient } from "@/hooks/useIsClient";
 import type { ContactoPageFields, Project } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
 const DEFAULT_DISTRICTS = ["Miraflores", "San Isidro", "Barranco", "Surco", "San Borja", "Lima"];
 const DEFAULT_SOURCES = ["Instagram", "Facebook", "Google", "TikTok", "YouTube", "Referido", "Otro"];
@@ -43,7 +44,8 @@ export function ContactoForm({
   });
   const { submit, isPending, status } = useCf7Submit(formulario_id, { raw: true });
   const isClient = useIsClient();
-  const nav = tabs?.length ? tabs : [
+  const navTabs = toArray(tabs);
+  const nav = navTabs.length ? navTabs : [
     { label: "Solicitar información" },
     { label: "Salas de ventas", url: "/salas-de-ventas" },
     { label: "Postventa", url: "/postventa" },

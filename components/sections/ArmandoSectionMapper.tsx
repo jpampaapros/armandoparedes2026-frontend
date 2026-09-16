@@ -4,6 +4,7 @@ import { MiVida } from "@/components/sections/armando/MiVida";
 import { CadaProyecto } from "@/components/sections/armando/CadaProyecto";
 import { EncuentraTuArmando } from "@/components/sections/armando/EncuentraTuArmando";
 import type { ArmandoSection } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
 type ArmandoSectionMapperProps = {
   sections: ArmandoSection[];
@@ -32,7 +33,7 @@ export function ArmandoSectionMapper({ sections }: ArmandoSectionMapperProps) {
               <MiVida
                 key={key}
                 titulo={section.titulo}
-                indicadores={section.indicadores}
+                indicadores={toArray(section.indicadores)}
               />
             );
           case "cada_proyecto":

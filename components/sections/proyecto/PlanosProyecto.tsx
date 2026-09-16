@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { SmartLink } from "@/components/SmartLink";
 import { useCf7Submit, type Cf7FormValues } from "@/hooks/useCf7Submit";
 import type { ACFLink, ProjectDormitorio } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
 type PlanosProyectoProps = {
   titulo?: string;
@@ -33,7 +34,7 @@ export function PlanosProyecto({
   const { submit, isPending, status } = useCf7Submit("4");
 
   const dormitorio = dormitorios[activeDorm];
-  const tipologias = dormitorio?.tipologias ?? [];
+  const tipologias = toArray(dormitorio?.tipologias);
   const tipologia = tipologias[activeTipo] ?? tipologias[0];
 
   useEffect(() => {

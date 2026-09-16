@@ -5,6 +5,7 @@ import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { BlogHeader } from "@/components/sections/blog/BlogHeader";
 import { BlogSectionMapper } from "@/components/sections/blog/BlogSectionMapper";
 import { BlogCategoryFilter } from "@/components/blog/BlogCategoryFilter";
+import { toArray } from "@/lib/utils";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -43,6 +44,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const categories = await wordpress.getBlogCategories();
+  const sections = toArray(post.acf?.sections);
 
   return (
     <main className="w-full bg-white">
@@ -55,8 +57,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
           } />
         <div className="mt-32 md:mt-48">
-          {post.acf?.sections?.length ? (
-            <BlogSectionMapper sections={post.acf.sections} />
+          {sections.length ? (
+            <BlogSectionMapper sections={sections} />
           ) : (
             <div
               className="min-w-0 max-w-full font-poppins text-16 font-normal leading-[1.6] text-near-black md:text-18 md:leading-[1.7] [&_p]:m-0 [&_p+p]:mt-16 [&_ul]:mt-16 [&_ul]:list-disc [&_ul]:pl-24 [&_ol]:mt-16 [&_ol]:list-decimal [&_ol]:pl-24 [&_li]:mb-8 [&_strong]:font-semibold [&_em]:italic [&_a]:text-peach [&_a]:underline [&_h2]:mt-32 [&_h2]:text-24 [&_h2]:font-semibold [&_h3]:mt-24 [&_h3]:text-20 [&_h3]:font-semibold [&_img]:mx-auto [&_img]:my-24 [&_img]:block [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-10 [&_figure]:mx-auto [&_figure]:my-24 [&_figure]:max-w-full [&_figure]:overflow-hidden [&_figcaption]:mt-8 [&_figcaption]:text-14 [&_figcaption]:text-near-black/60"

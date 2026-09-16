@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { BlogPage } from "@/components/blog/BlogPage";
 import type { BlogPage as BlogPageData, BlogPageSection, WPCategory, WPPost } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
 
 type BlogRouteProps = {
@@ -16,7 +17,7 @@ function stripHtml(html?: string): string {
 }
 
 function getBannerBlogSection(page: BlogPageData | null): BlogPageSection | undefined {
-  return page?.acf_full?.sections?.find((s) => s.acf_fc_layout === "banner_blog");
+  return toArray(page?.acf_full?.sections).find((s) => s.acf_fc_layout === "banner_blog");
 }
 
 function getFeaturedPostId(

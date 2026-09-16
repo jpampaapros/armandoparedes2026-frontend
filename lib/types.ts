@@ -1,3 +1,10 @@
+/**
+ * ACF devuelve `false` —no `[]`— cuando un repeater o un flexible content está vacío.
+ * Modelarlo en el tipo obliga a normalizar con `toArray()` antes de iterar, en vez de
+ * confiar en defaults `= []` o en `??`, que sólo cubren `undefined`/`null`.
+ */
+export type ACFList<T> = T[] | false;
+
 export type ACFLink = {
   title?: string;
   url?: string;
@@ -26,7 +33,7 @@ export type HomeBannerSlide = {
 
 export type HomeSection =
   | { acf_fc_layout: "banner"; titulo?: string; imagen?: ACFImage }
-  | { acf_fc_layout: "espacios"; titulo?: string; subtitulo?: string; indicadores?: ACFIndicator[] }
+  | { acf_fc_layout: "espacios"; titulo?: string; subtitulo?: string; indicadores?: ACFList<ACFIndicator> }
   | { acf_fc_layout: "proyectos_venta"; titulo?: string }
   | { acf_fc_layout: "quien_es_armando"; titulo?: string; imagen_fondo?: ACFImage; descripcion?: string; boton?: ACFLink }
   | { acf_fc_layout: "proyectos_entregados"; texto?: string; subtitulo?: string; boton?: ACFLink }
@@ -48,7 +55,7 @@ export type EntregadosGaleriaImagen = {
 
 export type EntregadosSingleSection =
   | { acf_fc_layout: "banner"; titulo?: string; descripcion?: string; imagen?: ACFImage }
-  | { acf_fc_layout: "galeria"; imagenes?: ACFImage[] }
+  | { acf_fc_layout: "galeria"; imagenes?: ACFList<ACFImage> }
   | {
       acf_fc_layout: "detalle";
       imagen?: ACFImage;
@@ -81,13 +88,13 @@ export type ProjectTipologia = {
 
 export type ProjectDormitorio = {
   numero?: string;
-  tipologias?: ProjectTipologia[];
+  tipologias?: ACFList<ProjectTipologia>;
 };
 
 export type ProjectGaleriaTab = {
   titulo?: string;
   descripcion?: string;
-  imagenes?: { imagen?: ACFImage }[];
+  imagenes?: ACFList<{ imagen?: ACFImage }>;
 };
 
 export type ProjectMapaUbicacion = {
@@ -102,17 +109,17 @@ export type ProjectLeyendaItem = {
 };
 
 export type ProjectSection =
-  | { acf_fc_layout: "banner_proyecto"; badge?: string; distrito?: string; logo?: ACFImage; slides?: ProjectSlide[] }
+  | { acf_fc_layout: "banner_proyecto"; badge?: string; distrito?: string; logo?: ACFImage; slides?: ACFList<ProjectSlide> }
   | { acf_fc_layout: "descripcion_proyecto"; titulo?: string; descripcion?: string; imagen?: ACFImage; cambiar_lado?: boolean }
   | { acf_fc_layout: "ficha_tecnica"; titulo?: string; direccion?: string; pisos?: string; area?: string; dormitorios?: string; brochure?: ACFLink }
-  | { acf_fc_layout: "ficha_tecnica_detallada"; imagen?: ACFImage; titulo?: string; info?: { icono?: ACFImage; texto?: string }[] }
+  | { acf_fc_layout: "ficha_tecnica_detallada"; imagen?: ACFImage; titulo?: string; info?: ACFList<{ icono?: ACFImage; texto?: string }> }
   | { acf_fc_layout: "video"; titulo?: string; imagen_previa?: ACFImage; url_youtube?: string }
-  | { acf_fc_layout: "galeria"; titulo?: string; descripcion?: string; tabs?: ProjectGaleriaTab[] }
-  | { acf_fc_layout: "planos"; titulo?: string; dormitorios?: ProjectDormitorio[]; boton_mas_planos?: ACFLink; texto_adicional?: string; leyenda?: ProjectLeyendaItem[] }
-  | { acf_fc_layout: "mapa"; titulo?: string; google_maps?: string; latitud?: number | string; longitud?: number | string; ubicaciones?: ProjectMapaUbicacion[] }
+  | { acf_fc_layout: "galeria"; titulo?: string; descripcion?: string; tabs?: ACFList<ProjectGaleriaTab> }
+  | { acf_fc_layout: "planos"; titulo?: string; dormitorios?: ACFList<ProjectDormitorio>; boton_mas_planos?: ACFLink; texto_adicional?: string; leyenda?: ACFList<ProjectLeyendaItem> }
+  | { acf_fc_layout: "mapa"; titulo?: string; google_maps?: string; latitud?: number | string; longitud?: number | string; ubicaciones?: ACFList<ProjectMapaUbicacion> }
   | { acf_fc_layout: "formulario_contacto"; titulo?: string; formulario_id?: string | number }
   | { acf_fc_layout: "quiero_mas_info"; titulo?: string; formulario_id?: string | number; imagen_fondo?: ACFImage; blog_titulo?: string; blog_boton?: ACFLink }
-  | { acf_fc_layout: "banner_pre_lanzamiento"; badge?: string; slides?: { imagen_fondo?: ACFImage; titulo?: string; descripcion?: string }[] }
+  | { acf_fc_layout: "banner_pre_lanzamiento"; badge?: string; slides?: ACFList<{ imagen_fondo?: ACFImage; titulo?: string; descripcion?: string }> }
   | { acf_fc_layout: "mas_proyectos"; titulo?: string }
   | { acf_fc_layout: "blog"; titulo?: string; boton?: ACFLink };
 
@@ -144,7 +151,7 @@ export type Project = {
     dormitorios?: string | number;
     tipo?: string;
     whatsapp_numero?: string;
-    sections?: ProjectSection[];
+    sections?: ACFList<ProjectSection>;
   };
   featured_media: number;
   _embedded?: {
@@ -162,7 +169,7 @@ export type Delivered = {
     distrito?: string;
     navegacion_anterior?: ACFLink;
     navegacion_posterior?: ACFLink;
-    sections?: EntregadosSingleSection[];
+    sections?: ACFList<EntregadosSingleSection>;
   };
   featured_media: number;
   _embedded?: {
@@ -208,7 +215,7 @@ export type BlogPage = {
   id: number;
   title: { rendered: string };
   acf_full?: {
-    sections?: BlogPageSection[];
+    sections?: ACFList<BlogPageSection>;
   };
 };
 
@@ -220,7 +227,7 @@ export type ArmandoIndicator = {
 export type ArmandoSection =
   | { acf_fc_layout: "banner"; titulo?: string; descripcion?: string; imagen_fondo?: ACFImage; imagen_decorativa?: ACFImage }
   | { acf_fc_layout: "somos_uno"; imagen_primaria?: ACFImage; imagen_secundaria?: ACFImage; frase?: string; titulo?: string; texto?: string }
-  | { acf_fc_layout: "mi_vida"; titulo?: string; indicadores?: ArmandoIndicator[] }
+  | { acf_fc_layout: "mi_vida"; titulo?: string; indicadores?: ACFList<ArmandoIndicator> }
   | { acf_fc_layout: "cada_proyecto"; imagen_fondo?: ACFImage; titulo?: string }
   | { acf_fc_layout: "encuentra_tu_armando"; titulo?: string; texto?: string; boton?: ACFLink };
 
@@ -236,7 +243,7 @@ export type ReferidosPageSection =
       background_image?: ACFImage;
       title?: string;
       phrase?: string;
-      cards?: ReferidosCard[];
+      cards?: ACFList<ReferidosCard>;
       legal_text?: string;
     }
   | { acf_fc_layout: "se_parte"; title?: string; form_id?: string | number };
@@ -249,7 +256,7 @@ export type ContactoTab = {
 export type ContactoPageFields = {
   titulo?: string;
   formulario_id?: string | number;
-  tabs?: ContactoTab[];
+  tabs?: ACFList<ContactoTab>;
   distritos?: string | string[];
   medios?: string | string[];
 };
@@ -257,7 +264,7 @@ export type ContactoPageFields = {
 export type BlogPostSection =
   | { acf_fc_layout: "texto"; contenido?: string }
   | { acf_fc_layout: "imagen"; imagen?: ACFImage }
-  | { acf_fc_layout: "galeria"; imagenes?: { imagen?: ACFImage }[] }
+  | { acf_fc_layout: "galeria"; imagenes?: ACFList<{ imagen?: ACFImage }> }
   | { acf_fc_layout: "donde"; titulo?: string; direccion?: string }
   | { acf_fc_layout: "cita"; contenido?: string };
 
@@ -270,7 +277,7 @@ export type BlogPost = {
   date: string;
   featured_media: number;
   acf: {
-    sections?: BlogPostSection[];
+    sections?: ACFList<BlogPostSection>;
   };
   _embedded?: {
     "wp:featuredmedia"?: WPMedia[];

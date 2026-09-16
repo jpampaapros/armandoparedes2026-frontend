@@ -6,6 +6,7 @@ import { ProyectosEntregados } from "@/components/sections/inicio/ProyectosEntre
 import { AmigosBeneficios } from "@/components/sections/inicio/AmigosBeneficios";
 import { Blog } from "@/components/sections/Blog";
 import type { HomeSection, Project, Delivered } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
 type HomeSectionMapperProps = {
   sections?: HomeSection[];
@@ -43,7 +44,7 @@ export function HomeSectionMapper({
                 key={`${section.acf_fc_layout}-${index}`}
                 titulo={section.titulo}
                 subtitulo={section.subtitulo}
-                indicadores={section.indicadores}
+                indicadores={toArray(section.indicadores)}
               />
             );
           case "proyectos_venta":
