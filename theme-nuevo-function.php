@@ -154,6 +154,58 @@ if ( ! defined( 'SPERANT_API_TOKEN' ) ) {
 }
 
 /**
+ * Identificadores obligatorios de Sperant.
+ *
+ * La API rechaza el alta si falta cualquiera de los cuatro. Los valores salen
+ * de los catálogos del CRM:
+ *
+ *   input_channel_id  6  = "formulario web"        (GET /v3/input_channels)
+ *   source_id         1  = "página web"            (GET /v3/captation_ways)
+ *   interest_type_id  11 = "por contactar"         (GET /v3/interest_types)
+ *   project_id        28 = "Campañas"              (GET /v3/projects)
+ *
+ * project_id es el respaldo para cuando el formulario no manda uno propio. Lo
+ * ideal es que cada proyecto envíe el suyo: Libertad 277 es 24, Guardia Civil
+ * 36, Parque Dammert 35, etc.
+ */
+if ( ! defined( 'ARMANDO_PAREDES_SPERANT_INPUT_CHANNEL_ID' ) ) {
+	define( 'ARMANDO_PAREDES_SPERANT_INPUT_CHANNEL_ID', 6 );
+}
+
+if ( ! defined( 'ARMANDO_PAREDES_SPERANT_SOURCE_ID' ) ) {
+	define( 'ARMANDO_PAREDES_SPERANT_SOURCE_ID', 1 );
+}
+
+if ( ! defined( 'ARMANDO_PAREDES_SPERANT_INTEREST_TYPE_ID' ) ) {
+	define( 'ARMANDO_PAREDES_SPERANT_INTEREST_TYPE_ID', 11 );
+}
+
+if ( ! defined( 'ARMANDO_PAREDES_SPERANT_PROJECT_ID' ) ) {
+	define( 'ARMANDO_PAREDES_SPERANT_PROJECT_ID', 28 );
+}
+
+/**
+ * Completa los identificadores que el formulario no envía.
+ *
+ * Solo rellena los que falten: lo que mande el formulario siempre gana.
+ *
+ * @param array $defaults Valores por defecto acumulados.
+ * @return array
+ */
+function armando_paredes_sperant_default_ids( array $defaults ): array {
+	return array_merge(
+		array(
+			'input_channel_id' => (int) ARMANDO_PAREDES_SPERANT_INPUT_CHANNEL_ID,
+			'source_id'        => (int) ARMANDO_PAREDES_SPERANT_SOURCE_ID,
+			'interest_type_id' => (int) ARMANDO_PAREDES_SPERANT_INTEREST_TYPE_ID,
+			'project_id'       => (int) ARMANDO_PAREDES_SPERANT_PROJECT_ID,
+		),
+		$defaults
+	);
+}
+add_filter( 'armando_paredes_sperant_client_defaults', 'armando_paredes_sperant_default_ids' );
+
+/**
  * Obtiene el token de la API de Sperant desde wp-config.php o el entorno.
  */
 function armando_paredes_sperant_token(): string {

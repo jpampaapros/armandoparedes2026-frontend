@@ -65,6 +65,41 @@ Los tokens de Sperant y Meta están escritos en `theme-nuevo-function.php`, igua
 
 ---
 
+## Identificadores obligatorios de Sperant
+
+La API **rechaza el alta con 400** si falta cualquiera de estos cuatro. El tema los completa solo, con estos valores por defecto:
+
+| Constante | Valor | Significa | Catálogo |
+|---|---|---|---|
+| `ARMANDO_PAREDES_SPERANT_INPUT_CHANNEL_ID` | `6` | formulario web | `GET /v3/input_channels` |
+| `ARMANDO_PAREDES_SPERANT_SOURCE_ID` | `1` | página web | `GET /v3/captation_ways` |
+| `ARMANDO_PAREDES_SPERANT_INTEREST_TYPE_ID` | `11` | por contactar | `GET /v3/interest_types` |
+| `ARMANDO_PAREDES_SPERANT_PROJECT_ID` | `28` | Campañas (respaldo) | `GET /v3/projects` |
+
+Lo que envíe el formulario siempre gana sobre el valor por defecto. La regla heredada de `geolocalizacion` sigue forzando `source_id = 45`.
+
+> `source_id` sale de `captation_ways`. La ruta `/v3/sources` **no existe**: devuelve 404.
+
+### IDs de proyecto en Sperant
+
+| ID | Proyecto | | ID | Proyecto |
+|---|---|---|---|---|
+| 37 | Los Ángeles | | 24 | **Libertad 277** |
+| 36 | Guardia Civil | | 22 | Pasaje Los Pinos |
+| 35 | Parque Dammert | | 20 | Pasaje Dos de Mayo |
+| 34 | Melitón Porras 320 | | 19 | Toribio Polo 322 |
+| 33 | Pasaje Santa Cruz 480 | | 16 | Ugarte y Moscoso 370 |
+| 30 | Nuevo Pasaje Los Pinos | | 15 | Pasaje Los Laureles |
+| 28 | Campañas | | 12 | Ugarte y Moscoso 330 |
+| 27 | Parque Incario | | 10 | Machaypuito 160 |
+| 26 | Pasaje Ugarte 546 | | 7 | Tacna |
+
+Lista completa y al día: `GET https://api.sperant.com/v3/projects` con el encabezado `Authorization: <token>`.
+
+Estos son los valores que hay que cargar en el campo ACF `sperant_project_id` de cada proyecto.
+
+---
+
 ## Endpoints
 
 Base = `NEXT_PUBLIC_CMS_URL` (QA: `https://apros-qa.net.pe/armandoparedes2026`).
@@ -447,8 +482,28 @@ curl -s $CMS/wp-json/armando-paredes/v1 | python3 -m json.tool
 ## Pendientes
 
 - **Agregar el dominio de producción a la lista blanca** cuando el sitio salga de Vercel: hoy `https://www.armandoparedes.com` responde 403.
-- **Crear el campo ACF `sperant_project_id`** en el CPT `proyecto`: sin él los leads llegan sin `project_id`.
-- **Verificar `extra_fields` con un lead real.** El tema anterior solo mandaba `gclid` ahí; ahora también van distrito y presupuesto. Si Sperant rechazara claves desconocidas, se quitan con el filtro `armando_paredes_sperant_client_payload`.
+- **Crear el campo ACF `sperant_project_id`** en el CPT `proyecto` y cargarlo con el ID de cada proyecto (ver tabla arriba). Sin él, todos los leads caen en el proyecto de respaldo `28 = Campañas`.
 - **Dos formularios siguen solo en Contact Form 7**: el de la sección de planos (`PlanosProyecto.tsx`), que pide nombre, correo y mensaje pero **no celular**, obligatorio para Sperant; y el de referidos (`SeParte.tsx`), que tiene otra naturaleza.
 - Revisar y fijar la versión vigente de la Graph API de Meta.
 - El namespace `armando-paredes/v1` lo comparte el plugin `wp-next-headless` (`/options/header`, `/options/footer`, `/options/blog`). No hay colisión con las rutas de aquí, y la constante `ARMANDO_PAREDES_REST_NAMESPACE` se define con guarda `if ( ! defined( ... ) )`.
+
+---
+
+## Verificación realizada (16/09/2026)
+
+Contra el CMS de QA, con el tema ya subido:
+
+| Comprobación | Resultado |
+|---|---|
+| Rutas registradas en `/wp-json/armando-paredes/v1` | Las 5 presentes |
+| `POST` sin celular ni correo válido | `400 rest_invalid_param`, no llama a Sperant |
+| `POST` con `Origin: https://sitio-cualquiera.com` | `403 rest_forbidden_origin` |
+| `POST` sin `Origin` ni `Referer` | `403` |
+| Preflight `OPTIONS` desde `http://localhost:3000` | Encabezados CORS correctos |
+| `GET /sperant/captation-ways` | 47 medios reales: el token de Sperant funciona |
+| Alta de cliente completa | `200`, **client_id 79107**, `status: interested` |
+| `extra_fields` personalizados | Sperant los guarda: `distrito`, `presupuesto`, `acepta_marketing`, `gclid` |
+| Teléfono | Sperant lo normaliza a `+51999000111` |
+| Token de Meta y Graph API `v21.0` | Autentican correctamente |
+
+El lead de prueba `PRUEBA QA / Ignorar Este Lead / prueba.qa.formulario@example.com` quedó registrado en Sperant con el ID 79107 y conviene borrarlo.
