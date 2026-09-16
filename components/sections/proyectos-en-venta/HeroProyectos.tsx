@@ -37,7 +37,7 @@ export function HeroProyectos({ titulo, imagen, dataSection = "hero_proyectos" }
 
       <div className="absolute inset-0 flex items-center justify-center px-4">
         <div className="max-w-232 text-center md:max-w-906">
-          <h1 className="font-gotham text-36 leading-[1.2] text-white md:text-80 md:leading-[1.05]" /* leading-[1.2] y leading-[1.05] no tienen utilidad proporcional; se mantienen como multiplicadores de diseño */>
+          <h1 className="font-gotham text-36 leading-[1.2] text-white md:text-80 md:leading-[1.05]">
             {match ? (
               <>
                 <span className="font-light">{match[1]}</span>{" "}

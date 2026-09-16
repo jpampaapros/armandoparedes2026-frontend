@@ -47,7 +47,7 @@ export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado 
         <div className={cambiar_lado ? "text-left" : "text-right"}>
           {tail ? (
             <h2
-              className="m-0 font-gotham text-32 leading-[1.1] text-near-black md:text-60 md:leading-60" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */
+              className="m-0 font-gotham text-32 leading-[1.1] text-near-black md:text-60 md:leading-60"
               dangerouslySetInnerHTML={{
                 __html: `${head}<span class="font-medium text-peach"> ${tail}</span>`,
               }}

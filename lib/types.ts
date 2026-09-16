@@ -26,6 +26,22 @@ export type ACFIndicator = {
   ubicacion?: string;
 };
 
+/**
+ * Envoltorio común de una página de WordPress cuyo contenido vive en un flexible
+ * content de ACF. Sólo varían dos cosas entre páginas: la unión de secciones y si
+ * el campo se expone como `acf` o como `acf_full`, así que ambas son parámetros.
+ *
+ * La clave va opcional porque WP la omite cuando el `_fields` de la petición no la
+ * pide, y las secciones son `ACFList` porque ACF devuelve `false` —no `[]`— al estar
+ * vacías: normaliza siempre con `toArray()`.
+ */
+export type WordPressPage<
+  TSection,
+  TKey extends "acf" | "acf_full" = "acf_full",
+> = { id: number; title: { rendered: string } } & {
+  [K in TKey]?: { sections?: ACFList<TSection> };
+};
+
 export type HomeBannerSlide = {
   titulo?: string;
   imagen?: ACFImage;
@@ -211,13 +227,7 @@ export type BlogPageSection = {
   featured_post?: { ID?: number; id?: number; post_title?: string; post_type?: string };
 };
 
-export type BlogPage = {
-  id: number;
-  title: { rendered: string };
-  acf_full?: {
-    sections?: ACFList<BlogPageSection>;
-  };
-};
+export type BlogPage = WordPressPage<BlogPageSection>;
 
 export type ArmandoIndicator = {
   numero?: string;

@@ -104,7 +104,7 @@ export function ProjectCard({
 
       <div className="relative z-10 mt-auto flex flex-col gap-16 p-24 md:p-54">
         <div className="flex flex-col">
-          <h3 className="mb-20 font-gotham text-26 font-bold uppercase leading-26 text-white md:text-36" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+          <h3 className="mb-20 font-gotham text-26 font-bold uppercase leading-33 text-white md:text-36">
             {project.title.rendered}
           </h3>
           <hr className="my-0 h-px w-full border-0 bg-white" />

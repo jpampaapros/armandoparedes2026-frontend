@@ -2,15 +2,10 @@ import type { Metadata } from "next";
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { ProyectosPageSectionMapper } from "@/components/sections/ProyectosPageSectionMapper";
 import { ProyectosLista } from "@/components/sections/proyectos-en-venta/ProyectosLista";
-import type { ProyectosPageSection, Project } from "@/lib/types";
+import type { ProyectosPageSection, Project, WordPressPage } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
-type WordPressProyectosPage = {
-  id: number;
-  title: { rendered: string };
-  acf: {
-    sections?: ProyectosPageSection[];
-  };
-};
+type WordPressProyectosPage = WordPressPage<ProyectosPageSection, "acf">;
 
 function stripHtml(html?: string): string {
   if (!html) return "";
@@ -57,7 +52,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ProyectosEnVentaPage() {
   const page = await getProyectosPage();
   const proyectos = await getProjects();
-  const sections = page?.acf?.sections ?? [];
+  const sections = toArray(page?.acf?.sections);
   const hasProjectList = sections.some((s) => s.acf_fc_layout === "proyectos_lista");
   const tituloPagina = stripHtml(page?.title?.rendered);
 

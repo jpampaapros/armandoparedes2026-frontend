@@ -72,12 +72,14 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
     });
   }, [proyectos, tags, distrito, tipo, area]);
 
+  console.log({proyectos})
+
   return (
     <section className="w-full bg-white px-[calc(15*var(--fx))] pb-35 pt-49 md:px-4 md:pb-60 md:pt-101">
       <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col gap-24 md:flex-row md:items-start md:justify-between">
           {titulo && (
-            <h2 className="my-0 text-center md:text-left font-gotham text-36 font-medium leading-[1.1] text-slate md:text-55" /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+            <h2 className="my-0 text-center md:text-left font-gotham text-36 font-medium leading-[1.1] text-slate md:text-55">
               {mobileTitle ? (
                 <>
                   <span className="block md:hidden">{mobileTitle[1]}</span>

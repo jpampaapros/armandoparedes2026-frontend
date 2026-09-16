@@ -1,17 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
-import { stripHtml } from "@/lib/utils";
+import { stripHtml, toArray } from "@/lib/utils";
 import { ArmandoSectionMapper } from "@/components/sections/ArmandoSectionMapper";
-import type { ArmandoSection } from "@/lib/types";
+import type { ArmandoSection, WordPressPage } from "@/lib/types";
 
-type WordPressArmandoPage = {
-  id: number;
-  title: { rendered: string };
-  acf_full: {
-    sections?: ArmandoSection[];
-  };
-};
+type WordPressArmandoPage = WordPressPage<ArmandoSection>;
 
 const DEFAULT_SECTIONS: ArmandoSection[] = [
   {
@@ -83,10 +77,8 @@ export default async function ArmandoPage() {
     notFound();
   }
 
-  const sections =
-    page.acf_full?.sections && page.acf_full.sections.length > 0
-      ? page.acf_full.sections
-      : DEFAULT_SECTIONS;
+  const fetchedSections = toArray(page.acf_full?.sections);
+  const sections = fetchedSections.length > 0 ? fetchedSections : DEFAULT_SECTIONS;
 
   return (
     <main className="w-full max-w-none p-0">

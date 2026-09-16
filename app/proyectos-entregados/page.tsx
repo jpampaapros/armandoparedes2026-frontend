@@ -2,15 +2,10 @@ import type { Metadata } from "next";
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { EntregadosPageSectionMapper } from "@/components/sections/EntregadosPageSectionMapper";
 import { ProyectosEntregados } from "@/components/sections/entregados/ProyectosEntregados";
-import type { EntregadosPageSection, Delivered } from "@/lib/types";
+import type { EntregadosPageSection, Delivered, WordPressPage } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
-type WordPressEntregadosPage = {
-  id: number;
-  title: { rendered: string };
-  acf: {
-    sections?: EntregadosPageSection[];
-  };
-};
+type WordPressEntregadosPage = WordPressPage<EntregadosPageSection, "acf">;
 
 function stripHtml(html?: string): string {
   if (!html) return "";
@@ -58,7 +53,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ProyectosEntregadosPage() {
   const page = await getEntregadosPage();
   const entregados = await getDelivered();
-  const sections = page?.acf?.sections ?? [];
+  const sections = toArray(page?.acf?.sections);
   const hasProyectosEntregados = sections.some(
     (s) => s.acf_fc_layout === "proyectos_entregados"
   );

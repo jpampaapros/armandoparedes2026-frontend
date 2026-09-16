@@ -2,15 +2,10 @@ import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { HomeSectionMapper } from "@/components/sections/HomeSectionMapper";
 import { HomeIntro } from "@/components/HomeIntro";
 import { getHeaderData } from "@/components/Header";
-import type { HomeSection, Project, Delivered } from "@/lib/types";
+import type { HomeSection, Project, Delivered, WordPressPage } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
-type WordPressHomePage = {
-  id: number;
-  title: { rendered: string };
-  acf_full: {
-    sections?: HomeSection[];
-  };
-};
+type WordPressHomePage = WordPressPage<HomeSection>;
 
 async function getHomePage(): Promise<WordPressHomePage | null> {
   try {
@@ -67,7 +62,7 @@ export default async function Home() {
   const proyectos = await getProjects();
   const entregados = await getDelivered();
   const introLogo = await getIntroLogo();
-  const sections = page?.acf_full?.sections ?? [];
+  const sections = toArray(page?.acf_full?.sections);
   const hasBanner = sections.some((section) => section.acf_fc_layout === "banner" && section.titulo?.trim());
   const content = (
     <HomeSectionMapper
