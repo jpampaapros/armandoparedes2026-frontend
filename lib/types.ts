@@ -20,10 +20,39 @@ export type ACFImage = {
   height?: number;
 };
 
+/**
+ * Un campo "post object" de ACF llega como el WP_Post en bruto —no con el shape del
+ * REST—, así que el id vive en `ID` y el slug en `post_name`. Con `multiple` activo
+ * viene como array y `false` cuando no hay nada seleccionado.
+ */
+export type ACFPostObject = {
+  ID?: number;
+  id?: number;
+  post_title?: string;
+  post_name?: string;
+  post_type?: string;
+};
+
 export type ACFIndicator = {
   numero?: string;
   texto?: string;
   ubicacion?: string;
+};
+
+/**
+ * Envoltorio común de una página de WordPress cuyo contenido vive en un flexible
+ * content de ACF. Sólo varían dos cosas entre páginas: la unión de secciones y si
+ * el campo se expone como `acf` o como `acf_full`, así que ambas son parámetros.
+ *
+ * La clave va opcional porque WP la omite cuando el `_fields` de la petición no la
+ * pide, y las secciones son `ACFList` porque ACF devuelve `false` —no `[]`— al estar
+ * vacías: normaliza siempre con `toArray()`.
+ */
+export type WordPressPage<
+  TSection,
+  TKey extends "acf" | "acf_full" = "acf_full",
+> = { id: number; title: { rendered: string } } & {
+  [K in TKey]?: { sections?: ACFList<TSection> };
 };
 
 export type HomeBannerSlide = {
@@ -34,7 +63,7 @@ export type HomeBannerSlide = {
 export type HomeSection =
   | { acf_fc_layout: "banner"; titulo?: string; imagen?: ACFImage }
   | { acf_fc_layout: "espacios"; titulo?: string; subtitulo?: string; indicadores?: ACFList<ACFIndicator> }
-  | { acf_fc_layout: "proyectos_venta"; titulo?: string }
+  | { acf_fc_layout: "proyectos_venta"; titulo?: string; post?: ACFList<ACFPostObject> }
   | { acf_fc_layout: "quien_es_armando"; titulo?: string; imagen_fondo?: ACFImage; descripcion?: string; boton?: ACFLink }
   | { acf_fc_layout: "proyectos_entregados"; texto?: string; subtitulo?: string; boton?: ACFLink }
   | { acf_fc_layout: "amigos_beneficios"; titulo?: string; descripcion?: string; boton?: ACFLink }
@@ -42,7 +71,7 @@ export type HomeSection =
 
 export type GraciasPageSection =
   | { acf_fc_layout: "banner_gracias"; titulo?: string; descripcion?: string; imagen_de_fondo?: ACFImage }
-  | { acf_fc_layout: "proyectos_venta"; titulo?: string }
+  | { acf_fc_layout: "proyectos_venta"; titulo?: string; post?: ACFList<ACFPostObject> }
   | { acf_fc_layout: "blog"; titulo?: string; boton?: ACFLink };
 
 export type EntregadosPageSection =
@@ -65,11 +94,11 @@ export type EntregadosSingleSection =
       dormitorios?: string;
       fecha?: string;
     }
-  | { acf_fc_layout: "proyectos_venta"; titulo?: string };
+  | { acf_fc_layout: "proyectos_venta"; titulo?: string; post?: ACFList<ACFPostObject> };
 
 export type ProyectosPageSection =
   | { acf_fc_layout: "banner"; titulo?: string; imagen?: ACFImage }
-  | { acf_fc_layout: "proyectos_lista"; titulo?: string };
+  | { acf_fc_layout: "proyectos_en_venta"; titulo?: string; post?: ACFList<ACFPostObject> };
 
 export type ProjectSlide = {
   imagen?: ACFImage;
@@ -211,13 +240,7 @@ export type BlogPageSection = {
   featured_post?: { ID?: number; id?: number; post_title?: string; post_type?: string };
 };
 
-export type BlogPage = {
-  id: number;
-  title: { rendered: string };
-  acf_full?: {
-    sections?: ACFList<BlogPageSection>;
-  };
-};
+export type BlogPage = WordPressPage<BlogPageSection>;
 
 export type ArmandoIndicator = {
   numero?: string;

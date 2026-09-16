@@ -3,19 +3,14 @@ import { notFound } from "next/navigation";
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { GraciasSectionMapper } from "@/components/sections/GraciasSectionMapper";
 import { FloatingContactButton } from "@/components/sections/gracias/FloatingContactButton";
-import type { GraciasPageSection, Project } from "@/lib/types";
+import type { GraciasPageSection, Project, WordPressPage } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
 type GraciasPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-type WordPressGraciasPage = {
-  id: number;
-  title: { rendered: string };
-  acf: {
-    sections?: GraciasPageSection[];
-  };
-};
+type WordPressGraciasPage = WordPressPage<GraciasPageSection, "acf">;
 
 function stripHtml(html?: string): string {
   if (!html) return "";
@@ -88,7 +83,7 @@ export default async function GraciasPage({ params }: GraciasPageProps) {
   }
 
   const proyectos = await getProjects();
-  const sections = page.acf?.sections ?? [];
+  const sections = toArray(page.acf?.sections);
 
   return (
     <>

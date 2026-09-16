@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { ReferidosSectionMapper } from "@/components/sections/ReferidosSectionMapper";
-import type { ReferidosPageSection } from "@/lib/types";
+import type { ReferidosPageSection, WordPressPage } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
-type WordPressReferidosPage = {
-  id: number;
-  title: { rendered: string };
-  acf: {
-    sections?: ReferidosPageSection[];
-  };
-};
+type WordPressReferidosPage = WordPressPage<ReferidosPageSection, "acf">;
 
 function stripHtml(html?: string): string {
   if (!html) return "";
@@ -42,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ReferidosPage() {
   const page = await getReferidosPage();
-  const sections = page?.acf?.sections ?? [];
+  const sections = toArray(page?.acf?.sections);
 
   return (
     <main className="w-full max-w-none p-0">

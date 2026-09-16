@@ -144,7 +144,7 @@ export function HeaderClient({ data }: { data: HeaderData }) {
           <div className="hidden items-center gap-12 md:flex">
             <HeaderLink
               link={data.main_menu?.contact_link}
-              className="inline-flex h-30 items-center text-18 leading-none uppercase tracking-[0.04em] text-inherit no-underline" /* tracking-[0.04em] no tiene utilidad proporcional; se mantiene como em de diseño */
+              className="inline-flex h-30 items-center text-18 leading-none uppercase tracking-[0.04em] text-inherit no-underline"
             />
             <button
               type="button"

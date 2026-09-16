@@ -19,7 +19,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
     <section data-layout="ficha_tecnica" className="w-full bg-slate">
       <div className="mx-auto max-w-1440 px-24 pt-90 pb-80 md:px-80 md:pt-90 md:pb-80">
         {titulo && (
-          <h2 className="m-0 text-center font-gotham text-32 font-bold leading-[1.2] text-white md:text-60 md:leading-66" /* leading-[1.2] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+          <h2 className="m-0 text-center font-gotham text-32 font-bold leading-[1.2] text-white md:text-60 md:leading-66">
             {titulo}
           </h2>
         )}

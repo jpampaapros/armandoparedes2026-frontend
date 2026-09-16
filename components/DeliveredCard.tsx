@@ -59,18 +59,18 @@ export function DeliveredCard({
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
       <div className="relative z-10 mt-auto flex flex-col gap-10">
         <div className="flex flex-col gap-8">
-          <h3 className={`font-gotham font-bold uppercase leading-[1.1] text-white ${titleClass}`} /* leading-[1.1] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+          <h3 className={`font-gotham font-bold uppercase leading-[1.1] text-white ${titleClass}`}>
             {project.title.rendered}
           </h3>
           <hr className="h-px w-full border-0 bg-white" />
         </div>
         {distrito && (
-          <p className={`font-poppins font-light leading-[1.2] text-white ${metaClass}`} /* leading-[1.2] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+          <p className={`font-poppins font-light leading-[1.2] text-white ${metaClass}`}>
             {distrito}
           </p>
         )}
         {showYear && (
-          <p className={`font-poppins font-light leading-[1.2] text-white ${yearClass}`} /* leading-[1.2] no tiene utilidad proporcional; se mantiene como multiplicador de diseño */>
+          <p className={`font-poppins font-light leading-[1.2] text-white ${yearClass}`}>
             {project.acf.ano}
           </p>
         )}
