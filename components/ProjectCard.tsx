@@ -94,6 +94,11 @@ export function ProjectCard({
         sizes={saleCarousel ? "(max-width: 768px) 382px, 474px" : "(max-width: 768px) 382px, 630px"}
       />
 
+      {/* Velo negro del diseño: arranca transparente arriba y oscurece el tercio inferior
+          para que el título, la descripción y el botón blancos tengan contraste sobre la
+          foto. Va después de las dos imágenes para cubrir también la de hover. */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/55 via-40% to-transparent to-85%" />
+
       {distrito && (
         <div className="absolute right-16 top-16 z-10 bg-white px-10 py-6 md:right-20 md:top-61 md:py-8">
           <span className="font-poppins text-16 font-medium leading-18 text-near-black md:text-24 md:leading-24">

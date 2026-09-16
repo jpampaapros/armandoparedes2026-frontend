@@ -2,6 +2,7 @@ import { BannerGracias } from "@/components/sections/gracias/BannerGracias";
 import { ProyectosVenta } from "@/components/sections/ProyectosVenta";
 import { Blog } from "@/components/sections/Blog";
 import type { GraciasPageSection, Project } from "@/lib/types";
+import { selectByPostObject } from "@/lib/utils";
 
 type GraciasSectionMapperProps = {
   sections: GraciasPageSection[];
@@ -30,7 +31,7 @@ export function GraciasSectionMapper({ sections, proyectos, proyectoSlug }: Grac
               <ProyectosVenta
                 key={key}
                 titulo={section.titulo}
-                proyectos={proyectos ?? []}
+                proyectos={selectByPostObject(proyectos ?? [], section.post)}
               />
             );
           case "blog":

@@ -20,6 +20,19 @@ export type ACFImage = {
   height?: number;
 };
 
+/**
+ * Un campo "post object" de ACF llega como el WP_Post en bruto —no con el shape del
+ * REST—, así que el id vive en `ID` y el slug en `post_name`. Con `multiple` activo
+ * viene como array y `false` cuando no hay nada seleccionado.
+ */
+export type ACFPostObject = {
+  ID?: number;
+  id?: number;
+  post_title?: string;
+  post_name?: string;
+  post_type?: string;
+};
+
 export type ACFIndicator = {
   numero?: string;
   texto?: string;
@@ -50,7 +63,7 @@ export type HomeBannerSlide = {
 export type HomeSection =
   | { acf_fc_layout: "banner"; titulo?: string; imagen?: ACFImage }
   | { acf_fc_layout: "espacios"; titulo?: string; subtitulo?: string; indicadores?: ACFList<ACFIndicator> }
-  | { acf_fc_layout: "proyectos_venta"; titulo?: string }
+  | { acf_fc_layout: "proyectos_venta"; titulo?: string; post?: ACFList<ACFPostObject> }
   | { acf_fc_layout: "quien_es_armando"; titulo?: string; imagen_fondo?: ACFImage; descripcion?: string; boton?: ACFLink }
   | { acf_fc_layout: "proyectos_entregados"; texto?: string; subtitulo?: string; boton?: ACFLink }
   | { acf_fc_layout: "amigos_beneficios"; titulo?: string; descripcion?: string; boton?: ACFLink }
@@ -58,7 +71,7 @@ export type HomeSection =
 
 export type GraciasPageSection =
   | { acf_fc_layout: "banner_gracias"; titulo?: string; descripcion?: string; imagen_de_fondo?: ACFImage }
-  | { acf_fc_layout: "proyectos_venta"; titulo?: string }
+  | { acf_fc_layout: "proyectos_venta"; titulo?: string; post?: ACFList<ACFPostObject> }
   | { acf_fc_layout: "blog"; titulo?: string; boton?: ACFLink };
 
 export type EntregadosPageSection =
@@ -81,7 +94,7 @@ export type EntregadosSingleSection =
       dormitorios?: string;
       fecha?: string;
     }
-  | { acf_fc_layout: "proyectos_venta"; titulo?: string };
+  | { acf_fc_layout: "proyectos_venta"; titulo?: string; post?: ACFList<ACFPostObject> };
 
 export type ProyectosPageSection =
   | { acf_fc_layout: "banner"; titulo?: string; imagen?: ACFImage }

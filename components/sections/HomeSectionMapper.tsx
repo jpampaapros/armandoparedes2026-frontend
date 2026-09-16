@@ -6,7 +6,7 @@ import { ProyectosEntregados } from "@/components/sections/inicio/ProyectosEntre
 import { AmigosBeneficios } from "@/components/sections/inicio/AmigosBeneficios";
 import { Blog } from "@/components/sections/Blog";
 import type { HomeSection, Project, Delivered } from "@/lib/types";
-import { toArray } from "@/lib/utils";
+import { selectByPostObject, toArray } from "@/lib/utils";
 
 type HomeSectionMapperProps = {
   sections?: HomeSection[];
@@ -52,7 +52,7 @@ export function HomeSectionMapper({
               <ProyectosVenta
                 key={`${section.acf_fc_layout}-${index}`}
                 titulo={section.titulo}
-                proyectos={proyectos}
+                proyectos={selectByPostObject(proyectos, section.post)}
               />
             );
           case "quien_es_armando":
