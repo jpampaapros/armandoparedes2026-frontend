@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
-import { useCf7Submit, type Cf7FormValues } from "@/hooks/useCf7Submit";
+import { useLeadSubmit } from "@/hooks/useLeadSubmit";
+import type { LeadContext, LeadFormValues } from "@/lib/lead";
 import { useIsClient } from "@/hooks/useIsClient";
 import type { ACFImage } from "@/lib/types";
 
@@ -30,12 +31,14 @@ type ProyectoLeadFormProps = {
   titulo?: string;
   formulario_id?: string | number;
   imagen_fondo?: ACFImage;
+  lead?: LeadContext;
 };
 
 export function ProyectoLeadForm({
   titulo,
   formulario_id,
   imagen_fondo,
+  lead,
 }: ProyectoLeadFormProps) {
   const {
     register,
@@ -43,7 +46,7 @@ export function ProyectoLeadForm({
     reset,
     control,
     formState: { errors },
-  } = useForm<Cf7FormValues>({
+  } = useForm<LeadFormValues>({
     defaultValues: {
       nombres: "",
       apellido: "",
@@ -56,16 +59,15 @@ export function ProyectoLeadForm({
     },
   });
 
-  const { submit, isPending, status } = useCf7Submit(formulario_id || "4", { raw: true });
+  const { submit, isPending, status } = useLeadSubmit({
+    ...lead,
+    formSource: lead?.formSource || "Quiero más información",
+    cf7FormId: formulario_id,
+  });
   const isClient = useIsClient();
 
-  const onSubmit = async (values: Cf7FormValues) => {
-    const payload = {
-      ...values,
-      terminos: values.terminos ? "1" : "",
-      marketing: values.marketing ? "1" : "",
-    };
-    const ok = await submit(payload);
+  const onSubmit = async (values: LeadFormValues) => {
+    const ok = await submit(values);
     if (ok) reset();
   };
 

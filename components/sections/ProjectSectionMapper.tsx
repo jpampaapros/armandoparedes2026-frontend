@@ -11,15 +11,18 @@ import { MapaProyecto } from "@/components/sections/proyecto/MapaProyecto";
 import { FormularioContacto } from "@/components/sections/FormularioContacto";
 import { MasProyectos } from "@/components/sections/MasProyectos";
 import { Blog } from "@/components/sections/Blog";
+import type { LeadContext } from "@/lib/lead";
 import type { Project, ProjectSection } from "@/lib/types";
 import { toArray } from "@/lib/utils";
 
 type ProjectSectionMapperProps = {
   sections: ProjectSection[];
   proyectos?: Project[];
+  /** Datos del proyecto que acompañan a los leads enviados a Sperant. */
+  lead?: LeadContext;
 };
 
-export function ProjectSectionMapper({ sections, proyectos }: ProjectSectionMapperProps) {
+export function ProjectSectionMapper({ sections, proyectos, lead }: ProjectSectionMapperProps) {
   return (
     <>
       {sections.map((section, index) => {
@@ -120,6 +123,7 @@ export function ProjectSectionMapper({ sections, proyectos }: ProjectSectionMapp
                 key={key}
                 titulo={section.titulo}
                 formulario_id={section.formulario_id}
+                lead={lead}
               />
             );
           case "quiero_mas_info":
@@ -131,6 +135,7 @@ export function ProjectSectionMapper({ sections, proyectos }: ProjectSectionMapp
                 imagen_fondo={section.imagen_fondo}
                 blog_titulo={section.blog_titulo}
                 blog_boton={section.blog_boton}
+                lead={lead}
               />
             );
           case "mas_proyectos":

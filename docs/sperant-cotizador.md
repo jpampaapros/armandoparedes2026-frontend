@@ -111,6 +111,7 @@ Acepta JSON (`Content-Type: application/json`) o `form-data`.
 | `interest_type_id` | int | No | Tipo de interés |
 | `utm_source` … `utm_content` | string | No | Los cinco parámetros UTM |
 | `gclid` | string | No | Se envía dentro de `extra_fields.gclid` |
+| `extra_fields` | objeto | No | Contenedor libre: distrito, presupuesto, etc. Claves normalizadas con `sanitize_key()` |
 
 Campos que **no** van a Sperant pero sí se usan en Meta y en el webhook: `client_ip_address`, `client_user_agent`, `fbc`, `fbp`, `event_id`, `event_source_url`, `form_source`.
 
@@ -240,6 +241,54 @@ Resuelve en este orden: `CF-Connecting-IP`, `X-Forwarded-For`, `Client-IP`, `REM
 ## Administración
 
 `armando_paredes_headless_hide_classic_editor()` oculta el editor de contenido (`#postdivrich`) en `post`, `page`, `proyecto` y `proyecto-entregado`, porque el contenido se arma con ACF. Ajustable con el filtro `armando_paredes_headless_hidden_editor_post_types`.
+
+---
+
+## Frontend
+
+### Piezas
+
+| Archivo | Rol |
+|---|---|
+| `lib/lead.ts` | Traduce los campos en español al contrato de Sperant, reúne UTM, `gclid`, `fbc`, `fbp` y genera el `event_id` |
+| `hooks/useLeadSubmit.ts` | Hace el POST, dispara el pixel con el mismo `event_id` y expone `status` / `isPending` |
+| `hooks/useCf7Submit.ts` | Se conserva para los formularios que siguen en Contact Form 7 |
+
+### Formularios conectados
+
+| Formulario | Dónde aparece | `form_source` |
+|---|---|---|
+| `ProyectoLeadForm` | Sección "Quiero más información" de la interna de proyecto | `Quiero más información` |
+| `FormularioContacto` | Sección de contacto de la interna de proyecto | `Formulario de contacto` |
+| `ModalLeadForm` | Modal del botón flotante | `Formulario flotante` |
+| `ContactoForm` | Página `/contacto` | `Página de contacto` |
+
+En la interna de proyecto el contexto se arma en `app/proyectos/[slug]/page.tsx` y baja por `ProjectSectionMapper` y `FloatingButtons` mediante la prop `lead`.
+
+### Contact Form 7 sigue vivo
+
+Cada envío sale a **dos destinos en paralelo**: el endpoint de Sperant, que decide si el formulario se considera enviado, y Contact Form 7, que sigue mandando el correo de aviso al equipo comercial. El resultado de CF7 es best-effort y no altera el mensaje que ve el visitante.
+
+### Mapeo de campos
+
+| Formulario | Sperant |
+|---|---|
+| `nombres` | `fname` |
+| `apellido` | `lname` |
+| `correo` | `email` |
+| `celular` | `phone` |
+| `distrito`, `presupuesto`, `proyecto`, `medio` | `extra_fields` |
+| `marketing` | `extra_fields.acepta_marketing` |
+
+### Atribución
+
+`captureTracking()` guarda los UTM y el `gclid` en `sessionStorage` la primera vez que aparecen en la URL, de modo que el lead conserva la atribución aunque el visitante navegue antes de enviar. `fbc` y `fbp` se leen de las cookies del pixel; si falta `_fbc` pero la URL trae `fbclid`, se arma con el formato `fb.1.<timestamp>.<fbclid>`.
+
+### Falta: el ID de proyecto en Sperant
+
+`lead.projectId` sale de `proyecto.acf.sperant_project_id`, **un campo ACF que todavía no existe**. Hasta crearlo, los leads llegan a Sperant sin `project_id`. Hay que añadirlo al grupo de campos del CPT `proyecto` (texto o número) y llenarlo con el ID que cada proyecto tiene en el CRM.
+
+Ojo: `formulario_id` de ACF es el ID del formulario de Contact Form 7, no sirve como `project_id`.
 
 ---
 
@@ -398,6 +447,8 @@ curl -s $CMS/wp-json/armando-paredes/v1 | python3 -m json.tool
 ## Pendientes
 
 - **Agregar el dominio de producción a la lista blanca** cuando el sitio salga de Vercel: hoy `https://www.armandoparedes.com` responde 403.
-- El frontend **todavía no usa estos endpoints**: los formularios siguen enviando a Contact Form 7 vía `hooks/useCf7Submit.ts`. Falta cambiarlos y capturar `fbc`, `fbp`, `gclid`, los UTM y el `event_id`.
+- **Crear el campo ACF `sperant_project_id`** en el CPT `proyecto`: sin él los leads llegan sin `project_id`.
+- **Verificar `extra_fields` con un lead real.** El tema anterior solo mandaba `gclid` ahí; ahora también van distrito y presupuesto. Si Sperant rechazara claves desconocidas, se quitan con el filtro `armando_paredes_sperant_client_payload`.
+- **Dos formularios siguen solo en Contact Form 7**: el de la sección de planos (`PlanosProyecto.tsx`), que pide nombre, correo y mensaje pero **no celular**, obligatorio para Sperant; y el de referidos (`SeParte.tsx`), que tiene otra naturaleza.
 - Revisar y fijar la versión vigente de la Graph API de Meta.
 - El namespace `armando-paredes/v1` lo comparte el plugin `wp-next-headless` (`/options/header`, `/options/footer`, `/options/blog`). No hay colisión con las rutas de aquí, y la constante `ARMANDO_PAREDES_REST_NAMESPACE` se define con guarda `if ( ! defined( ... ) )`.

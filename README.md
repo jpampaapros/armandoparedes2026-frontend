@@ -177,7 +177,9 @@ Tags en uso:
 
 Se envían desde el cliente directo a Contact Form 7 (`hooks/useCf7Submit.ts` → `POST {NEXT_PUBLIC_FORMS_URL}/wp-json/contact-form-7/v1/contact-forms/{id}/feedback`). Si `NEXT_PUBLIC_FORMS_URL` no está configurada, se usa `NEXT_PUBLIC_CMS_URL`. El ID del formulario viene de ACF cuando existe, con fallback a `4` (contacto general) y `976` (referidos). Los IDs deben existir en la instalación de WordPress elegida para formularios. Esta configuración aplica a todos los formularios; el WordPress receptor debe permitir solicitudes desde el dominio del frontend. Al cambiar la variable en Vercel, se necesita un nuevo despliegue para incorporarla al código del navegador.
 
-La integración con el CRM Sperant (endpoints del cotizador en WordPress) está documentada en [`docs/sperant-cotizador.md`](docs/sperant-cotizador.md).
+Los formularios comerciales (interna de proyecto, modal flotante y `/contacto`) ya no dependen solo de CF7: `hooks/useLeadSubmit.ts` los registra en el CRM Sperant a través del tema de WordPress y, en paralelo, sigue enviando a Contact Form 7 para el correo de aviso. Los de planos y referidos continúan solo en CF7.
+
+La integración completa está documentada en [`docs/sperant-cotizador.md`](docs/sperant-cotizador.md).
 
 ## Estilos
 

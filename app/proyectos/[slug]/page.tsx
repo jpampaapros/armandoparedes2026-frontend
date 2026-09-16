@@ -3,7 +3,8 @@ import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { ProjectSectionMapper } from "@/components/sections/ProjectSectionMapper";
 import { FloatingButtons } from "@/components/FloatingButtons";
 import type { Project, ProjectSection } from "@/lib/types";
-import { toArray } from "@/lib/utils";
+import { stripHtml, toArray } from "@/lib/utils";
+import type { LeadContext } from "@/lib/lead";
 
 type ProyectoPageProps = {
   params: Promise<{ slug: string }>;
@@ -83,12 +84,18 @@ export default async function ProyectoPage({ params }: ProyectoPageProps) {
   const formularioId = contactSection?.formulario_id ?? 4;
   const whatsappNumero = proyecto.acf?.whatsapp_numero;
 
+  // Acompaña a los leads que se registran en Sperant desde esta página.
+  const lead: LeadContext = {
+    projectId: proyecto.acf?.sperant_project_id,
+    formSource: `Proyecto ${stripHtml(proyecto.title?.rendered) || slug}`,
+  };
+
   return (
     <>
       <main className="w-full max-w-none p-0">
-        <ProjectSectionMapper sections={sections} proyectos={proyectos} />
+        <ProjectSectionMapper sections={sections} proyectos={proyectos} lead={lead} />
       </main>
-      <FloatingButtons whatsapp={whatsappNumero} formId={formularioId} />
+      <FloatingButtons whatsapp={whatsappNumero} formId={formularioId} lead={lead} />
     </>
   );
 }

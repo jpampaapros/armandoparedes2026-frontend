@@ -180,6 +180,8 @@ export type Project = {
     dormitorios?: string | number;
     tipo?: string;
     whatsapp_numero?: string;
+    /** ID del proyecto en Sperant, usado al registrar leads. */
+    sperant_project_id?: string | number;
     sections?: ACFList<ProjectSection>;
   };
   featured_media: number;

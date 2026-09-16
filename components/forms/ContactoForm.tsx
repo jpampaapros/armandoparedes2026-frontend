@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Controller, useForm } from "react-hook-form";
-import { useCf7Submit, type Cf7FormValues } from "@/hooks/useCf7Submit";
+import { useLeadSubmit } from "@/hooks/useLeadSubmit";
+import type { LeadContext, LeadFormValues } from "@/lib/lead";
 import { useIsClient } from "@/hooks/useIsClient";
 import type { ContactoPageFields, Project } from "@/lib/types";
 import { toArray } from "@/lib/utils";
@@ -26,7 +27,7 @@ function districtFor(project: Project) {
   )?.name;
 }
 
-type Props = ContactoPageFields & { proyectos?: Project[] };
+type Props = ContactoPageFields & { proyectos?: Project[]; lead?: LeadContext };
 
 export function ContactoForm({
   titulo = "Quiero más información",
@@ -35,14 +36,19 @@ export function ContactoForm({
   distritos,
   medios,
   proyectos = [],
+  lead,
 }: Props) {
-  const { register, handleSubmit, reset, control, formState: { errors } } = useForm<Cf7FormValues>({
+  const { register, handleSubmit, reset, control, formState: { errors } } = useForm<LeadFormValues>({
     defaultValues: {
       nombres: "", apellido: "", correo: "", celular: "", distrito: "",
       proyecto: "", medio: "", terminos: false, marketing: false,
     },
   });
-  const { submit, isPending, status } = useCf7Submit(formulario_id, { raw: true });
+  const { submit, isPending, status } = useLeadSubmit({
+    ...lead,
+    formSource: lead?.formSource || "Página de contacto",
+    cf7FormId: formulario_id,
+  });
   const isClient = useIsClient();
   const navTabs = toArray(tabs);
   const nav = navTabs.length ? navTabs : [
@@ -51,12 +57,8 @@ export function ContactoForm({
     { label: "Postventa", url: "/postventa" },
   ];
 
-  const onSubmit = async (values: Cf7FormValues) => {
-    const ok = await submit({
-      ...values,
-      terminos: values.terminos ? "1" : "",
-      marketing: values.marketing ? "1" : "",
-    });
+  const onSubmit = async (values: LeadFormValues) => {
+    const ok = await submit(values);
     if (ok) reset();
   };
 
@@ -121,7 +123,7 @@ export function ContactoForm({
 
 type SelectProps = {
   label: string; name: string; values: string[];
-  register: ReturnType<typeof useForm<Cf7FormValues>>["register"];
+  register: ReturnType<typeof useForm<LeadFormValues>>["register"];
   classes: { fieldClass: string; labelClass: string; controlClass: string };
 };
 
@@ -140,7 +142,7 @@ function SelectField({ label, name, values, register, classes }: SelectProps) {
 
 type ConsentProps = {
   name: "terminos" | "marketing"; required?: boolean;
-  control: ReturnType<typeof useForm<Cf7FormValues>>["control"];
+  control: ReturnType<typeof useForm<LeadFormValues>>["control"];
   children: React.ReactNode;
 };
 

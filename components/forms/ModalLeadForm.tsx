@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
-import { useCf7Submit, type Cf7FormValues } from "@/hooks/useCf7Submit";
+import { useLeadSubmit } from "@/hooks/useLeadSubmit";
+import type { LeadContext, LeadFormValues } from "@/lib/lead";
 import { useIsClient } from "@/hooks/useIsClient";
 
 const DISTRITOS = [
@@ -29,6 +30,7 @@ const PRESUPUESTOS = [
 
 type ModalLeadFormProps = {
   formId: string | number;
+  lead?: LeadContext;
   title?: string;
   defaultOpen?: boolean;
   open?: boolean;
@@ -37,6 +39,7 @@ type ModalLeadFormProps = {
 
 export function ModalLeadForm({
   formId,
+  lead,
   title,
   defaultOpen = false,
   open,
@@ -63,7 +66,7 @@ export function ModalLeadForm({
     reset,
     control,
     formState: { errors },
-  } = useForm<Cf7FormValues>({
+  } = useForm<LeadFormValues>({
     defaultValues: {
       nombres: "",
       apellido: "",
@@ -75,7 +78,11 @@ export function ModalLeadForm({
       marketing: false,
     },
   });
-  const { submit, isPending, status } = useCf7Submit(formId, { raw: true });
+  const { submit, isPending, status } = useLeadSubmit({
+    ...lead,
+    formSource: lead?.formSource || "Formulario flotante",
+    cf7FormId: formId,
+  });
 
   useEffect(() => {
     if (!isOpen) return;
@@ -123,13 +130,8 @@ export function ModalLeadForm({
     return () => document.removeEventListener("keydown", handleTab);
   }, [isOpen]);
 
-  const onSubmit = async (values: Cf7FormValues) => {
-    const payload = {
-      ...values,
-      terminos: values.terminos ? "1" : "",
-      marketing: values.marketing ? "1" : "",
-    };
-    const ok = await submit(payload);
+  const onSubmit = async (values: LeadFormValues) => {
+    const ok = await submit(values);
     if (ok) reset();
   };
 

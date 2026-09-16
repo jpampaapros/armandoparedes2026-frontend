@@ -247,6 +247,46 @@ function armando_paredes_sperant_request( string $path, string $method = 'GET', 
 }
 
 /**
+ * Normaliza el objeto extra_fields que envía el formulario.
+ *
+ * Sperant lo trata como un contenedor libre: ahí viajan el gclid y los campos
+ * que el formulario recoge pero el CRM no tiene como propios, por ejemplo el
+ * distrito de residencia o el rango de presupuesto.
+ *
+ * @param WP_REST_Request $request Solicitud entrante.
+ * @return array<string,string>
+ */
+function armando_paredes_sperant_extra_fields( WP_REST_Request $request ): array {
+	$extra = $request->get_param( 'extra_fields' );
+
+	// En form-data el objeto puede llegar como JSON serializado.
+	if ( is_string( $extra ) ) {
+		$decoded = json_decode( $extra, true );
+		$extra   = is_array( $decoded ) ? $decoded : array();
+	}
+
+	$fields = array();
+
+	if ( is_array( $extra ) ) {
+		foreach ( $extra as $key => $value ) {
+			if ( is_array( $value ) || is_object( $value ) ) {
+				continue;
+			}
+
+			$key = sanitize_key( (string) $key );
+
+			if ( '' !== $key ) {
+				$fields[ $key ] = sanitize_text_field( (string) $value );
+			}
+		}
+	}
+
+	$fields['gclid'] = sanitize_text_field( (string) $request->get_param( 'gclid' ) );
+
+	return $fields;
+}
+
+/**
  * Normaliza los campos del formulario al contrato de Sperant.
  *
  * @param WP_REST_Request $request Solicitud entrante (JSON o form-data).
@@ -264,9 +304,7 @@ function armando_paredes_sperant_client_payload( WP_REST_Request $request ): arr
 		'utm_campaign' => sanitize_text_field( (string) $request->get_param( 'utm_campaign' ) ),
 		'utm_term'     => sanitize_text_field( (string) $request->get_param( 'utm_term' ) ),
 		'utm_content'  => sanitize_text_field( (string) $request->get_param( 'utm_content' ) ),
-		'extra_fields' => array(
-			'gclid' => sanitize_text_field( (string) $request->get_param( 'gclid' ) ),
-		),
+		'extra_fields' => armando_paredes_sperant_extra_fields( $request ),
 	);
 
 	$ids = array( 'project_id', 'input_channel_id', 'source_id', 'interest_type_id', 'document_type_id' );
