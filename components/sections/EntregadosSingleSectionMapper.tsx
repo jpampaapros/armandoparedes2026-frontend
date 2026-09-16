@@ -4,6 +4,7 @@ import { Detalle } from "@/components/sections/entregados/Detalle";
 import { Navegacion } from "@/components/sections/entregados/Navegacion";
 import { ProyectosVenta } from "@/components/sections/ProyectosVenta";
 import type { Delivered, EntregadosSingleSection, Project } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
 type EntregadosSingleSectionMapperProps = {
   current: Delivered;
@@ -36,7 +37,7 @@ export function EntregadosSingleSectionMapper({
             return (
               <Galeria
                 key={`${section.acf_fc_layout}-${index}`}
-                imagenes={section.imagenes}
+                imagenes={toArray(section.imagenes)}
               />
             );
           case "detalle":

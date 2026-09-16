@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { resolveWordPressUrl, isExternalUrl } from "@/lib/urls";
-import type { ACFImage, ACFLink } from "@/lib/types";
+import type { ACFImage, ACFLink, ACFList } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
 export type FooterLinkItem = {
   link?: ACFLink;
@@ -11,19 +12,19 @@ export type FooterLinkItem = {
 
 export type FooterLinkColumn = {
   title?: string;
-  links?: FooterLinkItem[];
+  links?: ACFList<FooterLinkItem>;
 };
 
 export type FooterInfoColumn = {
   title?: string;
   description?: string;
-  redes?: { icon?: ACFImage; link?: ACFLink }[];
+  redes?: ACFList<{ icon?: ACFImage; link?: ACFLink }>;
 };
 
 export type FooterData = {
   title?: string;
   columns?: {
-    link_columns?: FooterLinkColumn[];
+    link_columns?: ACFList<FooterLinkColumn>;
     info_column?: FooterInfoColumn;
   };
 };
@@ -125,7 +126,7 @@ export async function Footer() {
     cache: { revalidate: 3600, tags: ["wordpress-footer"] },
   }).request<FooterData>("/wp-json/armando-paredes/v1/options/footer");
 
-  const linkColumns = data.columns?.link_columns?.filter(Boolean) ?? [];
+  const linkColumns = toArray(data.columns?.link_columns).filter(Boolean);
   const infoColumn = data.columns?.info_column;
 
   return (
@@ -151,9 +152,9 @@ export async function Footer() {
                 )}
                 <Description text={infoColumn.description} />
               </div>
-              {infoColumn.redes && infoColumn.redes.length > 0 && (
+              {toArray(infoColumn.redes).length > 0 && (
                 <div className="flex items-center gap-14 md:mt-0">
-                  {infoColumn.redes.map((item, i) => (
+                  {toArray(infoColumn.redes).map((item, i) => (
                     <SocialLink key={i} item={item} />
                   ))}
                 </div>
@@ -172,7 +173,7 @@ export async function Footer() {
                 </h3>
               )}
               <ul className="m-0 flex list-none flex-col gap-16 p-0">
-                {column.links?.map((item, i) => (
+                {toArray(column.links).map((item, i) => (
                   <li key={i} className="m-0 p-0">
                     <FooterLink item={item} />
                   </li>

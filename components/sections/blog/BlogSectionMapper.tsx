@@ -4,6 +4,7 @@ import { BlogGallerySection } from "./BlogGallerySection";
 import { BlogDondeSection } from "./BlogDondeSection";
 import { BlogCitaSection } from "./BlogCitaSection";
 import type { BlogPostSection } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
 type BlogSectionMapperProps = {
   sections: BlogPostSection[];
@@ -20,7 +21,7 @@ export function BlogSectionMapper({ sections }: BlogSectionMapperProps) {
           case "imagen":
             return <BlogImageSection key={key} imagen={section.imagen} />;
           case "galeria":
-            return <BlogGallerySection key={key} imagenes={section.imagenes} />;
+            return <BlogGallerySection key={key} imagenes={toArray(section.imagenes)} />;
           case "donde":
             return (
               <BlogDondeSection

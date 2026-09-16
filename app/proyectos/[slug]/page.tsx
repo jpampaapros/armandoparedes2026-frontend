@@ -3,6 +3,7 @@ import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { ProjectSectionMapper } from "@/components/sections/ProjectSectionMapper";
 import { FloatingButtons } from "@/components/FloatingButtons";
 import type { Project, ProjectSection } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
 type ProyectoPageProps = {
   params: Promise<{ slug: string }>;
@@ -73,7 +74,7 @@ export default async function ProyectoPage({ params }: ProyectoPageProps) {
   }
 
   const proyectos = await getProjects();
-  const sections = proyecto.acf?.sections ?? [];
+  const sections = toArray(proyecto.acf?.sections);
 
   const contactSection = sections.find(
     (s): s is ProjectSection & { acf_fc_layout: "formulario_contacto" } =>

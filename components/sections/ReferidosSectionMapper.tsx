@@ -1,6 +1,7 @@
 import { BannerReferidos } from "@/components/sections/referidos/BannerReferidos";
 import { SeParte } from "@/components/sections/referidos/SeParte";
 import type { ReferidosPageSection } from "@/lib/types";
+import { toArray } from "@/lib/utils";
 
 type ReferidosSectionMapperProps = {
   sections?: ReferidosPageSection[];
@@ -19,7 +20,7 @@ export function ReferidosSectionMapper({ sections = [] }: ReferidosSectionMapper
                 background_image={section.background_image}
                 title={section.title}
                 phrase={section.phrase}
-                cards={section.cards}
+                cards={toArray(section.cards)}
                 legal_text={section.legal_text}
               />
             );
