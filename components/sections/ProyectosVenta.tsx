@@ -30,7 +30,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-full w-full appearance-none border-0 bg-transparent pl-[calc(7*var(--fx))] pr-8 font-poppins text-16 font-extralight text-warm-gray outline-none md:pl-0"
+        className="h-full w-full appearance-none border-0 bg-transparent pl-7 pr-8 font-poppins text-16 font-extralight text-warm-gray outline-none md:pl-0"
       >
         <option value="">{placeholder}</option>
         {options.map((opt) => (
@@ -73,7 +73,7 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
   }, [proyectos, tags, distrito, tipo, area]);
 
   return (
-    <section className="w-full bg-white px-[calc(15*var(--fx))] pb-35 pt-49 md:px-4 md:pb-60 md:pt-101">
+    <section className="w-full bg-white px-15 pb-35 pt-49 md:px-4 md:pb-60 md:pt-101">
       <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col gap-24 md:flex-row md:items-start md:justify-between">
           {titulo && (
@@ -121,7 +121,7 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
               <EmblaSlider
                 slides={filtered}
                 slidesPerView={1}
-                slideClassName="md:basis-[calc(494*var(--fx))]! md:pr-20"
+                slideClassName="md:basis-494! md:pr-20"
                 gap={0}
                 showArrows={false}
                 onApiReady={setEmblaApi}

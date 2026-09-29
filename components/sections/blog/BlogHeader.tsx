@@ -35,7 +35,7 @@ export function BlogHeader({ post, categoryFilter }: BlogHeaderProps) {
 
   return (
     <header className="flex w-full min-w-0 flex-col gap-16 md:gap-24">
-      <div className="flex items-start justify-between gap-[calc(24*var(--fx))]">
+      <div className="flex items-start justify-between gap-24">
       <button
         type="button"
         onClick={() => router.back()}
@@ -54,7 +54,7 @@ export function BlogHeader({ post, categoryFilter }: BlogHeaderProps) {
         {categoryFilter}
       </div>
 
-      <div className="flex flex-col items-start gap-[calc(30*var(--fx))]">
+      <div className="flex flex-col items-start gap-30">
         {category && (
           <span className="inline-block border border-near-black px-10 py-8 font-poppins text-14 font-medium text-near-black md:text-18">
             {category}
@@ -62,7 +62,7 @@ export function BlogHeader({ post, categoryFilter }: BlogHeaderProps) {
         )}
 
         <h1
-          className="m-0 w-full font-gotham-medium text-[calc(28*var(--fx))] font-medium leading-[calc(28*var(--fx))] text-near-black md:text-[calc(40*var(--fx))] md:leading-[calc(40*var(--fx))]"
+          className="m-0 w-full font-gotham-medium text-28 font-medium leading-28 text-near-black md:text-40 md:leading-40"
           dangerouslySetInnerHTML={{ __html: post.title.rendered }}
         />
 

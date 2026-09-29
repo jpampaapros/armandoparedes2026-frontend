@@ -113,10 +113,10 @@ export function Banner({ slides }: BannerProps) {
             aria-label={`Ir al slide ${index + 1}`}
             aria-current={index === activeIndex ? "true" : undefined}
             onClick={() => setActiveIndex(index)}
-            className={`relative h-[calc(6*var(--fx))] cursor-pointer overflow-hidden rounded-full border-0 bg-dots-inactive p-0 transition-[width] duration-300 ${
+            className={`relative h-6 cursor-pointer overflow-hidden rounded-full border-0 bg-dots-inactive p-0 transition-[width] duration-300 ${
               index === activeIndex
-                ? "w-[calc(91*var(--fx))]"
-                : "w-[calc(27*var(--fx))]"
+                ? "w-91"
+                : "w-27"
             }`}
           >
             {index === activeIndex && (
@@ -131,7 +131,7 @@ export function Banner({ slides }: BannerProps) {
       </div>
 
       {activeSlide.imagen?.url && (
-        <div data-intro-fade className="relative mt-61 min-h-0 w-full flex-1 md:mt-34 md:h-[calc(817*var(--fx))] md:flex-none">
+        <div data-intro-fade className="relative mt-61 min-h-0 w-full flex-1 md:mt-34 md:h-817 md:flex-none">
           <div ref={imageRef} className="absolute inset-0">
             <Image
               key={activeSlide.imagen.url}

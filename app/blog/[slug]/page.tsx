@@ -48,7 +48,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <main className="w-full bg-white">
-      <article className="mx-auto min-w-0 w-[calc(382*var(--fx))] overflow-hidden py-40 md:w-full md:px-[calc(355*var(--fx))] md:py-80">
+      <article className="mx-auto min-w-0 w-382 overflow-hidden py-40 md:w-full md:px-355 md:py-80">
           <BlogHeader post={post} categoryFilter={
           <div className="hidden shrink-0 md:block md:w-326">
             <Suspense fallback={<div className="h-52 w-full rounded-10 border border-border-light bg-white md:w-326" />}>

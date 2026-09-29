@@ -23,8 +23,8 @@ export function MiVida({ titulo, indicadores }: MiVidaProps) {
         )}
 
         <div className="mt-40 md:mt-60">
-          <div className="border-y border-near-black py-24 md:py-[calc(31*var(--fx))]">
-            <div className="h-[calc(201*var(--fx))] overflow-hidden">
+          <div className="border-y border-near-black py-24 md:py-31">
+            <div className="h-201 overflow-hidden">
               <div
                 className={items.length > 1 ? "armando-life-marquee flex h-full w-max" : "flex h-full"}
                 style={marqueeStyle}
@@ -38,9 +38,9 @@ export function MiVida({ titulo, indicadores }: MiVidaProps) {
                     {items.map((item, index) => (
                       <div
                         key={`${duplicate ? "duplicate" : "original"}-${index}`}
-                        className="flex h-full w-[calc(382*var(--fx))] shrink-0 flex-col items-center justify-center gap-10 border-r border-near-black px-[calc(24*var(--fx))] md:w-[calc(426.667*var(--fx))] md:px-[calc(50*var(--fx))]"
+                        className="flex h-full w-382 shrink-0 flex-col items-center justify-center gap-10 border-r border-near-black px-24 md:w-427 md:px-50"
                       >
-                        <span className="font-gotham text-52 font-bold leading-[1] text-peach md:text-[calc(76*var(--fx))]">
+                        <span className="font-gotham text-52 font-bold leading-[1] text-peach md:text-76">
                           {item.numero}
                         </span>
                         <p className="armando-life-label text-center font-poppins font-light leading-[1.3] text-near-black">

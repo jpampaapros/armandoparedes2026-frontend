@@ -35,8 +35,8 @@ export function DeliveredCard({
     : "p-16 md:p-20";
   const yearClass = mobileYear24
     ? isLarge
-      ? "text-[calc(24*var(--fx))] md:text-24"
-      : "text-[calc(24*var(--fx))] md:text-16"
+      ? "text-24 md:text-24"
+      : "text-24 md:text-16"
     : metaClass;
 
   return (

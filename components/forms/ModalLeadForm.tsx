@@ -176,7 +176,7 @@ export function ModalLeadForm({
         <button
           type="button"
           onClick={() => setIsOpen(false)}
-          className="absolute right-[calc(12*var(--fx))] top-[calc(12*var(--fx))] flex h-[calc(24*var(--fx))] w-[calc(24*var(--fx))] cursor-pointer items-center justify-center border-0 bg-transparent p-0 font-gotham text-[calc(24*var(--fx))] leading-none text-black"
+          className="absolute right-12 top-12 flex h-24 w-24 cursor-pointer items-center justify-center border-0 bg-transparent p-0 font-gotham text-24 leading-none text-black"
           aria-label="Cerrar"
         >
           ×
@@ -193,12 +193,12 @@ export function ModalLeadForm({
             return handleSubmit(onSubmit)(e);
           }}
           noValidate
-          className="mt-[calc(40*var(--fx))] flex flex-col gap-16 font-poppins md:mt-[calc(50*var(--fx))] md:gap-22"
+          className="mt-40 flex flex-col gap-16 font-poppins md:mt-50 md:gap-22"
         >
           <div className="grid grid-cols-1 gap-x-12 gap-y-16 md:grid-cols-2 md:gap-y-22">
             <div className="flex flex-col gap-4">
               <label className="flex h-38 flex-col justify-center border border-near-black px-7">
-                <span className="font-poppins text-[calc(10*var(--fx))] font-semibold leading-none text-near-black">Nombres*</span>
+                <span className="font-poppins text-10 font-semibold leading-none text-near-black">Nombres*</span>
                 <input
                   type="text"
                   aria-invalid={errors.nombres ? "true" : "false"}
@@ -215,7 +215,7 @@ export function ModalLeadForm({
 
             <div className="flex flex-col gap-4">
               <label className="flex h-38 flex-col justify-center border border-near-black px-7">
-                <span className="font-poppins text-[calc(10*var(--fx))] font-semibold leading-none text-near-black">Apellido*</span>
+                <span className="font-poppins text-10 font-semibold leading-none text-near-black">Apellido*</span>
                 <input
                   type="text"
                   aria-invalid={errors.apellido ? "true" : "false"}
@@ -232,7 +232,7 @@ export function ModalLeadForm({
 
             <div className="flex flex-col gap-4">
               <label className="flex h-38 flex-col justify-center border border-near-black px-7">
-                <span className="font-poppins text-[calc(10*var(--fx))] font-semibold leading-none text-near-black">Correo electrónico*</span>
+                <span className="font-poppins text-10 font-semibold leading-none text-near-black">Correo electrónico*</span>
                 <input
                   type="email"
                   aria-invalid={errors.correo ? "true" : "false"}
@@ -260,7 +260,7 @@ export function ModalLeadForm({
                   <span className="font-poppins text-13 text-near-black">+51</span>
                 </div>
                 <label className="flex min-w-0 flex-1 flex-col justify-center border border-near-black px-7">
-                  <span className="font-poppins text-[calc(10*var(--fx))] font-semibold leading-none text-near-black">Celular*</span>
+                  <span className="font-poppins text-10 font-semibold leading-none text-near-black">Celular*</span>
                   <input
                     type="tel"
                     aria-invalid={errors.celular ? "true" : "false"}
@@ -278,7 +278,7 @@ export function ModalLeadForm({
 
             <div className="flex flex-col gap-4">
               <label className="relative flex h-38 flex-col justify-center border border-near-black px-7">
-                <span className="font-poppins text-[calc(10*var(--fx))] font-semibold leading-none text-near-black">Distrito de residencia</span>
+                <span className="font-poppins text-10 font-semibold leading-none text-near-black">Distrito de residencia</span>
                 <select
                   className="min-h-0 w-full appearance-none border-0 bg-transparent p-0 pr-24 font-poppins text-13 leading-[1.2] text-near-black outline-none"
                   aria-invalid={errors.distrito ? "true" : "false"}
@@ -308,7 +308,7 @@ export function ModalLeadForm({
 
             <div className="flex flex-col gap-4">
               <label className="relative flex h-38 flex-col justify-center border border-near-black px-7">
-                <span className="font-poppins text-[calc(10*var(--fx))] font-semibold leading-none text-near-black">Presupuesto</span>
+                <span className="font-poppins text-10 font-semibold leading-none text-near-black">Presupuesto</span>
                 <select
                   className="min-h-0 w-full appearance-none border-0 bg-transparent p-0 pr-24 font-poppins text-13 leading-[1.2] text-near-black outline-none"
                   aria-invalid={errors.presupuesto ? "true" : "false"}
@@ -368,7 +368,7 @@ export function ModalLeadForm({
                     </span>
                   )}
                 </span>
-                <span className="pt-[calc(2*var(--fx))] font-poppins text-[calc(10.168*var(--fx))] font-normal not-italic leading-[normal] text-near-black">
+                <span className="pt-2 font-poppins text-10 font-normal not-italic leading-[normal] text-near-black">
                   Acepto las{" "}
                   <a
                     href="/politicas-de-privacidad"
@@ -424,7 +424,7 @@ export function ModalLeadForm({
                     </span>
                   )}
                 </span>
-                <span className="pt-[calc(2*var(--fx))] font-poppins text-[calc(10.168*var(--fx))] font-normal not-italic leading-[normal] text-near-black">
+                <span className="pt-2 font-poppins text-10 font-normal not-italic leading-[normal] text-near-black">
                   Autorizo el envío de comunicaciones comerciales.
                 </span>
               </label>

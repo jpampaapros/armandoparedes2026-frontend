@@ -39,7 +39,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
         href={`/blog/${post.slug}`}
         className="group relative flex w-full flex-col overflow-hidden bg-card-dark md:aspect-[1250/561] md:flex-row md:gap-[55px]"
       >
-        <div className="w-full bg-card-dark p-[calc(20*var(--fx))] md:w-[46%] md:py-[calc(20*var(--fx))] md:pl-[calc(20*var(--fx))] md:pr-0">
+        <div className="w-full bg-card-dark p-20 md:w-[46%] md:py-20 md:pl-20 md:pr-0">
           <div className="relative aspect-[16/10] w-full overflow-hidden md:h-full md:aspect-auto">
             {image?.source_url ? (
               <Image
@@ -56,13 +56,13 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
               </div>
             )}
             {category && (
-              <span className="absolute left-0 top-[calc(16*var(--fx))] bg-white px-10 py-6 font-poppins text-14 font-medium text-near-black md:bottom-16 md:left-16 md:top-auto">
+              <span className="absolute left-0 top-16 bg-white px-10 py-6 font-poppins text-14 font-medium text-near-black md:bottom-16 md:left-16 md:top-auto">
                 {category}
               </span>
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-[calc(16*var(--fx))] p-[calc(16*var(--fx))] md:w-[calc(54%-55px)] md:gap-24 md:py-24 md:pl-0 md:pr-24">
+        <div className="flex flex-col gap-16 p-16 md:w-[calc(54%-55px)] md:gap-24 md:py-24 md:pl-0 md:pr-24">
           <div className="mb-0 flex flex-wrap items-center gap-8 md:mb-[50px]">
             {date && (
               <span className="bg-slate px-10 py-6 font-poppins text-14 font-normal text-white">
@@ -71,17 +71,17 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
             )}
           </div>
           <h2
-            className="font-gotham text-[calc(28*var(--fx))] font-bold leading-[1.25] text-white md:text-36 md:leading-42"
+            className="font-gotham text-28 font-bold leading-[1.25] text-white md:text-36 md:leading-42"
             dangerouslySetInnerHTML={{ __html: post.title.rendered }}
           />
           <span className="font-poppins text-14 font-light italic leading-24 text-white">
             {author}
           </span>
           <div
-            className="line-clamp-3 font-poppins text-16 font-normal leading-24 text-white md:text-[calc(20*var(--fx))]"
+            className="line-clamp-3 font-poppins text-16 font-normal leading-24 text-white md:text-20"
             dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
           />
-          <span className="mt-auto font-poppins text-[calc(15*var(--fx))] font-light not-italic leading-[calc(17.409*var(--fx))] text-white underline decoration-solid [text-decoration-skip-ink:none] [text-decoration-thickness:auto] [text-underline-offset:auto] [text-underline-position:from-font]">
+          <span className="mt-auto font-poppins text-15 font-light not-italic leading-17 text-white underline decoration-solid [text-decoration-skip-ink:none] [text-decoration-thickness:auto] [text-underline-offset:auto] [text-underline-position:from-font]">
             Leer más
           </span>
         </div>
@@ -92,7 +92,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group relative flex h-full w-full flex-col gap-12 border-b border-border-light bg-white px-0 py-24 text-near-black md:border-b-0 md:px-[calc(24*var(--fx))] md:[&:nth-child(odd)]:pl-0 md:[&:nth-child(even)]:pr-0 md:py-30 md:after:pointer-events-none md:after:absolute md:after:bottom-0 md:after:h-px md:after:bg-border-light md:after:content-[''] md:[&:nth-child(odd)]:before:pointer-events-none md:[&:nth-child(odd)]:before:absolute md:[&:nth-child(odd)]:before:bottom-12 md:[&:nth-child(odd)]:before:right-0 md:[&:nth-child(odd)]:before:top-12 md:[&:nth-child(odd)]:before:w-px md:[&:nth-child(odd)]:before:bg-border-light md:[&:nth-child(odd)]:before:content-[''] md:[&:nth-child(odd)]:after:left-0 md:[&:nth-child(odd)]:after:right-12 md:[&:nth-child(even)]:after:left-12 md:[&:nth-child(even)]:after:right-0"
+      className="group relative flex h-full w-full flex-col gap-12 border-b border-border-light bg-white px-0 py-24 text-near-black md:border-b-0 md:px-24 md:[&:nth-child(odd)]:pl-0 md:[&:nth-child(even)]:pr-0 md:py-30 md:after:pointer-events-none md:after:absolute md:after:bottom-0 md:after:h-px md:after:bg-border-light md:after:content-[''] md:[&:nth-child(odd)]:before:pointer-events-none md:[&:nth-child(odd)]:before:absolute md:[&:nth-child(odd)]:before:bottom-12 md:[&:nth-child(odd)]:before:right-0 md:[&:nth-child(odd)]:before:top-12 md:[&:nth-child(odd)]:before:w-px md:[&:nth-child(odd)]:before:bg-border-light md:[&:nth-child(odd)]:before:content-[''] md:[&:nth-child(odd)]:after:left-0 md:[&:nth-child(odd)]:after:right-12 md:[&:nth-child(even)]:after:left-12 md:[&:nth-child(even)]:after:right-0"
     >
       <div className="relative aspect-[413/240] w-full overflow-hidden">
         {image?.source_url ? (
@@ -119,7 +119,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
           className="font-gotham text-22 font-bold leading-28 text-peach md:text-28"
           dangerouslySetInnerHTML={{ __html: post.title.rendered }}
         />
-        <div className="flex flex-wrap items-center gap-4 font-poppins text-[calc(10.155*var(--fx))] font-medium leading-normal text-near-black">
+        <div className="flex flex-wrap items-center gap-4 font-poppins text-10 font-medium leading-normal text-near-black">
           <span className="italic">{author}</span>
           {date && <span className="not-italic">| {date}</span>}
         </div>
@@ -127,7 +127,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
           className="line-clamp-3 font-poppins text-14 font-normal leading-18 text-near-black md:text-10 md:leading-13"
           dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
         />
-        <span className="mt-auto font-poppins text-[calc(14*var(--fx))] font-light not-italic leading-[calc(17.409*var(--fx))] md:text-[calc(10.152*var(--fx))] md:italic text-near-black underline decoration-solid [text-decoration-skip-ink:none] [text-decoration-thickness:auto] [text-underline-offset:auto] [text-underline-position:from-font]">
+        <span className="mt-auto font-poppins text-14 font-light not-italic leading-17 md:text-10 md:italic text-near-black underline decoration-solid [text-decoration-skip-ink:none] [text-decoration-thickness:auto] [text-underline-offset:auto] [text-underline-position:from-font]">
           Leer más
         </span>
       </div>

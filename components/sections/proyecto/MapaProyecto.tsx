@@ -15,7 +15,7 @@ export function MapaProyecto({ titulo, google_maps, latitud, longitud, ubicacion
   return (
     <section
       data-layout="mapa"
-      className="w-full bg-peach pt-[calc(63*var(--fx))] md:pb-153 md:pt-110"
+      className="w-full bg-peach pt-63 md:pb-153 md:pt-110"
     >
       <div className="mx-auto flex max-w-1440 flex-col px-16 md:flex-row md:px-80">
         <div className="relative h-273 w-full overflow-hidden rounded-15 md:h-730 md:w-875 md:rounded-35">

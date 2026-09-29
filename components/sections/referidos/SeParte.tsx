@@ -54,7 +54,7 @@ function PhoneInput({ name, label, register }: PhoneInputProps) {
         />
       </div>
       <label className="flex min-w-0 flex-1 flex-col justify-center border border-white px-10">
-        <span className="font-poppins text-[calc(12*var(--fx))] font-semibold not-italic leading-[normal] text-white">{label}</span>
+        <span className="font-poppins text-12 font-semibold not-italic leading-[normal] text-white">{label}</span>
         <input
           type="tel"
           className="min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-18 leading-[1.2] text-white outline-none"
@@ -112,7 +112,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
   };
 
   const fieldClass = "flex h-50 flex-col justify-center border border-white px-10";
-  const fieldLabelClass = "font-poppins text-[calc(12*var(--fx))] font-semibold not-italic leading-[normal] text-white";
+  const fieldLabelClass = "font-poppins text-12 font-semibold not-italic leading-[normal] text-white";
   const inputClass =
     "min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-18 leading-[1.2] text-white outline-none";
   const errorClass = "text-12 text-red-300";
@@ -124,15 +124,15 @@ export function SeParte({ title, form_id }: SeParteProps) {
           <h2 className="m-0 text-center font-medium not-italic leading-[normal] text-white">
             {titleParts ? (
               <>
-                <span className="block font-gotham text-[calc(24*var(--fx))] md:text-[calc(40*var(--fx))]">
+                <span className="block font-gotham text-24 md:text-40">
                   {titleParts[1]}
                 </span>
-                <span className="mt-[calc(5*var(--fx))] block font-gotham-black text-[calc(36*var(--fx))] md:text-[calc(60*var(--fx))]">
+                <span className="mt-5 block font-gotham-black text-36 md:text-60">
                   {titleParts[2]}
                 </span>
               </>
             ) : (
-              <span className="whitespace-pre-line font-gotham-black text-[calc(36*var(--fx))] md:text-[calc(60*var(--fx))]">{title}</span>
+              <span className="whitespace-pre-line font-gotham-black text-36 md:text-60">{title}</span>
             )}
           </h2>
         )}
@@ -144,7 +144,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
         >
           {/* Tus datos */}
           <div className="flex flex-col gap-16">
-            <p className="text-center font-gotham text-[calc(24*var(--fx))] font-medium italic leading-[normal] text-white">
+            <p className="text-center font-gotham text-24 font-medium italic leading-[normal] text-white">
               Ingresa tus datos:
             </p>
 
@@ -191,7 +191,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
 
           {/* Datos del referido */}
           <div className="flex flex-col gap-16">
-            <p className="text-center font-gotham text-[calc(24*var(--fx))] font-medium not-italic leading-[normal] text-white">
+            <p className="text-center font-gotham text-24 font-medium not-italic leading-[normal] text-white">
               Ingresa los datos de tu referido:
             </p>
 
@@ -235,7 +235,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
               rules={{ required: true }}
               render={({ field: { value, onChange, ref, name } }) => (
                 <label className="flex cursor-pointer items-start gap-8">
-                  <span className="relative flex h-[calc(18*var(--fx))] w-[calc(18*var(--fx))] shrink-0 items-center justify-center">
+                  <span className="relative flex h-18 w-18 shrink-0 items-center justify-center">
                     <input
                       ref={ref}
                       name={name}
@@ -252,11 +252,11 @@ export function SeParte({ title, form_id }: SeParteProps) {
                         alt=""
                         width={18}
                         height={18}
-                        className="h-[calc(18*var(--fx))] w-[calc(18*var(--fx))]"
+                        className="h-18 w-18"
                         style={{ filter: "brightness(0) invert(1)" }}
                       />
                     ) : (
-                      <span aria-hidden="true" className="flex h-[calc(18*var(--fx))] w-[calc(18*var(--fx))] items-center justify-center rounded-full bg-peach text-[calc(10*var(--fx))] text-white">✓</span>
+                      <span aria-hidden="true" className="flex h-18 w-18 items-center justify-center rounded-full bg-peach text-10 text-white">✓</span>
                     )}
                   </span>
                   <span className="font-poppins text-14 text-white">
@@ -284,7 +284,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
               control={control}
               render={({ field: { value, onChange, ref, name } }) => (
                 <label className="flex cursor-pointer items-start gap-8">
-                  <span className="relative flex h-[calc(18*var(--fx))] w-[calc(18*var(--fx))] shrink-0 items-center justify-center">
+                  <span className="relative flex h-18 w-18 shrink-0 items-center justify-center">
                     <input
                       ref={ref}
                       name={name}
@@ -301,11 +301,11 @@ export function SeParte({ title, form_id }: SeParteProps) {
                         alt=""
                         width={18}
                         height={18}
-                        className="h-[calc(18*var(--fx))] w-[calc(18*var(--fx))]"
+                        className="h-18 w-18"
                         style={{ filter: "brightness(0) invert(1)" }}
                       />
                     ) : (
-                      <span aria-hidden="true" className="flex h-[calc(18*var(--fx))] w-[calc(18*var(--fx))] items-center justify-center rounded-full bg-peach text-[calc(10*var(--fx))] text-white">✓</span>
+                      <span aria-hidden="true" className="flex h-18 w-18 items-center justify-center rounded-full bg-peach text-10 text-white">✓</span>
                     )}
                   </span>
                   <span className="font-poppins text-14 text-white">
@@ -329,7 +329,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
               rules={{ required: true }}
               render={({ field: { value, onChange, ref, name } }) => (
                 <label className="flex cursor-pointer items-start gap-8">
-                  <span className="relative flex h-[calc(18*var(--fx))] w-[calc(18*var(--fx))] shrink-0 items-center justify-center">
+                  <span className="relative flex h-18 w-18 shrink-0 items-center justify-center">
                     <input
                       ref={ref}
                       name={name}
@@ -346,11 +346,11 @@ export function SeParte({ title, form_id }: SeParteProps) {
                         alt=""
                         width={18}
                         height={18}
-                        className="h-[calc(18*var(--fx))] w-[calc(18*var(--fx))]"
+                        className="h-18 w-18"
                         style={{ filter: "brightness(0) invert(1)" }}
                       />
                     ) : (
-                      <span aria-hidden="true" className="flex h-[calc(18*var(--fx))] w-[calc(18*var(--fx))] items-center justify-center rounded-full bg-peach text-[calc(10*var(--fx))] text-white">✓</span>
+                      <span aria-hidden="true" className="flex h-18 w-18 items-center justify-center rounded-full bg-peach text-10 text-white">✓</span>
                     )}
                   </span>
                   <span className="font-poppins text-14 text-white">

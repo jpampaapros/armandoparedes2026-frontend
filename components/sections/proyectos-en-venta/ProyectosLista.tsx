@@ -68,7 +68,7 @@ export function ProyectosLista({ titulo, proyectos }: ProyectosListaProps) {
   }, [proyectos, tags, distrito, tipo, area]);
 
   return (
-    <section data-section="proyectos_en_venta" className="w-full bg-white px-[calc(15*var(--fx))] pt-[calc(24*var(--fx))] pb-60 md:px-0 md:pt-[calc(40*var(--fx))] md:pb-120">
+    <section data-section="proyectos_en_venta" className="w-full bg-white px-15 pt-24 pb-60 md:px-0 md:pt-40 md:pb-120">
       <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col md:flex-row gap-24 justify-between">
           {titulo && (
@@ -88,7 +88,7 @@ export function ProyectosLista({ titulo, proyectos }: ProyectosListaProps) {
             No hay proyectos que coincidan con los filtros.
           </p>
         ) : (
-          <div className="grid grid-cols-1 gap-[calc(15*var(--fx))] md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-15 md:grid-cols-2">
             {filtered.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}

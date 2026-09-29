@@ -35,7 +35,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
           )}
 
           <div
-            className={`${direccion ? "mt-[calc(70*var(--fx))] md:mt-0" : ""} flex flex-col flex-wrap items-center justify-center gap-24 md:gap-[calc(90*var(--fx))] ${pisos && area && dormitorios ? "md:grid md:w-full md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]" : "md:flex-row"}`}
+            className={`${direccion ? "mt-70 md:mt-0" : ""} flex flex-col flex-wrap items-center justify-center gap-24 md:gap-90 ${pisos && area && dormitorios ? "md:grid md:w-full md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]" : "md:flex-row"}`}
           >
             {pisos && (
               <div className="flex items-center gap-14 md:justify-self-end">
@@ -65,10 +65,10 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
         </div>
 
         {brochure?.url && brochure.url !== "#" && (
-          <div className="mt-[calc(80*var(--fx))] flex justify-center md:mt-60">
+          <div className="mt-80 flex justify-center md:mt-60">
             <SmartLink
               link={brochure}
-              className="inline-flex h-50 w-[calc(380*var(--fx))] max-w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-60 md:w-429 md:text-18"
+              className="inline-flex h-50 w-380 max-w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-60 md:w-429 md:text-18"
             >
               {brochure.title || "REVISA NUESTRO BROCHURE"}
             </SmartLink>

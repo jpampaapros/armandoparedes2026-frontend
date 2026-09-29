@@ -68,11 +68,11 @@ export function BlogPagination({ currentPage, totalPages }: BlogPaginationProps)
         <span className="hidden font-gotham text-18 font-normal text-peach md:inline md:text-20">
           Ir a página
         </span>
-        <div className="flex items-center gap-[calc(12*var(--fx))] md:gap-4">
+        <div className="flex items-center gap-12 md:gap-4">
           {currentPage === 1 && (
             <span
               aria-hidden="true"
-              className="-mr-[calc(8*var(--fx))] inline-flex h-30 w-30 items-center justify-center text-near-black opacity-40 md:hidden"
+              className="-mr-8 inline-flex h-30 w-30 items-center justify-center text-near-black opacity-40 md:hidden"
             >
               <DoubleChevron direction="left" />
             </span>
@@ -81,7 +81,7 @@ export function BlogPagination({ currentPage, totalPages }: BlogPaginationProps)
             <Link
               href={buildHref(currentPage - 1)}
               aria-label="Ir a la página anterior"
-              className="-mr-[calc(8*var(--fx))] inline-flex h-30 w-30 items-center justify-center text-near-black transition-colors hover:text-peach md:mr-0"
+              className="-mr-8 inline-flex h-30 w-30 items-center justify-center text-near-black transition-colors hover:text-peach md:mr-0"
             >
               <DoubleChevron direction="left" />
             </Link>

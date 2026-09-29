@@ -46,7 +46,7 @@ export function VideoProyecto({ titulo, url_youtube }: VideoProyectoProps) {
       <div className="pointer-events-none absolute bottom-47 left-16 md:bottom-104 md:left-80">
         {titulo && (
           <div
-            className="font-gotham text-32 leading-[1.1] text-white md:text-80 md:leading-80 [&_em]:font-gotham [&_em]:font-medium [&_em]:not-italic [&_em]:text-peach md:[&_em]:text-[calc(80*var(--fx))] md:[&_em]:leading-[calc(80*var(--fx))] [&_h1]:m-0 [&_h2]:m-0 [&_h3]:m-0 [&_p]:m-0"
+            className="font-gotham text-32 leading-[1.1] text-white md:text-80 md:leading-80 [&_em]:font-gotham [&_em]:font-medium [&_em]:not-italic [&_em]:text-peach md:[&_em]:text-80 md:[&_em]:leading-80 [&_h1]:m-0 [&_h2]:m-0 [&_h3]:m-0 [&_p]:m-0"
             dangerouslySetInnerHTML={{ __html: titulo }}
           />
         )}

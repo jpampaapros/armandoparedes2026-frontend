@@ -70,7 +70,7 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
   }, [proyectos, filtroDistrito, filtroTipo, filtroArea]);
 
   return (
-    <section data-layout="mas_proyectos" className="w-full bg-white pb-[calc(35*var(--fx))]">
+    <section data-layout="mas_proyectos" className="w-full bg-white pb-35">
       <div className="h-60 w-full md:h-110" />
 
       <div className="mx-auto max-w-1440 px-24 md:px-80">
@@ -138,7 +138,7 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
               <EmblaSlider
                 slides={filtered}
                 slidesPerView={{ base: 1, md: 2 }}
-                className="h-[calc(430*var(--fx))] md:h-[calc(680*var(--fx))]"
+                className="h-430 md:h-680"
                 renderSlide={(project) => (
                   <div className="h-full px-0 md:px-12">
                     <ProjectCard project={project} compact />
@@ -156,7 +156,7 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
                     type="button"
                     onClick={() => emblaApi?.scrollPrev()}
                     aria-label="Slide anterior"
-                    className="flex h-[calc(50*var(--fx))] w-[calc(50*var(--fx))] items-center justify-center border-none bg-slate text-white transition-opacity hover:opacity-80"
+                    className="flex h-50 w-50 items-center justify-center border-none bg-slate text-white transition-opacity hover:opacity-80"
                   >
                     <Image
                       src="/images/proyecto/mas-proyectos-arrow.svg"
@@ -169,7 +169,7 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
                     type="button"
                     onClick={() => emblaApi?.scrollNext()}
                     aria-label="Siguiente slide"
-                    className="flex h-[calc(50*var(--fx))] w-[calc(50*var(--fx))] items-center justify-center border-none bg-slate text-white transition-opacity hover:opacity-80"
+                    className="flex h-50 w-50 items-center justify-center border-none bg-slate text-white transition-opacity hover:opacity-80"
                   >
                     <Image
                       src="/images/proyecto/mas-proyectos-arrow.svg"

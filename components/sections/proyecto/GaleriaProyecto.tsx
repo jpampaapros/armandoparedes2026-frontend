@@ -26,7 +26,7 @@ function TabButton({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="relative w-fit cursor-pointer border-0 bg-transparent p-0 pb-[calc(24*var(--fx))] text-left md:pb-[calc(8*var(--fx))]"
+      className="relative w-fit cursor-pointer border-0 bg-transparent p-0 pb-24 text-left md:pb-8"
     >
       <span
         className={`font-gotham text-20 md:text-32 ${

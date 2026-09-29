@@ -16,7 +16,7 @@ export function BannerEntregadosPage({
   return (
     <section
       data-section="banner-entregados-page"
-      className="relative flex h-[calc(500*var(--fx))] w-full items-center justify-center overflow-hidden bg-near-black md:h-[calc(600*var(--fx))]"
+      className="relative flex h-500 w-full items-center justify-center overflow-hidden bg-near-black md:h-600"
     >
       {imagen?.url && (
         <Image
@@ -31,16 +31,16 @@ export function BannerEntregadosPage({
 
       <div className="absolute inset-0 bg-black/45" />
 
-      <div className="relative z-10 flex w-full flex-col items-center px-24 text-center text-white md:px-[calc(80*var(--fx))]">
+      <div className="relative z-10 flex w-full flex-col items-center px-24 text-center text-white md:px-80">
         {titulo && (
           <h1
-            className="m-0 font-gotham text-42 font-light leading-[1] text-white md:text-[calc(95*var(--fx))] [&_p]:m-0 [&_strong]:font-medium [&_strong]:text-white"
+            className="m-0 font-gotham text-42 font-light leading-[1] text-white md:text-95 [&_p]:m-0 [&_strong]:font-medium [&_strong]:text-white"
             dangerouslySetInnerHTML={{ __html: titulo }}
           />
         )}
         {descripcion && (
           <div
-            className="mt-[calc(24*var(--fx))] max-w-[calc(720*var(--fx))] font-poppins text-14 font-light leading-[1.4] text-white md:text-[calc(18*var(--fx))] [&_p]:m-0"
+            className="mt-24 max-w-720 font-poppins text-14 font-light leading-[1.4] text-white md:text-18 [&_p]:m-0"
             dangerouslySetInnerHTML={{ __html: descripcion }}
           />
         )}

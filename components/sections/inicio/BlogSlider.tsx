@@ -58,10 +58,10 @@ function BlogCard({ post }: { post: WPPost }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group flex h-full w-full flex-col gap-12 bg-card-dark px-[calc(12*var(--fx))] pb-[calc(16*var(--fx))] pt-[calc(12*var(--fx))] text-white md:flex-row md:gap-24 md:p-20"
+      className="group flex h-full w-full flex-col gap-12 bg-card-dark px-12 pb-16 pt-12 text-white md:flex-row md:gap-24 md:p-20"
     >
       {image?.source_url && (
-        <div className="relative min-h-200 shrink-0 overflow-hidden md:w-[calc(280*var(--fx))]">
+        <div className="relative min-h-200 shrink-0 overflow-hidden md:w-280">
           <Image
             src={image.source_url}
             alt={image.alt_text || post.title.rendered}
@@ -70,7 +70,7 @@ function BlogCard({ post }: { post: WPPost }) {
             sizes="(max-width: 768px) 45vw, 40vw"
           />
           {category && (
-            <span className="absolute left-[calc(16*var(--fx))] top-[calc(16*var(--fx))] bg-white px-12 py-6 font-poppins text-[calc(14*var(--fx))] font-medium not-italic leading-normal text-black md:bottom-16 md:left-0 md:top-auto md:px-16 md:py-8 md:text-14 md:font-normal md:leading-18 md:text-near-black">
+            <span className="absolute left-16 top-16 bg-white px-12 py-6 font-poppins text-14 font-medium not-italic leading-normal text-black md:bottom-16 md:left-0 md:top-auto md:px-16 md:py-8 md:text-14 md:font-normal md:leading-18 md:text-near-black">
               {category}
             </span>
           )}
@@ -151,13 +151,13 @@ export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSlide
             )}
           </div>
 
-          <div className="min-h-398 w-full md:h-[calc(396*var(--fx))] md:min-h-0 md:w-848">
+          <div className="min-h-398 w-full md:h-396 md:min-h-0 md:w-848">
             <EmblaSlider
               slides={posts}
               // En mobile el slide mide 306: card de 281 + espacio de 25.
               // En desktop el slide mide 575: card de 550 + espacio de 25.
               slidesPerView={{ base: 1.33, md: 1 }}
-              slideClassName="!basis-[calc(306*var(--fx))] md:!basis-[calc(575*var(--fx))]"
+              slideClassName="!basis-306 md:!basis-575"
               slidesToScroll={1}
               gap={0}
               loop
@@ -165,7 +165,7 @@ export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSlide
               showArrows={false}
               onSelectChange={setActivePostIndex}
               renderSlide={(post) => (
-                <div className="h-auto w-[calc(281*var(--fx))] md:h-full md:w-[calc(550*var(--fx))]">
+                <div className="h-auto w-281 md:h-full md:w-550">
                   <BlogCard key={post.id} post={post} />
                 </div>
               )}
