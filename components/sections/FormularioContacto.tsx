@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
-import { useCf7Submit, type Cf7FormValues } from "@/hooks/useCf7Submit";
+import { useLeadSubmit } from "@/hooks/useLeadSubmit";
+import type { LeadContext, LeadFormValues } from "@/lib/lead";
 import { useIsClient } from "@/hooks/useIsClient";
 
 const DISTRITOS = [
@@ -29,11 +30,16 @@ const PRESUPUESTOS = [
 type FormularioContactoProps = {
   titulo?: string;
   formulario_id?: string | number;
+  lead?: LeadContext;
+  /** Opciones del select de presupuesto; si falta, se usa la lista por defecto. */
+  presupuestos?: string[];
 };
 
 export function FormularioContacto({
   titulo,
   formulario_id,
+  lead,
+  presupuestos,
 }: FormularioContactoProps) {
   const {
     register,
@@ -41,7 +47,7 @@ export function FormularioContacto({
     reset,
     control,
     formState: { errors },
-  } = useForm<Cf7FormValues>({
+  } = useForm<LeadFormValues>({
     defaultValues: {
       nombres: "",
       apellido: "",
@@ -53,16 +59,17 @@ export function FormularioContacto({
       marketing: false,
     },
   });
-  const { submit, isPending, status } = useCf7Submit(formulario_id || "4", { raw: true });
+  const { submit, isPending, status } = useLeadSubmit({
+    ...lead,
+    formSource: lead?.formSource || "Formulario de contacto",
+    // El correo de aviso sigue saliendo por el formulario 4 si ACF no define otro.
+    cf7FormId: formulario_id || "4",
+  });
   const isClient = useIsClient();
+  const opcionesPresupuesto = presupuestos?.length ? presupuestos : PRESUPUESTOS;
 
-  const onSubmit = async (values: Cf7FormValues) => {
-    const payload = {
-      ...values,
-      terminos: values.terminos ? "1" : "",
-      marketing: values.marketing ? "1" : "",
-    };
-    const ok = await submit(payload);
+  const onSubmit = async (values: LeadFormValues) => {
+    const ok = await submit(values);
     if (ok) reset();
   };
 
@@ -202,7 +209,7 @@ export function FormularioContacto({
                   {...register("presupuesto", { required: true })}
                 >
                   <option value="" disabled hidden aria-label="Sin selección" />
-                  {PRESUPUESTOS.map((p) => (
+                  {opcionesPresupuesto.map((p) => (
                     <option key={p} value={p}>
                       {p}
                     </option>

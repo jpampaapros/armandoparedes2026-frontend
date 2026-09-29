@@ -137,6 +137,23 @@ export type ProjectLeyendaItem = {
   valor?: string;
 };
 
+/**
+ * Grupo "Cotizador" del proyecto: opciones del formulario y los identificadores
+ * con los que el lead se registra en Sperant.
+ */
+export type ProjectCotizador = {
+  valores_de_presupuesto?: ACFList<{ valor?: string }>;
+  pagina_de_gracias?: ACFPostObject | number | false | null;
+  /** project_id en Sperant. */
+  api_project_related?: string | number;
+  /** input_channel_id en Sperant. */
+  api_input_channel_ids?: string | number;
+  /** source_id en Sperant. */
+  api_source_id?: string | number;
+  /** interest_type_id en Sperant, el "nivel" de interés. */
+  api_nivel_id?: string | number;
+};
+
 export type ProjectSection =
   | { acf_fc_layout: "banner_proyecto"; badge?: string; distrito?: string; logo?: ACFImage; slides?: ACFList<ProjectSlide> }
   | { acf_fc_layout: "descripcion_proyecto"; titulo?: string; descripcion?: string; imagen?: ACFImage; cambiar_lado?: boolean }
@@ -173,6 +190,8 @@ export type Project = {
   id: number;
   slug: string;
   title: { rendered: string };
+  /** Template asignado en WordPress (ej. "page-templates/template-gracias.php"). */
+  template?: string;
   acf: {
     imagen_hover?: ACFImage | number | string | false | null;
     descripcion?: string;
@@ -180,6 +199,7 @@ export type Project = {
     dormitorios?: string | number;
     tipo?: string;
     whatsapp_numero?: string;
+    cotizador?: ProjectCotizador;
     sections?: ACFList<ProjectSection>;
   };
   featured_media: number;

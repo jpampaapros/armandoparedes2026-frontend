@@ -3,10 +3,12 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ModalLeadForm } from "@/components/forms/ModalLeadForm";
+import type { LeadContext } from "@/lib/lead";
 
 type FloatingButtonsProps = {
   whatsapp?: string;
   formId?: string | number;
+  lead?: LeadContext;
 };
 
 function buildWhatsAppUrl(value: string): string {
@@ -18,7 +20,7 @@ function buildWhatsAppUrl(value: string): string {
   return `https://wa.me/${digits}`;
 }
 
-export function FloatingButtons({ whatsapp, formId }: FloatingButtonsProps) {
+export function FloatingButtons({ whatsapp, formId, lead }: FloatingButtonsProps) {
   const [formOpen, setFormOpen] = useState(false);
 
   const hasWhatsApp = Boolean(whatsapp?.trim());
@@ -70,6 +72,7 @@ export function FloatingButtons({ whatsapp, formId }: FloatingButtonsProps) {
 
       <ModalLeadForm
         formId={formId ?? "4"}
+        lead={lead}
         open={formOpen}
         onOpenChange={setFormOpen}
       />
