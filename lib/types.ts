@@ -190,6 +190,8 @@ export type Project = {
   id: number;
   slug: string;
   title: { rendered: string };
+  /** Template asignado en WordPress (ej. "page-templates/template-gracias.php"). */
+  template?: string;
   acf: {
     imagen_hover?: ACFImage | number | string | false | null;
     descripcion?: string;

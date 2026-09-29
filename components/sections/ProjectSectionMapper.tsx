@@ -15,6 +15,9 @@ import type { LeadContext } from "@/lib/lead";
 import type { Project, ProjectSection } from "@/lib/types";
 import { toArray } from "@/lib/utils";
 
+/** Template de WordPress que usan las páginas de gracias de cada proyecto. */
+const GRACIAS_TEMPLATE = "page-templates/template-proyectos-interna-gracias.php";
+
 type ProjectSectionMapperProps = {
   sections: ProjectSection[];
   proyectos?: Project[];
@@ -147,7 +150,7 @@ export function ProjectSectionMapper({ sections, proyectos, lead, presupuestos }
               <MasProyectos
                 key={key}
                 titulo={section.titulo}
-                proyectos={proyectos}
+                proyectos={proyectos?.filter((p) => p.template !== GRACIAS_TEMPLATE)}
               />
             );
           case "blog":
