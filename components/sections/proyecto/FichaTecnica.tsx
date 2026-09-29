@@ -20,7 +20,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
       <div className="mx-auto max-w-1440 px-24 pt-90 pb-80 md:px-80 md:pt-90 md:pb-80">
         {titulo && (
           <h2 className="m-0 text-center font-gotham text-32 font-bold leading-[1.2] text-white md:text-60 md:leading-66">
-            {titulo}
+            {titulo.replace(/ficha\s+técnica/gi, "Ficha técnica")}
           </h2>
         )}
 
