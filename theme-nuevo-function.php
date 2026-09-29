@@ -339,6 +339,87 @@ function armando_paredes_sperant_extra_fields( WP_REST_Request $request ): array
 }
 
 /**
+ * Arma la observación que el equipo comercial lee en la ficha del cliente.
+ *
+ * Replica el formato del sitio anterior: presupuesto y los identificadores de
+ * seguimiento, que Sperant no guarda como campos propios.
+ *
+ * @param WP_REST_Request $request Solicitud entrante.
+ */
+function armando_paredes_sperant_observation( WP_REST_Request $request ): string {
+	$propia = sanitize_text_field( (string) $request->get_param( 'observation' ) );
+
+	if ( '' !== $propia ) {
+		return $propia;
+	}
+
+	$partes = array();
+
+	$presupuesto = sanitize_text_field( (string) $request->get_param( 'presupuesto' ) );
+
+	if ( '' !== $presupuesto ) {
+		$partes[] = 'Presupuesto: ' . $presupuesto;
+	}
+
+	$fbc = sanitize_text_field( (string) $request->get_param( 'fbc' ) );
+	$fbp = sanitize_text_field( (string) $request->get_param( 'fbp' ) );
+	$ip  = sanitize_text_field( (string) $request->get_param( 'client_ip_address' ) ) ?: armando_paredes_client_ip();
+
+	if ( '' !== $fbc ) {
+		$partes[] = 'fbc: ' . $fbc;
+	}
+
+	if ( '' !== $fbp ) {
+		$partes[] = 'fbp: ' . $fbp;
+	}
+
+	if ( '' !== $ip ) {
+		$partes[] = 'ip_address: ' . $ip;
+	}
+
+	return implode( ', ', $partes );
+}
+
+/**
+ * Deduce el source_id a partir del utm_source.
+ *
+ * Si el utm_source coincide por nombre con un medio de captación de Sperant, se
+ * usa su id. Es la misma regla del sitio anterior, que así atribuía los leads a
+ * "google", "facebook", "instagram", etc. sin configurar nada.
+ *
+ * @param string $utm_source Valor recibido.
+ * @return int|null Identificador, o null si no hay coincidencia.
+ */
+function armando_paredes_sperant_source_from_utm( string $utm_source ): ?int {
+	$utm_source = strtolower( trim( $utm_source ) );
+
+	if ( '' === $utm_source || 'organic' === $utm_source ) {
+		return null;
+	}
+
+	// Regla heredada: la geolocalización tiene su propio medio de captación.
+	if ( 'geolocalizacion' === $utm_source ) {
+		return 45;
+	}
+
+	$ways = armando_paredes_sperant_captation_ways();
+
+	if ( is_wp_error( $ways ) || empty( $ways['data']['data'] ) ) {
+		return null;
+	}
+
+	foreach ( $ways['data']['data'] as $way ) {
+		$name = strtolower( trim( (string) ( $way['attributes']['name'] ?? '' ) ) );
+
+		if ( '' !== $name && $name === $utm_source ) {
+			return (int) $way['id'];
+		}
+	}
+
+	return null;
+}
+
+/**
  * Normaliza los campos del formulario al contrato de Sperant.
  *
  * @param WP_REST_Request $request Solicitud entrante (JSON o form-data).
@@ -350,6 +431,8 @@ function armando_paredes_sperant_client_payload( WP_REST_Request $request ): arr
 		'fname'        => sanitize_text_field( (string) $request->get_param( 'fname' ) ),
 		'lname'        => sanitize_text_field( (string) $request->get_param( 'lname' ) ),
 		'phone'        => sanitize_text_field( (string) $request->get_param( 'phone' ) ),
+		'address'      => sanitize_text_field( (string) $request->get_param( 'address' ) ),
+		'observation'  => armando_paredes_sperant_observation( $request ),
 		'document'     => sanitize_text_field( (string) $request->get_param( 'document' ) ),
 		'utm_source'   => sanitize_text_field( (string) $request->get_param( 'utm_source' ) ),
 		'utm_medium'   => sanitize_text_field( (string) $request->get_param( 'utm_medium' ) ),
@@ -378,9 +461,12 @@ function armando_paredes_sperant_client_payload( WP_REST_Request $request ): arr
 	 */
 	$payload += (array) apply_filters( 'armando_paredes_sperant_client_defaults', array(), $request );
 
-	// Regla heredada: los leads de geolocalización se atribuyen a la fuente 45.
-	if ( 'geolocalizacion' === strtolower( trim( $payload['utm_source'] ) ) ) {
-		$payload['source_id'] = 45;
+	// La campaña manda sobre el source_id configurado en el proyecto: si el
+	// utm_source identifica un medio de captación, ese es el origen real del lead.
+	$desde_utm = armando_paredes_sperant_source_from_utm( $payload['utm_source'] );
+
+	if ( null !== $desde_utm ) {
+		$payload['source_id'] = $desde_utm;
 	}
 
 	/**

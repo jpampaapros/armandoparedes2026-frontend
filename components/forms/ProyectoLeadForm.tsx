@@ -32,6 +32,8 @@ type ProyectoLeadFormProps = {
   formulario_id?: string | number;
   imagen_fondo?: ACFImage;
   lead?: LeadContext;
+  /** Opciones del select de presupuesto; si falta, se usa la lista por defecto. */
+  presupuestos?: string[];
 };
 
 export function ProyectoLeadForm({
@@ -39,6 +41,7 @@ export function ProyectoLeadForm({
   formulario_id,
   imagen_fondo,
   lead,
+  presupuestos,
 }: ProyectoLeadFormProps) {
   const {
     register,
@@ -62,9 +65,11 @@ export function ProyectoLeadForm({
   const { submit, isPending, status } = useLeadSubmit({
     ...lead,
     formSource: lead?.formSource || "Quiero más información",
-    cf7FormId: formulario_id,
+    // El correo de aviso sigue saliendo por el formulario 4 si ACF no define otro.
+    cf7FormId: formulario_id || "4",
   });
   const isClient = useIsClient();
+  const opcionesPresupuesto = presupuestos?.length ? presupuestos : PRESUPUESTOS;
 
   const onSubmit = async (values: LeadFormValues) => {
     const ok = await submit(values);
@@ -210,9 +215,9 @@ export function ProyectoLeadForm({
                   {...register("presupuesto", { required: true })}
                 >
                   <option value="" disabled className="text-near-black">
-                    $ 175,000 a $340,000
+                    Selecciona tu presupuesto
                   </option>
-                  {PRESUPUESTOS.map((p) => (
+                  {opcionesPresupuesto.map((p) => (
                     <option key={p} value={p} className="text-near-black">
                       {p}
                     </option>

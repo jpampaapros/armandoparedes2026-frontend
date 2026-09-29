@@ -20,9 +20,11 @@ type ProjectSectionMapperProps = {
   proyectos?: Project[];
   /** Datos del proyecto que acompañan a los leads enviados a Sperant. */
   lead?: LeadContext;
+  /** Opciones del select de presupuesto, desde ACF cotizador. */
+  presupuestos?: string[];
 };
 
-export function ProjectSectionMapper({ sections, proyectos, lead }: ProjectSectionMapperProps) {
+export function ProjectSectionMapper({ sections, proyectos, lead, presupuestos }: ProjectSectionMapperProps) {
   return (
     <>
       {sections.map((section, index) => {
@@ -124,6 +126,7 @@ export function ProjectSectionMapper({ sections, proyectos, lead }: ProjectSecti
                 titulo={section.titulo}
                 formulario_id={section.formulario_id}
                 lead={lead}
+                presupuestos={presupuestos}
               />
             );
           case "quiero_mas_info":
@@ -136,6 +139,7 @@ export function ProjectSectionMapper({ sections, proyectos, lead }: ProjectSecti
                 blog_titulo={section.blog_titulo}
                 blog_boton={section.blog_boton}
                 lead={lead}
+                presupuestos={presupuestos}
               />
             );
           case "mas_proyectos":

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   LEAD_ENDPOINT,
   buildLeadPayload,
@@ -57,7 +58,9 @@ function mensajeDeError(httpStatus: number): string {
 export function useLeadSubmit(context: LeadContext = {}) {
   const [status, setStatus] = useState<LeadStatus>(null);
   const [isPending, setIsPending] = useState(false);
-  const { projectId, formSource, cf7FormId } = context;
+  const router = useRouter();
+  const { projectId, inputChannelId, sourceId, interestTypeId, formSource, cf7FormId, redirectTo } =
+    context;
 
   const submit = useCallback(
     async (values: LeadFormValues) => {
@@ -75,7 +78,13 @@ export function useLeadSubmit(context: LeadContext = {}) {
         const response = await fetch(`${getPublicCmsUrl()}${LEAD_ENDPOINT}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(buildLeadPayload(values, { projectId, formSource }, eventId)),
+          body: JSON.stringify(
+            buildLeadPayload(
+              values,
+              { projectId, inputChannelId, sourceId, interestTypeId, formSource },
+              eventId,
+            ),
+          ),
         });
 
         const data = (await response.json().catch(() => null)) as LeadResponse | null;
@@ -83,6 +92,10 @@ export function useLeadSubmit(context: LeadContext = {}) {
 
         if (ok) {
           trackMetaLead(data?.event_id || eventId);
+
+          if (redirectTo) {
+            router.push(redirectTo);
+          }
         }
 
         setStatus({ ok, message: ok ? MENSAJE_OK : mensajeDeError(response.status) });
@@ -95,7 +108,7 @@ export function useLeadSubmit(context: LeadContext = {}) {
         setIsPending(false);
       }
     },
-    [projectId, formSource, cf7FormId],
+    [router, projectId, inputChannelId, sourceId, interestTypeId, formSource, cf7FormId, redirectTo],
   );
 
   return { submit, status, isPending };

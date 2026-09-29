@@ -37,6 +37,14 @@ export type LeadFormValues = Record<string, string | boolean | undefined>;
 export type LeadContext = {
   /** ID del proyecto en Sperant. No es el ID del formulario de Contact Form 7. */
   projectId?: string | number;
+  /** Canal de ingreso en Sperant (ACF cotizador.api_input_channel_ids). */
+  inputChannelId?: string | number;
+  /** Fuente en Sperant (ACF cotizador.api_source_id). */
+  sourceId?: string | number;
+  /** Nivel de interés en Sperant (ACF cotizador.api_nivel_id). */
+  interestTypeId?: string | number;
+  /** Ruta a la que se redirige tras un envío exitoso. */
+  redirectTo?: string;
   /** Etiqueta con la que el lead se identifica en Meta y en los logs. */
   formSource?: string;
   /**
@@ -142,8 +150,6 @@ export function buildLeadPayload(
 
   const extraFields: Record<string, string> = {};
   const opcionales: Array<[string, string]> = [
-    ["distrito", text(values.distrito)],
-    ["presupuesto", text(values.presupuesto)],
     ["proyecto", text(values.proyecto)],
     ["medio", text(values.medio)],
   ];
@@ -155,11 +161,16 @@ export function buildLeadPayload(
   extraFields.acepta_marketing = values.marketing ? "1" : "0";
 
   const payload: Record<string, unknown> = {
+    // Sin campaña, el sitio anterior atribuía los leads a "organic".
+    utm_source: "organic",
     ...tracking,
     email: text(values.correo),
     fname: text(values.nombres),
     lname: text(values.apellido),
     phone: text(values.celular),
+    // Sperant guarda el distrito como dirección y el presupuesto en la observación.
+    address: text(values.distrito),
+    presupuesto: text(values.presupuesto),
     event_id: eventId,
     form_source: context.formSource || "Formulario web",
     extra_fields: extraFields,
@@ -173,8 +184,17 @@ export function buildLeadPayload(
     payload.client_user_agent = navigator.userAgent;
   }
 
-  if (context.projectId !== undefined && `${context.projectId}`.trim() !== "") {
-    payload.project_id = context.projectId;
+  const identificadores: Array<[string, string | number | undefined]> = [
+    ["project_id", context.projectId],
+    ["input_channel_id", context.inputChannelId],
+    ["source_id", context.sourceId],
+    ["interest_type_id", context.interestTypeId],
+  ];
+
+  for (const [clave, valor] of identificadores) {
+    if (valor !== undefined && `${valor}`.trim() !== "") {
+      payload[clave] = valor;
+    }
   }
 
   if (fbc) payload.fbc = fbc;

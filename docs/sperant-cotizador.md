@@ -65,6 +65,25 @@ Los tokens de Sperant y Meta están escritos en `theme-nuevo-function.php`, igua
 
 ---
 
+## Grupo ACF "Cotizador"
+
+Cada proyecto configura su propio cotizador desde el grupo `cotizador` del CPT `proyecto`.
+
+| Campo ACF | Va a | Ejemplo en Edificio Libertad |
+|---|---|---|
+| `api_project_related` | `project_id` de Sperant | `24` (Libertad 277) |
+| `api_input_channel_ids` | `input_channel_id` | `6` (formulario web) |
+| `api_source_id` | `source_id` | `30` (google) |
+| `api_nivel_id` | `interest_type_id`, el nivel de interés | `11` (por contactar) |
+| `valores_de_presupuesto` | Opciones del select de presupuesto | 3 rangos en dólares |
+| `pagina_de_gracias` | Redirección tras enviar | `/proyectos/gracias-libertad` |
+
+Lo lee `app/proyectos/[slug]/page.tsx` y baja por `ProjectSectionMapper` a los formularios. Si un campo está vacío, entra el valor por defecto del tema.
+
+> `formulario_id`, dentro de cada sección, es cosa aparte: es el ID del formulario de **Contact Form 7** para el correo de aviso, no tiene relación con Sperant.
+
+---
+
 ## Identificadores obligatorios de Sperant
 
 La API **rechaza el alta con 400** si falta cualquiera de estos cuatro. El tema los completa solo, con estos valores por defecto:
@@ -76,7 +95,18 @@ La API **rechaza el alta con 400** si falta cualquiera de estos cuatro. El tema 
 | `ARMANDO_PAREDES_SPERANT_INTEREST_TYPE_ID` | `11` | por contactar | `GET /v3/interest_types` |
 | `ARMANDO_PAREDES_SPERANT_PROJECT_ID` | `28` | Campañas (respaldo) | `GET /v3/projects` |
 
-Lo que envíe el formulario siempre gana sobre el valor por defecto. La regla heredada de `geolocalizacion` sigue forzando `source_id = 45`.
+Lo que envíe el formulario gana sobre el valor por defecto, salvo en `source_id`.
+
+### Cómo se resuelve `source_id`
+
+La campaña manda sobre lo configurado en el proyecto, igual que en el sitio anterior:
+
+1. `utm_source = geolocalizacion` → **45**.
+2. `utm_source` que coincide por nombre con un medio de captación de Sperant → ese id. Así `utm_source=google` atribuye el lead a "google" (30) aunque ACF diga otra cosa.
+3. Sin coincidencia, o `utm_source` vacío u `organic` → el `api_source_id` del proyecto.
+4. Si tampoco hay → la constante por defecto.
+
+El frontend manda `utm_source=organic` cuando no hay campaña, para que la ficha no quede vacía.
 
 > `source_id` sale de `captation_ways`. La ruta `/v3/sources` **no existe**: devuelve 404.
 
@@ -306,14 +336,18 @@ Cada envío sale a **dos destinos en paralelo**: el endpoint de Sperant, que dec
 
 ### Mapeo de campos
 
-| Formulario | Sperant |
-|---|---|
-| `nombres` | `fname` |
-| `apellido` | `lname` |
-| `correo` | `email` |
-| `celular` | `phone` |
-| `distrito`, `presupuesto`, `proyecto`, `medio` | `extra_fields` |
-| `marketing` | `extra_fields.acepta_marketing` |
+| Formulario | Sperant | Nota |
+|---|---|---|
+| `nombres` | `fname` | |
+| `apellido` | `lname` | |
+| `correo` | `email` | |
+| `celular` | `phone` | Sperant lo normaliza a `+51…` |
+| `distrito` | `address` | Campo propio de Sperant, no `extra_fields` |
+| `presupuesto` | `observation` | El servidor arma `Presupuesto: X, fbc: …, fbp: …, ip_address: …` |
+| `proyecto`, `medio` | `extra_fields` | Solo los usa el formulario de `/contacto` |
+| `marketing` | `extra_fields.acepta_marketing` | |
+
+Es el mismo mapeo del sitio anterior (Gatsby), para que las fichas del CRM se lean igual.
 
 ### Atribución
 
@@ -482,16 +516,18 @@ curl -s $CMS/wp-json/armando-paredes/v1 | python3 -m json.tool
 ## Pendientes
 
 - **Agregar el dominio de producción a la lista blanca** cuando el sitio salga de Vercel: hoy `https://www.armandoparedes.com` responde 403.
-- **Crear el campo ACF `sperant_project_id`** en el CPT `proyecto` y cargarlo con el ID de cada proyecto (ver tabla arriba). Sin él, todos los leads caen en el proyecto de respaldo `28 = Campañas`.
+- **Cargar el grupo `cotizador` en el resto de proyectos.** Edificio Libertad ya lo tiene; los demás caerán en los valores por defecto (`project_id 28 = Campañas`) hasta que se llenen.
 - **Dos formularios siguen solo en Contact Form 7**: el de la sección de planos (`PlanosProyecto.tsx`), que pide nombre, correo y mensaje pero **no celular**, obligatorio para Sperant; y el de referidos (`SeParte.tsx`), que tiene otra naturaleza.
-- Revisar y fijar la versión vigente de la Graph API de Meta.
+- **Instalar el pixel de Meta en el frontend.** `window.fbq` no existe en el Next.js, así que el evento `Lead` solo sale del servidor. La deduplicación con `event_id` ya está lista en ambos lados, pero sin el pixel no hay evento de navegador con el que deduplicar.
 - El namespace `armando-paredes/v1` lo comparte el plugin `wp-next-headless` (`/options/header`, `/options/footer`, `/options/blog`). No hay colisión con las rutas de aquí, y la constante `ARMANDO_PAREDES_REST_NAMESPACE` se define con guarda `if ( ! defined( ... ) )`.
 
 ---
 
 ## Verificación realizada (16/09/2026)
 
-Contra el CMS de QA, con el tema ya subido:
+Contra el CMS de QA, con el tema subido, y desde `http://localhost:3000/proyectos/edificio-libertad`.
+
+### Endpoint
 
 | Comprobación | Resultado |
 |---|---|
@@ -501,9 +537,32 @@ Contra el CMS de QA, con el tema ya subido:
 | `POST` sin `Origin` ni `Referer` | `403` |
 | Preflight `OPTIONS` desde `http://localhost:3000` | Encabezados CORS correctos |
 | `GET /sperant/captation-ways` | 47 medios reales: el token de Sperant funciona |
-| Alta de cliente completa | `200`, **client_id 79107**, `status: interested` |
+| Alta de cliente | `200`, **client_id 79107**, `status: interested` |
 | `extra_fields` personalizados | Sperant los guarda: `distrito`, `presupuesto`, `acepta_marketing`, `gclid` |
 | Teléfono | Sperant lo normaliza a `+51999000111` |
 | Token de Meta y Graph API `v21.0` | Autentican correctamente |
 
-El lead de prueba `PRUEBA QA / Ignorar Este Lead / prueba.qa.formulario@example.com` quedó registrado en Sperant con el ID 79107 y conviene borrarlo.
+### Formulario en el navegador
+
+Desde `http://localhost:3000/proyectos/edificio-libertad`, con el grupo `cotizador` cargado:
+
+| Comprobación | Resultado |
+|---|---|
+| Envío | `200`, lead **79115** creado |
+| `project_id` | **24** desde `api_project_related` |
+| `input_channel_id` | **6** desde `api_input_channel_ids` |
+| `source_id` | **30** desde `api_source_id` |
+| `interest_type_id` | **11**; Sperant devuelve `interest_type: "por contactar"` |
+| Opciones de presupuesto | Las 3 de `valores_de_presupuesto` |
+| `distrito` → `address` | Sperant guarda `ubication.address = "Miraflores"` |
+| `presupuesto` → `observation` | `Presupuesto: Más de $200,000, fbp: …, ip_address: …` |
+| Redirección | Va a `/proyectos/gracias-libertad`, desde `pagina_de_gracias` |
+| Contact Form 7 en paralelo | `200` en `/contact-forms/4/feedback` |
+| UTM y `gclid` | Guardados en `sessionStorage` y enviados |
+| Pixel del navegador (`window.fbq`) | **No instalado en el frontend**: ver pendientes |
+
+> El caché de fetch de Next tenía los datos del proyecto de antes de crear el grupo `cotizador`, así que los identificadores llegaban vacíos. Se resolvió con `POST /api/revalidate`. Al tocar campos de ACF hay que revalidar o esperar la hora del `revalidate`.
+
+> No se pudo verificar contra la API si el `source_id` final fue el 30 de ACF o el 18 que corresponde a `utm_source=instagram`: Sperant no devuelve `source_id` ni en la respuesta del alta ni en `GET /v3/clients/{id}`. La regla está implementada y probada en el código, pero su efecto en el CRM hay que mirarlo en la ficha del lead.
+
+Leads de prueba creados, conviene borrarlos todos: **79107, 79114, 79115** y los de `prueba.qa.navegador@example.com` y `prueba.qa.final@example.com`.

@@ -31,12 +31,15 @@ type FormularioContactoProps = {
   titulo?: string;
   formulario_id?: string | number;
   lead?: LeadContext;
+  /** Opciones del select de presupuesto; si falta, se usa la lista por defecto. */
+  presupuestos?: string[];
 };
 
 export function FormularioContacto({
   titulo,
   formulario_id,
   lead,
+  presupuestos,
 }: FormularioContactoProps) {
   const {
     register,
@@ -59,9 +62,11 @@ export function FormularioContacto({
   const { submit, isPending, status } = useLeadSubmit({
     ...lead,
     formSource: lead?.formSource || "Formulario de contacto",
-    cf7FormId: formulario_id,
+    // El correo de aviso sigue saliendo por el formulario 4 si ACF no define otro.
+    cf7FormId: formulario_id || "4",
   });
   const isClient = useIsClient();
+  const opcionesPresupuesto = presupuestos?.length ? presupuestos : PRESUPUESTOS;
 
   const onSubmit = async (values: LeadFormValues) => {
     const ok = await submit(values);
@@ -204,7 +209,7 @@ export function FormularioContacto({
                   {...register("presupuesto", { required: true })}
                 >
                   <option value="" disabled hidden aria-label="Sin selección" />
-                  {PRESUPUESTOS.map((p) => (
+                  {opcionesPresupuesto.map((p) => (
                     <option key={p} value={p}>
                       {p}
                     </option>

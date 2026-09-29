@@ -84,16 +84,35 @@ export default async function ProyectoPage({ params }: ProyectoPageProps) {
   const formularioId = contactSection?.formulario_id ?? 4;
   const whatsappNumero = proyecto.acf?.whatsapp_numero;
 
-  // Acompaña a los leads que se registran en Sperant desde esta página.
+  // Grupo "Cotizador" de ACF: identificadores de Sperant y página de gracias.
+  const cotizador = proyecto.acf?.cotizador;
+  const paginaGracias =
+    cotizador?.pagina_de_gracias && typeof cotizador.pagina_de_gracias === "object"
+      ? cotizador.pagina_de_gracias.post_name
+      : undefined;
+
   const lead: LeadContext = {
-    projectId: proyecto.acf?.sperant_project_id,
+    projectId: cotizador?.api_project_related,
+    inputChannelId: cotizador?.api_input_channel_ids,
+    sourceId: cotizador?.api_source_id,
+    interestTypeId: cotizador?.api_nivel_id,
+    redirectTo: paginaGracias ? `/proyectos/${paginaGracias}` : undefined,
     formSource: `Proyecto ${stripHtml(proyecto.title?.rendered) || slug}`,
   };
+
+  const presupuestos = toArray(cotizador?.valores_de_presupuesto)
+    .map((item) => item.valor)
+    .filter((valor): valor is string => Boolean(valor));
 
   return (
     <>
       <main className="w-full max-w-none p-0">
-        <ProjectSectionMapper sections={sections} proyectos={proyectos} lead={lead} />
+        <ProjectSectionMapper
+          sections={sections}
+          proyectos={proyectos}
+          lead={lead}
+          presupuestos={presupuestos}
+        />
       </main>
       <FloatingButtons whatsapp={whatsappNumero} formId={formularioId} lead={lead} />
     </>
