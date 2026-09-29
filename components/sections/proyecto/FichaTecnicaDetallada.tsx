@@ -39,7 +39,7 @@ export function FichaTecnicaDetallada({
         <div className="flex flex-col justify-center px-16 py-48 md:px-80 md:py-60">
           {titulo && (
             <h2 className="font-gotham text-36 font-bold text-slate md:text-45">
-              {titulo}
+              {titulo.replace(/ficha\s+técnica/gi, "Ficha técnica")}
             </h2>
           )}
           <div className="mt-24 flex flex-col gap-24 md:mt-40">
