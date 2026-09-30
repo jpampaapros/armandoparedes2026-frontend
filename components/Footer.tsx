@@ -4,6 +4,7 @@ import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { resolveWordPressUrl, isExternalUrl } from "@/lib/urls";
 import type { ACFImage, ACFLink, ACFList } from "@/lib/types";
 import { toArray } from "@/lib/utils";
+import { Typewriter } from "@/components/Typewriter";
 
 export type FooterLinkItem = {
   link?: ACFLink;
@@ -133,11 +134,10 @@ export async function Footer() {
     <footer className="bg-modal-bg text-header-text font-gotham">
       <div className="mx-auto max-w-1440 px-24 pt-59 pb-60 md:px-80 md:pt-66 md:pb-40">
         {data.title && (
-                <h2
+          <h2
             className="mx-0 mb-60 mt-0 w-255 max-w-857 text-36 font-bold uppercase leading-44 md:mx-auto md:mb-70 md:w-auto md:font-gotham-black md:font-medium md:text-60 md:leading-66"
-            style={{ marginTop: 0 }}
           >
-            {data.title}
+            <Typewriter text={data.title} />
           </h2>
         )}
 
