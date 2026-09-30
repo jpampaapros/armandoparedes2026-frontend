@@ -18,6 +18,8 @@ export type ACFImage = {
   alt?: string;
   width?: number;
   height?: number;
+  /** Recortes generados por WP: `sizes.large` es la URL, `sizes["large-width"]` su ancho. */
+  sizes?: Record<string, string | number>;
 };
 
 /**
@@ -193,7 +195,7 @@ export type Project = {
   /** Template asignado en WordPress (ej. "page-templates/template-gracias.php"). */
   template?: string;
   acf: {
-    imagen_hover?: ACFImage | number | string | false | null;
+    general_imagen_hover?: ACFImage | number | string | false | null;
     descripcion?: string;
     metros?: string | number;
     dormitorios?: string | number;
