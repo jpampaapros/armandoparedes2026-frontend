@@ -394,3 +394,20 @@ a:-webkit-any-link {
     animation-play-state: paused;
   }
 }
+
+/* Entrada del botón de WhatsApp: sube desde fuera de pantalla con rebote suave (como el slide-in de comunal.co). */
+@keyframes floating-whatsapp-in {
+  from {
+    transform: translateY(calc(100% + 10 * var(--fx)));
+  }
+}
+
+.floating-whatsapp {
+  animation: floating-whatsapp-in 1s linear(0 0%, 0.006 1.15%, 0.022 2.3%, 0.091 5.1%, 0.18 7.6%, 0.508 16.3%, 0.607 19.325%, 0.691 22.35%, 0.762 25.375%, 0.822 28.4%, 0.872 31.75%, 0.912 35.1%, 0.944 38.9%, 0.968 43%, 0.985 47.6%, 0.996 53.1%, 1.001 58.4%, 1.003 65.1%, 1 100%) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-whatsapp {
+    animation: none;
+  }
+}

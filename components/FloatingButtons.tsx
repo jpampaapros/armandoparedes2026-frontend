@@ -18,23 +18,23 @@ export function FloatingButtons({ whatsapp }: FloatingButtonsProps) {
 
   return (
     <div
-      className="fixed bottom-24 right-24 z-40 flex flex-col md:bottom-auto md:right-0 md:top-334"
+      className="floating-whatsapp fixed bottom-10 right-10 z-40 flex flex-col"
       aria-label="Acciones rápidas"
     >
       <a
         href={buildWhatsAppUrl(whatsapp)}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex h-79 w-77 items-center justify-center rounded-l-7 bg-whatsapp transition-opacity hover:opacity-90"
+        className="flex h-70 w-70 items-center justify-center rounded-20 bg-whatsapp transition-opacity hover:opacity-90"
         aria-label="Contactar por WhatsApp"
       >
         <Image
           unoptimized
           src="/images/floating-buttons/whatsapp-icon.svg"
           alt="WhatsApp"
-          width={40}
-          height={40}
-          className="h-40 w-40"
+          width={50}
+          height={50}
+          className="h-50 w-50"
         />
       </a>
     </div>
