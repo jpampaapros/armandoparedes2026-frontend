@@ -34,24 +34,11 @@ function FooterLink({ item }: { item?: FooterLinkItem }) {
   const url = item?.link?.url;
   if (!url) return null;
 
-  const { link, icon } = item;
-  const children = (
-    <>
-      {icon?.url && (
-        <Image
-          src={icon.url}
-          alt={icon.alt || ""}
-          width={icon.width ?? 33}
-          height={icon.height ?? 23}
-          className="h-auto w-33 shrink-0"
-        />
-      )}
-      <span className="whitespace-nowrap">{link?.title || url}</span>
-    </>
-  );
+  const { link } = item;
+  const children = <span className="whitespace-nowrap">{link?.title || url}</span>;
 
   const className =
-    "inline-flex h-24 items-center gap-7 text-18 leading-24 font-normal text-header-text no-underline transition-opacity hover:opacity-80";
+    "inline-flex h-24 items-center text-18 leading-24 font-normal text-header-text no-underline transition-opacity hover:opacity-80";
 
   if (isExternalUrl(url)) {
     return (
