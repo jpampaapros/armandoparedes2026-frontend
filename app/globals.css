@@ -7,6 +7,11 @@
 @media (hover: hover) {
   [data-project-card]:hover .project-card-hover-image {
     opacity: 1;
+    scale: 1;
+  }
+  /* Aclara el velo para que la imagen de hover se note, sin perder contraste del texto. */
+  [data-project-card]:hover .project-card-veil {
+    opacity: 0.7;
   }
 }
 
