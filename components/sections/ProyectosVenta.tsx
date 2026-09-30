@@ -72,7 +72,7 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
               type="button"
               onClick={() => emblaApi?.scrollPrev()}
               aria-label="Slide anterior"
-              className="absolute left-0 top-1/2 z-10 flex h-50 w-50 -translate-y-1/2 items-center justify-center bg-slate text-white transition-opacity hover:opacity-80 border-none md:-left-65"
+              className="absolute left-10 top-1/2 z-10 flex h-50 w-50 -translate-y-1/2 items-center justify-center bg-slate text-white transition-opacity hover:opacity-80 border-none sm:left-16 md:-left-27"
             >
               <ChevronLeft className="h-28 w-28" />
             </button>
@@ -80,7 +80,7 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
               type="button"
               onClick={() => emblaApi?.scrollNext()}
               aria-label="Siguiente slide"
-              className="absolute right-0 top-1/2 z-10 flex h-50 w-50 -translate-y-1/2 items-center justify-center bg-slate text-white transition-opacity hover:opacity-80 border-none md:-right-65"
+              className="absolute right-10 top-1/2 z-10 flex h-50 w-50 -translate-y-1/2 items-center justify-center bg-slate text-white transition-opacity hover:opacity-80 border-none sm:right-16 md:-right-220"
             >
               <ChevronRight className="h-28 w-28" />
             </button>
