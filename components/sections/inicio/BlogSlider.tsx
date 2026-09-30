@@ -61,13 +61,13 @@ function BlogCard({ post }: { post: WPPost }) {
       className="group flex h-full w-full flex-col gap-12 bg-card-dark px-12 pb-16 pt-12 text-white md:flex-row md:gap-24 md:p-20"
     >
       {image?.source_url && (
-        <div className="relative min-h-200 shrink-0 overflow-hidden md:w-280">
+        <div className="relative min-h-200 shrink-0 overflow-hidden md:w-1/2">
           <Image
             src={image.source_url}
             alt={image.alt_text || post.title.rendered}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 768px) 45vw, 40vw"
+            sizes="(max-width: 768px) 80vw, 200px"
           />
           {category && (
             <span className="absolute left-16 top-16 bg-white px-12 py-6 font-poppins text-14 font-medium not-italic leading-normal text-black md:bottom-16 md:left-0 md:top-auto md:px-16 md:py-8 md:text-14 md:font-normal md:leading-18 md:text-near-black">
@@ -151,21 +151,22 @@ export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSlide
             )}
           </div>
 
-          <div className="min-h-398 w-full md:h-396 md:min-h-0 md:w-848">
+          <div className="min-h-398 w-full min-w-0 md:h-396 md:min-h-0 md:w-848">
             <EmblaSlider
               slides={posts}
-              // En mobile el slide mide 306: card de 281 + espacio de 25.
-              // En desktop el slide mide 575: card de 550 + espacio de 25.
-              slidesPerView={{ base: 1.33, md: 1 }}
-              slideClassName="!basis-306 md:!basis-575"
+              // Mobile: slide de 306 (card de ~281 + gap). Desktop: 2 cards
+              // completas a la vista y avanza de 1 en 1. El gap va como padding
+              // izquierdo compensado, así no queda espacio sobrante en los bordes.
+              slidesPerView={{ base: 1.33, md: 2 }}
+              slideClassName="max-md:!basis-306"
               slidesToScroll={1}
-              gap={0}
+              gap={24}
               loop
               plugins={plugins}
               showArrows={false}
               onSelectChange={setActivePostIndex}
               renderSlide={(post) => (
-                <div className="h-auto w-281 md:h-full md:w-550">
+                <div className="h-full w-full">
                   <BlogCard key={post.id} post={post} />
                 </div>
               )}
