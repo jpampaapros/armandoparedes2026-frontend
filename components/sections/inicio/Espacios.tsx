@@ -13,7 +13,7 @@ export function Espacios({ titulo, subtitulo, indicadores }: EspaciosProps) {
   return (
     <section className="w-full bg-white px-4 pt-49 md:pt-60">
       <div className="mx-auto max-w-1440 px-4 md:px-80">
-        <div className="mx-auto mb-60 max-w-799 text-center md:mb-100">
+        <div className="mx-auto mb-60 max-w-799 text-center md:mb-60">
           {subtitulo && (
             <p className="mb-5 font-poppins text-14 font-light uppercase tracking-[0.05em] text-near-black md:mb-27 md:text-18">
               {subtitulo}

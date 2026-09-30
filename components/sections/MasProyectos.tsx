@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { EmblaCarouselType } from "embla-carousel";
 import { EmblaSlider } from "@/components/EmblaSlider";
-import { ProjectCard, getProjectFilterTags, formatAreaFilter, AREA_FILTER_LABELS } from "@/components/ProjectCard";
+import { ProjectCard } from "@/components/ProjectCard";
+import { ProjectFilters, useProjectFilters } from "@/components/ProjectFilters";
 import { getPublicCmsUrl } from "@/lib/urls";
 import type { Project } from "@/lib/types";
 
@@ -16,9 +17,6 @@ type MasProyectosProps = {
 export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosProps) {
   const [proyectosFetch, setProyectosFetch] = useState<Project[]>(proyectosProp ?? []);
   const proyectos = proyectosProp ?? proyectosFetch;
-  const [filtroDistrito, setFiltroDistrito] = useState("");
-  const [filtroTipo, setFiltroTipo] = useState("");
-  const [filtroArea, setFiltroArea] = useState("");
   const [emblaApi, setEmblaApi] = useState<EmblaCarouselType>();
 
   useEffect(() => {
@@ -37,37 +35,7 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
     };
   }, [proyectosProp]);
 
-  const distritos = useMemo(
-    () => [
-      ...new Set(
-        proyectos
-          .map((p) =>
-            p._embedded?.["wp:term"]
-              ?.flat()
-              .find((t) => t.taxonomy === "distrito")?.name,
-          )
-          .filter(Boolean),
-      ),
-    ],
-    [proyectos],
-  );
-
-  const tipos = useMemo(
-    () => [...new Set(proyectos.map((p) => p.acf.tipo).filter(Boolean))],
-    [proyectos],
-  );
-
-  const filtered = useMemo(() => {
-    return proyectos.filter((p) => {
-      const tags = getProjectFilterTags(p);
-      const areaLabel = formatAreaFilter(tags.area);
-      return (
-        (!filtroDistrito || tags.distrito === filtroDistrito) &&
-        (!filtroTipo || tags.tipo === filtroTipo) &&
-        (!filtroArea || areaLabel === filtroArea)
-      );
-    });
-  }, [proyectos, filtroDistrito, filtroTipo, filtroArea]);
+  const { filtered, filters } = useProjectFilters(proyectos);
 
   return (
     <section data-layout="mas_proyectos" className="w-full bg-white pb-35">
@@ -81,55 +49,10 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
             </h2>
           )}
 
-          <div className="hidden flex-wrap gap-24 md:flex">
-            <div className="relative w-146 border-b border-slate">
-              <select
-                value={filtroDistrito}
-                onChange={(e) => setFiltroDistrito(e.target.value)}
-                className={`h-36 w-full appearance-none border-0 bg-transparent px-7 pr-30 font-poppins text-13 outline-none ${filtroDistrito ? "text-slate" : "text-light-gray"}`}
-              >
-                <option value="">Distrito</option>
-                {distritos.map((d) => (
-                  <option key={d} value={d}>
-                    {d}
-                  </option>
-                ))}
-              </select>
-              <Image src="/images/proyecto/select-chevron.svg" alt="" width={24} height={24} className="pointer-events-none absolute right-4 top-1/2 h-24 w-24 -translate-y-1/2" />
-            </div>
-
-            <div className="relative w-146 border-b border-slate">
-              <select
-                value={filtroTipo}
-                onChange={(e) => setFiltroTipo(e.target.value)}
-                className={`h-36 w-full appearance-none border-0 bg-transparent px-7 pr-30 font-poppins text-13 outline-none ${filtroTipo ? "text-slate" : "text-light-gray"}`}
-              >
-                <option value="">Tipo</option>
-                {tipos.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-              <Image src="/images/proyecto/select-chevron.svg" alt="" width={24} height={24} className="pointer-events-none absolute right-4 top-1/2 h-24 w-24 -translate-y-1/2" />
-            </div>
-
-            <div className="relative w-146 border-b border-slate">
-              <select
-                value={filtroArea}
-                onChange={(e) => setFiltroArea(e.target.value)}
-                className={`h-36 w-full appearance-none border-0 bg-transparent px-7 pr-30 font-poppins text-13 outline-none ${filtroArea ? "text-slate" : "text-light-gray"}`}
-              >
-                <option value="">m²</option>
-                {AREA_FILTER_LABELS.map((a) => (
-                  <option key={a} value={a}>
-                    {a}
-                  </option>
-                ))}
-              </select>
-              <Image src="/images/proyecto/select-chevron.svg" alt="" width={24} height={24} className="pointer-events-none absolute right-4 top-1/2 h-24 w-24 -translate-y-1/2" />
-            </div>
-          </div>
+          <ProjectFilters
+            filters={filters}
+            className="hidden flex-wrap gap-24 md:flex"
+          />
         </div>
 
         <div className="mt-40 md:mt-60">
