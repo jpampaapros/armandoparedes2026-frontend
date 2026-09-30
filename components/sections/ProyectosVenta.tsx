@@ -51,22 +51,20 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
             No hay proyectos que coincidan con los filtros.
           </p>
         ) : (
-          <div className="relative">
-            <div className="md:w-[calc(50vw+50%)]">
-              <EmblaSlider
-                slides={filtered}
-                slidesPerView={1}
-                slideClassName="md:basis-494! md:pr-20"
-                gap={0}
-                showArrows={false}
-                onApiReady={setEmblaApi}
-                renderSlide={(project) => (
-                  <div className="h-full">
-                    <ProjectCard key={project.id} project={project} mobileDescriptionSemibold saleCarousel />
-                  </div>
-                )}
-              />
-            </div>
+          <div className="relative md:w-[calc(50vw+50%)]">
+            <EmblaSlider
+              slides={filtered}
+              slidesPerView={1}
+              slideClassName="md:basis-494! md:pr-20"
+              gap={0}
+              showArrows={false}
+              onApiReady={setEmblaApi}
+              renderSlide={(project) => (
+                <div className="h-full">
+                  <ProjectCard key={project.id} project={project} mobileDescriptionSemibold saleCarousel />
+                </div>
+              )}
+            />
 
             <button
               type="button"
@@ -80,7 +78,7 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
               type="button"
               onClick={() => emblaApi?.scrollNext()}
               aria-label="Siguiente slide"
-              className="absolute right-10 top-1/2 z-10 flex h-50 w-50 -translate-y-1/2 items-center justify-center bg-slate text-white transition-opacity hover:opacity-80 border-none sm:right-16 md:-right-220"
+              className="absolute right-10 top-1/2 z-10 flex h-50 w-50 -translate-y-1/2 items-center justify-center bg-slate text-white transition-opacity hover:opacity-80 border-none sm:right-16 md:right-57"
             >
               <ChevronRight className="h-28 w-28" />
             </button>
