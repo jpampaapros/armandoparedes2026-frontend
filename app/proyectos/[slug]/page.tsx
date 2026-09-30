@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { ProjectSectionMapper } from "@/components/sections/ProjectSectionMapper";
 import { FloatingButtons } from "@/components/FloatingButtons";
-import type { Project, ProjectSection } from "@/lib/types";
+import type { Project } from "@/lib/types";
 import { stripHtml, toArray } from "@/lib/utils";
 import type { LeadContext } from "@/lib/lead";
 
@@ -77,11 +77,6 @@ export default async function ProyectoPage({ params }: ProyectoPageProps) {
   const proyectos = await getProjects();
   const sections = toArray(proyecto.acf?.sections);
 
-  const contactSection = sections.find(
-    (s): s is ProjectSection & { acf_fc_layout: "formulario_contacto" } =>
-      s.acf_fc_layout === "formulario_contacto",
-  );
-  const formularioId = contactSection?.formulario_id ?? 4;
   const whatsappNumero = proyecto.acf?.whatsapp_numero;
 
   // Grupo "Cotizador" de ACF: identificadores de Sperant y página de gracias.
@@ -114,7 +109,7 @@ export default async function ProyectoPage({ params }: ProyectoPageProps) {
           presupuestos={presupuestos}
         />
       </main>
-      <FloatingButtons whatsapp={whatsappNumero} formId={formularioId} lead={lead} />
+      <FloatingButtons whatsapp={whatsappNumero} />
     </>
   );
 }

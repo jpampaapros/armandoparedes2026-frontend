@@ -1,14 +1,7 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
-import { ModalLeadForm } from "@/components/forms/ModalLeadForm";
-import type { LeadContext } from "@/lib/lead";
 
 type FloatingButtonsProps = {
   whatsapp?: string;
-  formId?: string | number;
-  lead?: LeadContext;
 };
 
 function buildWhatsAppUrl(value: string): string {
@@ -20,62 +13,30 @@ function buildWhatsAppUrl(value: string): string {
   return `https://wa.me/${digits}`;
 }
 
-export function FloatingButtons({ whatsapp, formId, lead }: FloatingButtonsProps) {
-  const [formOpen, setFormOpen] = useState(false);
-
-  const hasWhatsApp = Boolean(whatsapp?.trim());
-  const hasForm = formId !== undefined;
+export function FloatingButtons({ whatsapp }: FloatingButtonsProps) {
+  if (!whatsapp?.trim()) return null;
 
   return (
-    <>
-      <div
-        className="fixed bottom-24 right-24 z-40 flex flex-col md:bottom-auto md:right-0 md:top-334"
-        aria-label="Acciones rápidas"
+    <div
+      className="fixed bottom-24 right-24 z-40 flex flex-col md:bottom-auto md:right-0 md:top-334"
+      aria-label="Acciones rápidas"
+    >
+      <a
+        href={buildWhatsAppUrl(whatsapp)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex h-79 w-77 items-center justify-center rounded-l-7 bg-whatsapp transition-opacity hover:opacity-90"
+        aria-label="Contactar por WhatsApp"
       >
-        {hasWhatsApp && (
-          <a
-            href={buildWhatsAppUrl(whatsapp!)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-79 w-77 items-center justify-center rounded-l-7 bg-whatsapp transition-opacity hover:opacity-90"
-            aria-label="Contactar por WhatsApp"
-          >
-            <Image
-              unoptimized
-              src="/images/floating-buttons/whatsapp-icon.svg"
-              alt="WhatsApp"
-              width={40}
-              height={40}
-              className="h-40 w-40"
-            />
-          </a>
-        )}
-        {hasForm && (
-          <button
-            type="button"
-            onClick={() => setFormOpen(true)}
-            className="flex h-71 w-70 self-end items-center justify-center rounded-l-7 bg-near-black transition-opacity hover:opacity-90"
-            aria-haspopup="dialog"
-            aria-label="Abrir formulario de contacto"
-          >
-            <Image
-              unoptimized
-              src="/images/floating-buttons/form-icon.svg"
-              alt="Formulario"
-              width={40}
-              height={40}
-              className="h-40 w-40"
-            />
-          </button>
-        )}
-      </div>
-
-      <ModalLeadForm
-        formId={formId ?? "4"}
-        lead={lead}
-        open={formOpen}
-        onOpenChange={setFormOpen}
-      />
-    </>
+        <Image
+          unoptimized
+          src="/images/floating-buttons/whatsapp-icon.svg"
+          alt="WhatsApp"
+          width={40}
+          height={40}
+          className="h-40 w-40"
+        />
+      </a>
+    </div>
   );
 }
