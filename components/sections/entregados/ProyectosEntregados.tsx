@@ -31,7 +31,6 @@ export function ProyectosEntregados({
   entregados,
 }: ProyectosEntregadosProps) {
   const grouped = groupByYear(entregados);
-  const firstGroupHasArrows = (grouped[0]?.[1].length ?? 0) > 1;
 
   if (grouped.length === 0 && !titulo) return null;
 
@@ -47,22 +46,15 @@ export function ProyectosEntregados({
           </h2>
         )}
 
-        <div className={`relative min-w-0 ${firstGroupHasArrows
-          ? "mt-12 md:mt-88"
-          : "mt-62 md:mt-60"}`}>
+        <div className="relative mt-62 min-w-0 md:mt-60">
           <div className="absolute bottom-0 left-5 top-60 w-[2px] bg-[#748CA4] md:left-auto md:right-5 md:top-0 md:w-px md:bg-slate" />
-          {grouped.map(([year, projects], index) => {
+          {grouped.map(([year, projects]) => {
             const hasSingleProject = projects.length === 1;
-            const nextGroupHasArrows = (grouped[index + 1]?.[1].length ?? 0) > 1;
-            // Mobile rows already reserve 60 proportional pixels above the cards.
-            const yearSpacing = nextGroupHasArrows
-              ? "mb-12 md:mb-88"
-              : "mb-6 md:mb-66";
 
             return (
               <div
                 key={year}
-                className={`relative ${yearSpacing} last:mb-0 grid min-w-0 grid-cols-[auto_minmax(0,1fr)] gap-20 pr-0 pt-60 md:last:mb-0 md:grid-cols-[minmax(0,1fr)_auto] md:gap-40 md:pt-0`}
+                className={`relative mb-6 md:mb-66 last:mb-0 grid min-w-0 grid-cols-[auto_minmax(0,1fr)] gap-20 pr-0 pt-60 md:last:mb-0 md:grid-cols-[minmax(0,1fr)_auto] md:gap-40 md:pt-0`}
               >
                 <div className="order-2 h-352 min-w-0 max-md:[&_[data-card=entregado]_span]:normal-case md:order-1 md:h-582">
                   <EmblaSlider
@@ -78,10 +70,10 @@ export function ProyectosEntregados({
                         ? { mobile: true, desktop: true }
                         : false
                     }
-                    arrowButtonClassName="!-top-52 h-32 w-32 !translate-y-0 cursor-pointer rounded-none bg-slate p-0 hover:opacity-80 md:!-top-68 md:h-48 md:w-48"
-                    previousArrowClassName="!left-auto !right-60 md:!right-56"
-                    nextArrowClassName="!right-16 md:!right-0"
-                    arrowChevronClassName="h-24 w-24 md:h-32 md:w-32"
+                    arrowButtonClassName="h-50 w-50 cursor-pointer rounded-none border-none bg-slate p-0 transition-opacity hover:opacity-80"
+                    previousArrowClassName="left-10 sm:left-16 md:-left-25"
+                    nextArrowClassName="right-10 sm:right-16 md:-right-25"
+                    arrowChevronClassName="h-28 w-28"
                     renderSlide={(project) => (
                       <div className="h-full w-full">
                         <DeliveredCard
