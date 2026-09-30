@@ -6,6 +6,7 @@ import Link from "next/link";
 import Autoplay from "embla-carousel-autoplay";
 import { EmblaSlider } from "@/components/EmblaSlider";
 import { SmartLink } from "@/components/SmartLink";
+import { useBreakpoint } from "@/hooks/use-breakpoint";
 import type { ACFLink } from "@/lib/types";
 
 export type WPPost = {
@@ -58,7 +59,7 @@ function BlogCard({ post }: { post: WPPost }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group flex h-full w-full flex-col gap-12 bg-card-dark px-12 pb-16 pt-12 text-white md:flex-row md:gap-24 md:p-20"
+      className="group flex h-full w-full flex-col gap-12 bg-card-dark px-12 pb-16 pt-12 text-white md:flex-row md:gap-16 md:p-20"
     >
       {image?.source_url && (
         <div className="relative min-h-200 shrink-0 overflow-hidden md:w-1/2">
@@ -67,7 +68,7 @@ function BlogCard({ post }: { post: WPPost }) {
             alt={image.alt_text || post.title.rendered}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 768px) 80vw, 200px"
+            sizes="(max-width: 768px) 80vw, 25vw"
           />
           {category && (
             <span className="absolute left-16 top-16 bg-white px-12 py-6 font-poppins text-14 font-medium not-italic leading-normal text-black md:bottom-16 md:left-0 md:top-auto md:px-16 md:py-8 md:text-14 md:font-normal md:leading-18 md:text-near-black">
@@ -110,11 +111,23 @@ function BlogCard({ post }: { post: WPPost }) {
 
 export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSliderProps) {
   const isLight = variant === "light";
+  const bp = useBreakpoint();
+  const isDesktop = bp === "md" || bp === "lg" || bp === "xl";
   const [activePostIndex, setActivePostIndex] = useState(0);
   const activePost = posts[activePostIndex] ?? posts[0];
   const activeBlogLink = boton && activePost
     ? { ...boton, url: `/blog/${activePost.slug}` }
     : boton;
+
+  // Con el slider sangrando hasta el borde derecho entran más cards en vista:
+  // con pocos posts Embla desactiva el loop, así que se repiten hasta tener 6.
+  const slides = useMemo(
+    () =>
+      posts.length > 0 && posts.length < 6
+        ? Array.from({ length: Math.ceil(6 / posts.length) }, () => posts).flat()
+        : posts,
+    [posts],
+  );
 
   // Referencia estable: si el plugin se recrea en cada render, Embla reinicia
   // el carrusel y el autoplay nunca llega a avanzar.
@@ -130,7 +143,7 @@ export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSlide
   );
 
   return (
-    <section className={isLight ? "bg-white" : "bg-slate"}>
+    <section className={`overflow-x-clip ${isLight ? "bg-white" : "bg-slate"}`}>
       <div className="mx-auto max-w-1440 px-16 py-56 md:px-80 md:py-120">
         <div className="flex flex-col gap-40 md:flex-row md:items-start md:justify-between">
           <div className="flex w-full flex-col items-start gap-25 md:max-w-402 my-auto">
@@ -151,20 +164,25 @@ export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSlide
             )}
           </div>
 
-          <div className="min-h-398 w-full min-w-0 md:h-396 md:min-h-0 md:w-848">
+          <div className="min-h-398 w-full min-w-0 md:h-396 md:min-h-0 md:w-806">
             <EmblaSlider
-              slides={posts}
-              // Mobile: slide de 306 (card de ~281 + gap). Desktop: 2 cards
-              // completas a la vista y avanza de 1 en 1. El gap va como padding
-              // izquierdo compensado, así no queda espacio sobrante en los bordes.
-              slidesPerView={{ base: 1.33, md: 2 }}
+              // La columna fija el borde izquierdo (card a 554 en el diseño de
+              // 1440); solo el slider se estira por la derecha hasta el borde de
+              // la pantalla: padding del contenedor + margen fuera del max-w-1440.
+              className="w-[calc(100%+16*var(--fx))] md:w-[calc(100%+80*var(--fx)+(100vw-1440*var(--fx))/2)]"
+              slides={slides}
+              // Mobile: slide de 306 = card de 281 + 25, la siguiente asoma.
+              // Desktop: 2 cards completas que llenan hasta el borde de la
+              // pantalla; el gap va como padding izquierdo compensado, así la
+              // segunda card queda pegada al borde sin espacio sobrante.
+              slidesPerView={{ base: 1, md: 2 }}
               slideClassName="max-md:!basis-306"
               slidesToScroll={1}
-              gap={24}
+              gap={isDesktop ? 16 : 25}
               loop
               plugins={plugins}
               showArrows={false}
-              onSelectChange={setActivePostIndex}
+              onSelectChange={(index) => setActivePostIndex(index % posts.length)}
               renderSlide={(post) => (
                 <div className="h-full w-full">
                   <BlogCard key={post.id} post={post} />
