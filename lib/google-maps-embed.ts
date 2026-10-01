@@ -1,7 +1,9 @@
-export function getGoogleMapsCoordinateUrl(
+export type LatLng = { lat: number; lng: number };
+
+export function parseLatLng(
   latitude?: number | string,
   longitude?: number | string,
-): string | null {
+): LatLng | null {
   const parse = (value: number | string | undefined, limit: number) => {
     if (typeof value !== "number" && typeof value !== "string") return null;
     if (typeof value === "string" && !value.trim()) return null;
@@ -12,12 +14,29 @@ export function getGoogleMapsCoordinateUrl(
   const lat = parse(latitude, 90);
   const lng = parse(longitude, 180);
   if (lat === null || lng === null) return null;
+  return { lat, lng };
+}
+
+export function getGoogleMapsCoordinateUrl(
+  latitude?: number | string,
+  longitude?: number | string,
+): string | null {
+  const point = parseLatLng(latitude, longitude);
+  if (!point) return null;
 
   const url = new URL("https://www.google.com/maps");
-  url.searchParams.set("q", `${lat},${lng}`);
+  url.searchParams.set("q", `${point.lat},${point.lng}`);
   url.searchParams.set("z", "16");
   url.searchParams.set("hl", "es");
   url.searchParams.set("output", "embed");
+  return url.href;
+}
+
+/** Enlace (no embed) que abre Google Maps en la coordenada. */
+export function getGoogleMapsPlaceUrl({ lat, lng }: LatLng): string {
+  const url = new URL("https://www.google.com/maps/search/");
+  url.searchParams.set("api", "1");
+  url.searchParams.set("query", `${lat},${lng}`);
   return url.href;
 }
 

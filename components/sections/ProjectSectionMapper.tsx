@@ -117,6 +117,7 @@ export function ProjectSectionMapper({ sections, proyectos, lead, presupuestos }
                 key={key}
                 titulo={section.titulo}
                 google_maps={section.google_maps}
+                imagen={section.imagen}
                 latitud={section.latitud}
                 longitud={section.longitud}
                 ubicaciones={toArray(section.ubicaciones)}
