@@ -31,7 +31,6 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
   const image = getBlogImage(post);
   const category = getBlogCategory(post);
   const date = formatBlogDate(post.date);
-  const author = post._embedded?.author?.[0]?.name || "Armando Paredes";
 
   if (variant === "featured") {
     return (
@@ -74,9 +73,6 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
             className="font-gotham text-28 font-bold leading-[1.25] text-white md:text-36 md:leading-42"
             dangerouslySetInnerHTML={{ __html: post.title.rendered }}
           />
-          <span className="font-poppins text-14 font-light italic leading-24 text-white">
-            {author}
-          </span>
           <div
             className="line-clamp-3 font-poppins text-16 font-normal leading-24 text-white md:text-20"
             dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
@@ -119,10 +115,11 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
           className="font-gotham text-22 font-bold leading-28 text-peach md:text-28"
           dangerouslySetInnerHTML={{ __html: post.title.rendered }}
         />
-        <div className="flex flex-wrap items-center gap-4 font-poppins text-10 font-medium leading-normal text-near-black">
-          <span className="italic">{author}</span>
-          {date && <span className="not-italic">| {date}</span>}
-        </div>
+        {date && (
+          <span className="font-poppins text-10 font-medium leading-normal text-near-black">
+            {date}
+          </span>
+        )}
         <div
           className="line-clamp-3 font-poppins text-14 font-normal leading-18 text-near-black md:text-10 md:leading-13"
           dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
