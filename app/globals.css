@@ -50,6 +50,8 @@
 /* --spacing = --fx: w-264, gap-12, pt-31... quedan en px de diseño proporcional (medidas-proporcionales) en vez de la escala rem de Tailwind. */
 @theme inline {
   --spacing: var(--fx);
+  /* Breakpoint extra: md:max-lap: = 768px a 1360px inclusive (max-lap es width < 1361px). No altera sm/md/lg/xl/2xl. */
+  --breakpoint-lap: 1361px;
   --color-header-bg: #000000;
   --color-header-text: #ffffff;
   --color-modal-bg: #1d1d1b;
