@@ -1,0 +1,2879 @@
+[
+  {
+    "key": "group_armando_paredes_pages",
+    "title": "Page: Inicio",
+    "fields": [
+      {
+        "key": "field_armando_paredes_sections",
+        "label": "Secciones",
+        "name": "sections",
+        "aria-label": "",
+        "type": "flexible_content",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "layouts": {
+          "layout_armando_paredes_contenido": {
+            "key": "layout_armando_paredes_contenido",
+            "name": "contenido",
+            "label": "Contenido libre",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_contenido_texto",
+                "label": "Contenido",
+                "name": "contenido",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "tabs": "visual",
+                "toolbar": "full",
+                "media_upload": 1,
+                "default_value": "",
+                "delay": 0
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_banner": {
+            "key": "layout_armando_paredes_banner",
+            "name": "banner",
+            "label": "Banner — Sliders de títulos e imágenes",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_home_banner_titulos",
+                "label": "Banner 1 — Títulos",
+                "name": "banner_titulos",
+                "type": "repeater",
+                "instructions": "Se reproduce de forma independiente. Arrastra las filas para cambiar el orden. Si dejas esta lista vacía, se usa el contenido anterior de los bloques Banner. Completa estas listas solo en el primer bloque Banner del Home.",
+                "required": 0,
+                "layout": "block",
+                "button_label": "Añadir título",
+                "min": 0,
+                "max": 0,
+                "rows_per_page": 20,
+                "collapsed": "field_armando_paredes_home_banner_titulos_titulo",
+                "sub_fields": [
+                  {
+                    "key": "field_armando_paredes_home_banner_titulos_titulo",
+                    "label": "Título",
+                    "name": "titulo",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "tabs": "visual",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "default_value": "",
+                    "delay": 0,
+                    "parent_repeater": "field_armando_paredes_home_banner_titulos"
+                  }
+                ]
+              },
+              {
+                "key": "field_armando_paredes_home_banner_imagenes",
+                "label": "Banner 2 — Imágenes",
+                "name": "banner_imagenes",
+                "type": "repeater",
+                "instructions": "Se reproduce de forma independiente. Arrastra las filas para cambiar el orden. Si dejas esta lista vacía, se usa el contenido anterior de los bloques Banner. Completa estas listas solo en el primer bloque Banner del Home.",
+                "required": 0,
+                "layout": "block",
+                "button_label": "Añadir imagen",
+                "min": 0,
+                "max": 0,
+                "rows_per_page": 20,
+                "collapsed": "field_armando_paredes_home_banner_imagenes_imagen",
+                "sub_fields": [
+                  {
+                    "key": "field_armando_paredes_home_banner_imagenes_imagen",
+                    "label": "Imagen",
+                    "name": "imagen",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "large",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "parent_repeater": "field_armando_paredes_home_banner_imagenes"
+                  }
+                ]
+              },
+              {
+                "key": "field_armando_paredes_banner_titulo",
+                "label": "Título (contenido anterior)",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "Se conserva para no perder el contenido actual. Se usa solo mientras la lista correspondiente de arriba esté vacía.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "tabs": "visual",
+                "toolbar": "basic",
+                "media_upload": 0,
+                "default_value": "",
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_banner_imagen",
+                "label": "Imagen (contenido anterior)",
+                "name": "imagen",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "Se conserva para no perder el contenido actual. Se usa solo mientras la lista correspondiente de arriba esté vacía.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "large",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_espacios": {
+            "key": "layout_armando_paredes_espacios",
+            "name": "espacios",
+            "label": "Espacios",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_espacios_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "allow_in_bindings": 0,
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 1,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_espacios_subtitulo",
+                "label": "Subtítulo",
+                "name": "subtitulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_espacios_indicadores",
+                "label": "Indicadores",
+                "name": "indicadores",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "layout": "row",
+                "button_label": "Añadir indicador",
+                "min": 0,
+                "max": 0,
+                "rows_per_page": 20,
+                "collapsed": "",
+                "sub_fields": [
+                  {
+                    "key": "field_armando_paredes_indicador_numero",
+                    "label": "Número",
+                    "name": "numero",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_espacios_indicadores"
+                  },
+                  {
+                    "key": "field_armando_paredes_indicador_texto",
+                    "label": "Texto",
+                    "name": "texto",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_espacios_indicadores"
+                  },
+                  {
+                    "key": "field_armando_paredes_indicador_ubicacion",
+                    "label": "Ubicación / segunda línea",
+                    "name": "ubicacion",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_espacios_indicadores"
+                  }
+                ]
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyectos_venta": {
+            "key": "layout_armando_paredes_proyectos_venta",
+            "name": "proyectos_venta",
+            "label": "Proyectos en venta",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_pv_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_6aaac914f1bba",
+                "label": "Post",
+                "name": "post",
+                "aria-label": "",
+                "type": "post_object",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "post_type": [
+                  "proyectos"
+                ],
+                "post_status": "",
+                "taxonomy": "",
+                "return_format": "object",
+                "multiple": 1,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "bidirectional": 0,
+                "ui": 1,
+                "bidirectional_target": []
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_quien_es_armando": {
+            "key": "layout_armando_paredes_quien_es_armando",
+            "name": "quien_es_armando",
+            "label": "¿Quién es Armando?",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_qea_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "allow_in_bindings": 0,
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 1,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_qea_imagen",
+                "label": "Imagen de fondo",
+                "name": "imagen_fondo",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "large",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              },
+              {
+                "key": "field_armando_paredes_qea_descripcion",
+                "label": "Descripción",
+                "name": "descripcion",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 1,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_qea_boton",
+                "label": "Botón",
+                "name": "boton",
+                "aria-label": "",
+                "type": "link",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array"
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyectos_entregados": {
+            "key": "layout_armando_paredes_proyectos_entregados",
+            "name": "proyectos_entregados",
+            "label": "Proyectos entregados",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_pe_texto",
+                "label": "Texto",
+                "name": "texto",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_pe_subtitulo",
+                "label": "Subtítulo",
+                "name": "subtitulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_pe_boton",
+                "label": "Botón",
+                "name": "boton",
+                "aria-label": "",
+                "type": "link",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array"
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_amigos_beneficios": {
+            "key": "layout_armando_paredes_amigos_beneficios",
+            "name": "amigos_beneficios",
+            "label": "Amigos con beneficios",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_ab_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_ab_descripcion",
+                "label": "Descripción",
+                "name": "descripcion",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 1,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_ab_boton",
+                "label": "Botón",
+                "name": "boton",
+                "aria-label": "",
+                "type": "link",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array"
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_blog": {
+            "key": "layout_armando_paredes_blog",
+            "name": "blog",
+            "label": "Blog",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_blog_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_blog_boton",
+                "label": "Botón",
+                "name": "boton",
+                "aria-label": "",
+                "type": "link",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array"
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyectos_lista": {
+            "key": "layout_armando_paredes_proyectos_lista",
+            "name": "proyectos_lista",
+            "label": "Proyectos lista",
+            "display": "row",
+            "sub_fields": [],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_hero_proyectos": {
+            "key": "layout_armando_paredes_hero_proyectos",
+            "name": "hero_proyectos",
+            "label": "Hero Proyectos",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_hero_proyectos_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "tabs": "visual",
+                "toolbar": "basic",
+                "media_upload": 0,
+                "default_value": "",
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_hero_proyectos_imagen",
+                "label": "Imagen",
+                "name": "imagen",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "large",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              }
+            ],
+            "min": "",
+            "max": ""
+          }
+        },
+        "min": 0,
+        "max": 0,
+        "button_label": "Añadir sección"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "page_template",
+          "operator": "==",
+          "value": "page-templates/template-inicio.php"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Campos editables para las páginas públicas del sitio.",
+    "show_in_rest": 1,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": ""
+  },
+  {
+    "key": "group_armando_paredes_proyectos",
+    "title": "Post type: Proyectos",
+    "fields": [
+      {
+        "key": "field_armando_paredes_proyecto_descripcion",
+        "label": "Descripción corta",
+        "name": "descripcion",
+        "aria-label": "",
+        "type": "wysiwyg",
+        "instructions": "",
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "tabs": "all",
+        "toolbar": "full",
+        "media_upload": 1,
+        "delay": 0
+      },
+      {
+        "key": "field_6a9f64bad6033",
+        "label": "Imagen hover",
+        "name": "imagen_hover",
+        "aria-label": "",
+        "type": "image",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "id",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "",
+        "allow_in_bindings": 0,
+        "preview_size": "medium"
+      },
+      {
+        "key": "field_armando_paredes_proyecto_metros",
+        "label": "Metros cuadrados",
+        "name": "metros",
+        "aria-label": "",
+        "type": "number",
+        "instructions": "",
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "min": "",
+        "max": "",
+        "step": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_armando_paredes_proyecto_dormitorios",
+        "label": "Dormitorios",
+        "name": "dormitorios",
+        "aria-label": "",
+        "type": "number",
+        "instructions": "",
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "min": "",
+        "max": "",
+        "step": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_armando_paredes_proyecto_tipo",
+        "label": "Tipo",
+        "name": "tipo",
+        "aria-label": "",
+        "type": "select",
+        "instructions": "",
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Departamentos": "Departamentos",
+          "Oficinas": "Oficinas",
+          "Locales": "Locales"
+        },
+        "allow_null": 0,
+        "multiple": 0,
+        "default_value": false,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": "",
+        "return_format": "value",
+        "create_options": 0,
+        "save_options": 0
+      },
+      {
+        "key": "field_armando_paredes_proyecto_whatsapp_numero",
+        "label": "Número de WhatsApp",
+        "name": "whatsapp_numero",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "Número o enlace de WhatsApp para los botones flotantes del proyecto.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "+51999999999",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_6aab201ac726c",
+        "label": "Cotizador",
+        "name": "cotizador",
+        "aria-label": "",
+        "type": "group",
+        "instructions": "Número o enlace de WhatsApp para los botones flotantes del proyecto.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "layout": "block",
+        "sub_fields": [
+          {
+            "key": "field_6aab2088c726d",
+            "label": "Valores de presupuesto",
+            "name": "valores_de_presupuesto",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Agregar Fila",
+            "rows_per_page": 20,
+            "sub_fields": [
+              {
+                "key": "field_6aab209dc726e",
+                "label": "Valor",
+                "name": "valor",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "parent_repeater": "field_6aab2088c726d"
+              }
+            ]
+          },
+          {
+            "key": "field_6aab20b4c726f",
+            "label": "Pagina de gracias",
+            "name": "pagina_de_gracias",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "post_type": [
+              "proyectos"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "return_format": "object",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "ui": 1,
+            "bidirectional_target": []
+          },
+          {
+            "key": "field_6aab20e5c7270",
+            "label": "Api project related",
+            "name": "api_project_related",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+          },
+          {
+            "key": "field_6aab2111c7271",
+            "label": "Api input channel ids",
+            "name": "api_input_channel_ids",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+          },
+          {
+            "key": "field_6aab211ec7272",
+            "label": "Api source id",
+            "name": "api_source_id",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+          },
+          {
+            "key": "field_6aab213dc7273",
+            "label": "Api nivel id",
+            "name": "api_nivel_id",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+          }
+        ]
+      },
+      {
+        "key": "field_armando_paredes_proyecto_sections",
+        "label": "Secciones",
+        "name": "sections",
+        "aria-label": "",
+        "type": "flexible_content",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "layouts": {
+          "layout_armando_paredes_proyecto_banner": {
+            "key": "layout_armando_paredes_proyecto_banner",
+            "name": "banner_proyecto",
+            "label": "Banner de proyecto",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_proyecto_banner_badge",
+                "label": "Badge",
+                "name": "badge",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_banner_logo",
+                "label": "Logo",
+                "name": "logo",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_banner_distrito",
+                "label": "Distrito",
+                "name": "distrito",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_banner_slides_v2",
+                "label": "Imágenes de slider",
+                "name": "slides",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "layout": "row",
+                "button_label": "Añadir slide",
+                "min": 0,
+                "max": 0,
+                "rows_per_page": 20,
+                "collapsed": "",
+                "sub_fields": [
+                  {
+                    "key": "field_armando_paredes_proyecto_banner_slide_imagen",
+                    "label": "Imagen",
+                    "name": "imagen",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_banner_slides_v2"
+                  }
+                ]
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyecto_descripcion": {
+            "key": "layout_armando_paredes_proyecto_descripcion",
+            "name": "descripcion_proyecto",
+            "label": "Descripción",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_proyecto_descripcion_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_descripcion_descripcion",
+                "label": "Descripción",
+                "name": "descripcion",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 1,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_proyecto_descripcion_imagen",
+                "label": "Imagen",
+                "name": "imagen",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_descripcion_cambiar_lado",
+                "label": "Invertir lado",
+                "name": "cambiar_lado",
+                "aria-label": "",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "ui": 1,
+                "ui_on_text": "",
+                "ui_off_text": ""
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyecto_ficha_tecnica": {
+            "key": "layout_armando_paredes_proyecto_ficha_tecnica",
+            "name": "ficha_tecnica",
+            "label": "Ficha técnica",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_proyecto_ficha_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_ficha_direccion",
+                "label": "Dirección",
+                "name": "direccion",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_ficha_tecnica_icono_direccion",
+                "label": "Ícono de dirección",
+                "name": "icono_direccion",
+                "type": "image",
+                "instructions": "Opcional. Adjunta un ícono con fondo transparente, en el color que quieras mostrar. Si lo dejas vacío, se utiliza el ícono predeterminado.",
+                "required": 0,
+                "return_format": "array",
+                "preview_size": "thumbnail",
+                "library": "all",
+                "mime_types": "png,webp,avif,jpg,jpeg",
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                }
+              },
+              {
+                "key": "field_armando_paredes_proyecto_ficha_pisos",
+                "label": "Pisos",
+                "name": "pisos",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_ficha_tecnica_icono_pisos",
+                "label": "Ícono de pisos",
+                "name": "icono_pisos",
+                "type": "image",
+                "instructions": "Opcional. Adjunta un ícono con fondo transparente, en el color que quieras mostrar. Si lo dejas vacío, se utiliza el ícono predeterminado.",
+                "required": 0,
+                "return_format": "array",
+                "preview_size": "thumbnail",
+                "library": "all",
+                "mime_types": "png,webp,avif,jpg,jpeg",
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                }
+              },
+              {
+                "key": "field_armando_paredes_proyecto_ficha_area",
+                "label": "Área",
+                "name": "area",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_ficha_tecnica_icono_area",
+                "label": "Ícono de área",
+                "name": "icono_area",
+                "type": "image",
+                "instructions": "Opcional. Adjunta un ícono con fondo transparente, en el color que quieras mostrar. Si lo dejas vacío, se utiliza el ícono predeterminado.",
+                "required": 0,
+                "return_format": "array",
+                "preview_size": "thumbnail",
+                "library": "all",
+                "mime_types": "png,webp,avif,jpg,jpeg",
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                }
+              },
+              {
+                "key": "field_armando_paredes_proyecto_ficha_dormitorios",
+                "label": "Dormitorios",
+                "name": "dormitorios",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_ficha_tecnica_icono_dormitorios",
+                "label": "Ícono de dormitorios",
+                "name": "icono_dormitorios",
+                "type": "image",
+                "instructions": "Opcional. Adjunta un ícono con fondo transparente, en el color que quieras mostrar. Si lo dejas vacío, se utiliza el ícono predeterminado.",
+                "required": 0,
+                "return_format": "array",
+                "preview_size": "thumbnail",
+                "library": "all",
+                "mime_types": "png,webp,avif,jpg,jpeg",
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                }
+              },
+              {
+                "key": "field_armando_paredes_proyecto_ficha_brochure",
+                "label": "Brochure",
+                "name": "brochure",
+                "aria-label": "",
+                "type": "link",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array"
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyecto_video": {
+            "key": "layout_armando_paredes_proyecto_video",
+            "name": "video",
+            "label": "Video o imagen",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_proyecto_video_desactivar_seccion",
+                "label": "Desactivar sección",
+                "name": "desactivar_seccion",
+                "type": "true_false",
+                "instructions": "Activa esta opción para ocultar toda la sección sin borrar su contenido.",
+                "required": 0,
+                "default_value": 0,
+                "ui": 1,
+                "ui_on_text": "Oculta",
+                "ui_off_text": "Visible",
+                "message": "Ocultar esta sección en la web"
+              },
+              {
+                "key": "field_armando_paredes_proyecto_video_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                  [
+                    {
+                      "field": "field_armando_paredes_proyecto_video_desactivar_seccion",
+                      "operator": "!=",
+                      "value": "1"
+                    }
+                  ]
+                ],
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "allow_in_bindings": 0,
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 1,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_proyecto_video_imagen_previa",
+                "label": "Imagen alternativa al video",
+                "name": "imagen_previa",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "Se muestra cuando no hay un video de YouTube válido. Puedes dejar el video vacío y adjuntar solo esta imagen.",
+                "required": false,
+                "conditional_logic": [
+                  [
+                    {
+                      "field": "field_armando_paredes_proyecto_video_desactivar_seccion",
+                      "operator": "!=",
+                      "value": "1"
+                    }
+                  ]
+                ],
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_video_url_youtube",
+                "label": "URL de YouTube",
+                "name": "url_youtube",
+                "aria-label": "",
+                "type": "url",
+                "instructions": "Opcional. Si completas una URL de YouTube válida, se muestra el video. Si queda vacía, se muestra la imagen alternativa. Sin video ni imagen, se conserva el fondo gris predeterminado. Para ocultar toda la sección, activa Desactivar sección.",
+                "required": false,
+                "conditional_logic": [
+                  [
+                    {
+                      "field": "field_armando_paredes_proyecto_video_desactivar_seccion",
+                      "operator": "!=",
+                      "value": "1"
+                    }
+                  ]
+                ],
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "placeholder": ""
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyecto_galeria": {
+            "key": "layout_armando_paredes_proyecto_galeria",
+            "name": "galeria",
+            "label": "Galería",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_proyecto_galeria_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_galeria_descripcion",
+                "label": "Descripción",
+                "name": "descripcion",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 1,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_proyecto_galeria_tabs",
+                "label": "Pestañas",
+                "name": "tabs",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "layout": "row",
+                "button_label": "Añadir pestaña",
+                "min": 0,
+                "max": 0,
+                "rows_per_page": 20,
+                "collapsed": "",
+                "sub_fields": [
+                  {
+                    "key": "field_armando_paredes_proyecto_galeria_tab_titulo",
+                    "label": "Título",
+                    "name": "titulo",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_galeria_tabs"
+                  },
+                  {
+                    "key": "field_proyecto_galeria_tab_descripcion",
+                    "label": "Descripción de la opción",
+                    "name": "descripcion",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "Texto que aparece al seleccionar esta pestaña (Sala, Dormitorios, Cocina, Baños, etc.).",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0,
+                    "parent_repeater": "field_armando_paredes_proyecto_galeria_tabs"
+                  },
+                  {
+                    "key": "field_armando_paredes_proyecto_galeria_tab_imagenes_v2",
+                    "label": "Imágenes de la pestaña",
+                    "name": "imagenes",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "layout": "row",
+                    "button_label": "Añadir imagen",
+                    "min": 0,
+                    "max": 0,
+                    "rows_per_page": 20,
+                    "collapsed": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_galeria_tabs",
+                    "sub_fields": [
+                      {
+                        "key": "field_armando_paredes_proyecto_galeria_tab_imagen",
+                        "label": "Imagen",
+                        "name": "imagen",
+                        "aria-label": "",
+                        "type": "image",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                          "width": "",
+                          "class": "",
+                          "id": ""
+                        },
+                        "return_format": "array",
+                        "preview_size": "medium",
+                        "library": "all",
+                        "min_width": 0,
+                        "min_height": 0,
+                        "min_size": 0,
+                        "max_width": 0,
+                        "max_height": 0,
+                        "max_size": 0,
+                        "mime_types": "",
+                        "parent_repeater": "field_armando_paredes_proyecto_galeria_tab_imagenes_v2"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyecto_planos": {
+            "key": "layout_armando_paredes_proyecto_planos",
+            "name": "planos",
+            "label": "Planos",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_proyecto_planos_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_planos_dormitorios",
+                "label": "Dormitorios",
+                "name": "dormitorios",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "layout": "row",
+                "button_label": "Añadir dormitorio",
+                "min": 0,
+                "max": 0,
+                "rows_per_page": 20,
+                "collapsed": "",
+                "sub_fields": [
+                  {
+                    "key": "field_armando_paredes_proyecto_planos_dormitorio_numero",
+                    "label": "Número",
+                    "name": "numero",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_planos_dormitorios"
+                  },
+                  {
+                    "key": "field_armando_paredes_proyecto_planos_tipologias",
+                    "label": "Tipologías",
+                    "name": "tipologias",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "layout": "row",
+                    "button_label": "Añadir tipología",
+                    "min": 0,
+                    "max": 0,
+                    "rows_per_page": 20,
+                    "collapsed": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_planos_dormitorios",
+                    "sub_fields": [
+                      {
+                        "key": "field_armando_paredes_proyecto_planos_tipologia_titulo",
+                        "label": "Título",
+                        "name": "titulo",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                          "width": "",
+                          "class": "",
+                          "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_armando_paredes_proyecto_planos_tipologias"
+                      },
+                      {
+                        "key": "field_armando_paredes_proyecto_planos_tipologia_imagen",
+                        "label": "Imagen",
+                        "name": "imagen",
+                        "aria-label": "",
+                        "type": "image",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                          "width": "",
+                          "class": "",
+                          "id": ""
+                        },
+                        "return_format": "array",
+                        "preview_size": "medium",
+                        "library": "all",
+                        "min_width": 0,
+                        "min_height": 0,
+                        "min_size": 0,
+                        "max_width": 0,
+                        "max_height": 0,
+                        "max_size": 0,
+                        "mime_types": "",
+                        "parent_repeater": "field_armando_paredes_proyecto_planos_tipologias"
+                      },
+                      {
+                        "key": "field_armando_paredes_proyecto_planos_tipologia_nombre",
+                        "label": "Nombre",
+                        "name": "nombre",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                          "width": "",
+                          "class": "",
+                          "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_armando_paredes_proyecto_planos_tipologias"
+                      },
+                      {
+                        "key": "field_armando_paredes_proyecto_planos_tipologia_descripcion",
+                        "label": "Descripción",
+                        "name": "descripcion",
+                        "aria-label": "",
+                        "type": "wysiwyg",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                          "width": "",
+                          "class": "",
+                          "id": ""
+                        },
+                        "default_value": "",
+                        "parent_repeater": "field_armando_paredes_proyecto_planos_tipologias",
+                        "tabs": "all",
+                        "toolbar": "full",
+                        "media_upload": 1,
+                        "delay": 0
+                      },
+                      {
+                        "key": "field_armando_paredes_proyecto_planos_tipologia_area_techada",
+                        "label": "Área techada",
+                        "name": "area_techada",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                          "width": "",
+                          "class": "",
+                          "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_armando_paredes_proyecto_planos_tipologias"
+                      },
+                      {
+                        "key": "field_armando_paredes_proyecto_planos_tipologia_area_libre",
+                        "label": "Área libre",
+                        "name": "area_libre",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                          "width": "",
+                          "class": "",
+                          "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_armando_paredes_proyecto_planos_tipologias"
+                      },
+                      {
+                        "key": "field_armando_paredes_proyecto_planos_tipologia_area_total",
+                        "label": "Área total",
+                        "name": "area_total",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                          "width": "",
+                          "class": "",
+                          "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_armando_paredes_proyecto_planos_tipologias"
+                      },
+                      {
+                        "key": "field_armando_paredes_proyecto_planos_tipologia_boton",
+                        "label": "Botón",
+                        "name": "boton",
+                        "aria-label": "",
+                        "type": "link",
+                        "instructions": "",
+                        "required": false,
+                        "conditional_logic": false,
+                        "wrapper": {
+                          "width": "",
+                          "class": "",
+                          "id": ""
+                        },
+                        "return_format": "array",
+                        "parent_repeater": "field_armando_paredes_proyecto_planos_tipologias"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "field_armando_paredes_proyecto_planos_boton_mas_planos",
+                "label": "Botón más planos",
+                "name": "boton_mas_planos",
+                "aria-label": "",
+                "type": "link",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array"
+              },
+              {
+                "key": "field_armando_paredes_proyecto_planos_texto_adicional",
+                "label": "Texto adicional",
+                "name": "texto_adicional",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 1,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_proyecto_planos_leyenda",
+                "label": "Leyenda",
+                "name": "leyenda",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "layout": "row",
+                "button_label": "Añadir ítem",
+                "min": 0,
+                "max": 0,
+                "rows_per_page": 20,
+                "collapsed": "",
+                "sub_fields": [
+                  {
+                    "key": "field_armando_paredes_proyecto_planos_leyenda_etiqueta",
+                    "label": "Etiqueta",
+                    "name": "etiqueta",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_planos_leyenda"
+                  },
+                  {
+                    "key": "field_armando_paredes_proyecto_planos_leyenda_valor",
+                    "label": "Valor",
+                    "name": "valor",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_planos_leyenda"
+                  }
+                ]
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyecto_mapa": {
+            "key": "layout_armando_paredes_proyecto_mapa",
+            "name": "mapa",
+            "label": "Mapa",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_proyecto_mapa_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_mapa_imagen",
+                "label": "Imagen",
+                "name": "imagen",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              },
+              {
+                "key": "field_6aa42495bb0d9",
+                "label": "Latitud",
+                "name": "latitud",
+                "aria-label": "",
+                "type": "number",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "min": "",
+                "max": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "step": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_6aa424a7bb0da",
+                "label": "Longitud",
+                "name": "longitud",
+                "aria-label": "",
+                "type": "number",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "min": "",
+                "max": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "step": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_mapa_ubicaciones",
+                "label": "Ubicaciones",
+                "name": "ubicaciones",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "layout": "row",
+                "button_label": "Añadir ubicación",
+                "min": 0,
+                "max": 0,
+                "rows_per_page": 20,
+                "collapsed": "",
+                "sub_fields": [
+                  {
+                    "key": "field_armando_paredes_proyecto_mapa_ubicacion_nombre",
+                    "label": "Nombre",
+                    "name": "nombre",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_mapa_ubicaciones"
+                  },
+                  {
+                    "key": "field_armando_paredes_proyecto_mapa_ubicacion_icono",
+                    "label": "Icono",
+                    "name": "icono",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_mapa_ubicaciones"
+                  },
+                  {
+                    "key": "field_6abd72adb6053",
+                    "label": "Latitud",
+                    "name": "latitud",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_mapa_ubicaciones"
+                  },
+                  {
+                    "key": "field_6abd72bab6054",
+                    "label": "Longitud",
+                    "name": "longitud",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_mapa_ubicaciones"
+                  },
+                  {
+                    "key": "field_armando_paredes_proyecto_mapa_ubicacion_minutos",
+                    "label": "Minutos",
+                    "name": "minutos",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_mapa_ubicaciones"
+                  }
+                ]
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyecto_formulario_contacto": {
+            "key": "layout_armando_paredes_proyecto_formulario_contacto",
+            "name": "formulario_contacto",
+            "label": "Formulario de contacto",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_proyecto_formulario_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_formulario_id",
+                "label": "ID del formulario",
+                "name": "formulario_id",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyecto_mas_proyectos": {
+            "key": "layout_armando_paredes_proyecto_mas_proyectos",
+            "name": "mas_proyectos",
+            "label": "Más proyectos",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_proyecto_mas_proyectos_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyecto_banner_pre_lanzamiento": {
+            "key": "layout_armando_paredes_proyecto_banner_pre_lanzamiento",
+            "name": "banner_pre_lanzamiento",
+            "label": "Banner de pre-lanzamiento",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_proyecto_banner_pre_lanzamiento_badge",
+                "label": "Badge",
+                "name": "badge",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_banner_pre_lanzamiento_slides",
+                "label": "Slides",
+                "name": "slides",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "layout": "row",
+                "button_label": "Añadir slide",
+                "min": 0,
+                "max": 0,
+                "rows_per_page": 20,
+                "collapsed": "",
+                "sub_fields": [
+                  {
+                    "key": "field_armando_paredes_proyecto_banner_pre_lanzamiento_slide_imagen_fondo",
+                    "label": "Imagen de fondo",
+                    "name": "imagen_fondo",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_banner_pre_lanzamiento_slides"
+                  },
+                  {
+                    "key": "field_armando_paredes_proyecto_banner_pre_lanzamiento_slide_titulo",
+                    "label": "Título",
+                    "name": "titulo",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_banner_pre_lanzamiento_slides"
+                  },
+                  {
+                    "key": "field_armando_paredes_proyecto_banner_pre_lanzamiento_slide_descripcion",
+                    "label": "Descripción",
+                    "name": "descripcion",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0,
+                    "parent_repeater": "field_armando_paredes_proyecto_banner_pre_lanzamiento_slides"
+                  }
+                ]
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyecto_ficha_tecnica_detallada": {
+            "key": "layout_armando_paredes_proyecto_ficha_tecnica_detallada",
+            "name": "ficha_tecnica_detallada",
+            "label": "Ficha técnica detallada",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_proyecto_ficha_detallada_imagen",
+                "label": "Imagen",
+                "name": "imagen",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_ficha_detallada_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_ficha_detallada_info",
+                "label": "Información",
+                "name": "info",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "layout": "row",
+                "button_label": "Añadir ítem",
+                "min": 0,
+                "max": 0,
+                "rows_per_page": 20,
+                "collapsed": "",
+                "sub_fields": [
+                  {
+                    "key": "field_armando_paredes_proyecto_ficha_detallada_info_icono",
+                    "label": "Icono",
+                    "name": "icono",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_ficha_detallada_info"
+                  },
+                  {
+                    "key": "field_armando_paredes_proyecto_ficha_detallada_info_texto",
+                    "label": "Texto",
+                    "name": "texto",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_proyecto_ficha_detallada_info"
+                  }
+                ]
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyecto_quiero_mas_info": {
+            "key": "layout_armando_paredes_proyecto_quiero_mas_info",
+            "name": "quiero_mas_info",
+            "label": "Quiero más información",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_proyecto_quiero_mas_info_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_quiero_mas_info_formulario_id",
+                "label": "ID de formulario",
+                "name": "formulario_id",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_quiero_mas_info_imagen_fondo",
+                "label": "Imagen de fondo",
+                "name": "imagen_fondo",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_quiero_mas_info_blog_titulo",
+                "label": "Título del blog",
+                "name": "blog_titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_proyecto_quiero_mas_info_blog_boton",
+                "label": "Botón del blog",
+                "name": "blog_boton",
+                "aria-label": "",
+                "type": "link",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array"
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_6a99b6f26f3b8": {
+            "key": "layout_6a99b6f26f3b8",
+            "name": "blog",
+            "label": "Blog",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_6a99b6f26f3b9",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "allow_in_bindings": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_6a99b6f26f3bd",
+                "label": "Botón",
+                "name": "blog",
+                "aria-label": "",
+                "type": "link",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "allow_in_bindings": 1
+              }
+            ],
+            "min": "",
+            "max": ""
+          }
+        },
+        "min": 0,
+        "max": 0,
+        "button_label": "Añadir sección"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "proyectos"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Campos editables para la página interna de un proyecto.",
+    "show_in_rest": 1,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": ""
+  }
+]

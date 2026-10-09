@@ -42,7 +42,7 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
       <div className="h-60 w-full md:h-110" />
 
       <div className="mx-auto max-w-1440 px-24 md:px-80">
-        <div className="flex flex-col gap-24 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-24 md:flex-row md:items-baseline md:justify-between">
           {titulo && (
             <h2 className="m-0 font-gotham text-32 font-bold text-slate md:text-60">
               {titulo}
@@ -51,7 +51,13 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
 
           <ProjectFilters
             filters={filters}
-            className="hidden flex-wrap gap-24 md:flex"
+            className="hidden flex-wrap gap-24 md:flex md:-translate-y-[calc(8*var(--fx))]"
+            styles={{
+              className: "w-full md:w-205",
+              buttonClassName: "px-8 pb-8 pt-0 text-16 font-extralight leading-24 text-text-muted border-text",
+              optionClassName: "gap-12 text-14 text-text-muted",
+              checkboxClassName: "h-24 w-24 border-text-muted",
+            }}
           />
         </div>
 
@@ -60,10 +66,11 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
             <>
               <EmblaSlider
                 slides={filtered}
-                slidesPerView={{ base: 1, md: 2 }}
-                className="h-430 md:h-680"
+                slidesPerView={{ base: 1, md: 2.5 }}
+                slideClassName="md:!basis-[calc(499*var(--fx))]"
+                className="h-430 md:h-484"
                 renderSlide={(project) => (
-                  <div className="h-full px-0 md:px-12">
+                  <div className="h-full px-0 md:pr-15 md:[&>[data-project-card]]:h-484">
                     <ProjectCard project={project} compact />
                   </div>
                 )}

@@ -75,7 +75,7 @@ export function DeliveredCard({
           </p>
         )}
         {showButton && (
-          <span className="inline-flex h-40 w-max items-center justify-center border border-white px-20 font-gotham text-14 font-bold uppercase text-white md:h-50 md:text-16">
+          <span className="inline-flex h-40 w-max items-center justify-center border border-white px-20 font-gotham text-14 font-bold normal-case text-white transition-colors duration-300 hover:bg-white hover:text-near-black group-focus-visible:bg-white group-focus-visible:text-near-black motion-reduce:transition-none md:h-50 md:text-16">
             Ver proyecto
           </span>
         )}

@@ -40,6 +40,7 @@ export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
             filters={filters}
             className="flex flex-col gap-16 md:flex-row md:gap-24"
             styles={{
+              sentenceCase: true,
               className: "w-full md:w-180",
               buttonClassName: "h-54 pl-7 text-16 font-extralight text-warm-gray border-text md:pl-0",
             }}

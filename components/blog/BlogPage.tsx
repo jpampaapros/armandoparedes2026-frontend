@@ -25,7 +25,7 @@ export function BlogPage({
   totalPages,
 }: BlogPageProps) {
   const bannerTitle = bannerSection?.banner_title || page?.title?.rendered || "Blog";
-  const bannerDescription = bannerSection?.banner_description || "Ideas, ciudad y proyectos";
+  const bannerDescription = "Arquitectura, comunidad y más";
 
   return (
     <main className="w-full bg-white">

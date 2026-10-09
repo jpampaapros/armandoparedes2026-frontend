@@ -20,7 +20,7 @@ export function useProjectFilters(proyectos: Project[]) {
 
   const tags = useMemo(() => proyectos.map((p) => getProjectFilterTags(p)), [proyectos]);
   const distritoOptions = useMemo(() => uniqueSorted(tags.map((t) => t.distrito)), [tags]);
-  const tipoOptions = useMemo(() => uniqueSorted(tags.map((t) => t.tipo)), [tags]);
+  const tipoOptions = useMemo(() => uniqueSorted([...tags.map((t) => t.tipo), "Oficinas"]), [tags]);
 
   const filtered = useMemo(
     () =>
@@ -63,6 +63,7 @@ export function ProjectFilters({ filters, className, styles = DEFAULT_STYLES }: 
     <div className={className}>
       <FilterMultiSelect
         {...styles}
+        sentenceCase
         placeholder="Distrito"
         values={filters.distritos}
         onChange={filters.setDistritos}
@@ -70,6 +71,7 @@ export function ProjectFilters({ filters, className, styles = DEFAULT_STYLES }: 
       />
       <FilterMultiSelect
         {...styles}
+        sentenceCase
         placeholder="Tipo"
         values={filters.tipos}
         onChange={filters.setTipos}
@@ -77,6 +79,7 @@ export function ProjectFilters({ filters, className, styles = DEFAULT_STYLES }: 
       />
       <FilterMultiSelect
         {...styles}
+        sentenceCase
         placeholder="m²"
         values={filters.areas}
         onChange={filters.setAreas}

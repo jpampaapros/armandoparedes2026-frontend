@@ -63,7 +63,7 @@ export default async function Home() {
   const entregados = await getDelivered();
   const introLogo = await getIntroLogo();
   const sections = toArray(page?.acf_full?.sections);
-  const hasBanner = sections.some((section) => section.acf_fc_layout === "banner" && section.titulo?.trim());
+  const hasBanner = sections.some((section) => section.acf_fc_layout === "banner" && (section.titulo?.trim() || toArray(section.banner_titulos).some((slide) => slide.titulo?.trim())));
   const content = (
     <HomeSectionMapper
       sections={sections}

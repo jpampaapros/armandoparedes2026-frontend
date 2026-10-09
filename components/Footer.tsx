@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { faFacebookF, faInstagram, faLinkedinIn, faSpotify } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { resolveWordPressUrl, isExternalUrl } from "@/lib/urls";
@@ -35,10 +36,24 @@ function FooterLink({ item }: { item?: FooterLinkItem }) {
   if (!url) return null;
 
   const { link } = item;
-  const children = <span className="whitespace-nowrap">{link?.title || url}</span>;
+  const isClaimsBook = /reclamaciones/i.test(`${link?.title ?? ""} ${url}`);
+  const children = (
+    <>
+      {isClaimsBook && (
+        <Image
+          src="/images/libro-reclamaciones.avif"
+          alt="Libro de reclamaciones"
+          width={80}
+          height={64}
+          className="h-[calc(64*var(--fx))] w-[calc(80*var(--fx))] shrink-0 object-contain"
+        />
+      )}
+      {!isClaimsBook && <span className="whitespace-nowrap">{link?.title || url}</span>}
+    </>
+  );
 
   const className =
-    "inline-flex h-24 items-center text-18 leading-24 font-normal text-header-text no-underline transition-opacity hover:opacity-80";
+    "inline-flex min-h-24 items-center gap-8 text-18 leading-24 font-normal text-header-text no-underline transition-opacity hover:opacity-80";
 
   if (isExternalUrl(url)) {
     return (
@@ -63,7 +78,17 @@ function FooterLink({ item }: { item?: FooterLinkItem }) {
 function SocialLink({ item }: { item?: { icon?: ACFImage; link?: ACFLink } }) {
   const url = item?.link?.url;
   const iconUrl = item?.icon?.url;
-  if (!url || !iconUrl) return null;
+  if (!url) return null;
+
+  let hostname = "";
+  try { hostname = new URL(url).hostname.toLowerCase(); } catch { /* Use the CMS icon for other links. */ }
+  const matches = (domain: string) => hostname === domain || hostname.endsWith(`.${domain}`);
+  const brandIcon = matches("facebook.com") ? faFacebookF
+    : matches("instagram.com") ? faInstagram
+    : matches("linkedin.com") ? faLinkedinIn
+    : matches("spotify.com") ? faSpotify
+    : undefined;
+  if (!brandIcon && !iconUrl) return null;
 
   const { link, icon } = item;
 
@@ -73,15 +98,22 @@ function SocialLink({ item }: { item?: { icon?: ACFImage; link?: ACFLink } }) {
       target={link?.target || "_blank"}
       rel="noopener noreferrer"
       aria-label={link?.title || url}
-      className="inline-flex h-30 w-30 items-center justify-center transition-opacity hover:opacity-80"
+      className="relative inline-flex h-[calc(30*var(--fx))] w-[calc(30*var(--fx))] shrink-0 items-center justify-center overflow-hidden rounded-full border-[calc(1.5*var(--fx))] border-solid border-white text-white transition-all duration-200 delay-200 ease-linear hover:bg-white hover:text-[#212121]"
     >
-      <Image
-        src={iconUrl}
-        alt={icon?.alt || link?.title || ""}
-        width={30}
-        height={30}
-        className="h-auto w-30"
-      />
+      {brandIcon ? (
+        <svg
+          viewBox={`0 0 ${brandIcon.icon[0]} ${brandIcon.icon[1]}`}
+          className="h-[calc(16*var(--fx))] w-[calc(16*var(--fx))]"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          {(Array.isArray(brandIcon.icon[4]) ? brandIcon.icon[4] : [brandIcon.icon[4]]).map((path, index) => (
+            <path key={index} d={path} />
+          ))}
+        </svg>
+      ) : (
+        <Image src={iconUrl!} alt={icon?.alt || link?.title || ""} width={16} height={16} className="h-auto w-[calc(16*var(--fx))] invert" />
+      )}
     </a>
   );
 }

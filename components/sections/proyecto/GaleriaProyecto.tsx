@@ -60,11 +60,13 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
       timer = setTimeout(() => {
         if (api.canScrollNext()) {
           api.scrollNext();
+        } else if (tabs.length > 1) {
+          setActive((current) => (current + 1) % tabs.length);
         } else {
           api.scrollTo(0);
           scheduleNext();
         }
-      }, 3000);
+      }, 5000);
     };
     const pause = () => clearTimeout(timer);
 

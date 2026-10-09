@@ -16,6 +16,20 @@ function formatPhrase(phrase: string) {
   );
 }
 
+function formatLegalText(html: string) {
+  const termsUrl = "/terminos-y-condiciones";
+  return html.replace(/<a\b[^>]*>[\s\S]*?<\/a>|<[^>]+>|[^<]+/gi, (part) => {
+    if (/^<a\b/i.test(part)) {
+      const text = part.replace(/<[^>]+>/g, "");
+      return /\baqu[íi](?=\s|[.,;:!?)\]]|$)/i.test(text)
+        ? `<a href="${termsUrl}">${text}</a>`
+        : part;
+    }
+    if (part.startsWith("<")) return part;
+    return part.replace(/\baqu[íi](?=\s|[.,;:!?)\]]|$)/gi, (text) => `<a href="${termsUrl}">${text}</a>`);
+  });
+}
+
 function BenefitCards({ cards }: { cards: ReferidosCard[] }) {
   return (
     <div className="flex flex-col gap-12 [container-type:inline-size] md:gap-16">
@@ -114,7 +128,7 @@ export function BannerReferidos({
             {legal_text && (
               <div
                 className="referral-legal mt-16 font-poppins text-12 leading-[1.2] text-black [&_a]:font-bold [&_a]:text-black"
-                dangerouslySetInnerHTML={{ __html: legal_text }}
+                dangerouslySetInnerHTML={{ __html: formatLegalText(legal_text) }}
               />
             )}
           </div>
@@ -146,7 +160,7 @@ export function BannerReferidos({
             {legal_text && (
               <div
                 className="referral-legal mt-40 text-center font-poppins text-13 leading-[1.2] text-black [&_a]:font-bold [&_a]:text-black [&_p]:m-0"
-                dangerouslySetInnerHTML={{ __html: legal_text }}
+                dangerouslySetInnerHTML={{ __html: formatLegalText(legal_text) }}
               />
             )}
           </div>

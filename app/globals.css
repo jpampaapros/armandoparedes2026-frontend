@@ -15,6 +15,17 @@
   }
 }
 
+@media (max-width: 767px) {
+  [data-project-card][data-alternate-image] .project-card-hover-image {
+    opacity: 1;
+    scale: 1;
+  }
+
+  [data-project-card][data-alternate-image] .project-card-veil {
+    opacity: 0.7;
+  }
+}
+
 :root {
   /* Frame mobile = 414, desktop = 1440. El switch de escala ocurre en md. */
   --width-screen: 414;
@@ -30,7 +41,7 @@
   --color-bg: #f8fafc;
   --color-text: #0f172a;
   --font-system: Arial, Helvetica, sans-serif;
-  --header-height: calc(87 * var(--fx));
+  --header-height: calc(60 * var(--fx));
   --header-padding-x: calc(16 * var(--fx));
   /* El banner del home lo anima la intro (intro-banner-pad), por eso su
      padding-top vive aquí y no como utilidad suelta. */
@@ -41,7 +52,7 @@
 @media (min-width: 768px) {
   :root {
     --width-screen: 1440;
-    --header-height: calc(90 * var(--fx));
+    --header-height: calc(60 * var(--fx));
     --header-padding-x: calc(80 * var(--fx));
     --banner-padding-top: calc(185 * var(--fx));
   }
@@ -218,6 +229,7 @@ html {
 
 body {
   margin: 0;
+  background: #fff;
   padding-top: var(--header-height);
 }
 
@@ -318,20 +330,26 @@ a:-webkit-any-link {
     animation: intro-logo 2000ms ease-out forwards;
   }
 
-  /* Todo menos el titulo: header, footer, los puntos y la imagen del banner,
+  /* El footer, los puntos y la imagen del banner,
      y las secciones que siguen (el primer hijo del wrapper es el banner). */
-  body:has(.intro-start) > header,
   body:has(.intro-start) > footer,
   .intro-start > :not(:first-child),
   .intro-start [data-intro-fade] {
     opacity: 0;
   }
 
-  body:has(.intro-start[data-intro-ready]) > header,
   body:has(.intro-start[data-intro-ready]) > footer,
   .intro-start[data-intro-ready] > :not(:first-child),
   .intro-start[data-intro-ready] [data-intro-fade] {
     animation: intro-fade-in 1000ms ease-out forwards;
+  }
+
+  body:has(.intro-start) > header {
+    opacity: 0;
+  }
+
+  body:has(.intro-start[data-intro-ready]) > header {
+    animation: intro-fade-in 250ms ease-out forwards;
   }
 
 

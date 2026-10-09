@@ -76,9 +76,9 @@ export function ContactoForm({
           })}
         </nav>
 
-        <h1 className="mb-0 mt-64 text-center font-gotham text-36 font-bold leading-tight text-slate md:mt-92 md:text-60">{titulo}</h1>
+        <h1 className="mb-0 mt-24 text-center font-gotham text-36 font-bold leading-tight text-slate md:mt-40 md:text-60">{titulo}</h1>
 
-        <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-40 flex flex-col gap-16 md:mt-70 md:gap-24">
+        <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-24 flex flex-col gap-16 md:mt-40 md:gap-24">
           <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
             {[
               ["nombres", "Nombres*", "text"], ["apellido", "Apellido*", "text"],
