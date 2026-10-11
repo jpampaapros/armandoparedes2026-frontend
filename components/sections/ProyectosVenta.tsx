@@ -12,15 +12,16 @@ import type { Project } from "@/lib/types";
 type ProyectosVentaProps = {
   titulo?: string;
   proyectos: Project[];
+  dataLayout?: string;
 };
 
-export function ProyectosVenta({ titulo, proyectos }: ProyectosVentaProps) {
+export function ProyectosVenta({ titulo, proyectos, dataLayout }: ProyectosVentaProps) {
   const [emblaApi, setEmblaApi] = useState<EmblaCarouselType | null>(null);
   const mobileTitle = titulo?.match(/^(.*?)\s+(en\s+venta)$/i);
   const { filtered, filters } = useProjectFilters(proyectos);
 
   return (
-    <section className="w-full bg-white px-15 pb-35 pt-49 md:px-4 md:pb-60 md:pt-101">
+    <section data-layout={dataLayout} className="w-full bg-white px-15 pb-35 pt-49 md:px-4 md:pb-60 md:pt-101">
       <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col gap-24 md:flex-row md:items-start md:justify-between">
           {titulo && (

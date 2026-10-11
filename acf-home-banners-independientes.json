@@ -58,9 +58,16 @@
                 "key": "field_armando_paredes_home_banner_titulos",
                 "label": "Banner 1 — Títulos",
                 "name": "banner_titulos",
+                "aria-label": "",
                 "type": "repeater",
                 "instructions": "Se reproduce de forma independiente. Arrastra las filas para cambiar el orden. Si dejas esta lista vacía, se usa el contenido anterior de los bloques Banner. Completa estas listas solo en el primer bloque Banner del Home.",
                 "required": 0,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
                 "layout": "block",
                 "button_label": "Añadir título",
                 "min": 0,
@@ -95,9 +102,16 @@
                 "key": "field_armando_paredes_home_banner_imagenes",
                 "label": "Banner 2 — Imágenes",
                 "name": "banner_imagenes",
+                "aria-label": "",
                 "type": "repeater",
                 "instructions": "Se reproduce de forma independiente. Arrastra las filas para cambiar el orden. Si dejas esta lista vacía, se usa el contenido anterior de los bloques Banner. Completa estas listas solo en el primer bloque Banner del Home.",
                 "required": 0,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
                 "layout": "block",
                 "button_label": "Añadir imagen",
                 "min": 0,
@@ -1317,6 +1331,40 @@
                 "append": ""
               },
               {
+                "key": "field_armando_paredes_ficha_tecnica_color_fondo",
+                "label": "Color de fondo",
+                "name": "color_fondo",
+                "type": "color_picker",
+                "instructions": "Color de fondo de toda la Ficha técnica. Los textos de dirección, pisos, área y dormitorios se muestran siempre en negro.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "50",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "#748ca4",
+                "enable_opacity": 0,
+                "return_format": "string"
+              },
+              {
+                "key": "field_armando_paredes_ficha_tecnica_color_titulo",
+                "label": "Color del título",
+                "name": "color_titulo",
+                "type": "color_picker",
+                "instructions": "Color del título Ficha técnica. No modifica los textos de los datos ni el botón del brochure.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "50",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "#ffffff",
+                "enable_opacity": 0,
+                "return_format": "string"
+              },
+              {
                 "key": "field_armando_paredes_proyecto_ficha_direccion",
                 "label": "Dirección",
                 "name": "direccion",
@@ -1340,18 +1388,26 @@
                 "key": "field_armando_paredes_ficha_tecnica_icono_direccion",
                 "label": "Ícono de dirección",
                 "name": "icono_direccion",
+                "aria-label": "",
                 "type": "image",
                 "instructions": "Opcional. Adjunta un ícono con fondo transparente, en el color que quieras mostrar. Si lo dejas vacío, se utiliza el ícono predeterminado.",
                 "required": 0,
-                "return_format": "array",
-                "preview_size": "thumbnail",
-                "library": "all",
-                "mime_types": "png,webp,avif,jpg,jpeg",
+                "conditional_logic": false,
                 "wrapper": {
                   "width": "",
                   "class": "",
                   "id": ""
-                }
+                },
+                "return_format": "array",
+                "preview_size": "thumbnail",
+                "library": "all",
+                "mime_types": "png,webp,avif,jpg,jpeg",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0
               },
               {
                 "key": "field_armando_paredes_proyecto_ficha_pisos",
@@ -1377,18 +1433,26 @@
                 "key": "field_armando_paredes_ficha_tecnica_icono_pisos",
                 "label": "Ícono de pisos",
                 "name": "icono_pisos",
+                "aria-label": "",
                 "type": "image",
                 "instructions": "Opcional. Adjunta un ícono con fondo transparente, en el color que quieras mostrar. Si lo dejas vacío, se utiliza el ícono predeterminado.",
                 "required": 0,
-                "return_format": "array",
-                "preview_size": "thumbnail",
-                "library": "all",
-                "mime_types": "png,webp,avif,jpg,jpeg",
+                "conditional_logic": false,
                 "wrapper": {
                   "width": "",
                   "class": "",
                   "id": ""
-                }
+                },
+                "return_format": "array",
+                "preview_size": "thumbnail",
+                "library": "all",
+                "mime_types": "png,webp,avif,jpg,jpeg",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0
               },
               {
                 "key": "field_armando_paredes_proyecto_ficha_area",
@@ -1414,18 +1478,26 @@
                 "key": "field_armando_paredes_ficha_tecnica_icono_area",
                 "label": "Ícono de área",
                 "name": "icono_area",
+                "aria-label": "",
                 "type": "image",
                 "instructions": "Opcional. Adjunta un ícono con fondo transparente, en el color que quieras mostrar. Si lo dejas vacío, se utiliza el ícono predeterminado.",
                 "required": 0,
-                "return_format": "array",
-                "preview_size": "thumbnail",
-                "library": "all",
-                "mime_types": "png,webp,avif,jpg,jpeg",
+                "conditional_logic": false,
                 "wrapper": {
                   "width": "",
                   "class": "",
                   "id": ""
-                }
+                },
+                "return_format": "array",
+                "preview_size": "thumbnail",
+                "library": "all",
+                "mime_types": "png,webp,avif,jpg,jpeg",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0
               },
               {
                 "key": "field_armando_paredes_proyecto_ficha_dormitorios",
@@ -1451,18 +1523,26 @@
                 "key": "field_armando_paredes_ficha_tecnica_icono_dormitorios",
                 "label": "Ícono de dormitorios",
                 "name": "icono_dormitorios",
+                "aria-label": "",
                 "type": "image",
                 "instructions": "Opcional. Adjunta un ícono con fondo transparente, en el color que quieras mostrar. Si lo dejas vacío, se utiliza el ícono predeterminado.",
                 "required": 0,
-                "return_format": "array",
-                "preview_size": "thumbnail",
-                "library": "all",
-                "mime_types": "png,webp,avif,jpg,jpeg",
+                "conditional_logic": false,
                 "wrapper": {
                   "width": "",
                   "class": "",
                   "id": ""
-                }
+                },
+                "return_format": "array",
+                "preview_size": "thumbnail",
+                "library": "all",
+                "mime_types": "png,webp,avif,jpg,jpeg",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0
               },
               {
                 "key": "field_armando_paredes_proyecto_ficha_brochure",
@@ -1494,9 +1574,16 @@
                 "key": "field_armando_paredes_proyecto_video_desactivar_seccion",
                 "label": "Desactivar sección",
                 "name": "desactivar_seccion",
+                "aria-label": "",
                 "type": "true_false",
                 "instructions": "Activa esta opción para ocultar toda la sección sin borrar su contenido.",
                 "required": 0,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
                 "default_value": 0,
                 "ui": 1,
                 "ui_on_text": "Oculta",

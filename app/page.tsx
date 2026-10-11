@@ -1,6 +1,7 @@
 import { createWordPressRestClient } from "@/lib/wordpress-rest-client";
 import { HomeSectionMapper } from "@/components/sections/HomeSectionMapper";
 import { HomeIntro } from "@/components/HomeIntro";
+import { FloatingButtons } from "@/components/FloatingButtons";
 import { getHeaderData } from "@/components/Header";
 import type { HomeSection, Project, Delivered, WordPressPage } from "@/lib/types";
 import { toArray } from "@/lib/utils";
@@ -79,6 +80,7 @@ export default async function Home() {
           {content}
         </HomeIntro>
       ) : content}
+      <FloatingButtons whatsapp="51952279852" showAfterScroll />
     </main>
   );
 }

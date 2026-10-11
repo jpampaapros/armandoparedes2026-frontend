@@ -71,6 +71,8 @@ export function ProjectSectionMapper({ sections, proyectos, lead, presupuestos }
                 area={section.area}
                 dormitorios={section.dormitorios}
                 brochure={section.brochure}
+                color_fondo={section.color_fondo}
+                color_titulo={section.color_titulo}
                 icono_direccion={section.icono_direccion}
                 icono_pisos={section.icono_pisos}
                 icono_area={section.icono_area}

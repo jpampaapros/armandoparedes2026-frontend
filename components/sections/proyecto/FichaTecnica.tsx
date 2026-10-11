@@ -8,6 +8,8 @@ import type { ACFLink, ACFImage } from "@/lib/types";
 
 type FichaTecnicaProps = {
   titulo?: string;
+  color_fondo?: string;
+  color_titulo?: string;
   direccion?: string;
   pisos?: string;
   area?: string;
@@ -19,12 +21,12 @@ type FichaTecnicaProps = {
   icono_dormitorios?: ACFImage;
 };
 
-export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, brochure, icono_direccion, icono_pisos, icono_area, icono_dormitorios }: FichaTecnicaProps) {
+export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, brochure, icono_direccion, icono_pisos, icono_area, icono_dormitorios, color_fondo, color_titulo }: FichaTecnicaProps) {
   return (
-    <section data-layout="ficha_tecnica" className="w-full bg-slate">
+    <section data-layout="ficha_tecnica" className="w-full bg-slate" style={{ backgroundColor: color_fondo || undefined }}>
       <div className="mx-auto max-w-1440 px-24 pt-90 pb-80 md:px-80 md:pt-90 md:pb-80">
         {titulo && (
-          <h2 className="m-0 text-center font-gotham text-32 font-bold leading-[1.2] text-white md:text-60 md:leading-66">
+          <h2 style={{ color: color_titulo || undefined }} className="m-0 text-center font-gotham text-32 font-bold leading-[1.2] text-white md:text-60 md:leading-66">
             {titulo.replace(/ficha\s+técnica/gi, "Ficha técnica")}
           </h2>
         )}
@@ -37,7 +39,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
                 ) : (
                   <LocationIcon className="h-32 w-32 text-white md:h-40 md:w-40" />
                 )}
-              <span className="font-poppins text-18 text-white md:text-24">
+              <span className="font-poppins text-18 text-black md:text-24">
                 {direccion}
               </span>
             </div>
@@ -53,7 +55,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
                 ) : (
                   <BuildingIcon className="h-28 w-28 text-white md:h-30 md:w-30" />
                 )}
-                <span className="font-poppins text-18 text-white md:text-24">
+                <span className="font-poppins text-18 text-black md:text-24">
                   {pisos} pisos
                 </span>
               </div>
@@ -65,7 +67,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
                 ) : (
                   <AreaIcon className="h-28 w-28 shrink-0 text-white md:h-36 md:w-36" />
                 )}
-                <span className="font-poppins text-18 text-white md:text-24">
+                <span className="font-poppins text-18 text-black md:text-24">
                   {area} m²
                 </span>
               </div>
@@ -77,7 +79,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
                 ) : (
                   <BedIcon className="h-28 w-28 text-white md:h-36 md:w-36" />
                 )}
-                <span className="font-poppins text-18 text-white md:text-24">
+                <span className="font-poppins text-18 text-black md:text-24">
                   {dormitorios} dormitorios
                 </span>
               </div>
