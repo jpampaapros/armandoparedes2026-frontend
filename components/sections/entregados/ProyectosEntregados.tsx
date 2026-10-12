@@ -46,7 +46,7 @@ export function ProyectosEntregados({
           </h2>
         )}
 
-        <div className="relative mt-62 min-w-0 md:mt-60">
+        <div className="relative mt-0 min-w-0 md:mt-60">
           <div className="absolute bottom-0 left-5 top-60 w-[2px] bg-[#748CA4] md:left-auto md:right-5 md:top-0 md:w-px md:bg-slate" />
           {grouped.map(([year, projects]) => {
             const hasSingleProject = projects.length === 1;
@@ -61,15 +61,15 @@ export function ProyectosEntregados({
                     slides={projects}
                     slidesPerView={{ base: 1, md: hasSingleProject ? 1 : 2 }}
                     gap={20}
-                    viewportClassName="max-md:[&>div]:!-ml-16"
-                    slideClassName="max-md:!basis-316 max-md:!pl-16"
+                    viewportClassName={hasSingleProject
+                      ? "max-md:[&>div]:!ml-0"
+                      : "max-md:[&>div]:!-ml-16"}
+                    slideClassName={hasSingleProject
+                      ? "max-md:!basis-[calc(100%-16*var(--fx))] max-md:!pl-0"
+                      : "max-md:!basis-316 max-md:!pl-16"}
                     loop={projects.length > 1}
                     draggable={projects.length > 1}
-                    showArrows={
-                      projects.length > 1
-                        ? { mobile: true, desktop: true }
-                        : false
-                    }
+                    showArrows={projects.length > 2}
                     arrowButtonClassName="h-50 w-50 cursor-pointer rounded-none border-none bg-slate p-0 transition-opacity hover:opacity-80"
                     previousArrowClassName="left-10 sm:left-16 md:-left-25"
                     nextArrowClassName="right-10 sm:right-16 md:-right-25"

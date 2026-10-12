@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 type FloatingButtonsProps = {
   whatsapp?: string;
+  showAfterScroll?: boolean;
 };
 
 function buildWhatsAppUrl(value: string): string {
@@ -16,10 +17,23 @@ function buildWhatsAppUrl(value: string): string {
   return `https://wa.me/${digits}`;
 }
 
-export function FloatingButtons({ whatsapp }: FloatingButtonsProps) {
+export function FloatingButtons({ whatsapp, showAfterScroll = false }: FloatingButtonsProps) {
   const [dismissed, setDismissed] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
-  if (!whatsapp?.trim() || dismissed) return null;
+  useEffect(() => {
+    if (!showAfterScroll) return;
+    const revealOnScroll = () => {
+      if (window.scrollY < 80) return;
+      setHasScrolled(true);
+      window.removeEventListener("scroll", revealOnScroll);
+    };
+    window.addEventListener("scroll", revealOnScroll, { passive: true });
+    revealOnScroll();
+    return () => window.removeEventListener("scroll", revealOnScroll);
+  }, [showAfterScroll]);
+
+  if (!whatsapp?.trim() || dismissed || (showAfterScroll && !hasScrolled)) return null;
 
   return (
     <div

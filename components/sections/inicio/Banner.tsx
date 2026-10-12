@@ -1,14 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import Autoplay from "embla-carousel-autoplay";
+import { EmblaSlider } from "@/components/EmblaSlider";
 import type { HomeBannerSlide } from "@/lib/types";
 import { TypewriterTitle } from "./TypewriterTitle";
 
 const TYPEWRITER_COMPLETE_EVENT = "home-typewriter-complete";
 
 type BannerProps = {
-  slides: HomeBannerSlide[];
+  titleSlides: HomeBannerSlide[];
+  imageSlides: HomeBannerSlide[];
 };
 
 function processTitle(html?: string) {
@@ -18,8 +21,11 @@ function processTitle(html?: string) {
     .replace(/<\/strong>/gi, "</span>");
 }
 
-export function Banner({ slides }: BannerProps) {
-  const validSlides = slides.filter((slide) => slide.titulo || slide.imagen?.url);
+export function Banner({ titleSlides, imageSlides }: BannerProps) {
+  const validSlides = titleSlides.filter((slide) => slide.titulo?.trim());
+  const images = imageSlides.flatMap((slide) => slide.imagen?.url ? [slide.imagen] : []);
+  const autoplay = useMemo(() => Autoplay({ delay: 5000, stopOnInteraction: false, playOnInit: false }), []);
+  const imagePlugins = useMemo(() => [autoplay], [autoplay]);
   const [activeIndex, setActiveIndex] = useState(0);
   const progressRef = useRef<HTMLSpanElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
@@ -43,6 +49,7 @@ export function Banner({ slides }: BannerProps) {
       if (!textReady || !inView || started) return;
       started = true;
       animation.play();
+      if (images.length > 1) autoplay.play();
       observer.disconnect();
     };
     const onTextReady = () => {
@@ -60,8 +67,9 @@ export function Banner({ slides }: BannerProps) {
       observer.disconnect();
       window.removeEventListener("home-typewriter-revealed", onTextReady);
       animation.cancel();
+      autoplay.stop();
     };
-  }, [activeSlide?.imagen?.url]);
+  }, [autoplay, images.length]);
 
   useEffect(() => {
     const updateProgress = (event: Event) => {
@@ -87,7 +95,7 @@ export function Banner({ slides }: BannerProps) {
     return () => window.removeEventListener(TYPEWRITER_COMPLETE_EVENT, advanceSlide);
   }, [validSlides.length]);
 
-  if (!activeSlide) return null;
+  if (!activeSlide && images.length === 0) return null;
 
   return (
     <section
@@ -98,11 +106,11 @@ export function Banner({ slides }: BannerProps) {
         data-intro-hero
         className="mx-auto flex w-full max-w-382 flex-col justify-center px-4 text-center md:max-w-760 md:px-0 [&_p]:m-0"
       >
-        <TypewriterTitle
+        {activeSlide && <TypewriterTitle
           key={activeIndex}
           className="font-gotham font-light text-36 leading-[1.11] text-black md:text-80 md:leading-[1.14]"
           html={processTitle(activeSlide.titulo)}
-        />
+        />}
       </div>
 
       <div data-intro-fade className="mt-57 flex gap-3 md:mt-153">
@@ -130,17 +138,22 @@ export function Banner({ slides }: BannerProps) {
         ))}
       </div>
 
-      {activeSlide.imagen?.url && (
+      {images.length > 0 && (
         <div data-intro-fade className="relative mt-61 min-h-0 w-full flex-1 md:mt-34 md:h-817 md:flex-none">
           <div ref={imageRef} className="absolute inset-0">
-            <Image
-              key={activeSlide.imagen.url}
-              src={activeSlide.imagen.url}
-              alt={activeSlide.imagen.alt || ""}
-              fill
-              className="object-cover"
-              sizes="100vw"
-              priority
+            <EmblaSlider
+              slides={images}
+              plugins={imagePlugins}
+              showArrows={false}
+              showBullets={images.length > 1}
+              onApiReady={() => {
+                if ((!imageRef.current?.closest(".intro-start") || window.matchMedia("(prefers-reduced-motion: reduce)").matches) && images.length > 1) autoplay.play();
+              }}
+              renderSlide={(image, index) => (
+                <div className="relative h-full w-full">
+                  <Image src={image.url!} alt={image.alt || ""} fill className="object-cover" sizes="100vw" priority={index === 0} />
+                </div>
+              )}
             />
           </div>
         </div>

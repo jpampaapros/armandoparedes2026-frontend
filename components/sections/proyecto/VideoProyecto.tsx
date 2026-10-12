@@ -1,11 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import type { ACFImage } from "@/lib/types";
 
 type VideoProyectoProps = {
   titulo?: string;
   imagen_previa?: ACFImage;
   url_youtube?: string;
+  desactivar_seccion?: boolean;
 };
 
 function getYouTubeId(url = ""): string | null {
@@ -22,7 +24,8 @@ function getPlainText(html = "") {
   return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
 
-export function VideoProyecto({ titulo, url_youtube }: VideoProyectoProps) {
+export function VideoProyecto({ titulo, url_youtube, imagen_previa, desactivar_seccion }: VideoProyectoProps) {
+  if (desactivar_seccion) return null;
   const videoId = getYouTubeId(url_youtube || "");
   const plainTitle = getPlainText(titulo);
 
@@ -38,6 +41,14 @@ export function VideoProyecto({ titulo, url_youtube }: VideoProyectoProps) {
           className="absolute inset-0 h-full w-full border-0"
           allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
           allowFullScreen
+        />
+      ) : imagen_previa?.url ? (
+        <Image
+          src={imagen_previa.url}
+          alt={imagen_previa.alt || plainTitle || ""}
+          fill
+          sizes="100vw"
+          className="object-cover"
         />
       ) : (
         <div className="h-full w-full bg-neutral-800" />

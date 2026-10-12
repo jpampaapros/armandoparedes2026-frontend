@@ -35,7 +35,12 @@ export function HomeSectionMapper({
             return (
               <Banner
                 key={`${section.acf_fc_layout}-${index}`}
-                slides={bannerSections}
+                titleSlides={bannerSections.some((banner) => toArray(banner.banner_titulos).length > 0)
+                  ? bannerSections.flatMap((banner) => toArray(banner.banner_titulos))
+                  : bannerSections}
+                imageSlides={bannerSections.some((banner) => toArray(banner.banner_imagenes).length > 0)
+                  ? bannerSections.flatMap((banner) => toArray(banner.banner_imagenes))
+                  : bannerSections}
               />
             );
           case "espacios":

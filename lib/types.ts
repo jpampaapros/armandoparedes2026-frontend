@@ -63,7 +63,7 @@ export type HomeBannerSlide = {
 };
 
 export type HomeSection =
-  | { acf_fc_layout: "banner"; titulo?: string; imagen?: ACFImage }
+  | { acf_fc_layout: "banner"; titulo?: string; imagen?: ACFImage; banner_titulos?: ACFList<{ titulo?: string }>; banner_imagenes?: ACFList<{ imagen?: ACFImage }> }
   | { acf_fc_layout: "espacios"; titulo?: string; subtitulo?: string; indicadores?: ACFList<ACFIndicator> }
   | { acf_fc_layout: "proyectos_venta"; titulo?: string; post?: ACFList<ACFPostObject> }
   | { acf_fc_layout: "quien_es_armando"; titulo?: string; imagen_fondo?: ACFImage; descripcion?: string; boton?: ACFLink }
@@ -161,9 +161,9 @@ export type ProjectCotizador = {
 export type ProjectSection =
   | { acf_fc_layout: "banner_proyecto"; badge?: string; distrito?: string; logo?: ACFImage; slides?: ACFList<ProjectSlide> }
   | { acf_fc_layout: "descripcion_proyecto"; titulo?: string; descripcion?: string; imagen?: ACFImage; cambiar_lado?: boolean }
-  | { acf_fc_layout: "ficha_tecnica"; titulo?: string; direccion?: string; pisos?: string; area?: string; dormitorios?: string; brochure?: ACFLink }
+  | { acf_fc_layout: "ficha_tecnica"; titulo?: string; color_fondo?: string; color_titulo?: string; direccion?: string; pisos?: string; area?: string; dormitorios?: string; brochure?: ACFLink; icono_direccion?: ACFImage; icono_pisos?: ACFImage; icono_area?: ACFImage; icono_dormitorios?: ACFImage }
   | { acf_fc_layout: "ficha_tecnica_detallada"; imagen?: ACFImage; titulo?: string; info?: ACFList<{ icono?: ACFImage; texto?: string }> }
-  | { acf_fc_layout: "video"; titulo?: string; imagen_previa?: ACFImage; url_youtube?: string }
+  | { acf_fc_layout: "video"; titulo?: string; imagen_previa?: ACFImage; url_youtube?: string; desactivar_seccion?: boolean }
   | { acf_fc_layout: "galeria"; titulo?: string; descripcion?: string; tabs?: ACFList<ProjectGaleriaTab> }
   | { acf_fc_layout: "planos"; titulo?: string; dormitorios?: ACFList<ProjectDormitorio>; boton_mas_planos?: ACFLink; texto_adicional?: string; leyenda?: ACFList<ProjectLeyendaItem> }
   | { acf_fc_layout: "mapa"; titulo?: string; google_maps?: string; imagen?: ACFImage; latitud?: number | string; longitud?: number | string; ubicaciones?: ACFList<ProjectMapaUbicacion> }

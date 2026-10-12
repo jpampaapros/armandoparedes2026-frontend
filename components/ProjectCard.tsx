@@ -72,6 +72,8 @@ export function ProjectCard({
   mobileDescriptionSemibold?: boolean;
   saleCarousel?: boolean;
 }) {
+  const sliderCard = compact || saleCarousel;
+  const [showAlternateImage, setShowAlternateImage] = useState(false);
   const image = project._embedded?.["wp:featuredmedia"]?.[0];
   const distrito = project._embedded?.["wp:term"]
     ?.flat()
@@ -80,6 +82,7 @@ export function ProjectCard({
   return (
     <article
       data-project-card
+      data-alternate-image={showAlternateImage || undefined}
       className={`group relative flex w-full min-w-0 flex-col overflow-hidden bg-black ${
         saleCarousel ? "h-465 md:w-474 md:h-641" : compact ? "h-430 md:max-w-630 md:h-680" : "h-465 md:max-w-630 md:h-825 md:max-lap:h-640"
       }`}
@@ -104,8 +107,18 @@ export function ProjectCard({
           foto. Va después de las dos imágenes para cubrir también la de hover. */}
       <div className="project-card-veil pointer-events-none absolute inset-0 transition-opacity duration-500 ease-out motion-reduce:transition-none bg-gradient-to-t from-black/85 via-black/55 via-40% to-transparent to-85%" />
 
+      {project.acf.general_imagen_hover && (
+        <button
+          type="button"
+          aria-label="Cambiar imagen del proyecto"
+          aria-pressed={showAlternateImage}
+          onClick={() => setShowAlternateImage((visible) => !visible)}
+          className="absolute inset-0 z-0 cursor-pointer border-0 bg-transparent p-0 md:hidden"
+        />
+      )}
+
       {distrito && (
-        <div className="absolute right-16 top-16 z-10 bg-white px-10 py-6 md:right-20 md:top-61 md:py-8">
+        <div className={`absolute right-16 top-16 z-10 bg-white ${sliderCard ? "px-24" : "px-10"} py-6 md:right-20 md:top-61 md:py-8`}>
           <span className="font-poppins text-16 font-medium leading-18 text-near-black md:text-24 md:leading-24">
             {distrito.name}
           </span>
@@ -114,12 +127,12 @@ export function ProjectCard({
 
       <div className="relative z-10 mt-auto flex flex-col gap-16 p-24 md:p-54">
         <div className="flex flex-col">
-          <h3 className="mb-20 font-gotham text-26 font-bold uppercase leading-33 text-white md:text-36">
+          <h3 className={`mb-20 font-gotham text-26 font-bold uppercase leading-33 text-white ${sliderCard ? "md:text-25" : "md:text-36"}`}>
             {project.title.rendered}
           </h3>
           <hr className="my-0 h-px w-full border-0 bg-white" />
         </div>
-        <div className={`font-poppins text-16 leading-20 text-white md:text-24 md:leading-30 [&_p]:my-0 ${mobileDescriptionSemibold ? "[&_p]:font-semibold md:[&_p]:font-light" : "[&_p]:font-light"}`}
+        <div className={`font-poppins text-16 leading-20 text-white ${sliderCard ? "md:text-18 md:leading-26" : "md:text-24 md:leading-30"} [&_p]:my-0 ${mobileDescriptionSemibold ? "[&_p]:font-semibold md:[&_p]:font-light" : "[&_p]:font-light"}`}
           dangerouslySetInnerHTML={{ __html: project.acf.descripcion || "" }}
         />
         <SmartLink
@@ -128,7 +141,7 @@ export function ProjectCard({
             url: `/proyectos/${project.slug}`,
             target: "",
           }}
-          className="inline-flex h-50 w-full items-center justify-center border border-white px-10 font-poppins text-16 font-semibold text-white transition-colors duration-500 ease-out hover:text-card-dark hover:bg-white group-hover:text-card-dark group-hover:bg-white motion-reduce:transition-none md:w-250 md:text-18"
+          className={`inline-flex h-50 w-full items-center justify-center border border-white px-10 font-poppins text-16 font-semibold text-white transition-colors duration-500 ease-out hover:text-card-dark hover:bg-white group-hover:text-card-dark group-hover:bg-white motion-reduce:transition-none md:w-250 ${sliderCard ? "md:text-16" : "md:text-18"}`}
         >
           Ver proyecto
         </SmartLink>

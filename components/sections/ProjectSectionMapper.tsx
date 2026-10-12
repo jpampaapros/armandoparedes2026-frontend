@@ -71,6 +71,12 @@ export function ProjectSectionMapper({ sections, proyectos, lead, presupuestos }
                 area={section.area}
                 dormitorios={section.dormitorios}
                 brochure={section.brochure}
+                color_fondo={section.color_fondo}
+                color_titulo={section.color_titulo}
+                icono_direccion={section.icono_direccion}
+                icono_pisos={section.icono_pisos}
+                icono_area={section.icono_area}
+                icono_dormitorios={section.icono_dormitorios}
               />
             );
           case "ficha_tecnica_detallada":
@@ -89,6 +95,7 @@ export function ProjectSectionMapper({ sections, proyectos, lead, presupuestos }
                 titulo={section.titulo}
                 imagen_previa={section.imagen_previa}
                 url_youtube={section.url_youtube}
+                desactivar_seccion={section.desactivar_seccion}
               />
             );
           case "galeria":

@@ -172,11 +172,10 @@ export function BlogSlider({ titulo, boton, posts, variant = "dark" }: BlogSlide
               className="w-[calc(100%+16*var(--fx))] md:w-[calc(100%+80*var(--fx)+(100vw-1440*var(--fx))/2)]"
               slides={slides}
               // Mobile: slide de 306 = card de 281 + 25, la siguiente asoma.
-              // Desktop: 2 cards completas que llenan hasta el borde de la
-              // pantalla; el gap va como padding izquierdo compensado, así la
-              // segunda card queda pegada al borde sin espacio sobrante.
+              // Desktop: card de 550 × 396 y separación de 16, con escala dinámica.
               slidesPerView={{ base: 1, md: 2 }}
-              slideClassName="max-md:!basis-306"
+              viewportClassName="md:[&>div]:!-ml-16"
+              slideClassName="max-md:!basis-306 md:!basis-[calc(566*var(--fx))] md:!pl-16"
               slidesToScroll={1}
               gap={isDesktop ? 16 : 25}
               loop
