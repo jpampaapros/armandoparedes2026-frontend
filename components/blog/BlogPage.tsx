@@ -33,11 +33,11 @@ export function BlogPage({
         <div className="mx-auto max-w-1440 px-16 pt-32 md:px-80 md:pt-50">
           <div className="flex flex-col gap-16 md:flex-row md:items-start md:justify-between">
             <div>
-              <h1 className="font-gotham text-36 font-bold leading-[1.1] text-slate md:text-60">
+              <h1 className="font-gotham text-42 font-bold leading-[1.1] text-slate md:text-60">
                 {bannerTitle}
               </h1>
               <div
-                className="mt-8 font-poppins text-16 font-semibold leading-24 text-near-black md:text-24"
+                className="mt-8 font-poppins text-16 font-normal md:font-semibold leading-24 text-near-black md:text-24"
                 dangerouslySetInnerHTML={{ __html: bannerDescription }}
               />
             </div>

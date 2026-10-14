@@ -76,7 +76,7 @@ export function BlogCategoryFilter({ categories }: BlogCategoryFilterProps) {
   }
 
   return (
-    <div ref={ref} className="relative w-full md:w-326">
+    <div ref={ref} className="relative w-full md:w-326 hidden md:block">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}

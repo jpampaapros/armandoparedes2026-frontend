@@ -71,7 +71,7 @@ function BlogCard({ post }: { post: WPPost }) {
             sizes="(max-width: 768px) 80vw, 25vw"
           />
           {category && (
-            <span className="absolute left-16 top-16 bg-white px-12 py-6 font-poppins text-14 font-medium not-italic leading-normal text-black md:bottom-16 md:left-0 md:top-auto md:px-16 md:py-8 md:text-14 md:font-normal md:leading-18 md:text-near-black">
+            <span className="absolute left-0 top-0 bg-white px-12 py-6 font-poppins text-14 font-medium not-italic leading-normal text-black md:bottom-16 md:left-0 md:top-auto md:px-16 md:py-8 md:text-14 md:font-normal md:leading-18 md:text-near-black">
               {category}
             </span>
           )}
