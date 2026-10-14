@@ -14,7 +14,7 @@ export function DeliveredCard({
   mobileYear24 = false,
 }: {
   project: Delivered;
-  size?: "large" | "small";
+  size?: "large" | "medium" | "small";
   priority?: boolean;
   showYear?: boolean;
   showButton?: boolean;
@@ -26,13 +26,19 @@ export function DeliveredCard({
 
   const titleClass = isLarge
     ? "text-20 md:text-36"
-    : "text-20 md:text-16";
+    : size === "medium"
+      ? "text-20 md:text-26"
+      : "text-20 md:text-16";
   const metaClass = isLarge
     ? "text-16 md:text-24"
-    : "text-16 md:text-16";
+    : size === "medium"
+      ? "text-16 md:text-20"
+      : "text-16 md:text-16";
   const paddingClass = isLarge
     ? "p-16 md:p-54"
-    : "p-16 md:p-20";
+    : size === "medium"
+      ? "p-16 md:p-30"
+      : "p-16 md:p-20";
   const yearClass = mobileYear24
     ? isLarge
       ? "text-24 md:text-24"

@@ -16,7 +16,7 @@ export function BannerEntregadosPage({
   return (
     <section
       data-section="banner-entregados-page"
-      className="relative flex h-500 w-full items-center justify-center overflow-hidden bg-near-black md:h-600"
+      className="relative flex h-344 w-full items-center justify-center overflow-hidden bg-near-black md:h-600"
     >
       {imagen?.url && (
         <Image

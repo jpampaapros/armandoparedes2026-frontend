@@ -1,6 +1,5 @@
 "use client";
 
-import { EmblaSlider } from "@/components/EmblaSlider";
 import { DeliveredCard } from "@/components/DeliveredCard";
 import type { Delivered } from "@/lib/types";
 
@@ -37,7 +36,7 @@ export function ProyectosEntregados({
   return (
     <section
       data-section="proyectos_entregados"
-      className="w-full bg-white pl-4 pr-0 pt-24 pb-67 md:pr-4 md:pt-40"
+      className="w-full bg-white pl-4 pr-16 pt-24 pb-67 md:pr-4 md:pt-40"
     >
       <div className="mx-auto max-w-1440 pl-12 pr-0 md:px-80">
         {titulo && (
@@ -46,58 +45,57 @@ export function ProyectosEntregados({
           </h2>
         )}
 
-        <div className="relative mt-0 min-w-0 md:mt-60">
-          <div className="absolute bottom-0 left-5 top-60 w-[2px] bg-[#748CA4] md:left-auto md:right-5 md:top-0 md:w-px md:bg-slate" />
-          {grouped.map(([year, projects]) => {
-            const hasSingleProject = projects.length === 1;
-
-            return (
-              <div
-                key={year}
-                className={`relative mb-6 md:mb-66 last:mb-0 grid min-w-0 grid-cols-[auto_minmax(0,1fr)] gap-20 pr-0 pt-60 md:last:mb-0 md:grid-cols-[minmax(0,1fr)_auto] md:gap-40 md:pt-0`}
-              >
-                <div className="order-2 h-352 min-w-0 max-md:[&_[data-card=entregado]_span]:normal-case md:order-1 md:h-582">
-                  <EmblaSlider
-                    slides={projects}
-                    slidesPerView={{ base: 1, md: hasSingleProject ? 1 : 2 }}
-                    gap={20}
-                    viewportClassName={hasSingleProject
-                      ? "max-md:[&>div]:!ml-0"
-                      : "max-md:[&>div]:!-ml-16"}
-                    slideClassName={hasSingleProject
-                      ? "max-md:!basis-[calc(100%-16*var(--fx))] max-md:!pl-0"
-                      : "max-md:!basis-316 max-md:!pl-16"}
-                    loop={projects.length > 1}
-                    draggable={projects.length > 1}
-                    showArrows={projects.length > 2}
-                    arrowButtonClassName="h-50 w-50 cursor-pointer rounded-none border-none bg-slate p-0 transition-opacity hover:opacity-80"
-                    previousArrowClassName="left-10 sm:left-16 md:-left-25"
-                    nextArrowClassName="right-10 sm:right-16 md:-right-25"
-                    arrowChevronClassName="h-28 w-28"
-                    renderSlide={(project) => (
-                      <div className="h-full w-full">
-                        <DeliveredCard
-                          project={project}
-                          size="large"
-                          showButton
-                          showYear={false}
-                          distrito={project.acf.distrito}
-                        />
-                      </div>
-                    )}
+        <div className="mt-60 hidden grid-cols-4 gap-x-24 gap-y-60 md:grid">
+          {grouped.flatMap(([year, projects]) =>
+            projects.map((project, index) => (
+              <div key={project.id} className="flex min-w-0 flex-col gap-24">
+                <span className="h-24 font-gotham text-24 font-bold leading-none text-near-black">
+                  {index === 0 ? year : null}
+                </span>
+                <div className="aspect-square w-full">
+                  <DeliveredCard
+                    project={project}
+                    size="medium"
+                    showButton
+                    showYear={false}
+                    distrito={project.acf.distrito}
                   />
                 </div>
-                <div className="relative order-1 flex min-w-10 justify-start md:order-2 md:min-w-90 md:justify-end">
-                  <div className="relative flex h-fit items-center gap-14">
-                    <span className="absolute left-12 -top-36 whitespace-nowrap font-gotham text-20 font-medium leading-none text-near-black md:static">
-                      {year}
-                    </span>
-                    <div className="relative z-10 h-[14px] w-[14px] shrink-0 rounded-full bg-slate [outline:calc(3*var(--fx))_solid_white] max-md:absolute max-md:top-0 max-md:left-[calc(5*var(--fx)+1px)] max-md:-translate-x-1/2 md:h-10 md:w-10" />
+              </div>
+            ))
+          )}
+        </div>
+
+        <div className="relative min-w-0 md:hidden">
+          <div className="absolute bottom-0 left-5 top-60 w-[2px] bg-[#748CA4]" />
+          {grouped.map(([year, projects]) => (
+            <div
+              key={year}
+              className="relative mb-6 grid min-w-0 grid-cols-[auto_minmax(0,1fr)] gap-20 pt-60 last:mb-0"
+            >
+              <div className="order-2 flex min-w-0 flex-col gap-20">
+                {projects.map((project) => (
+                  <div key={project.id} className="h-352 w-full">
+                    <DeliveredCard
+                      project={project}
+                      size="large"
+                      showButton
+                      showYear={false}
+                      distrito={project.acf.distrito}
+                    />
                   </div>
+                ))}
+              </div>
+              <div className="relative order-1 flex min-w-10 justify-start">
+                <div className="relative flex h-fit items-center gap-14">
+                  <span className="absolute left-12 -top-36 whitespace-nowrap font-gotham text-20 font-medium leading-none text-near-black">
+                    {year}
+                  </span>
+                  <div className="absolute left-[calc(5*var(--fx)+1px)] top-0 z-10 h-[14px] w-[14px] shrink-0 -translate-x-1/2 rounded-full bg-slate [outline:calc(3*var(--fx))_solid_white]" />
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </section>
