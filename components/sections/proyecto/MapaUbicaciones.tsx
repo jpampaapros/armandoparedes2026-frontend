@@ -191,6 +191,8 @@ export function MapaUbicaciones({ apiKey, puntos, titulo }: MapaUbicacionesProps
           {proyecto && <AnillosProyecto centro={proyecto} />}
           {puntos.map((punto, i) => {
             const activo = mismoPunto(seleccion, punto);
+            // Con una ubicación elegida solo quedan ella y el proyecto; "Ver todos" las vuelve a mostrar.
+            if (seleccion && !punto.principal && !activo) return null;
             return (
               <AdvancedMarker
                 key={i}
