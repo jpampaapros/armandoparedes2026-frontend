@@ -88,7 +88,7 @@ export function ProyectosEntregados({
               </div>
               <div className="relative order-1 flex min-w-10 justify-start">
                 <div className="relative flex h-fit items-center gap-14">
-                  <span className="absolute left-12 -top-36 whitespace-nowrap font-gotham text-20 font-medium leading-none text-near-black">
+                  <span className="absolute -top-36 whitespace-nowrap font-gotham text-20 font-medium leading-none text-near-black">
                     {year}
                   </span>
                   <div className="absolute left-[calc(5*var(--fx)+1px)] top-0 z-10 h-[14px] w-[14px] shrink-0 -translate-x-1/2 rounded-full bg-slate [outline:calc(3*var(--fx))_solid_white]" />
