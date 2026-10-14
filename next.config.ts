@@ -22,6 +22,11 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns,
   },
+  async redirects() {
+    return [
+      { source: "/politicas-de-privacidad", destination: "/politica-de-privacidad", permanent: true },
+    ];
+  },
   // Los archivos subidos al CMS (brochures, PDFs) se sirven bajo el dominio del frontend:
   // resolveWordPressUrl convierte sus URLs en rutas relativas y aquí se reenvían al CMS.
   async rewrites() {

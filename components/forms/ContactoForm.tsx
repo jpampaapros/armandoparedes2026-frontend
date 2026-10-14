@@ -107,8 +107,8 @@ export function ContactoForm({
           </div>
 
           <div className="mt-8 flex flex-col gap-14">
-            <Consent name="terminos" required control={control}>He leído y acepto las <Link href="/politicas-de-privacidad" className="form-legal-link">Políticas de Privacidad</Link>.</Consent>
-            <Consent name="marketing" control={control}>Autorizo a Armando Paredes para que realice las actividades de prospección comercial y marketing descritas en las <Link href="/politicas-de-privacidad" className="form-legal-link">Políticas de Privacidad</Link>.</Consent>
+            <Consent name="terminos" required control={control}>He leído y acepto las <Link href="/politica-de-privacidad" className="form-legal-link">Políticas de Privacidad</Link>.</Consent>
+            <Consent name="marketing" control={control}>Autorizo a Armando Paredes para que realice las actividades de prospección comercial y marketing descritas en las <Link href="/politica-de-privacidad" className="form-legal-link">Políticas de Privacidad</Link>.</Consent>
           </div>
 
           <button type="submit" disabled={isPending || !isClient} className="mx-auto mt-30 flex h-50 w-full items-center justify-center bg-slate font-gotham text-16 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50 md:w-511 md:text-18">

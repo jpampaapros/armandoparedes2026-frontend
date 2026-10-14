@@ -371,7 +371,7 @@ export function ModalLeadForm({
                 <span className="pt-2 font-poppins text-10 font-normal not-italic leading-[normal] text-near-black">
                   Acepto las{" "}
                   <a
-                    href="/politicas-de-privacidad"
+                    href="/politica-de-privacidad"
                     className="form-legal-link modal-form-legal-link"
                   >
                     Políticas de Privacidad
