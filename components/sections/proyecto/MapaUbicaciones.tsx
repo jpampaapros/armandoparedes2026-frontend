@@ -140,12 +140,33 @@ function CentrarSeleccion() {
   return null;
 }
 
+type Vista = { defaultCenter: LatLng; defaultZoom: number } | { defaultBounds: ReturnType<typeof getBounds> };
+
+/** "Ver todos": vuelve a la vista con la que arrancó el mapa. */
+function ReiniciarVista({ vista }: { vista: Vista }) {
+  const map = useMap();
+  const { reinicio } = useMapaSeleccion();
+
+  useEffect(() => {
+    if (!map || !reinicio) return;
+    if ("defaultBounds" in vista) map.fitBounds(vista.defaultBounds);
+    else {
+      map.panTo(vista.defaultCenter);
+      map.setZoom(vista.defaultZoom);
+    }
+    // Solo reacciona al pedido de reinicio, no a re-renders que recrean `vista`.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map, reinicio]);
+
+  return null;
+}
+
 export function MapaUbicaciones({ apiKey, puntos, titulo }: MapaUbicacionesProps) {
   const { seleccion } = useMapaSeleccion();
   const proyecto = puntos.find((p) => p.principal);
   // Centrado en el proyecto; si no tiene coordenadas, se encuadran las ubicaciones.
   const centro = proyecto ?? (puntos.length === 1 ? puntos[0] : null);
-  const vista = centro
+  const vista: Vista = centro
     ? { defaultCenter: centro, defaultZoom: ZOOM_INICIAL }
     : { defaultBounds: getBounds(puntos) };
 
@@ -166,6 +187,7 @@ export function MapaUbicaciones({ apiKey, puntos, titulo }: MapaUbicacionesProps
           clickableIcons={false}
         >
           <CentrarSeleccion />
+          <ReiniciarVista vista={vista} />
           {proyecto && <AnillosProyecto centro={proyecto} />}
           {puntos.map((punto, i) => {
             const activo = mismoPunto(seleccion, punto);

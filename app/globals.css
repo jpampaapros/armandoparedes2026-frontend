@@ -523,3 +523,30 @@ a:-webkit-any-link {
     animation: none;
   }
 }
+
+/* Scroll fino y translúcido para paneles sobre fondo de color (p. ej. listado flotante del mapa).
+   Chrome/Safari usan ::-webkit-scrollbar; Firefox solo entiende scrollbar-width/color. */
+.scrollbar-suave::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-suave::-webkit-scrollbar-track {
+  margin-block: 4px;
+  background: transparent;
+}
+
+.scrollbar-suave::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.45);
+}
+
+.scrollbar-suave::-webkit-scrollbar-thumb:hover {
+  background: rgb(255 255 255 / 0.75);
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .scrollbar-suave {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.45) transparent;
+  }
+}

@@ -7,9 +7,17 @@ import { cn } from "@/lib/utils";
 type MapaSeleccion = {
   seleccion: LatLng | null;
   seleccionar: (punto: LatLng) => void;
+  /** Cambia cada vez que se pide "Ver todos": el mapa vuelve a su vista inicial. */
+  reinicio: number;
+  verTodos: () => void;
 };
 
-const MapaSeleccionContext = createContext<MapaSeleccion>({ seleccion: null, seleccionar: () => {} });
+const MapaSeleccionContext = createContext<MapaSeleccion>({
+  seleccion: null,
+  seleccionar: () => {},
+  reinicio: 0,
+  verTodos: () => {},
+});
 
 export function useMapaSeleccion() {
   return useContext(MapaSeleccionContext);
@@ -24,14 +32,19 @@ export function MapaSeleccionProvider({ children }: { children: ReactNode }) {
   const [seleccion, setSeleccion] = useState<LatLng | null>(null);
   // Copia nueva en cada clic: volver a elegir la misma ubicación re-centra el mapa aunque se haya movido.
   const seleccionar = (punto: LatLng) => setSeleccion({ lat: punto.lat, lng: punto.lng });
+  const [reinicio, setReinicio] = useState(0);
+  const verTodos = () => {
+    setSeleccion(null);
+    setReinicio((n) => n + 1);
+  };
   return (
-    <MapaSeleccionContext.Provider value={{ seleccion, seleccionar }}>
+    <MapaSeleccionContext.Provider value={{ seleccion, seleccionar, reinicio, verTodos }}>
       {children}
     </MapaSeleccionContext.Provider>
   );
 }
 
-/** En mobile la lista queda debajo del mapa: al elegir una ubicación se lleva el mapa a la vista. */
+/** Si el mapa quedó fuera de la vista al elegir una ubicación, se lo lleva a la vista. */
 export function mostrarMapa(el: HTMLElement | null) {
   if (!el) return;
   const { top, bottom } = el.getBoundingClientRect();
@@ -62,6 +75,23 @@ export function UbicacionItem({ punto, className, children }: UbicacionItemProps
       )}
     >
       {children}
+    </button>
+  );
+}
+
+/** Quita la selección y devuelve el mapa a la vista inicial, con todos los marcadores. */
+export function VerTodos({ className }: { className?: string }) {
+  const { verTodos } = useMapaSeleccion();
+  return (
+    <button
+      type="button"
+      onClick={verTodos}
+      className={cn(
+        "cursor-pointer appearance-none border-0 bg-transparent p-0 font-poppins text-13 font-medium text-white underline underline-offset-4 transition-opacity hover:opacity-70",
+        className,
+      )}
+    >
+      Ver todos
     </button>
   );
 }
