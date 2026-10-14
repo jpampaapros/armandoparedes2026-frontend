@@ -36,9 +36,9 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
     return (
       <Link
         href={`/blog/${post.slug}`}
-        className="group relative flex w-full flex-col overflow-hidden bg-card-dark md:aspect-[1250/561] md:flex-row md:gap-[55px]"
+        className="group relative flex w-full flex-col overflow-hidden border border-near-black bg-white text-near-black md:aspect-[1250/561] md:flex-row md:gap-[28px]"
       >
-        <div className="w-full bg-card-dark p-20 md:w-[46%] md:py-20 md:pl-20 md:pr-0">
+        <div className="w-full p-20 md:w-[46%] md:py-20 md:pl-20 md:pr-0">
           <div className="relative aspect-[16/10] w-full overflow-hidden md:h-full md:aspect-auto">
             {image?.source_url ? (
               <Image
@@ -61,8 +61,8 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-16 p-16 md:w-[calc(54%-55px)] md:gap-24 md:py-24 md:pl-0 md:pr-24">
-          <div className="mb-0 flex flex-wrap items-center gap-8 md:mb-[50px]">
+        <div className="flex flex-col gap-16 px-20 pb-20 md:w-[calc(54%-28px)] md:gap-20 md:py-20 md:pl-0 md:pr-24">
+          <div className="flex flex-wrap items-center gap-8">
             {date && (
               <span className="bg-slate px-10 py-6 font-poppins text-14 font-normal text-white">
                 {date}
@@ -70,14 +70,14 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
             )}
           </div>
           <h2
-            className="font-gotham text-28 font-bold leading-[1.25] text-white md:text-36 md:leading-42"
+            className="font-gotham text-28 font-bold leading-[1.25] text-near-black md:text-36 md:leading-[1.5]"
             dangerouslySetInnerHTML={{ __html: post.title.rendered }}
           />
           <div
-            className="line-clamp-3 font-poppins text-16 font-normal leading-24 text-white md:text-20"
+            className="line-clamp-5 font-poppins text-14 font-normal leading-22 text-near-black md:text-16 md:leading-24"
             dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
           />
-          <span className="mt-auto font-poppins text-15 font-light not-italic leading-17 text-white underline decoration-solid [text-decoration-skip-ink:none] [text-decoration-thickness:auto] [text-underline-offset:auto] [text-underline-position:from-font]">
+          <span className="mt-auto font-poppins text-15 font-normal not-italic leading-17 text-near-black underline decoration-solid [text-decoration-skip-ink:none] [text-decoration-thickness:auto] [text-underline-offset:auto] [text-underline-position:from-font]">
             Leer más
           </span>
         </div>
