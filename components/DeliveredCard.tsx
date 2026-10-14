@@ -27,7 +27,7 @@ export function DeliveredCard({
   const titleClass = isLarge
     ? "text-20 md:text-36"
     : size === "medium"
-      ? "text-20 md:text-26"
+      ? "text-20 md:text-22"
       : "text-20 md:text-16";
   const metaClass = isLarge
     ? "text-16 md:text-24"
