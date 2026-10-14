@@ -58,6 +58,7 @@ export function ProyectosEntregados({
                     size="medium"
                     showButton
                     showYear={false}
+                    strongVeil
                     distrito={project.acf.distrito}
                   />
                 </div>
@@ -81,6 +82,7 @@ export function ProyectosEntregados({
                       size="large"
                       showButton
                       showYear={false}
+                      strongVeil
                       distrito={project.acf.distrito}
                     />
                   </div>

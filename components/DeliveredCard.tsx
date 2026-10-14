@@ -12,6 +12,7 @@ export function DeliveredCard({
   showButton = false,
   distrito,
   mobileYear24 = false,
+  strongVeil = false,
 }: {
   project: Delivered;
   size?: "large" | "medium" | "small";
@@ -20,6 +21,7 @@ export function DeliveredCard({
   showButton?: boolean;
   distrito?: string;
   mobileYear24?: boolean;
+  strongVeil?: boolean;
 }) {
   const image = project._embedded?.["wp:featuredmedia"]?.[0];
   const isLarge = size === "large";
@@ -62,7 +64,13 @@ export function DeliveredCard({
           priority={priority}
         />
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+      <div
+        className={`absolute inset-0 bg-gradient-to-t ${
+          strongVeil
+            ? "from-black/85 via-black/75 via-40% to-transparent to-85%"
+            : "from-black/70 via-transparent to-transparent"
+        }`}
+      />
       <div className="relative z-10 mt-auto flex flex-col gap-10">
         <div className="flex flex-col gap-8">
           <h3 className={`font-gotham font-bold uppercase leading-[1.1] text-white ${titleClass}`}>
