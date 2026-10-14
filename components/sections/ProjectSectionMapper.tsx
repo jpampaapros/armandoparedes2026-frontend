@@ -10,7 +10,6 @@ import { PlanosProyecto } from "@/components/sections/proyecto/PlanosProyecto";
 import { MapaProyecto } from "@/components/sections/proyecto/MapaProyecto";
 import { FormularioContacto } from "@/components/sections/FormularioContacto";
 import { MasProyectos } from "@/components/sections/MasProyectos";
-import { Blog } from "@/components/sections/Blog";
 import type { LeadContext } from "@/lib/lead";
 import type { Project, ProjectSection } from "@/lib/types";
 import { toArray } from "@/lib/utils";
@@ -157,18 +156,12 @@ export function ProjectSectionMapper({ sections, proyectos, lead, presupuestos }
             return (
               <MasProyectos
                 key={key}
-                titulo={section.titulo}
+                titulo="Otros Proyectos"
                 proyectos={proyectos?.filter((p) => p.template !== GRACIAS_TEMPLATE)}
               />
             );
           case "blog":
-            return (
-              <Blog
-                key={key}
-                titulo={section.titulo}
-                boton={section.boton}
-              />
-            );
+            return null;
           default:
             return null;
         }
