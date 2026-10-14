@@ -39,7 +39,7 @@ export function ProyectosVenta({ titulo, proyectos, dataLayout }: ProyectosVenta
           )}
           <ProjectFilters
             filters={filters}
-            className="flex flex-col gap-16 md:flex-row md:gap-24"
+            className="grid grid-cols-2 gap-16 max-md:[&>:first-child]:col-span-2 md:flex md:flex-row md:gap-24"
             styles={{
               sentenceCase: true,
               className: "w-full md:w-180",

@@ -66,11 +66,13 @@ export function ProjectCard({
   compact = false,
   mobileDescriptionSemibold = false,
   saleCarousel = false,
+  saleListing = false,
 }: {
   project: Project;
   compact?: boolean;
   mobileDescriptionSemibold?: boolean;
   saleCarousel?: boolean;
+  saleListing?: boolean;
 }) {
   const sliderCard = compact || saleCarousel;
   const [showAlternateImage, setShowAlternateImage] = useState(false);
@@ -85,7 +87,7 @@ export function ProjectCard({
       data-alternate-image={showAlternateImage || undefined}
       className={`group relative flex w-full min-w-0 flex-col overflow-hidden bg-black ${
         saleCarousel ? "h-465 md:w-474 md:h-641" : compact ? "h-430 md:max-w-630 md:h-680" : "h-465 md:max-w-630 md:h-825 md:max-lap:h-640"
-      }`}
+      } ${saleListing ? "max-md:h-[calc(510*var(--fx))]" : ""}`}
     >
       {image?.source_url && (
         <Image
@@ -118,8 +120,8 @@ export function ProjectCard({
       )}
 
       {distrito && (
-        <div className={`absolute right-16 top-16 z-10 bg-white ${sliderCard ? "px-24" : "px-10"} py-6 md:right-20 md:top-61 md:py-8`}>
-          <span className="font-poppins text-16 font-medium leading-18 text-near-black md:text-24 md:leading-24">
+        <div className={`absolute right-16 top-16 z-10 bg-white ${sliderCard ? "px-24" : "px-10"} ${saleListing ? "max-md:px-[calc(34*var(--fx))]" : ""} py-6 md:right-20 md:top-61 md:py-8`}>
+          <span className={`font-poppins text-16 font-medium leading-18 text-near-black md:text-24 md:leading-24 ${saleListing ? "max-md:text-[calc(14*var(--fx))]" : ""}`}>
             {distrito.name}
           </span>
         </div>

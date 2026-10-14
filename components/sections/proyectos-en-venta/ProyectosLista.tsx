@@ -24,7 +24,7 @@ export function ProyectosLista({ titulo, proyectos }: ProyectosListaProps) {
           )}
           <ProjectFilters
             filters={filters}
-            className="order-2 flex flex-col gap-16 md:order-2 md:flex-row md:justify-end md:gap-24"
+            className="order-2 grid grid-cols-2 gap-16 max-md:[&>:first-child]:col-span-2 md:order-2 md:flex md:flex-row md:justify-end md:gap-24"
             styles={{
               className: "w-full md:w-205",
               buttonClassName: "px-8 pb-8 pt-0 text-16 font-extralight leading-24 text-text-muted border-text",
@@ -41,7 +41,7 @@ export function ProyectosLista({ titulo, proyectos }: ProyectosListaProps) {
         ) : (
           <div className="grid grid-cols-1 gap-15 md:grid-cols-2">
             {filtered.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+              <ProjectCard key={project.id} project={project} saleListing />
             ))}
           </div>
         )}
