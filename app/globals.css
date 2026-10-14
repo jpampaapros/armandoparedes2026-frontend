@@ -119,6 +119,29 @@
   font-size: calc(32 * var(--fx));
 }
 
+/* Suelto (sin layer) para ganarle al `a:any-link { text-decoration: none }` global.
+   El subrayado siempre esta, transparente, y en hover aparece con fade. */
+.header-menu-link,
+.header-menu-link:any-link {
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color 500ms ease;
+}
+
+.header-menu-link:hover,
+.header-menu-link:focus-visible {
+  text-decoration-color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-menu-link,
+  .header-menu-link:any-link {
+    transition: none;
+  }
+}
+
 .header-menu-list {
   margin-top: calc(75 * var(--fx));
 }
