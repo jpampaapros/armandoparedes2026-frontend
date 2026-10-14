@@ -4,8 +4,6 @@ import { useState } from "react";
 import type { EmblaCarouselType } from "embla-carousel";
 import { EmblaSlider } from "@/components/EmblaSlider";
 import { ProjectCard } from "@/components/ProjectCard";
-import { ChevronLeft } from "@/components/icons/ChevronLeft";
-import { ChevronRight } from "@/components/icons/ChevronRight";
 import { ProjectFilters, useProjectFilters } from "@/components/ProjectFilters";
 import type { Project } from "@/lib/types";
 
@@ -78,17 +76,21 @@ export function ProyectosVenta({ titulo, proyectos, dataLayout }: ProyectosVenta
               type="button"
               onClick={() => emblaApi?.scrollPrev()}
               aria-label="Slide anterior"
-              className="absolute left-10 top-1/2 z-10 flex h-50 w-50 -translate-y-1/2 items-center justify-center bg-slate text-white transition-opacity hover:opacity-80 border-none sm:left-16 md:-left-27"
+              className="absolute left-10 top-1/2 z-10 flex h-50 w-50 -translate-y-1/2 items-center justify-center bg-transparent p-0 transition-opacity hover:opacity-80 border-none sm:left-16 md:-left-50"
             >
-              <ChevronLeft className="h-28 w-28" />
+              <svg aria-hidden="true" width="24" height="43" viewBox="0 0 24 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 2L3 21.5L22 41" stroke="black" strokeWidth="3" />
+              </svg>
             </button>
             <button
               type="button"
               onClick={() => emblaApi?.scrollNext()}
               aria-label="Siguiente slide"
-              className="absolute right-10 top-1/2 z-10 flex h-50 w-50 -translate-y-1/2 items-center justify-center bg-slate text-white transition-opacity hover:opacity-80 border-none sm:right-16 md:right-57"
+              className="absolute right-10 top-1/2 z-10 flex h-50 w-50 -translate-y-1/2 items-center justify-center bg-transparent p-0 transition-opacity hover:opacity-80 border-none sm:right-16 md:right-25"
             >
-              <ChevronRight className="h-28 w-28" />
+              <svg aria-hidden="true" width="24" height="43" viewBox="0 0 24 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 2L21 21.5L2 41" stroke="white" strokeWidth="3" />
+              </svg>
             </button>
           </div>
           </>
