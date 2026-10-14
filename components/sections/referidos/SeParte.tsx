@@ -33,8 +33,10 @@ type PhoneInputProps = {
 
 function PhoneInput({ name, label, register }: PhoneInputProps) {
   return (
-    <div className="flex h-50">
-      <div className="flex shrink-0 items-center gap-4 border border-r-0 border-white bg-transparent px-10">
+    <div className="flex flex-col gap-6">
+      <label htmlFor={`referidos-${name}`} className="font-poppins text-12 font-semibold leading-[normal] text-white/70">{label}</label>
+      <div className="flex h-50 min-w-0 w-full">
+      <div className="flex shrink-0 items-center gap-4 border border-r-0 border-white/40 bg-transparent px-10" style={{ borderColor: "rgba(255, 255, 255, 0.4)" }}>
         <Image
           unoptimized
           src="/images/referidos/icon-flag.svg"
@@ -53,14 +55,15 @@ function PhoneInput({ name, label, register }: PhoneInputProps) {
           className="h-18 w-18"
         />
       </div>
-      <label className="flex min-w-0 flex-1 flex-col justify-center border border-white px-10">
-        <span className="font-poppins text-12 font-semibold not-italic leading-[normal] text-white">{label}</span>
+      <div className="flex min-w-0 flex-1 flex-col justify-center border border-white/40 px-10" style={{ borderColor: "rgba(255, 255, 255, 0.4)" }}>
         <input
+          id={`referidos-${name}`}
           type="tel"
-          className="min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-18 leading-[1.2] text-white outline-none"
+          className="min-h-0 min-w-0 w-full border-0 bg-transparent p-0 font-poppins text-18 leading-[1.2] text-white outline-none"
           {...register(name)}
         />
-      </label>
+      </div>
+      </div>
     </div>
   );
 }
@@ -111,10 +114,10 @@ export function SeParte({ title, form_id }: SeParteProps) {
     if (ok) reset();
   };
 
-  const fieldClass = "flex h-50 flex-col justify-center border border-white px-10";
-  const fieldLabelClass = "font-poppins text-12 font-semibold not-italic leading-[normal] text-white";
+  const fieldClass = "flex min-w-0 h-50 flex-col justify-center border border-white/40 px-10";
+  const fieldLabelClass = "font-poppins text-12 font-semibold not-italic leading-[normal] text-white/70";
   const inputClass =
-    "min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-18 leading-[1.2] text-white outline-none";
+    "min-h-0 min-w-0 w-full border-0 bg-transparent p-0 font-poppins text-18 leading-[1.2] text-white outline-none";
   const errorClass = "text-12 text-red-300";
 
   return (
@@ -144,32 +147,32 @@ export function SeParte({ title, form_id }: SeParteProps) {
         >
           {/* Tus datos */}
           <div className="flex flex-col gap-16">
-            <p className="text-center font-gotham text-24 font-medium italic leading-[normal] text-white">
+            <p className="m-0 text-center font-gotham text-24 font-medium italic text-white" style={{ lineHeight: 1.3 }}>
               Ingresa tus datos:
             </p>
 
-            <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-30">
+            <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-30 [&>div]:min-w-0">
               <div>
-                <label className={fieldClass}>
-                  <span className={fieldLabelClass}>Nombres*</span>
-                  <input type="text" className={inputClass} {...register("tu-nombre", { required: true })} />
-                </label>
+                <label htmlFor="referidos-tu-nombre" className={`${fieldLabelClass} mb-6 block`}>Nombres*</label>
+                <div className={fieldClass} style={{ borderColor: "rgba(255, 255, 255, 0.4)" }}>
+                  <input id="referidos-tu-nombre" type="text" className={inputClass} {...register("tu-nombre", { required: true })} />
+                </div>
                 {errors["tu-nombre"] && <span className={errorClass} role="alert">Completa este campo</span>}
               </div>
 
               <div>
-                <label className={fieldClass}>
-                  <span className={fieldLabelClass}>Apellido*</span>
-                  <input type="text" className={inputClass} {...register("tu-apellido", { required: true })} />
-                </label>
+                <label htmlFor="referidos-tu-apellido" className={`${fieldLabelClass} mb-6 block`}>Apellido*</label>
+                <div className={fieldClass} style={{ borderColor: "rgba(255, 255, 255, 0.4)" }}>
+                  <input id="referidos-tu-apellido" type="text" className={inputClass} {...register("tu-apellido", { required: true })} />
+                </div>
                 {errors["tu-apellido"] && <span className={errorClass} role="alert">Completa este campo</span>}
               </div>
 
               <div className="md:col-span-2">
-                <label className={fieldClass}>
-                  <span className={fieldLabelClass}>Correo electrónico*</span>
-                  <input type="email" className={inputClass} {...register("tu-email", { required: true })} />
-                </label>
+                <label htmlFor="referidos-tu-email" className={`${fieldLabelClass} mb-6 block`}>Correo electrónico*</label>
+                <div className={fieldClass} style={{ borderColor: "rgba(255, 255, 255, 0.4)" }}>
+                  <input id="referidos-tu-email" type="email" className={inputClass} {...register("tu-email", { required: true })} />
+                </div>
                 {errors["tu-email"] && <span className={errorClass} role="alert">Completa este campo</span>}
               </div>
 
@@ -179,44 +182,44 @@ export function SeParte({ title, form_id }: SeParteProps) {
               </div>
 
               <div>
-                <label className={`${fieldClass} relative`}>
-                  <span className={fieldLabelClass}>DNI*</span>
-                  <input type="text" className={`${inputClass} pr-24`} {...register("tu-dni", { required: true })} />
+                <label htmlFor="referidos-tu-dni" className={`${fieldLabelClass} mb-6 block`}>DNI*</label>
+                <div className={`${fieldClass} relative`} style={{ borderColor: "rgba(255, 255, 255, 0.4)" }}>
+                  <input id="referidos-tu-dni" type="text" className={`${inputClass} pr-24`} {...register("tu-dni", { required: true })} />
                   <Image unoptimized src="/images/referidos/icon-dropdown.svg" alt="" width={24} height={24} className="pointer-events-none absolute right-10 top-1/2 h-18 w-18 -translate-y-1/2" />
-                </label>
+                </div>
                 {errors["tu-dni"] && <span className={errorClass} role="alert">Completa este campo</span>}
               </div>
             </div>
           </div>
 
           {/* Datos del referido */}
-          <div className="flex flex-col gap-16">
-            <p className="text-center font-gotham text-24 font-medium not-italic leading-[normal] text-white">
+          <div className="flex flex-col gap-16 pt-12 md:pt-0">
+            <p className="m-0 text-center font-gotham text-24 font-medium not-italic text-white" style={{ lineHeight: 1.3 }}>
               Ingresa los datos de tu referido:
             </p>
 
-            <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-30">
+            <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-30 [&>div]:min-w-0">
               <div>
-                <label className={fieldClass}>
-                  <span className={fieldLabelClass}>Nombres*</span>
-                  <input type="text" className={inputClass} {...register("referido-nombre", { required: true })} />
-                </label>
+                <label htmlFor="referidos-referido-nombre" className={`${fieldLabelClass} mb-6 block`}>Nombres*</label>
+                <div className={fieldClass} style={{ borderColor: "rgba(255, 255, 255, 0.4)" }}>
+                  <input id="referidos-referido-nombre" type="text" className={inputClass} {...register("referido-nombre", { required: true })} />
+                </div>
                 {errors["referido-nombre"] && <span className={errorClass} role="alert">Completa este campo</span>}
               </div>
 
               <div>
-                <label className={fieldClass}>
-                  <span className={fieldLabelClass}>Apellido*</span>
-                  <input type="text" className={inputClass} {...register("referido-apellido", { required: true })} />
-                </label>
+                <label htmlFor="referidos-referido-apellido" className={`${fieldLabelClass} mb-6 block`}>Apellido*</label>
+                <div className={fieldClass} style={{ borderColor: "rgba(255, 255, 255, 0.4)" }}>
+                  <input id="referidos-referido-apellido" type="text" className={inputClass} {...register("referido-apellido", { required: true })} />
+                </div>
                 {errors["referido-apellido"] && <span className={errorClass} role="alert">Completa este campo</span>}
               </div>
 
               <div>
-                <label className={fieldClass}>
-                  <span className={fieldLabelClass}>Correo electrónico*</span>
-                  <input type="email" className={inputClass} {...register("referido-email", { required: true })} />
-                </label>
+                <label htmlFor="referidos-referido-email" className={`${fieldLabelClass} mb-6 block`}>Correo electrónico*</label>
+                <div className={fieldClass} style={{ borderColor: "rgba(255, 255, 255, 0.4)" }}>
+                  <input id="referidos-referido-email" type="email" className={inputClass} {...register("referido-email", { required: true })} />
+                </div>
                 {errors["referido-email"] && <span className={errorClass} role="alert">Completa este campo</span>}
               </div>
 
@@ -232,34 +235,26 @@ export function SeParte({ title, form_id }: SeParteProps) {
             <Controller
               name="aceptoTerminos"
               control={control}
+              defaultValue={false}
               rules={{ required: true }}
               render={({ field: { value, onChange, ref, name } }) => (
-                <label className="flex cursor-pointer items-start gap-8">
-                  <span className="relative flex h-18 w-18 shrink-0 items-center justify-center">
+                <div className="flex items-start gap-8">
+                  <div className="relative mt-1 h-18 w-30 shrink-0">
                     <input
+                      id={`referidos-${name}`}
+                      aria-labelledby={`referidos-${name}-texto`}
                       ref={ref}
                       name={name}
                       type="checkbox"
                       checked={Boolean(value)}
                       onChange={(e) => onChange(e.target.checked)}
-                      className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
-                      aria-checked={Boolean(value)}
+                      className="peer absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
                     />
-                    {!value ? (
-                      <Image
-                        unoptimized
-                        src="/images/formulario-modal/termino-unchecked.svg"
-                        alt=""
-                        width={18}
-                        height={18}
-                        className="h-18 w-18"
-                        style={{ filter: "brightness(0) invert(1)" }}
-                      />
-                    ) : (
-                      <span aria-hidden="true" className="flex h-18 w-18 items-center justify-center rounded-full bg-peach text-10 text-white">✓</span>
-                    )}
-                  </span>
-                  <span className="font-poppins text-14 text-white">
+                    <label htmlFor={`referidos-${name}`} className={`flex h-full w-full cursor-pointer items-center overflow-hidden rounded-full px-3 transition-colors peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-white ${value ? "justify-end bg-peach" : "justify-start bg-white/40"}`}>
+                      <span aria-hidden="true" className="h-12 w-12 shrink-0 rounded-full bg-white" />
+                    </label>
+                  </div>
+                  <span id={`referidos-${name}-texto`} className="font-poppins text-14 text-white">
                     He leído y acepto las{" "}
                     <a
                       href="/politicas-de-privacidad"
@@ -269,7 +264,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
                     </a>
                     .
                   </span>
-                </label>
+                </div>
               )}
             />
 
@@ -282,33 +277,25 @@ export function SeParte({ title, form_id }: SeParteProps) {
             <Controller
               name="autorizoMarketing"
               control={control}
+              defaultValue={false}
               render={({ field: { value, onChange, ref, name } }) => (
-                <label className="flex cursor-pointer items-start gap-8">
-                  <span className="relative flex h-18 w-18 shrink-0 items-center justify-center">
+                <div className="flex items-start gap-8">
+                  <div className="relative mt-1 h-18 w-30 shrink-0">
                     <input
+                      id={`referidos-${name}`}
+                      aria-labelledby={`referidos-${name}-texto`}
                       ref={ref}
                       name={name}
                       type="checkbox"
                       checked={Boolean(value)}
                       onChange={(e) => onChange(e.target.checked)}
-                      className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
-                      aria-checked={Boolean(value)}
+                      className="peer absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
                     />
-                    {!value ? (
-                      <Image
-                        unoptimized
-                        src="/images/formulario-modal/termino-unchecked.svg"
-                        alt=""
-                        width={18}
-                        height={18}
-                        className="h-18 w-18"
-                        style={{ filter: "brightness(0) invert(1)" }}
-                      />
-                    ) : (
-                      <span aria-hidden="true" className="flex h-18 w-18 items-center justify-center rounded-full bg-peach text-10 text-white">✓</span>
-                    )}
-                  </span>
-                  <span className="font-poppins text-14 text-white">
+                    <label htmlFor={`referidos-${name}`} className={`flex h-full w-full cursor-pointer items-center overflow-hidden rounded-full px-3 transition-colors peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-white ${value ? "justify-end bg-peach" : "justify-start bg-white/40"}`}>
+                      <span aria-hidden="true" className="h-12 w-12 shrink-0 rounded-full bg-white" />
+                    </label>
+                  </div>
+                  <span id={`referidos-${name}-texto`} className="font-poppins text-14 text-white">
                     Autorizo a Armando Paredes para que realice las actividades de
                     prospección comercial y marketing descritas en las{" "}
                     <a
@@ -319,45 +306,37 @@ export function SeParte({ title, form_id }: SeParteProps) {
                     </a>
                     .
                   </span>
-                </label>
+                </div>
               )}
             />
 
             <Controller
               name="autorizoReferido"
               control={control}
+              defaultValue={false}
               rules={{ required: true }}
               render={({ field: { value, onChange, ref, name } }) => (
-                <label className="flex cursor-pointer items-start gap-8">
-                  <span className="relative flex h-18 w-18 shrink-0 items-center justify-center">
+                <div className="flex items-start gap-8">
+                  <div className="relative mt-1 h-18 w-30 shrink-0">
                     <input
+                      id={`referidos-${name}`}
+                      aria-labelledby={`referidos-${name}-texto`}
                       ref={ref}
                       name={name}
                       type="checkbox"
                       checked={Boolean(value)}
                       onChange={(e) => onChange(e.target.checked)}
-                      className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
-                      aria-checked={Boolean(value)}
+                      className="peer absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
                     />
-                    {!value ? (
-                      <Image
-                        unoptimized
-                        src="/images/formulario-modal/termino-unchecked.svg"
-                        alt=""
-                        width={18}
-                        height={18}
-                        className="h-18 w-18"
-                        style={{ filter: "brightness(0) invert(1)" }}
-                      />
-                    ) : (
-                      <span aria-hidden="true" className="flex h-18 w-18 items-center justify-center rounded-full bg-peach text-10 text-white">✓</span>
-                    )}
-                  </span>
-                  <span className="font-poppins text-14 text-white">
+                    <label htmlFor={`referidos-${name}`} className={`flex h-full w-full cursor-pointer items-center overflow-hidden rounded-full px-3 transition-colors peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-white ${value ? "justify-end bg-peach" : "justify-start bg-white/40"}`}>
+                      <span aria-hidden="true" className="h-12 w-12 shrink-0 rounded-full bg-white" />
+                    </label>
+                  </div>
+                  <span id={`referidos-${name}-texto`} className="font-poppins text-14 text-white">
                     He recibido la autorización de mi referido para compartir sus datos
                     personales.
                   </span>
-                </label>
+                </div>
               )}
             />
             {errors.autorizoReferido && (
