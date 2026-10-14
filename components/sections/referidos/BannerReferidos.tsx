@@ -38,7 +38,7 @@ function BenefitCards({ cards }: { cards: ReferidosCard[] }) {
           key={index}
           className="grid min-h-[18.6cqw] grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-[2.25cqw] rounded-[3.25cqw] bg-white px-[4.2cqw] md:h-102 md:min-h-0 md:grid-cols-[calc(196*var(--fx))_calc(122*var(--fx))_calc(90*var(--fx))_minmax(0,1fr)] md:gap-0 md:rounded-22 md:px-32"
         >
-          <span className="font-poppins text-[5.18cqw] font-semibold leading-[1.2] text-near-black md:text-center md:text-22">
+          <span className="max-w-95 md:max-w-full font-poppins text-[5.18cqw] font-semibold leading-[1.2] text-near-black md:text-center md:text-22">
             {card.label}
           </span>
           <svg
@@ -55,13 +55,13 @@ function BenefitCards({ cards }: { cards: ReferidosCard[] }) {
               fill="#1D1D1B"
             />
           </svg>
-          <span className="font-poppins text-[3.24cqw] uppercase leading-[1.4] tracking-[0.09em] text-near-black md:text-13 md:leading-[1.2]">
+          <span className="w-90 md:w-auto font-poppins text-[3.24cqw] uppercase leading-[1.4] tracking-[0.09em] text-near-black md:text-13 md:leading-[1.2]">
             {card.subtitle?.trim().split(/^un\s+bono\b/i.test(card.subtitle.trim()) ? /\s+(?=hasta\b)/i : /\s+(?=de\s+hasta\b)/i).map((line, lineIndex) => (
               <span key={lineIndex} className="block whitespace-nowrap">{line}</span>
             ))}
           </span>
           {card.amount && (
-            <span className="whitespace-nowrap font-gotham text-[8.42cqw] font-bold leading-none tracking-[-0.03em] text-peach md:ml-15 md:text-center md:text-42 md:leading-[normal]">
+            <span className="w-120 md:w-auto text-center whitespace-nowrap font-gotham text-[8.42cqw] font-bold leading-none tracking-[-0.03em] text-peach md:ml-15 md:text-42 md:leading-[normal]">
               {card.amount}
             </span>
           )}
@@ -113,9 +113,9 @@ export function BannerReferidos({
       {/* Contenido mobile: flujo normal debajo de la imagen */}
       <div className="relative z-10 mx-auto flex w-full max-w-1440 flex-col items-center bg-white px-16 pb-48 md:hidden">
         {phrase && (
-          <div className="relative z-20 mt-16 flex min-h-132 w-256 max-w-full items-center justify-center rounded-15 bg-near-black px-24 py-24">
+          <div className="relative z-20 mt-16 flex w-256 max-w-full items-center justify-center rounded-15 bg-near-black px-24 py-24">
             <div
-              className="max-w-257 text-center font-poppins text-22 leading-[1.25] text-white [&_p]:m-0 [&_strong]:font-semibold [&_strong]:italic"
+              className="max-w-257 text-center font-poppins text-14 md:text-22 leading-[1.25] text-white [&_p]:m-0 [&_strong]:font-semibold [&_strong]:italic"
               dangerouslySetInnerHTML={{ __html: formatPhrase(phrase) }}
             />
           </div>
