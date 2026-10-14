@@ -121,10 +121,10 @@ export function HeaderClient({ data }: { data: HeaderData }) {
           isHeaderVisible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="relative flex h-full items-center justify-center px-16 md:justify-between md:px-80">
+        <div className="relative flex h-full items-center justify-between px-16 md:px-80">
           <button
             type="button"
-            className="absolute left-16 top-1/2 flex h-20 w-29 -translate-y-1/2 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-inherit md:hidden"
+            className="absolute right-16 top-1/2 flex h-20 w-29 -translate-y-1/2 cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-inherit md:hidden"
             onClick={openMenu}
             aria-label="Abrir menú"
           >
@@ -137,7 +137,7 @@ export function HeaderClient({ data }: { data: HeaderData }) {
             />
           </button>
 
-          <Link href="/" className="block w-264">
+          <Link href="/" className="block w-180 md:w-264">
             <HeaderImage image={data.logo} className="block h-auto w-full" priority />
           </Link>
 
@@ -176,7 +176,7 @@ export function HeaderClient({ data }: { data: HeaderData }) {
         >
           <button
             type="button"
-            className="absolute left-20 top-33 z-20 flex h-20 w-20 cursor-pointer items-center justify-center border-0 bg-transparent p-0 md:left-auto md:right-57 md:top-33 md:h-24 md:w-24"
+            className="absolute right-20 top-33 z-20 flex h-20 w-20 cursor-pointer items-center justify-center border-0 bg-transparent p-0 md:right-57 md:top-33 md:h-24 md:w-24"
             onClick={closeMenu}
             aria-label="Cerrar menú"
           >
