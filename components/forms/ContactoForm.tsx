@@ -9,6 +9,8 @@ import { useIsClient } from "@/hooks/useIsClient";
 import type { ContactoPageFields, Project } from "@/lib/types";
 import { toArray } from "@/lib/utils";
 
+const FIELD_BORDER_STYLE = { border: "1px solid #E3E4E2" };
+
 const DEFAULT_DISTRICTS = ["Miraflores", "San Isidro", "Barranco", "Surco", "San Borja", "Lima"];
 const DEFAULT_SOURCES = ["Instagram", "Facebook", "Google", "TikTok", "YouTube", "Referido", "Otro"];
 
@@ -62,7 +64,7 @@ export function ContactoForm({
     if (ok) reset();
   };
 
-  const fieldClass = "flex h-50 flex-col justify-center border border-near-black px-10";
+  const fieldClass = "flex h-50 flex-col justify-center border border-light-gray px-10";
   const labelClass = "font-poppins text-10 font-semibold leading-none text-near-black md:text-12";
   const controlClass = "min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-16 leading-[1.2] text-near-black outline-none md:text-18";
 
@@ -84,20 +86,24 @@ export function ContactoForm({
               ["nombres", "Nombres*", "text"], ["apellido", "Apellido*", "text"],
               ["correo", "Correo electrónico*", "email"],
             ].map(([name, label, type]) => (
-              <label key={name} className={fieldClass}>
-                <span className={labelClass}>{label}</span>
-                <input type={type} aria-invalid={errors[name] ? "true" : "false"} className={controlClass} {...register(name, { required: true })} />
-              </label>
+              <div key={name} className="flex flex-col gap-6">
+                <label htmlFor={`contacto-${name}`} className={labelClass}>{label}</label>
+                <div className={fieldClass} style={FIELD_BORDER_STYLE}>
+                <input id={`contacto-${name}`} type={type} aria-invalid={errors[name] ? "true" : "false"} className={controlClass} {...register(name, { required: true })} />
+                </div>
+              </div>
             ))}
-            <div className="flex h-50">
-              <div className="flex shrink-0 items-center gap-5 border border-r-0 border-near-black px-9" aria-label="Prefijo Perú +51">
+            <div className="flex flex-col gap-6">
+              <label htmlFor="contacto-celular" className={labelClass}>Celular*</label>
+              <div className="flex h-50">
+              <div className="flex shrink-0 items-center gap-5 border border-r-0 border-light-gray px-9" style={{ ...FIELD_BORDER_STYLE, borderRightWidth: 0 }} aria-label="Prefijo Perú +51">
                 <Image unoptimized src="/images/formulario-modal/bandera-peru.svg" alt="Perú" width={20} height={15} />
                 <span className="font-poppins text-16 md:text-18">+51</span>
               </div>
-              <label className={`${fieldClass} min-w-0 flex-1`}>
-                <span className={labelClass}>Celular*</span>
-                <input type="tel" inputMode="numeric" aria-invalid={errors.celular ? "true" : "false"} className={controlClass} {...register("celular", { required: true })} />
-              </label>
+              <div className={`${fieldClass} min-w-0 flex-1`} style={FIELD_BORDER_STYLE}>
+                <input id="contacto-celular" type="tel" inputMode="numeric" aria-invalid={errors.celular ? "true" : "false"} className={controlClass} {...register("celular", { required: true })} />
+              </div>
+              </div>
             </div>
             <SelectField label="Estoy buscando depa en" name="distrito" values={options(distritos, DEFAULT_DISTRICTS)} register={register} classes={{ fieldClass, labelClass, controlClass }} />
             <SelectField label="Me interesa este proyecto:" name="proyecto" values={proyectos.map((p) => `${p.title.rendered}${districtFor(p) ? ` - ${districtFor(p)}` : ""}`)} register={register} classes={{ fieldClass, labelClass, controlClass }} />
@@ -129,14 +135,16 @@ type SelectProps = {
 
 function SelectField({ label, name, values, register, classes }: SelectProps) {
   return (
-    <label className={`${classes.fieldClass} relative`}>
-      <span className={classes.labelClass}>{label}</span>
-      <select defaultValue="" className={`${classes.controlClass} appearance-none pr-28`} {...register(name, { required: true })}>
+    <div className="flex flex-col gap-6">
+      <label htmlFor={`contacto-${name}`} className={classes.labelClass}>{label}</label>
+      <div className={`${classes.fieldClass} relative`} style={FIELD_BORDER_STYLE}>
+      <select id={`contacto-${name}`} defaultValue="" className={`${classes.controlClass} appearance-none pr-28`} {...register(name, { required: true })}>
         <option value="" disabled hidden />
         {values.map((value) => <option key={value} value={value}>{value}</option>)}
       </select>
       <Image unoptimized src="/images/formulario-modal/chevron-down.svg" alt="" width={18} height={18} className="pointer-events-none absolute right-10 top-1/2 -translate-y-1/2" />
-    </label>
+      </div>
+    </div>
   );
 }
 
@@ -147,13 +155,15 @@ type ConsentProps = {
 };
 
 function Consent({ name, required, control, children }: ConsentProps) {
-  return <Controller name={name} control={control} rules={required ? { required: true } : undefined} render={({ field }) => (
-    <label className="flex cursor-pointer items-start gap-8 font-inter text-13 leading-20 text-near-black md:text-14">
-      <span className="relative mt-1 flex h-18 w-18 shrink-0 items-center justify-center">
-        <input ref={field.ref} name={field.name} type="checkbox" checked={Boolean(field.value)} onChange={(event) => field.onChange(event.target.checked)} className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0" />
-        {field.value ? <span className="flex h-18 w-18 items-center justify-center rounded-full bg-slate text-10 text-white">✓</span> : <Image unoptimized src="/images/formulario-modal/termino-unchecked.svg" alt="" width={18} height={18} />}
-      </span>
-      <span>{children}</span>
-    </label>
+  return <Controller name={name} control={control} defaultValue={false} rules={required ? { required: true } : undefined} render={({ field }) => (
+    <div className="flex items-start gap-8 font-inter text-13 leading-20 text-near-black md:text-14">
+      <div className="relative mt-1 h-18 w-30 shrink-0">
+        <input id={`contacto-${name}`} aria-labelledby={`contacto-${name}-texto`} ref={field.ref} name={field.name} type="checkbox" checked={Boolean(field.value)} onBlur={field.onBlur} onChange={(event) => field.onChange(event.target.checked)} className="peer absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0" />
+        <label htmlFor={`contacto-${name}`} className={`flex h-full w-full cursor-pointer items-center overflow-hidden rounded-full px-3 transition-colors peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-slate ${field.value ? "justify-end bg-slate" : "justify-start bg-light-gray"}`}>
+          <span aria-hidden="true" className="h-12 w-12 shrink-0 rounded-full bg-white" />
+        </label>
+      </div>
+      <span id={`contacto-${name}-texto`}>{children}</span>
+    </div>
   )} />;
 }

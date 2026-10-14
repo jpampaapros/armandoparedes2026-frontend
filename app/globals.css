@@ -4,6 +4,31 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 @import "tailwindcss-calc";
 
+/* Incluye padding y bordes en el ancho para que los campos no invadan otra columna. */
+[data-layout="se_parte"],
+[data-layout="se_parte"] *,
+[data-layout="se_parte"] *::before,
+[data-layout="se_parte"] *::after {
+  box-sizing: border-box;
+}
+
+/* Mantiene los colores de Referidos al autocompletar datos del navegador. */
+[data-layout="se_parte"] input:autofill {
+  background-color: #748ca4;
+  color: #fff;
+  caret-color: #fff;
+  box-shadow: 0 0 0 1000px #748ca4 inset;
+}
+
+[data-layout="se_parte"] input:-webkit-autofill,
+[data-layout="se_parte"] input:-webkit-autofill:hover,
+[data-layout="se_parte"] input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  caret-color: #fff;
+  -webkit-box-shadow: 0 0 0 1000px #748ca4 inset;
+  box-shadow: 0 0 0 1000px #748ca4 inset;
+}
+
 @media (hover: hover) {
   [data-project-card]:hover .project-card-hover-image {
     opacity: 1;
@@ -16,6 +41,50 @@
 }
 
 @media (max-width: 767px) {
+  [data-sale-carousel] {
+    width: calc(382 * var(--fx));
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 382 / 209;
+    box-sizing: border-box;
+  }
+
+  [data-sale-carousel] > .bg-white {
+    right: 0;
+    top: calc(16 * var(--fx));
+    padding: calc(4 * var(--fx)) calc(12 * var(--fx));
+  }
+
+  [data-sale-carousel] > .bg-white span {
+    font-size: calc(14 * var(--fx));
+    line-height: 1.2;
+  }
+
+  [data-sale-carousel] [data-card-content] {
+    gap: calc(6 * var(--fx));
+    padding: calc(12 * var(--fx));
+    padding-right: calc(60 * var(--fx));
+  }
+
+  [data-sale-carousel] h3 {
+    margin: 0;
+    font-size: calc(14 * var(--fx));
+    line-height: 1.2;
+  }
+
+  [data-sale-carousel] hr {
+    display: none;
+  }
+
+  [data-sale-carousel] [data-card-description] {
+    font-size: calc(9 * var(--fx));
+    line-height: 1.45;
+  }
+
+  [data-sale-carousel] [data-card-description] p {
+    font-weight: 400;
+  }
+
   [data-project-card][data-alternate-image] .project-card-hover-image {
     opacity: 1;
     scale: 1;

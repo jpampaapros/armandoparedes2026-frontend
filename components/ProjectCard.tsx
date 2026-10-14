@@ -84,6 +84,7 @@ export function ProjectCard({
   return (
     <article
       data-project-card
+      data-sale-carousel={saleCarousel || undefined}
       data-alternate-image={showAlternateImage || undefined}
       className={`group relative flex w-full min-w-0 flex-col overflow-hidden bg-black ${
         saleCarousel ? "h-465 md:w-474 md:h-641" : compact ? "h-430 md:max-w-630 md:h-680" : "h-465 md:max-w-630 md:h-825 md:max-lap:h-640"
@@ -127,14 +128,14 @@ export function ProjectCard({
         </div>
       )}
 
-      <div className="relative z-10 mt-auto flex flex-col gap-16 p-24 md:p-54">
+      <div data-card-content className="relative z-10 mt-auto flex flex-col gap-16 p-24 md:p-54">
         <div className="flex flex-col">
           <h3 className={`mb-20 font-gotham text-26 font-bold uppercase leading-33 text-white ${sliderCard ? "md:text-25" : "md:text-36"}`}>
             {project.title.rendered}
           </h3>
           <hr className="my-0 h-px w-full border-0 bg-white" />
         </div>
-        <div className={`font-poppins text-16 leading-20 text-white ${sliderCard ? "md:text-18 md:leading-26" : "md:text-24 md:leading-30"} [&_p]:my-0 ${mobileDescriptionSemibold ? "[&_p]:font-semibold md:[&_p]:font-light" : "[&_p]:font-light"}`}
+        <div data-card-description className={`font-poppins text-16 leading-20 text-white ${sliderCard ? "md:text-18 md:leading-26" : "md:text-24 md:leading-30"} [&_p]:my-0 ${mobileDescriptionSemibold ? "[&_p]:font-semibold md:[&_p]:font-light" : "[&_p]:font-light"}`}
           dangerouslySetInnerHTML={{ __html: project.acf.descripcion || "" }}
         />
         <SmartLink
@@ -143,11 +144,22 @@ export function ProjectCard({
             url: `/proyectos/${project.slug}`,
             target: "",
           }}
-          className={`inline-flex h-50 w-full items-center justify-center border border-white px-10 font-poppins text-16 font-semibold text-white transition-colors duration-500 ease-out hover:text-card-dark hover:bg-white group-hover:text-card-dark group-hover:bg-white motion-reduce:transition-none md:w-250 ${sliderCard ? "md:text-16" : "md:text-18"}`}
+          className={`${saleCarousel ? "hidden md:inline-flex" : "inline-flex"} h-50 w-full items-center justify-center border border-white px-10 font-poppins text-16 font-semibold text-white transition-colors duration-500 ease-out hover:text-card-dark hover:bg-white group-hover:text-card-dark group-hover:bg-white motion-reduce:transition-none md:w-250 ${sliderCard ? "md:text-16" : "md:text-18"}`}
         >
           Ver proyecto
         </SmartLink>
       </div>
+      {saleCarousel && (
+        <SmartLink
+          link={{ title: "Ver proyecto", url: `/proyectos/${project.slug}` }}
+          className="absolute bottom-12 right-12 z-20 flex h-36 w-36 items-center justify-center text-white md:hidden"
+        >
+          <span className="sr-only">Ver proyecto {project.title.rendered}</span>
+          <svg aria-hidden="true" viewBox="0 0 32 32" fill="none" className="h-30 w-30">
+            <path d="M16 2v28M2 16h28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </SmartLink>
+      )}
     </article>
   );
 }

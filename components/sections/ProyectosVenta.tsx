@@ -53,7 +53,13 @@ export function ProyectosVenta({ titulo, proyectos, dataLayout }: ProyectosVenta
             No hay proyectos que coincidan con los filtros.
           </p>
         ) : (
-          <div className="relative md:w-[calc(50vw+50%)]">
+          <>
+            <div className="flex flex-col items-center gap-14 md:hidden">
+              {filtered.map((project) => (
+                <ProjectCard key={project.id} project={project} saleCarousel />
+              ))}
+            </div>
+          <div className="relative hidden md:block md:w-[calc(50vw+50%)]">
             <EmblaSlider
               slides={filtered}
               slidesPerView={1}
@@ -85,6 +91,7 @@ export function ProyectosVenta({ titulo, proyectos, dataLayout }: ProyectosVenta
               <ChevronRight className="h-28 w-28" />
             </button>
           </div>
+          </>
         )}
       </div>
     </section>
