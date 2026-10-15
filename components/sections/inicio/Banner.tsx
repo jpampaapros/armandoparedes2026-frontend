@@ -21,12 +21,64 @@ function processTitle(html?: string) {
     .replace(/<\/strong>/gi, "</span>");
 }
 
+function BannerVideo({ src, poster, active }: { src: string; poster?: string; active: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    let inView = false;
+    const updatePlayback = () => {
+      if (active && inView && !document.hidden) {
+        void video.play().catch(() => {
+          // El navegador puede bloquear la reproducción automática; quedan los controles disponibles.
+        });
+      } else {
+        video.pause();
+      }
+    };
+    if (active) video.currentTime = 0;
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      updatePlayback();
+    }, { threshold: 0.1 });
+    observer.observe(video);
+    document.addEventListener("visibilitychange", updatePlayback);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", updatePlayback);
+      video.pause();
+    };
+  }, [active]);
+
+  return (
+    <video
+      ref={ref}
+      src={src}
+      poster={poster}
+      muted
+      playsInline
+      loop
+      controls
+      preload="metadata"
+      aria-label="Video del proyecto"
+      className="absolute inset-0 h-full w-full object-cover"
+    />
+  );
+}
+
 export function Banner({ titleSlides, imageSlides }: BannerProps) {
   const validSlides = titleSlides.filter((slide) => slide.titulo?.trim());
-  const images = imageSlides.flatMap((slide) => slide.imagen?.url ? [slide.imagen] : []);
+  const mediaSlides = imageSlides.flatMap<{ image?: HomeBannerSlide["imagen"]; videoUrl?: string }>((slide) => {
+    const videoUrl = slide.tipo_medio === "video" && slide.video ? slide.video.url : undefined;
+    if (videoUrl) return [{ image: slide.imagen, videoUrl }];
+    return slide.imagen?.url ? [{ image: slide.imagen, videoUrl: undefined }] : [];
+  });
   const autoplay = useMemo(() => Autoplay({ delay: 5000, stopOnInteraction: false, playOnInit: false }), []);
   const imagePlugins = useMemo(() => [autoplay], [autoplay]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+  const [mediaReady, setMediaReady] = useState(false);
   const progressRef = useRef<HTMLSpanElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const activeSlide = validSlides[activeIndex] ?? validSlides[0];
@@ -51,7 +103,8 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
       animation.play();
       void animation.finished.then(() => {
         element.dataset.autoplayReady = "true";
-        if (images.length > 1) autoplay.play();
+        setMediaReady(true);
+        if (mediaSlides.length > 1) autoplay.play();
       }).catch(() => {
         // La animación se cancela al desmontar el banner.
       });
@@ -75,7 +128,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
       delete element.dataset.autoplayReady;
       autoplay.stop();
     };
-  }, [autoplay, images.length]);
+  }, [autoplay, mediaSlides.length]);
 
   useEffect(() => {
     const updateProgress = (event: Event) => {
@@ -101,7 +154,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
     return () => window.removeEventListener(TYPEWRITER_COMPLETE_EVENT, advanceSlide);
   }, [validSlides.length]);
 
-  if (!activeSlide && images.length === 0) return null;
+  if (!activeSlide && mediaSlides.length === 0) return null;
 
   return (
     <section
@@ -144,15 +197,15 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
         ))}
       </div>
 
-      {images.length > 0 && (
+      {mediaSlides.length > 0 && (
         <div data-intro-fade className="relative mt-61 min-h-0 w-full flex-1 md:mt-34 md:h-817 md:flex-none">
           <div ref={imageRef} className="absolute inset-0">
             <EmblaSlider
-              slides={images}
+              slides={mediaSlides}
               plugins={imagePlugins}
               showArrows={false}
-              showBullets={images.length > 1}
-              bulletsContainerClassName="gap-3"
+              showBullets={mediaSlides.length > 1}
+              bulletsContainerClassName="bottom-61 gap-3 md:bottom-34"
               bulletClassName="h-6 cursor-pointer rounded-full border-0 p-0 transition-[width] duration-300"
               bulletActiveClassName="w-91 bg-dots-inactive"
               bulletInactiveClassName="w-27 bg-dots-inactive"
@@ -161,16 +214,22 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
                 const startWhenReady = () => {
                   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches && imageRef.current) {
                     imageRef.current.dataset.autoplayReady = "true";
+                    setMediaReady(true);
                   }
-                  if (imageRef.current?.dataset.autoplayReady === "true" && images.length > 1) autoplay.play();
+                  if (imageRef.current?.dataset.autoplayReady === "true" && mediaSlides.length > 1) autoplay.play();
                 };
                 startWhenReady();
                 api.on("reInit", startWhenReady);
                 api.on("destroy", () => api.off("reInit", startWhenReady));
               }}
-              renderSlide={(image, index) => (
+              onSelectChange={setActiveMediaIndex}
+              renderSlide={(slide, index) => (
                 <div className="relative h-full w-full">
-                  <Image src={image.url!} alt={image.alt || ""} fill className="object-cover" sizes="100vw" priority={index === 0} />
+                  {slide.videoUrl ? (
+                    <BannerVideo src={slide.videoUrl} poster={slide.image?.url} active={mediaReady && index === activeMediaIndex} />
+                  ) : slide.image?.url ? (
+                    <Image src={slide.image.url} alt={slide.image.alt || ""} fill className="object-cover" sizes="100vw" priority={index === 0} />
+                  ) : null}
                 </div>
               )}
             />

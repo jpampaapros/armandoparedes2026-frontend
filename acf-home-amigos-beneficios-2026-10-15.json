@@ -1,0 +1,791 @@
+[
+  {
+    "key": "group_armando_paredes_pages",
+    "title": "Page: Inicio",
+    "fields": [
+      {
+        "key": "field_armando_paredes_sections",
+        "label": "Secciones",
+        "name": "sections",
+        "aria-label": "",
+        "type": "flexible_content",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "layouts": {
+          "layout_armando_paredes_contenido": {
+            "key": "layout_armando_paredes_contenido",
+            "name": "contenido",
+            "label": "Contenido libre",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_contenido_texto",
+                "label": "Contenido",
+                "name": "contenido",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "tabs": "visual",
+                "toolbar": "full",
+                "media_upload": 1,
+                "default_value": "",
+                "delay": 0
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_banner": {
+            "key": "layout_armando_paredes_banner",
+            "name": "banner",
+            "label": "Banner — Sliders de títulos e imágenes",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_home_banner_titulos",
+                "label": "Banner 1 — Títulos",
+                "name": "banner_titulos",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "Se reproduce de forma independiente. Arrastra las filas para cambiar el orden. Si dejas esta lista vacía, se usa el contenido anterior de los bloques Banner. Completa estas listas solo en el primer bloque Banner del Home.",
+                "required": 0,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "layout": "block",
+                "button_label": "Añadir título",
+                "min": 0,
+                "max": 0,
+                "rows_per_page": 20,
+                "collapsed": "field_armando_paredes_home_banner_titulos_titulo",
+                "sub_fields": [
+                  {
+                    "key": "field_armando_paredes_home_banner_titulos_titulo",
+                    "label": "Título",
+                    "name": "titulo",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "tabs": "visual",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "default_value": "",
+                    "delay": 0,
+                    "parent_repeater": "field_armando_paredes_home_banner_titulos"
+                  }
+                ]
+              },
+              {
+                "key": "field_armando_paredes_home_banner_imagenes",
+                "label": "Banner 2 — Imágenes",
+                "name": "banner_imagenes",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "Se reproduce de forma independiente. Arrastra las filas para cambiar el orden. Si dejas esta lista vacía, se usa el contenido anterior de los bloques Banner. Completa estas listas solo en el primer bloque Banner del Home.",
+                "required": 0,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "layout": "block",
+                "button_label": "Añadir imagen",
+                "min": 0,
+                "max": 0,
+                "rows_per_page": 20,
+                "collapsed": "field_armando_paredes_home_banner_imagenes_imagen",
+                "sub_fields": [
+                  {
+                    "key": "field_armando_paredes_home_banner_imagenes_imagen",
+                    "label": "Imagen",
+                    "name": "imagen",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "large",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "parent_repeater": "field_armando_paredes_home_banner_imagenes"
+                  }
+                ]
+              },
+              {
+                "key": "field_armando_paredes_banner_titulo",
+                "label": "Título (contenido anterior)",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "Se conserva para no perder el contenido actual. Se usa solo mientras la lista correspondiente de arriba esté vacía.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "tabs": "visual",
+                "toolbar": "basic",
+                "media_upload": 0,
+                "default_value": "",
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_banner_imagen",
+                "label": "Imagen (contenido anterior)",
+                "name": "imagen",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "Se conserva para no perder el contenido actual. Se usa solo mientras la lista correspondiente de arriba esté vacía.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "large",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_espacios": {
+            "key": "layout_armando_paredes_espacios",
+            "name": "espacios",
+            "label": "Espacios",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_espacios_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "allow_in_bindings": 0,
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 1,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_espacios_subtitulo",
+                "label": "Subtítulo",
+                "name": "subtitulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_espacios_indicadores",
+                "label": "Indicadores",
+                "name": "indicadores",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "layout": "row",
+                "button_label": "Añadir indicador",
+                "min": 0,
+                "max": 0,
+                "rows_per_page": 20,
+                "collapsed": "",
+                "sub_fields": [
+                  {
+                    "key": "field_armando_paredes_indicador_numero",
+                    "label": "Número",
+                    "name": "numero",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_espacios_indicadores"
+                  },
+                  {
+                    "key": "field_armando_paredes_indicador_texto",
+                    "label": "Texto",
+                    "name": "texto",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_espacios_indicadores"
+                  },
+                  {
+                    "key": "field_armando_paredes_indicador_ubicacion",
+                    "label": "Ubicación / segunda línea",
+                    "name": "ubicacion",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_armando_paredes_espacios_indicadores"
+                  }
+                ]
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyectos_venta": {
+            "key": "layout_armando_paredes_proyectos_venta",
+            "name": "proyectos_venta",
+            "label": "Proyectos en venta",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_pv_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_6aaac914f1bba",
+                "label": "Post",
+                "name": "post",
+                "aria-label": "",
+                "type": "post_object",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "post_type": [
+                  "proyectos"
+                ],
+                "post_status": "",
+                "taxonomy": "",
+                "return_format": "object",
+                "multiple": 1,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "bidirectional": 0,
+                "ui": 1,
+                "bidirectional_target": []
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_quien_es_armando": {
+            "key": "layout_armando_paredes_quien_es_armando",
+            "name": "quien_es_armando",
+            "label": "¿Quién es Armando?",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_qea_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "allow_in_bindings": 0,
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 1,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_qea_imagen",
+                "label": "Imagen de fondo",
+                "name": "imagen_fondo",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "large",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              },
+              {
+                "key": "field_armando_paredes_qea_descripcion",
+                "label": "Descripción",
+                "name": "descripcion",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 1,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_qea_boton",
+                "label": "Botón",
+                "name": "boton",
+                "aria-label": "",
+                "type": "link",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array"
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyectos_entregados": {
+            "key": "layout_armando_paredes_proyectos_entregados",
+            "name": "proyectos_entregados",
+            "label": "Proyectos entregados",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_pe_texto",
+                "label": "Texto",
+                "name": "texto",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_pe_subtitulo",
+                "label": "Subtítulo",
+                "name": "subtitulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_pe_boton",
+                "label": "Botón",
+                "name": "boton",
+                "aria-label": "",
+                "type": "link",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array"
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_amigos_beneficios": {
+            "key": "layout_armando_paredes_amigos_beneficios",
+            "name": "amigos_beneficios",
+            "label": "Amigos con beneficios",
+            "display": "row",
+            "sub_fields": [
+              {
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "key": "field_armando_paredes_ab_ocultar_seccion",
+                "label": "Ocultar sección",
+                "name": "ocultar_seccion",
+                "type": "true_false",
+                "instructions": "Oculta esta sección del Home sin borrar su contenido.",
+                "message": "Ocultar Amigos con beneficios",
+                "default_value": 0,
+                "ui": 1,
+                "ui_on_text": "Sí",
+                "ui_off_text": "No"
+              },
+              {
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "key": "field_armando_paredes_ab_color_fondo",
+                "label": "Color de fondo",
+                "name": "color_fondo",
+                "type": "color_picker",
+                "instructions": "Opcional. Si se deja vacío, se mantiene el fondo actual.",
+                "default_value": "",
+                "enable_opacity": 1,
+                "return_format": "string"
+              },
+              {
+                "key": "field_armando_paredes_ab_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_ab_descripcion",
+                "label": "Descripción",
+                "name": "descripcion",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "tabs": "all",
+                "toolbar": "full",
+                "media_upload": 1,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_ab_boton",
+                "label": "Botón",
+                "name": "boton",
+                "aria-label": "",
+                "type": "link",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array"
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_blog": {
+            "key": "layout_armando_paredes_blog",
+            "name": "blog",
+            "label": "Blog",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_blog_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_blog_boton",
+                "label": "Botón",
+                "name": "boton",
+                "aria-label": "",
+                "type": "link",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array"
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_proyectos_lista": {
+            "key": "layout_armando_paredes_proyectos_lista",
+            "name": "proyectos_lista",
+            "label": "Proyectos lista",
+            "display": "row",
+            "sub_fields": [],
+            "min": "",
+            "max": ""
+          },
+          "layout_armando_paredes_hero_proyectos": {
+            "key": "layout_armando_paredes_hero_proyectos",
+            "name": "hero_proyectos",
+            "label": "Hero Proyectos",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_hero_proyectos_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "tabs": "visual",
+                "toolbar": "basic",
+                "media_upload": 0,
+                "default_value": "",
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_hero_proyectos_imagen",
+                "label": "Imagen",
+                "name": "imagen",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "large",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              }
+            ],
+            "min": "",
+            "max": ""
+          }
+        },
+        "min": 0,
+        "max": 0,
+        "button_label": "Añadir sección"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "page_template",
+          "operator": "==",
+          "value": "page-templates/template-inicio.php"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Campos editables para las páginas públicas del sitio.",
+    "show_in_rest": 1,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": ""
+  }
+]

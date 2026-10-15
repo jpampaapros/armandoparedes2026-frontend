@@ -42,13 +42,13 @@ function FooterLink({ item }: { item?: FooterLinkItem }) {
       {isClaimsBook && (
         <Image
           src="/images/libro-reclamaciones.avif"
-          alt="Libro de reclamaciones"
-          width={80}
-          height={64}
-          className="h-[calc(64*var(--fx))] w-[calc(80*var(--fx))] shrink-0 object-contain"
+          alt=""
+          width={40}
+          height={32}
+          className="h-[calc(32*var(--fx))] w-[calc(40*var(--fx))] shrink-0 object-contain"
         />
       )}
-      {!isClaimsBook && <span className="whitespace-nowrap">{link?.title || url}</span>}
+      <span className="whitespace-nowrap">{isClaimsBook ? "Libro de reclamaciones" : link?.title || url}</span>
     </>
   );
 
