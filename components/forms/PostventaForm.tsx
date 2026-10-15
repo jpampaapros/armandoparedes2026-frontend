@@ -4,9 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Consent, FIELD_BORDER_STYLE, SelectField, controlClass, fieldClass, labelClass } from "@/components/forms/ContactoForm";
+import { Consent, SelectField, controlClass, fieldBorder, fieldBorderColor, fieldClass, labelClass } from "@/components/forms/ContactoForm";
+import { FieldError } from "@/components/forms/FieldError";
 import { useCf7Submit } from "@/hooks/useCf7Submit";
 import { useIsClient } from "@/hooks/useIsClient";
+import { emailRules, nameRules, phoneRules, requiredRules } from "@/lib/form-validation";
 import type { LeadFormValues } from "@/lib/lead";
 
 const ID = "postventa";
@@ -55,40 +57,45 @@ export function PostventaForm({
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-24 flex flex-col gap-16 md:mt-40 md:gap-24">
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
-          <SelectField idPrefix={ID} label="Proyecto adquirido*" name="proyecto" values={proyectos} register={register} classes={{ fieldClass, labelClass, controlClass }} onChange={onProyectoChange} />
-          {[
-            ["departamento", "Departamento*", "text"],
-            ["nombres", "Nombres*", "text"], ["apellido", "Apellido*", "text"],
-            ["correo", "Correo electrónico*", "email"],
-          ].map(([name, label, type]) => (
+          <SelectField idPrefix={ID} label="Proyecto adquirido" name="proyecto" values={proyectos} register={register} error={errors.proyecto} classes={{ fieldClass, labelClass, controlClass }} onChange={onProyectoChange} />
+          {([
+            ["departamento", "Departamento*", "text", requiredRules],
+            ["nombres", "Nombres*", "text", nameRules], ["apellido", "Apellido*", "text", nameRules],
+            ["correo", "Correo electrónico*", "email", emailRules],
+          ] as const).map(([name, label, type, rules]) => (
             <div key={name} className="flex flex-col gap-6">
               <label htmlFor={`${ID}-${name}`} className={labelClass}>{label}</label>
-              <div className={fieldClass} style={FIELD_BORDER_STYLE}>
-                <input id={`${ID}-${name}`} type={type} aria-invalid={errors[name] ? "true" : "false"} className={controlClass} {...register(name, { required: true })} />
+              <div className={fieldClass} style={fieldBorder(errors[name])}>
+                <input id={`${ID}-${name}`} type={type} aria-invalid={errors[name] ? "true" : "false"} aria-describedby={`${ID}-${name}-error`} className={controlClass} {...register(name, rules)} />
               </div>
+              <FieldError id={`${ID}-${name}-error`} error={errors[name]} />
             </div>
           ))}
           <div className="flex flex-col gap-6">
             <label htmlFor={`${ID}-celular`} className={labelClass}>Celular*</label>
             <div className="flex h-50">
-              <div className="flex shrink-0 items-center gap-5 border border-r-0 border-light-gray px-9" style={{ ...FIELD_BORDER_STYLE, borderRightWidth: 0 }} aria-label="Prefijo Perú +51">
+              <div className="flex shrink-0 items-center gap-5 border border-r-0 border-light-gray px-9" style={fieldBorderColor(errors.celular)} aria-label="Prefijo Perú +51">
                 <Image unoptimized src="/images/formulario-modal/bandera-peru.svg" alt="Perú" width={20} height={15} />
-                <span className="font-poppins text-16 md:text-18">+51</span>
+                <span className="sr-only">+51</span>
               </div>
-              <div className={`${fieldClass} min-w-0 flex-1`} style={FIELD_BORDER_STYLE}>
-                <input id={`${ID}-celular`} type="tel" inputMode="numeric" aria-invalid={errors.celular ? "true" : "false"} className={controlClass} {...register("celular", { required: true })} />
+              <div className={`${fieldClass} min-w-0 flex-1`} style={fieldBorder(errors.celular)}>
+                <input id={`${ID}-celular`} type="tel" inputMode="numeric" maxLength={11} aria-invalid={errors.celular ? "true" : "false"} aria-describedby={`${ID}-celular-error`} className={controlClass} {...register("celular", phoneRules)} />
               </div>
             </div>
+            <FieldError id={`${ID}-celular-error`} error={errors.celular} />
           </div>
           <div className="flex flex-col gap-6 md:col-span-2">
             <label htmlFor={`${ID}-consulta`} className={labelClass}>Consulta*</label>
-            <div className="border border-light-gray px-10 py-8" style={FIELD_BORDER_STYLE}>
-              <textarea id={`${ID}-consulta`} rows={3} aria-invalid={errors.consulta ? "true" : "false"} className={`${controlClass} block h-62 resize-none`} {...register("consulta", { required: true })} />
+            <div className="border border-light-gray px-10 py-8" style={fieldBorder(errors.consulta)}>
+              <textarea id={`${ID}-consulta`} rows={3} aria-invalid={errors.consulta ? "true" : "false"} aria-describedby={`${ID}-consulta-error`} className={`${controlClass} block h-62 resize-none`} {...register("consulta", requiredRules)} />
             </div>
+            <FieldError id={`${ID}-consulta-error`} error={errors.consulta} />
           </div>
         </div>
 
-        <div className="mt-8">
+        <p className="m-0 font-poppins text-12 text-near-black">* Campos obligatorios</p>
+
+        <div>
           <Consent idPrefix={ID} name="terminos" required control={control}>He leído y acepto las <Link href="/politica-de-privacidad" className="form-legal-link">Políticas de Privacidad</Link>.</Consent>
         </div>
 

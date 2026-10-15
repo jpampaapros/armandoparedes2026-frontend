@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
 import { useLeadSubmit } from "@/hooks/useLeadSubmit";
+import { TERMS_MESSAGE, emailRules, nameRules, phoneRules, requiredRules } from "@/lib/form-validation";
 import type { LeadContext, LeadFormValues } from "@/lib/lead";
 import { useIsClient } from "@/hooks/useIsClient";
 
@@ -203,13 +204,11 @@ export function ModalLeadForm({
                   type="text"
                   aria-invalid={errors.nombres ? "true" : "false"}
                   className="min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-13 leading-[1.2] text-near-black outline-none placeholder:text-near-black"
-                  {...register("nombres", { required: true })}
+                  {...register("nombres", nameRules)}
                 />
               </label>
               {errors.nombres && (
-                <span className="text-10 text-red-700" role="alert">
-                  Completa este campo
-                </span>
+                <span className="text-10 text-red-700" role="alert">{errors.nombres.message}</span>
               )}
             </div>
 
@@ -220,13 +219,11 @@ export function ModalLeadForm({
                   type="text"
                   aria-invalid={errors.apellido ? "true" : "false"}
                   className="min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-13 leading-[1.2] text-near-black outline-none placeholder:text-near-black"
-                  {...register("apellido", { required: true })}
+                  {...register("apellido", nameRules)}
                 />
               </label>
               {errors.apellido && (
-                <span className="text-10 text-red-700" role="alert">
-                  Completa este campo
-                </span>
+                <span className="text-10 text-red-700" role="alert">{errors.apellido.message}</span>
               )}
             </div>
 
@@ -237,13 +234,11 @@ export function ModalLeadForm({
                   type="email"
                   aria-invalid={errors.correo ? "true" : "false"}
                   className="min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-13 leading-[1.2] text-near-black outline-none placeholder:text-near-black"
-                  {...register("correo", { required: true })}
+                  {...register("correo", emailRules)}
                 />
               </label>
               {errors.correo && (
-                <span className="text-10 text-red-700" role="alert">
-                  Completa este campo
-                </span>
+                <span className="text-10 text-red-700" role="alert">{errors.correo.message}</span>
               )}
             </div>
 
@@ -257,32 +252,32 @@ export function ModalLeadForm({
                     height={15}
                     className="pointer-events-none h-15 w-20"
                   />
-                  <span className="font-poppins text-13 text-near-black">+51</span>
+                  <span className="sr-only">+51</span>
                 </div>
                 <label className="flex min-w-0 flex-1 flex-col justify-center border border-near-black px-7">
                   <span className="font-poppins text-10 font-semibold leading-none text-near-black">Celular*</span>
                   <input
                     type="tel"
+                    inputMode="numeric"
+                    maxLength={11}
                     aria-invalid={errors.celular ? "true" : "false"}
                     className="min-h-0 w-full border-0 bg-transparent p-0 font-poppins text-13 leading-[1.2] text-near-black outline-none placeholder:text-near-black"
-                    {...register("celular", { required: true })}
+                    {...register("celular", phoneRules)}
                   />
                 </label>
               </div>
               {errors.celular && (
-                <span className="text-10 text-red-700" role="alert">
-                  Completa este campo
-                </span>
+                <span className="text-10 text-red-700" role="alert">{errors.celular.message}</span>
               )}
             </div>
 
             <div className="flex flex-col gap-4">
               <label className="relative flex h-38 flex-col justify-center border border-near-black px-7">
-                <span className="font-poppins text-10 font-semibold leading-none text-near-black">Distrito de residencia</span>
+                <span className="font-poppins text-10 font-semibold leading-none text-near-black">Distrito de residencia*</span>
                 <select
                   className="min-h-0 w-full appearance-none border-0 bg-transparent p-0 pr-24 font-poppins text-13 leading-[1.2] text-near-black outline-none"
                   aria-invalid={errors.distrito ? "true" : "false"}
-                  {...register("distrito", { required: true })}
+                  {...register("distrito", requiredRules)}
                 >
                   <option value="" disabled hidden aria-label="Sin selección" />
                   {DISTRITOS.map((d) => (
@@ -300,19 +295,17 @@ export function ModalLeadForm({
                 />
               </label>
               {errors.distrito && (
-                <span className="text-10 text-red-700" role="alert">
-                  Completa este campo
-                </span>
+                <span className="text-10 text-red-700" role="alert">{errors.distrito.message}</span>
               )}
             </div>
 
             <div className="flex flex-col gap-4">
               <label className="relative flex h-38 flex-col justify-center border border-near-black px-7">
-                <span className="font-poppins text-10 font-semibold leading-none text-near-black">Presupuesto</span>
+                <span className="font-poppins text-10 font-semibold leading-none text-near-black">Presupuesto*</span>
                 <select
                   className="min-h-0 w-full appearance-none border-0 bg-transparent p-0 pr-24 font-poppins text-13 leading-[1.2] text-near-black outline-none"
                   aria-invalid={errors.presupuesto ? "true" : "false"}
-                  {...register("presupuesto", { required: true })}
+                  {...register("presupuesto", requiredRules)}
                 >
                   <option value="" disabled hidden aria-label="Sin selección" />
                   {PRESUPUESTOS.map((p) => (
@@ -330,9 +323,7 @@ export function ModalLeadForm({
                 />
               </label>
               {errors.presupuesto && (
-                <span className="text-10 text-red-700" role="alert">
-                  Completa este campo
-                </span>
+                <span className="text-10 text-red-700" role="alert">{errors.presupuesto.message}</span>
               )}
             </div>
           </div>
@@ -340,7 +331,7 @@ export function ModalLeadForm({
           <Controller
             name="terminos"
             control={control}
-            rules={{ required: true }}
+            rules={{ required: TERMS_MESSAGE }}
             render={({ field: { value, onChange, ref, name } }) => (
               <label className="flex cursor-pointer items-start gap-8">
                 <span className="relative flex h-18 w-18 shrink-0 items-center justify-center">
@@ -390,7 +381,7 @@ export function ModalLeadForm({
           />
           {errors.terminos && (
             <span className="text-10 text-red-700" role="alert">
-              Debes aceptar las políticas para continuar.
+              {errors.terminos.message}
             </span>
           )}
 
