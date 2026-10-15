@@ -202,6 +202,7 @@ export type Project = {
   /** Template asignado en WordPress (ej. "page-templates/template-gracias.php"). */
   template?: string;
   acf: {
+    general_imagen_mobile?: ACFImage | false | null;
     general_imagen_hover?: ACFImage | number | string | false | null;
     descripcion?: string;
     metros?: string | number;

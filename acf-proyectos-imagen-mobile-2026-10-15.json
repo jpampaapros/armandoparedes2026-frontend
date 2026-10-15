@@ -1,0 +1,81 @@
+[
+  {
+    "key": "group_6abd1f6a53692",
+    "title": "Post type: Proyectos (General)",
+    "fields": [
+      {
+        "key": "field_6abd1ff968878",
+        "label": "Imagen hover",
+        "name": "general_imagen_hover",
+        "aria-label": "",
+        "type": "image",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "",
+        "allow_in_bindings": 0,
+        "preview_size": "medium"
+      },
+      {
+        "key": "field_proyectos_general_imagen_mobile",
+        "label": "Imagen mobile del slider de Proyectos en venta",
+        "name": "general_imagen_mobile",
+        "aria-label": "",
+        "type": "image",
+        "instructions": "Imagen opcional con un encuadre horizontal para las tarjetas del slider de Proyectos en venta en celulares. Si no se carga, se utiliza la imagen destacada del proyecto.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "",
+        "allow_in_bindings": 0,
+        "preview_size": "medium"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "proyectos"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Campos editables para la página interna de un proyecto.",
+    "show_in_rest": 1,
+    "display_title": "General",
+    "allow_ai_access": false,
+    "ai_description": ""
+  }
+]
