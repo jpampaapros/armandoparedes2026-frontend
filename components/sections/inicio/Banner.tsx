@@ -49,7 +49,12 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
       if (!textReady || !inView || started) return;
       started = true;
       animation.play();
-      if (images.length > 1) autoplay.play();
+      void animation.finished.then(() => {
+        element.dataset.autoplayReady = "true";
+        if (images.length > 1) autoplay.play();
+      }).catch(() => {
+        // La animación se cancela al desmontar el banner.
+      });
       observer.disconnect();
     };
     const onTextReady = () => {
@@ -67,6 +72,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
       observer.disconnect();
       window.removeEventListener("home-typewriter-revealed", onTextReady);
       animation.cancel();
+      delete element.dataset.autoplayReady;
       autoplay.stop();
     };
   }, [autoplay, images.length]);
@@ -146,8 +152,21 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
               plugins={imagePlugins}
               showArrows={false}
               showBullets={images.length > 1}
-              onApiReady={() => {
-                if ((!imageRef.current?.closest(".intro-start") || window.matchMedia("(prefers-reduced-motion: reduce)").matches) && images.length > 1) autoplay.play();
+              bulletsContainerClassName="gap-3"
+              bulletClassName="h-6 cursor-pointer rounded-full border-0 p-0 transition-[width] duration-300"
+              bulletActiveClassName="w-91 bg-dots-inactive"
+              bulletInactiveClassName="w-27 bg-dots-inactive"
+              bulletProgress={{ duration: 5000, className: "bg-dots-active" }}
+              onApiReady={(api) => {
+                const startWhenReady = () => {
+                  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches && imageRef.current) {
+                    imageRef.current.dataset.autoplayReady = "true";
+                  }
+                  if (imageRef.current?.dataset.autoplayReady === "true" && images.length > 1) autoplay.play();
+                };
+                startWhenReady();
+                api.on("reInit", startWhenReady);
+                api.on("destroy", () => api.off("reInit", startWhenReady));
               }}
               renderSlide={(image, index) => (
                 <div className="relative h-full w-full">

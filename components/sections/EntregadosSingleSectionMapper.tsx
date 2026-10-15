@@ -50,6 +50,11 @@ export function EntregadosSingleSectionMapper({
                 area={section.area}
                 dormitorios={section.dormitorios}
                 fecha={section.fecha}
+                icono_direccion={section.icono_direccion}
+                icono_pisos={section.icono_pisos}
+                icono_area={section.icono_area}
+                icono_dormitorios={section.icono_dormitorios}
+                icono_fecha={section.icono_fecha}
               />
             );
           case "proyectos_venta":

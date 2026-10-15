@@ -79,7 +79,7 @@ export function ProjectFilters({ filters, className, styles = DEFAULT_STYLES }: 
       />
       <FilterMultiSelect
         {...styles}
-        sentenceCase
+        lowercase
         placeholder="m²"
         values={filters.areas}
         onChange={filters.setAreas}
