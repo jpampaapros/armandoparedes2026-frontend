@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import { useEffect, useState } from "react";
 import { SmartLink } from "@/components/SmartLink";
 import { getPublicCmsUrl } from "@/lib/urls";
@@ -77,6 +77,9 @@ export function ProjectCard({
   const sliderCard = compact || saleCarousel;
   const [showAlternateImage, setShowAlternateImage] = useState(false);
   const image = project._embedded?.["wp:featuredmedia"]?.[0];
+  const mobileImage = saleCarousel ? project.acf.general_imagen_mobile : undefined;
+  const mobileImageUrl = mobileImage ? mobileImage.url : undefined;
+  const imageSizes = saleCarousel ? "(max-width: 768px) 382px, 474px" : "(max-width: 768px) 382px, 630px";
   const distrito = project._embedded?.["wp:term"]
     ?.flat()
     .find((t) => t.taxonomy === "distrito");
@@ -90,14 +93,23 @@ export function ProjectCard({
         saleCarousel ? "h-465 md:w-474 md:h-641" : compact ? "h-430 md:max-w-630 md:h-680" : "h-465 md:max-w-630 md:h-825 md:max-lap:h-640"
       } ${saleListing ? "max-md:h-[calc(510*var(--fx))]" : ""}`}
     >
-      {image?.source_url && (
-        <Image
-          src={image.source_url}
-          alt={image.alt_text || project.title.rendered}
-          fill
-          className="object-cover"
-          sizes={saleCarousel ? "(max-width: 768px) 382px, 474px" : "(max-width: 768px) 382px, 630px"}
-        />
+      {(image?.source_url || mobileImageUrl) && (
+        <picture>
+          {mobileImageUrl && (
+            <source
+              media="(max-width: 767px)"
+              srcSet={getImageProps({ src: mobileImageUrl, alt: "", fill: true, sizes: imageSizes }).props.srcSet}
+              sizes={imageSizes}
+            />
+          )}
+          <Image
+            src={image?.source_url || mobileImageUrl!}
+            alt={image?.alt_text || project.title.rendered}
+            fill
+            className="object-cover"
+            sizes={imageSizes}
+          />
+        </picture>
       )}
 
       <ProjectHoverImage

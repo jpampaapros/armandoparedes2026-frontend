@@ -5,6 +5,7 @@ import { ChevronDown } from "@/components/icons/ChevronDown";
 
 export type FilterMultiSelectStyles = {
   sentenceCase?: boolean;
+  lowercase?: boolean;
   /** Ancho del filtro (por defecto `w-full`). */
   className?: string;
   /** Alto, padding, tipografía y colores de texto/borde del botón; la base no los fija para no pisarlos. */
@@ -31,6 +32,7 @@ export function FilterMultiSelect({
   checkboxClassName = "h-24 w-24 border-warm-gray",
   icon,
   sentenceCase = false,
+  lowercase = false,
 }: FilterMultiSelectStyles & {
   values: string[];
   onChange: (values: string[]) => void;
@@ -61,7 +63,9 @@ export function FilterMultiSelect({
 
   const label =
     values.length === 0 ? placeholder : values.length === 1 ? values[0] : `${placeholder} (${values.length})`;
-  const formatLabel = (text: string) => sentenceCase
+  const formatLabel = (text: string) => lowercase
+    ? text.toLocaleLowerCase("es")
+    : sentenceCase
     ? text.charAt(0).toLocaleUpperCase("es") + text.slice(1).toLocaleLowerCase("es")
     : text;
 
@@ -75,7 +79,7 @@ export function FilterMultiSelect({
         data-active={values.length > 0 || undefined}
         className={`flex w-full cursor-pointer items-center justify-between border-0 border-b border-solid bg-transparent p-0 text-left font-poppins outline-none ${buttonClassName}`}
       >
-        <span className="truncate pr-8">{formatLabel(label)}</span>
+        <span className={`truncate pr-8 ${lowercase ? "lowercase" : ""}`}>{formatLabel(label)}</span>
         <span className={`flex shrink-0 transition-transform ${open ? "rotate-180" : ""}`}>
           {icon ?? <ChevronDown className="h-24 w-24" />}
         </span>
@@ -90,7 +94,7 @@ export function FilterMultiSelect({
             const checked = values.includes(opt);
             return (
               <li key={opt} role="option" aria-selected={checked}>
-                <label className={`flex cursor-pointer items-center whitespace-nowrap font-poppins ${sentenceCase ? "normal-case" : "uppercase"} ${optionClassName}`}>
+                <label className={`flex cursor-pointer items-center whitespace-nowrap font-poppins ${lowercase ? "lowercase" : sentenceCase ? "normal-case" : "uppercase"} ${optionClassName}`}>
                   <input
                     type="checkbox"
                     checked={checked}

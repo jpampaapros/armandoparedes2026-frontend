@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import type { AutoplayType } from "embla-carousel-autoplay";
 import Image from "next/image";
 import type {
   EmblaCarouselType,
@@ -58,6 +59,8 @@ export interface EmblaSliderProps<T> {
   bulletClassName?: string;
   bulletActiveClassName?: string;
   bulletInactiveClassName?: string;
+  /** Relleno sincronizado con el temporizador del plugin Autoplay. */
+  bulletProgress?: { duration: number; className: string };
   /** Reemplaza los chevrons por una imagen; la flecha siguiente se rota 180 grados. */
   arrowIconSrc?: string;
   arrowButtonClassName?: string;
@@ -178,6 +181,7 @@ export function EmblaSlider<T>({
   bulletClassName,
   bulletActiveClassName,
   bulletInactiveClassName,
+  bulletProgress,
   arrowIconSrc,
   arrowButtonClassName,
   previousArrowClassName,
@@ -271,6 +275,26 @@ export function EmblaSlider<T>({
     emblaOptions,
     plugins,
   );
+
+  const bulletProgressRef = useRef<HTMLSpanElement>(null);
+  const bulletProgressDuration = bulletProgress?.duration;
+  useEffect(() => {
+    if (!emblaApi || !bulletProgressDuration) return;
+    const autoplay: AutoplayType | undefined = emblaApi.plugins().autoplay;
+    if (!autoplay) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    const update = () => {
+      const remaining = autoplay.timeUntilNext();
+      const progress = remaining === null ? 0 : Math.max(0, Math.min(1, 1 - remaining / bulletProgressDuration));
+      if (bulletProgressRef.current) {
+        bulletProgressRef.current.style.transform = `scaleX(${reducedMotion.matches ? 1 : progress})`;
+      }
+      frame = requestAnimationFrame(update);
+    };
+    frame = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(frame);
+  }, [emblaApi, bulletProgressDuration]);
 
   const basisPercent = 100 / spv;
 
@@ -516,18 +540,29 @@ export function EmblaSlider<T>({
               <button
                 key={index}
                 type="button"
-                onClick={() =>
-                  emblaApi?.scrollTo(index)
-                }
+                onClick={() => {
+                  emblaApi?.scrollTo(index);
+                  if (bulletProgress) emblaApi?.plugins().autoplay?.reset();
+                }}
                 aria-label={`Ir al slide ${index + 1}`}
+                aria-current={isActive ? "true" : undefined}
                 className={cn(
                   "h-2 rounded-full transition-all",
+                  bulletProgress && "relative overflow-hidden",
                   bulletClassName,
                   isActive
                     ? cn("w-8 bg-white active-slides-bullets", bulletActiveClassName)
                     : cn("w-27 bg-white/50", bulletInactiveClassName),
                 )}
-              />
+              >
+                {bulletProgress && isActive && (
+                  <span
+                    ref={bulletProgressRef}
+                    className={cn("absolute inset-0 origin-left rounded-full", bulletProgress.className)}
+                    style={{ transform: "scaleX(0)" }}
+                  />
+                )}
+              </button>
             );
           })}
         </div>

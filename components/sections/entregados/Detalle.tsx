@@ -8,6 +8,11 @@ import type { ACFImage } from "@/lib/types";
 
 type DetalleProps = {
   imagen?: ACFImage;
+  icono_direccion?: ACFImage;
+  icono_pisos?: ACFImage;
+  icono_area?: ACFImage;
+  icono_dormitorios?: ACFImage;
+  icono_fecha?: ACFImage;
   direccion?: string;
   pisos?: string;
   area?: string;
@@ -18,13 +23,18 @@ type DetalleProps = {
 type ItemConfig = {
   value?: string;
   icon: React.ReactNode;
+  customIcon?: ACFImage;
 };
 
-function DetailItem({ icon, value }: ItemConfig) {
+function DetailItem({ icon, customIcon, value }: ItemConfig) {
   if (!value) return null;
   return (
     <div className="flex items-center gap-14">
-      <div className="h-30 w-30 shrink-0 text-white">{icon}</div>
+      <div className="h-30 w-30 shrink-0 text-white">
+        {customIcon?.url ? (
+          <Image src={customIcon.url} alt="" width={30} height={30} className="h-full w-full object-contain" />
+        ) : icon}
+      </div>
       <span className="font-poppins text-20 font-medium leading-24 text-white md:text-24">
         {value}
       </span>
@@ -34,6 +44,11 @@ function DetailItem({ icon, value }: ItemConfig) {
 
 export function Detalle({
   imagen,
+  icono_direccion,
+  icono_pisos,
+  icono_area,
+  icono_dormitorios,
+  icono_fecha,
   direccion,
   pisos,
   area,
@@ -41,11 +56,11 @@ export function Detalle({
   fecha,
 }: DetalleProps) {
   const items: ItemConfig[] = [
-    { value: direccion, icon: <LocationIcon className="h-full w-full" /> },
-    { value: pisos, icon: <BuildingIcon className="h-full w-full" /> },
-    { value: area, icon: <AreaIcon className="h-full w-full" /> },
-    { value: dormitorios, icon: <BedIcon className="h-full w-full" /> },
-    { value: fecha, icon: <CalendarIcon className="h-full w-full" /> },
+    { value: direccion, customIcon: icono_direccion, icon: <LocationIcon className="h-full w-full" /> },
+    { value: pisos, customIcon: icono_pisos, icon: <BuildingIcon className="h-full w-full" /> },
+    { value: area, customIcon: icono_area, icon: <AreaIcon className="h-full w-full" /> },
+    { value: dormitorios, customIcon: icono_dormitorios, icon: <BedIcon className="h-full w-full" /> },
+    { value: fecha, customIcon: icono_fecha, icon: <CalendarIcon className="h-full w-full" /> },
   ].filter((i) => i.value);
 
   if (!imagen?.url && items.length === 0) return null;
@@ -72,7 +87,7 @@ export function Detalle({
           {items.length > 0 && (
             <div className="flex flex-col gap-30">
               {items.map((item, index) => (
-                <DetailItem key={index} icon={item.icon} value={item.value} />
+                <DetailItem key={index} icon={item.icon} customIcon={item.customIcon} value={item.value} />
               ))}
             </div>
           )}

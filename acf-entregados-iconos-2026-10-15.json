@@ -1,0 +1,525 @@
+[
+  {
+    "key": "group_armando_paredes_entregados",
+    "title": "Post type: Entregados",
+    "fields": [
+      {
+        "key": "field_armando_paredes_entregado_navegacion_anterior",
+        "label": "Navegación anterior",
+        "name": "navegacion_anterior",
+        "aria-label": "",
+        "type": "link",
+        "instructions": "Link al proyecto entregado anterior.",
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array"
+      },
+      {
+        "key": "field_armando_paredes_entregado_navegacion_posterior",
+        "label": "Navegación posterior",
+        "name": "navegacion_posterior",
+        "aria-label": "",
+        "type": "link",
+        "instructions": "Link al proyecto entregado posterior.",
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array"
+      },
+      {
+        "key": "field_armando_paredes_entregado_ano",
+        "label": "Año",
+        "name": "ano",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "Año de entrega del proyecto.",
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_armando_paredes_entregado_distrito",
+        "label": "Distrito",
+        "name": "distrito",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_armando_paredes_entregado_sections",
+        "label": "Secciones",
+        "name": "sections",
+        "aria-label": "",
+        "type": "flexible_content",
+        "instructions": "Secciones de la página interna del proyecto entregado.",
+        "required": false,
+        "conditional_logic": false,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "button_label": "Añadir sección",
+        "min": 0,
+        "max": 0,
+        "layouts": [
+          {
+            "key": "layout_armando_paredes_entregado_banner",
+            "name": "banner",
+            "label": "Banner",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_entregado_banner_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "tabs": "visual",
+                "toolbar": "basic",
+                "media_upload": 0,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_entregado_banner_descripcion",
+                "label": "Descripción",
+                "name": "descripcion",
+                "aria-label": "",
+                "type": "wysiwyg",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "tabs": "visual",
+                "toolbar": "basic",
+                "media_upload": 0,
+                "delay": 0
+              },
+              {
+                "key": "field_armando_paredes_entregado_banner_imagen",
+                "label": "Imagen",
+                "name": "imagen",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          {
+            "key": "layout_armando_paredes_entregado_galeria",
+            "name": "galeria",
+            "label": "Galería",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_entregado_galeria_imagenes",
+                "label": "Imágenes",
+                "name": "imagenes",
+                "aria-label": "",
+                "type": "gallery",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min": 0,
+                "max": 0,
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": "",
+                "insert": "append"
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          {
+            "key": "layout_armando_paredes_entregado_detalle",
+            "name": "detalle",
+            "label": "Detalle",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_entregado_detalle_imagen",
+                "label": "Imagen",
+                "name": "imagen",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              },
+              {
+                "key": "field_armando_paredes_entregado_detalle_direccion",
+                "label": "Dirección",
+                "name": "direccion",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_entregado_detalle_icono_direccion",
+                "label": "Ícono: Dirección",
+                "name": "icono_direccion",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "Opcional. Si no se selecciona una imagen, se utiliza el ícono predeterminado.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              },
+              {
+                "key": "field_armando_paredes_entregado_detalle_pisos",
+                "label": "Pisos",
+                "name": "pisos",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_entregado_detalle_icono_pisos",
+                "label": "Ícono: Pisos",
+                "name": "icono_pisos",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "Opcional. Si no se selecciona una imagen, se utiliza el ícono predeterminado.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              },
+              {
+                "key": "field_armando_paredes_entregado_detalle_area",
+                "label": "Área",
+                "name": "area",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_entregado_detalle_icono_area",
+                "label": "Ícono: Área",
+                "name": "icono_area",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "Opcional. Si no se selecciona una imagen, se utiliza el ícono predeterminado.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              },
+              {
+                "key": "field_armando_paredes_entregado_detalle_dormitorios",
+                "label": "Dormitorios",
+                "name": "dormitorios",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_entregado_detalle_icono_dormitorios",
+                "label": "Ícono: Dormitorios",
+                "name": "icono_dormitorios",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "Opcional. Si no se selecciona una imagen, se utiliza el ícono predeterminado.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              },
+              {
+                "key": "field_armando_paredes_entregado_detalle_fecha",
+                "label": "Fecha",
+                "name": "fecha",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Fecha de entrega (ej. Diciembre 2024).",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              },
+              {
+                "key": "field_armando_paredes_entregado_detalle_icono_fecha",
+                "label": "Ícono: Fecha",
+                "name": "icono_fecha",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "Opcional. Si no se selecciona una imagen, se utiliza el ícono predeterminado.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": 0,
+                "min_height": 0,
+                "min_size": 0,
+                "max_width": 0,
+                "max_height": 0,
+                "max_size": 0,
+                "mime_types": ""
+              }
+            ],
+            "min": "",
+            "max": ""
+          },
+          {
+            "key": "layout_armando_paredes_entregado_proyectos_venta",
+            "name": "proyectos_venta",
+            "label": "Proyectos en venta",
+            "display": "row",
+            "sub_fields": [
+              {
+                "key": "field_armando_paredes_entregado_proyectos_venta_titulo",
+                "label": "Título",
+                "name": "titulo",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+              }
+            ],
+            "min": "",
+            "max": ""
+          }
+        ]
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "entregados"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "Campos editables para la página interna de un proyecto entregado.",
+    "show_in_rest": 1,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1784740800
+  }
+]
