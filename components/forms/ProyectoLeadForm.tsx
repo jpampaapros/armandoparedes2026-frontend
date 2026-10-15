@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
 import { useLeadSubmit } from "@/hooks/useLeadSubmit";
+import { TERMS_MESSAGE, emailRules, nameRules, phoneRules, requiredRules } from "@/lib/form-validation";
 import type { LeadContext, LeadFormValues } from "@/lib/lead";
 import { useIsClient } from "@/hooks/useIsClient";
 import type { ACFImage } from "@/lib/types";
@@ -113,10 +114,10 @@ export function ProyectoLeadForm({
                 placeholder="Ingresa tus nombres"
                 className={inputClass}
                 aria-invalid={errors.nombres ? "true" : "false"}
-                {...register("nombres", { required: true })}
+                {...register("nombres", nameRules)}
               />
               {errors.nombres && (
-                <span className="text-12 text-white" role="alert">Completa este campo</span>
+                <span className="text-12 text-white" role="alert">{errors.nombres.message}</span>
               )}
             </div>
 
@@ -127,10 +128,10 @@ export function ProyectoLeadForm({
                 placeholder="Ingresa tu apellido"
                 className={inputClass}
                 aria-invalid={errors.apellido ? "true" : "false"}
-                {...register("apellido", { required: true })}
+                {...register("apellido", nameRules)}
               />
               {errors.apellido && (
-                <span className="text-12 text-white" role="alert">Completa este campo</span>
+                <span className="text-12 text-white" role="alert">{errors.apellido.message}</span>
               )}
             </div>
 
@@ -141,10 +142,10 @@ export function ProyectoLeadForm({
                 placeholder="Ingresa tu correo"
                 className={inputClass}
                 aria-invalid={errors.correo ? "true" : "false"}
-                {...register("correo", { required: true })}
+                {...register("correo", emailRules)}
               />
               {errors.correo && (
-                <span className="text-12 text-white" role="alert">Completa este campo</span>
+                <span className="text-12 text-white" role="alert">{errors.correo.message}</span>
               )}
             </div>
 
@@ -160,28 +161,30 @@ export function ProyectoLeadForm({
                     height={15}
                     className="pointer-events-none h-15 w-20"
                   />
-                  <span className="font-poppins text-18 text-white">+51</span>
+                  <span className="sr-only">+51</span>
                 </div>
                 <input
                   type="tel"
+                  inputMode="numeric"
+                  maxLength={11}
                   placeholder="Ingresa tu celular"
                   className={`${inputClass} h-full border border-l-0 border-white px-10`}
                   aria-invalid={errors.celular ? "true" : "false"}
-                  {...register("celular", { required: true })}
+                  {...register("celular", phoneRules)}
                 />
               </div>
               {errors.celular && (
-                <span className="text-12 text-white" role="alert">Completa este campo</span>
+                <span className="text-12 text-white" role="alert">{errors.celular.message}</span>
               )}
             </div>
 
             <div className={inputWrap}>
-              <label className={labelClass}>Distrito de residencia</label>
+              <label className={labelClass}>Distrito de residencia*</label>
               <div className="relative">
                 <select
                   className="w-full appearance-none bg-transparent font-poppins text-18 text-white outline-none"
                   aria-invalid={errors.distrito ? "true" : "false"}
-                  {...register("distrito", { required: true })}
+                  {...register("distrito", requiredRules)}
                 >
                   <option value="" disabled className="text-near-black">
                     Selecciona tu distrito
@@ -202,17 +205,17 @@ export function ProyectoLeadForm({
                 />
               </div>
               {errors.distrito && (
-                <span className="text-12 text-white" role="alert">Completa este campo</span>
+                <span className="text-12 text-white" role="alert">{errors.distrito.message}</span>
               )}
             </div>
 
             <div className={inputWrap}>
-              <label className={labelClass}>Presupuesto</label>
+              <label className={labelClass}>Presupuesto*</label>
               <div className="relative">
                 <select
                   className="w-full appearance-none bg-transparent font-poppins text-18 text-white outline-none"
                   aria-invalid={errors.presupuesto ? "true" : "false"}
-                  {...register("presupuesto", { required: true })}
+                  {...register("presupuesto", requiredRules)}
                 >
                   <option value="" disabled className="text-near-black">
                     Selecciona tu presupuesto
@@ -233,7 +236,7 @@ export function ProyectoLeadForm({
                 />
               </div>
               {errors.presupuesto && (
-                <span className="text-12 text-white" role="alert">Completa este campo</span>
+                <span className="text-12 text-white" role="alert">{errors.presupuesto.message}</span>
               )}
             </div>
           </div>
@@ -242,7 +245,7 @@ export function ProyectoLeadForm({
             <Controller
               name="terminos"
               control={control}
-              rules={{ required: true }}
+              rules={{ required: TERMS_MESSAGE }}
               render={({ field: { value, onChange, ref, name } }) => (
                 <label className="flex cursor-pointer items-start gap-8">
                   <span className="relative flex h-24 w-24 shrink-0 items-center justify-center border border-white">
@@ -269,6 +272,10 @@ export function ProyectoLeadForm({
                 </label>
               )}
             />
+
+            {errors.terminos && (
+              <span className="text-12 text-white" role="alert">{errors.terminos.message}</span>
+            )}
 
             <Controller
               name="marketing"

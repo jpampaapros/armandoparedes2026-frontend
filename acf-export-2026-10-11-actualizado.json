@@ -3560,6 +3560,24 @@
                 "append": ""
               },
               {
+                "key": "field_armando_paredes_proyecto_banner_badge_color",
+                "label": "Badge (color)",
+                "name": "badge_color",
+                "aria-label": "",
+                "type": "color_picker",
+                "instructions": "Color de fondo del badge. Por defecto es blanco.",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "#ffffff",
+                "enable_opacity": 0,
+                "return_format": "string"
+              },
+              {
                 "key": "field_armando_paredes_proyecto_banner_logo",
                 "label": "Logo",
                 "name": "logo",

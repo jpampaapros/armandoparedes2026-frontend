@@ -37,6 +37,7 @@ export function ProjectSectionMapper({ sections, proyectos, lead, presupuestos }
               <BannerProyecto
                 key={key}
                 badge={section.badge}
+                badge_color={section.badge_color}
                 distrito={section.distrito}
                 logo={section.logo}
                 slides={toArray(section.slides)}

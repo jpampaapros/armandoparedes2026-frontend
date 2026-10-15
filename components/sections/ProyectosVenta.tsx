@@ -23,7 +23,7 @@ export function ProyectosVenta({ titulo, proyectos, dataLayout }: ProyectosVenta
       <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col gap-24 md:flex-row md:items-start md:justify-between">
           {titulo && (
-            <h2 className="my-0 text-center md:text-left font-gotham text-36 font-medium leading-[1.1] text-slate md:text-55">
+            <h2 className="my-0 text-center md:text-left font-gotham text-36 font-bold leading-[1.1] text-slate md:text-55">
               {mobileTitle ? (
                 <>
                   <span className="block md:hidden">{mobileTitle[1]}</span>
