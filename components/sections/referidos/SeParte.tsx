@@ -45,7 +45,7 @@ function PhoneInput({ name, label, register }: PhoneInputProps) {
           height={15}
           className="pointer-events-none h-15 w-20"
         />
-        <span className="font-poppins text-18 text-white">+51</span>
+        <span className="sr-only">+51</span>
         <Image
           unoptimized
           src="/images/referidos/icon-dropdown.svg"
