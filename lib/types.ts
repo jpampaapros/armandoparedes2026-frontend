@@ -260,11 +260,12 @@ export type WPPost = {
 export type BlogPageSection = {
   acf_fc_layout: "banner_blog";
   banner_title?: string;
+  banner_subtitulo?: string;
   banner_description?: string;
   featured_post?: { ID?: number; id?: number; post_title?: string; post_type?: string };
 };
 
-export type BlogPage = WordPressPage<BlogPageSection>;
+export type BlogPage = WordPressPage<BlogPageSection, "acf">;
 
 export type ArmandoIndicator = {
   numero?: string;

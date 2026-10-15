@@ -9,7 +9,7 @@ type BlogRouteProps = {
   searchParams: Promise<{ categoria?: string; pagina?: string }>;
 };
 
-const POSTS_PER_PAGE = 9;
+const POSTS_PER_PAGE = 10;
 
 function stripHtml(html?: string): string {
   if (!html) return "";
@@ -17,7 +17,7 @@ function stripHtml(html?: string): string {
 }
 
 function getBannerBlogSection(page: BlogPageData | null): BlogPageSection | undefined {
-  return toArray(page?.acf_full?.sections).find((s) => s.acf_fc_layout === "banner_blog");
+  return toArray(page?.acf?.sections).find((s) => s.acf_fc_layout === "banner_blog");
 }
 
 function getFeaturedPostId(
@@ -34,7 +34,7 @@ async function getBlogPage(): Promise<BlogPageData | null> {
       cache: { revalidate: 3600, tags: ["wordpress-content"] },
     });
     const response = await wordpress.collection<BlogPageData[]>(
-      `/wp-json/wp/v2/pages?slug=blog&acf_format=standard&status=publish&_fields=acf_full,title`,
+      `/wp-json/wp/v2/pages?slug=blog&acf_format=standard&status=publish&_fields=acf,title`,
     );
     return response.data[0] ?? null;
   } catch {

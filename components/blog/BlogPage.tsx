@@ -25,7 +25,7 @@ export function BlogPage({
   totalPages,
 }: BlogPageProps) {
   const bannerTitle = bannerSection?.banner_title || page?.title?.rendered || "Blog";
-  const bannerDescription = "Arquitectura, comunidad y más";
+  const bannerSubtitle = bannerSection?.banner_subtitulo || "Arquitectura, comunidad y más";
 
   return (
     <main className="w-full bg-white">
@@ -36,10 +36,9 @@ export function BlogPage({
               <h1 className="font-gotham text-42 font-bold leading-[1.1] text-slate md:text-60">
                 {bannerTitle}
               </h1>
-              <div
-                className="mt-8 font-poppins text-16 font-normal md:font-semibold leading-24 text-near-black md:text-24"
-                dangerouslySetInnerHTML={{ __html: bannerDescription }}
-              />
+              <p className="mt-8 font-poppins text-16 font-normal md:font-semibold leading-24 text-near-black md:text-24">
+                {bannerSubtitle}
+              </p>
             </div>
             <BlogCategoryFilter categories={categories} />
           </div>
