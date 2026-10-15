@@ -300,7 +300,39 @@ export type ContactoTab = {
   url?: string;
 };
 
+export type ContactoSalaCard = {
+  titulo?: string;
+  telefono?: string;
+  direccion?: string;
+  horario?: string;
+  google_maps?: ACFLink | false;
+  waze?: ACFLink | false;
+  imagen?: ACFImage | false;
+};
+
+export type ContactoPregunta = {
+  titulo?: string;
+  respuesta?: string;
+};
+
+export type ContactoFaqGrupo = {
+  categoria?: string;
+  preguntas?: ACFList<ContactoPregunta>;
+};
+
+/** Layout "formulario" del flexible `secciones`: cada grupo es una pestaña de la página. */
+export type ContactoFormularioSection = {
+  acf_fc_layout: "formulario";
+  solicitar_informacion?: { titulo?: string; formulario_id?: string | number };
+  salas_de_ventas?: { titulo?: string; cards?: ACFList<ContactoSalaCard> };
+  postventa?: { titulo?: string; titulo_secundario?: string; subtitulo_secundario?: string; formulario_id?: string | number };
+  preguntas_frecuentes?: { titulo?: string; grupos?: ACFList<ContactoFaqGrupo> };
+};
+
+export type ContactoPageSection = ContactoFormularioSection;
+
 export type ContactoPageFields = {
+  secciones?: ACFList<ContactoPageSection>;
   titulo?: string;
   formulario_id?: string | number;
   tabs?: ACFList<ContactoTab>;
