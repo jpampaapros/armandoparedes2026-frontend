@@ -1,0 +1,642 @@
+[
+    {
+        "key": "group_6acff78b34364",
+        "title": "Page: Contacto",
+        "fields": [
+            {
+                "key": "field_6acff7914e652",
+                "label": "Secciones",
+                "name": "secciones",
+                "aria-label": "",
+                "type": "flexible_content",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layouts": {
+                    "layout_6acff7fd3c26d": {
+                        "key": "layout_6acff7fd3c26d",
+                        "name": "formulario",
+                        "label": "Formulario",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_6ad0ede85b42e",
+                                "label": "Solicitar información",
+                                "name": "",
+                                "aria-label": "",
+                                "type": "tab",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "placement": "top",
+                                "endpoint": 0,
+                                "selected": 0
+                            },
+                            {
+                                "key": "field_6ad0edb05b42d",
+                                "label": "Solicitar información",
+                                "name": "solicitar_informacion",
+                                "aria-label": "",
+                                "type": "group",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "layout": "block",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_6ad0ee2c5b431",
+                                        "label": "Titulo",
+                                        "name": "titulo",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "maxlength": "",
+                                        "allow_in_bindings": 0,
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": ""
+                                    },
+                                    {
+                                        "key": "field_6ad0f3a4aefea",
+                                        "label": "ID formulario (Contact Form 7)",
+                                        "name": "formulario_id",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "ID del formulario de Contact Form 7 que envía el correo de aviso (el lead se registra en Sperant aparte).",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "4298",
+                                        "maxlength": "",
+                                        "allow_in_bindings": 0,
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": ""
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "field_6ad0ee065b42f",
+                                "label": "Salas de ventas",
+                                "name": "",
+                                "aria-label": "",
+                                "type": "tab",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "placement": "top",
+                                "endpoint": 0,
+                                "selected": 0
+                            },
+                            {
+                                "key": "field_6ad0ee155b430",
+                                "label": "Salas de ventas",
+                                "name": "salas_de_ventas",
+                                "aria-label": "",
+                                "type": "group",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "layout": "block",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_6ad0ee945b432",
+                                        "label": "Titulo",
+                                        "name": "titulo",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "maxlength": "",
+                                        "allow_in_bindings": 0,
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": ""
+                                    },
+                                    {
+                                        "key": "field_6ad0eeab5b433",
+                                        "label": "Cards",
+                                        "name": "cards",
+                                        "aria-label": "",
+                                        "type": "repeater",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "layout": "block",
+                                        "pagination": 0,
+                                        "min": 0,
+                                        "max": 0,
+                                        "collapsed": "",
+                                        "button_label": "Agregar Fila",
+                                        "rows_per_page": 20,
+                                        "sub_fields": [
+                                            {
+                                                "key": "field_6ad0eeba5b434",
+                                                "label": "Titulo",
+                                                "name": "titulo",
+                                                "aria-label": "",
+                                                "type": "text",
+                                                "instructions": "",
+                                                "required": 0,
+                                                "conditional_logic": 0,
+                                                "wrapper": {
+                                                    "width": "",
+                                                    "class": "",
+                                                    "id": ""
+                                                },
+                                                "default_value": "",
+                                                "maxlength": "",
+                                                "allow_in_bindings": 0,
+                                                "placeholder": "",
+                                                "prepend": "",
+                                                "append": "",
+                                                "parent_repeater": "field_6ad0eeab5b433"
+                                            },
+                                            {
+                                                "key": "field_6ad0eec25b435",
+                                                "label": "Telefono",
+                                                "name": "telefono",
+                                                "aria-label": "",
+                                                "type": "text",
+                                                "instructions": "",
+                                                "required": 0,
+                                                "conditional_logic": 0,
+                                                "wrapper": {
+                                                    "width": "",
+                                                    "class": "",
+                                                    "id": ""
+                                                },
+                                                "default_value": "",
+                                                "maxlength": "",
+                                                "allow_in_bindings": 0,
+                                                "placeholder": "",
+                                                "prepend": "",
+                                                "append": "",
+                                                "parent_repeater": "field_6ad0eeab5b433"
+                                            },
+                                            {
+                                                "key": "field_6ad0eecc5b436",
+                                                "label": "Dirección",
+                                                "name": "direccion",
+                                                "aria-label": "",
+                                                "type": "text",
+                                                "instructions": "",
+                                                "required": 0,
+                                                "conditional_logic": 0,
+                                                "wrapper": {
+                                                    "width": "",
+                                                    "class": "",
+                                                    "id": ""
+                                                },
+                                                "default_value": "",
+                                                "maxlength": "",
+                                                "allow_in_bindings": 0,
+                                                "placeholder": "",
+                                                "prepend": "",
+                                                "append": "",
+                                                "parent_repeater": "field_6ad0eeab5b433"
+                                            },
+                                            {
+                                                "key": "field_6ad0eed75b437",
+                                                "label": "Horario",
+                                                "name": "horario",
+                                                "aria-label": "",
+                                                "type": "text",
+                                                "instructions": "",
+                                                "required": 0,
+                                                "conditional_logic": 0,
+                                                "wrapper": {
+                                                    "width": "",
+                                                    "class": "",
+                                                    "id": ""
+                                                },
+                                                "default_value": "",
+                                                "maxlength": "",
+                                                "allow_in_bindings": 0,
+                                                "placeholder": "",
+                                                "prepend": "",
+                                                "append": "",
+                                                "parent_repeater": "field_6ad0eeab5b433"
+                                            },
+                                            {
+                                                "key": "field_6ad0eee25b438",
+                                                "label": "Google Maps",
+                                                "name": "google_maps",
+                                                "aria-label": "",
+                                                "type": "link",
+                                                "instructions": "",
+                                                "required": 0,
+                                                "conditional_logic": 0,
+                                                "wrapper": {
+                                                    "width": "",
+                                                    "class": "",
+                                                    "id": ""
+                                                },
+                                                "return_format": "array",
+                                                "allow_in_bindings": 0,
+                                                "parent_repeater": "field_6ad0eeab5b433"
+                                            },
+                                            {
+                                                "key": "field_6ad0eeef5b439",
+                                                "label": "Waze",
+                                                "name": "waze",
+                                                "aria-label": "",
+                                                "type": "link",
+                                                "instructions": "",
+                                                "required": 0,
+                                                "conditional_logic": 0,
+                                                "wrapper": {
+                                                    "width": "",
+                                                    "class": "",
+                                                    "id": ""
+                                                },
+                                                "return_format": "array",
+                                                "allow_in_bindings": 0,
+                                                "parent_repeater": "field_6ad0eeab5b433"
+                                            },
+                                            {
+                                                "key": "field_6ad0f0e3daab0",
+                                                "label": "Imagen",
+                                                "name": "imagen",
+                                                "aria-label": "",
+                                                "type": "image",
+                                                "instructions": "",
+                                                "required": 0,
+                                                "conditional_logic": 0,
+                                                "wrapper": {
+                                                    "width": "",
+                                                    "class": "",
+                                                    "id": ""
+                                                },
+                                                "return_format": "array",
+                                                "library": "all",
+                                                "min_width": "",
+                                                "min_height": "",
+                                                "min_size": "",
+                                                "max_width": "",
+                                                "max_height": "",
+                                                "max_size": "",
+                                                "mime_types": "",
+                                                "allow_in_bindings": 0,
+                                                "preview_size": "medium",
+                                                "parent_repeater": "field_6ad0eeab5b433"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "field_6ad0f2ace89c7",
+                                "label": "Postventa",
+                                "name": "",
+                                "aria-label": "",
+                                "type": "tab",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "placement": "top",
+                                "endpoint": 0,
+                                "selected": 0
+                            },
+                            {
+                                "key": "field_6ad0f2bbe89c8",
+                                "label": "Postventa",
+                                "name": "postventa",
+                                "aria-label": "",
+                                "type": "group",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "layout": "block",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_6ad0f2cde89c9",
+                                        "label": "Titulo",
+                                        "name": "titulo",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "maxlength": "",
+                                        "allow_in_bindings": 0,
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": ""
+                                    },
+                                    {
+                                        "key": "field_6ad0f2f9e89ca",
+                                        "label": "Titulo secundario",
+                                        "name": "titulo_secundario",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "maxlength": "",
+                                        "allow_in_bindings": 0,
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": ""
+                                    },
+                                    {
+                                        "key": "field_6ad0f3a4aefe3",
+                                        "label": "Subtitulo Secundario",
+                                        "name": "subtitulo_secundario",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "maxlength": "",
+                                        "allow_in_bindings": 0,
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": ""
+                                    },
+                                    {
+                                        "key": "field_6ad0f3a4aefe9",
+                                        "label": "ID formulario (Contact Form 7)",
+                                        "name": "formulario_id",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "ID del formulario de Contact Form 7 que recibe las consultas de postventa.",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "4299",
+                                        "maxlength": "",
+                                        "allow_in_bindings": 0,
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": ""
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "field_6ad0f3bcaefe4",
+                                "label": "Preguntas frecuentes",
+                                "name": "preguntas_frecuentes",
+                                "aria-label": "",
+                                "type": "group",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "layout": "block",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_6ad0f528c92b2",
+                                        "label": "Titulo",
+                                        "name": "titulo",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "maxlength": "",
+                                        "allow_in_bindings": 0,
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": ""
+                                    },
+                                    {
+                                        "key": "field_6ad0f3ceaefe5",
+                                        "label": "Grupos",
+                                        "name": "grupos",
+                                        "aria-label": "",
+                                        "type": "repeater",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "layout": "table",
+                                        "pagination": 0,
+                                        "min": 0,
+                                        "max": 0,
+                                        "collapsed": "",
+                                        "button_label": "Agregar Fila",
+                                        "rows_per_page": 20,
+                                        "sub_fields": [
+                                            {
+                                                "key": "field_6ad0f3e4aefe6",
+                                                "label": "Categoria",
+                                                "name": "categoria",
+                                                "aria-label": "",
+                                                "type": "text",
+                                                "instructions": "",
+                                                "required": 0,
+                                                "conditional_logic": 0,
+                                                "wrapper": {
+                                                    "width": "",
+                                                    "class": "",
+                                                    "id": ""
+                                                },
+                                                "default_value": "",
+                                                "maxlength": "",
+                                                "allow_in_bindings": 0,
+                                                "placeholder": "",
+                                                "prepend": "",
+                                                "append": "",
+                                                "parent_repeater": "field_6ad0f3ceaefe5"
+                                            },
+                                            {
+                                                "key": "field_6ad0f405aefe7",
+                                                "label": "Preguntas",
+                                                "name": "preguntas",
+                                                "aria-label": "",
+                                                "type": "repeater",
+                                                "instructions": "",
+                                                "required": 0,
+                                                "conditional_logic": 0,
+                                                "wrapper": {
+                                                    "width": "",
+                                                    "class": "",
+                                                    "id": ""
+                                                },
+                                                "layout": "block",
+                                                "min": 0,
+                                                "max": 0,
+                                                "collapsed": "",
+                                                "button_label": "Agregar Fila",
+                                                "rows_per_page": 20,
+                                                "sub_fields": [
+                                                    {
+                                                        "key": "field_6ad0f4dcaefe8",
+                                                        "label": "Titulo",
+                                                        "name": "titulo",
+                                                        "aria-label": "",
+                                                        "type": "text",
+                                                        "instructions": "",
+                                                        "required": 0,
+                                                        "conditional_logic": 0,
+                                                        "wrapper": {
+                                                            "width": "",
+                                                            "class": "",
+                                                            "id": ""
+                                                        },
+                                                        "default_value": "",
+                                                        "maxlength": "",
+                                                        "allow_in_bindings": 0,
+                                                        "placeholder": "",
+                                                        "prepend": "",
+                                                        "append": "",
+                                                        "parent_repeater": "field_6ad0f405aefe7"
+                                                    },
+                                                    {
+                                                        "key": "field_6ad0f4e4aefe9",
+                                                        "label": "Respuesta",
+                                                        "name": "respuesta",
+                                                        "aria-label": "",
+                                                        "type": "wysiwyg",
+                                                        "instructions": "",
+                                                        "required": 0,
+                                                        "conditional_logic": 0,
+                                                        "wrapper": {
+                                                            "width": "",
+                                                            "class": "",
+                                                            "id": ""
+                                                        },
+                                                        "default_value": "",
+                                                        "allow_in_bindings": 0,
+                                                        "tabs": "all",
+                                                        "toolbar": "full",
+                                                        "media_upload": 1,
+                                                        "delay": 0,
+                                                        "parent_repeater": "field_6ad0f405aefe7"
+                                                    }
+                                                ],
+                                                "parent_repeater": "field_6ad0f3ceaefe5"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    }
+                },
+                "min": "",
+                "max": "",
+                "button_label": "Agregar Fila"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_template",
+                    "operator": "==",
+                    "value": "page-templates/template-contacto.php"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 1,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    }
+]

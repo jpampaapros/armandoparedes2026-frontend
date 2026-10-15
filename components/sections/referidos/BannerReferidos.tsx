@@ -61,7 +61,7 @@ function BenefitCards({ cards }: { cards: ReferidosCard[] }) {
             ))}
           </span>
           {card.amount && (
-            <span className="w-120 md:w-auto text-center whitespace-nowrap font-gotham text-[8.42cqw] font-bold leading-none tracking-[-0.03em] text-peach md:ml-15 md:text-42 md:leading-[normal]">
+            <span className="w-120 md:w-auto text-center whitespace-nowrap font-gotham text-24 font-bold leading-none tracking-[-0.03em] text-peach md:ml-15 md:text-42 md:leading-[normal]">
               {card.amount}
             </span>
           )}
