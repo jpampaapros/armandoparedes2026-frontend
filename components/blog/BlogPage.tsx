@@ -50,12 +50,13 @@ export function BlogPage({
         <section className="bg-white">
           <div className="mx-auto max-w-1440 px-16 pt-32 md:px-80 md:pt-50">
             <BlogPostCard post={featuredPost} variant="featured" />
+            <hr className="mb-0 mt-24 h-px w-full border-0 bg-border-light md:mt-30" />
           </div>
         </section>
       )}
 
       <section className="bg-white">
-        <div className="mx-auto max-w-1440 px-16 py-32 md:px-80 md:py-50">
+        <div className={`mx-auto max-w-1440 px-16 pb-32 md:px-80 md:pb-50 ${featuredPost ? "pt-0" : "pt-32 md:pt-50"}`}>
           {posts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2">
               {posts.map((post) => (
