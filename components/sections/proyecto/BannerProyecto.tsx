@@ -8,12 +8,13 @@ import type { ACFImage } from "@/lib/types";
 
 type BannerProyectoProps = {
   badge?: string;
+  badge_color?: string;
   distrito?: string;
   logo?: ACFImage;
   slides?: { imagen?: ACFImage }[];
 };
 
-export function BannerProyecto({ badge, distrito, logo, slides = [] }: BannerProyectoProps) {
+export function BannerProyecto({ badge, badge_color, distrito, logo, slides = [] }: BannerProyectoProps) {
   const items = slides.length > 0 ? slides : [{ imagen: logo }];
   const [api, setApi] = useState<EmblaCarouselType>();
   const [selected, setSelected] = useState(0);
@@ -111,7 +112,10 @@ export function BannerProyecto({ badge, distrito, logo, slides = [] }: BannerPro
       )}
 
       {badge && (
-        <div className="absolute top-0 left-1/2 hidden -translate-x-1/2 bg-slate px-24 py-12 md:flex md:px-48 md:py-16">
+        <div
+          className="absolute top-0 left-1/2 hidden -translate-x-1/2 px-24 py-12 md:flex md:px-48 md:py-16"
+          style={{ backgroundColor: badge_color || "#ffffff" }}
+        >
           <span className="font-poppins text-14 font-medium text-white md:text-20">
             {badge}
           </span>

@@ -159,7 +159,7 @@ export type ProjectCotizador = {
 };
 
 export type ProjectSection =
-  | { acf_fc_layout: "banner_proyecto"; badge?: string; distrito?: string; logo?: ACFImage; slides?: ACFList<ProjectSlide> }
+  | { acf_fc_layout: "banner_proyecto"; badge?: string; badge_color?: string; distrito?: string; logo?: ACFImage; slides?: ACFList<ProjectSlide> }
   | { acf_fc_layout: "descripcion_proyecto"; titulo?: string; descripcion?: string; imagen?: ACFImage; cambiar_lado?: boolean }
   | { acf_fc_layout: "ficha_tecnica"; titulo?: string; color_fondo?: string; color_titulo?: string; direccion?: string; pisos?: string; area?: string; dormitorios?: string; brochure?: ACFLink; icono_direccion?: ACFImage; icono_pisos?: ACFImage; icono_area?: ACFImage; icono_dormitorios?: ACFImage }
   | { acf_fc_layout: "ficha_tecnica_detallada"; imagen?: ACFImage; titulo?: string; info?: ACFList<{ icono?: ACFImage; texto?: string }> }
