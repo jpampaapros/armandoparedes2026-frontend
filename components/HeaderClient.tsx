@@ -137,14 +137,14 @@ export function HeaderClient({ data }: { data: HeaderData }) {
             />
           </button>
 
-          <Link href="/" className="block w-180 md:w-264">
+          <Link href="/" className="block w-180 md:w-230">
             <HeaderImage image={data.logo} className="block h-auto w-full" priority />
           </Link>
 
           <div className="hidden items-center gap-12 md:flex">
             <HeaderLink
               link={data.main_menu?.contact_link}
-              className="mr-24 inline-flex h-44 items-center justify-center bg-white px-24 text-18 font-bold leading-none uppercase tracking-[0.04em] text-black no-underline transition-opacity hover:opacity-90"
+              className="header-contact-link mr-24 inline-flex h-44 items-center justify-center px-24 text-18 leading-none uppercase tracking-[0.04em] text-white"
             />
             <button
               type="button"
