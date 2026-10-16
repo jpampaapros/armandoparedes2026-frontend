@@ -16,7 +16,7 @@ export function ProyectosLista({ titulo, proyectos }: ProyectosListaProps) {
   return (
     <section data-section="proyectos_en_venta" className="w-full bg-white px-15 pt-24 pb-60 md:px-0 md:pt-40 md:pb-120">
       <div className="mx-auto max-w-1440 px-0 md:px-80">
-        <div className="mb-40 flex flex-col md:flex-row md:items-baseline gap-24 justify-between">
+        <div className="mb-40 flex flex-col md:flex-row md:items-baseline gap-24 justify-between md:items-center">
           {titulo && (
             <h2 className="order-1 font-gotham text-36 font-semibold leading-[1.1] text-slate md:order-1 md:text-40 text-center md:text-left">
               {titulo}
