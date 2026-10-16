@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { EstadoProyecto } from "./EstadoProyecto";
 import { useEffect, useRef, useState } from "react";
 import type { EmblaCarouselType } from "embla-carousel";
 import { EmblaSlider } from "@/components/EmblaSlider";
@@ -59,89 +60,82 @@ export function BannerProyecto({ badge, badge_color, distrito, logo, slides = []
   return (
     <section
       data-layout="banner_proyecto"
-      className="relative h-672 w-full overflow-hidden md:h-700"
+      className="w-full"
     >
-      <EmblaSlider
-        slides={items}
-        onApiReady={setApi}
-        renderSlide={(slide) => (
-          <div className="relative h-full w-full">
-            {slide?.imagen?.url ? (
-              <Image
-                src={slide.imagen.url}
-                alt={slide.imagen.alt || ""}
-                fill
-                sizes="100vw"
-                className="object-cover"
-                priority
-              />
-            ) : (
-              <div className="h-full w-full bg-neutral-800" />
-            )}
-            <div className="absolute inset-0 bg-black/35" />
+      <div className="relative h-672 w-full overflow-hidden md:h-700">
+        <EmblaSlider
+          slides={items}
+          onApiReady={setApi}
+          renderSlide={(slide) => (
+            <div className="relative h-full w-full">
+              {slide?.imagen?.url ? (
+                <Image
+                  src={slide.imagen.url}
+                  alt={slide.imagen.alt || ""}
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                  priority
+                />
+              ) : (
+                <div className="h-full w-full bg-neutral-800" />
+              )}
+              <div className="absolute inset-0 bg-black/35" />
+            </div>
+          )}
+          loop={items.length > 1}
+          draggable={items.length > 1}
+          showArrows={false}
+          showBullets={false}
+          gap={0}
+          bulletsContainerClassName="bottom-120 gap-3"
+          bulletClassName="h-6 w-27 rounded-full bg-white/80 shrink-0"
+          bulletActiveClassName="w-91 bg-white"
+        />
+
+        {items.length > 1 && (
+          <div className="absolute bottom-120 left-1/2 z-10 hidden -translate-x-1/2 gap-3 md:flex">
+            {items.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                aria-label={`Ir al slide ${index + 1}`}
+                aria-current={selected === index ? "true" : undefined}
+                onClick={() => { api?.scrollTo(index); restartRef.current(); }}
+                className="relative h-6 shrink-0 cursor-pointer overflow-hidden rounded-full border-0 bg-white/40 p-0"
+                style={{ width: `calc(${selected === index ? 91 : 27}*var(--fx))` }}
+              >
+                {selected === index && (
+                  <span ref={progressRef} className="absolute inset-0 origin-left bg-white" style={{ transform: "scaleX(0)" }} />
+                )}
+              </button>
+            ))}
           </div>
         )}
-        loop={items.length > 1}
-        draggable={items.length > 1}
-        showArrows={false}
-        showBullets={false}
-        gap={0}
-        bulletsContainerClassName="bottom-120 gap-3"
-        bulletClassName="h-6 w-27 rounded-full bg-white/80 shrink-0"
-        bulletActiveClassName="w-91 bg-white"
-      />
 
-      {items.length > 1 && (
-        <div className="absolute bottom-120 left-1/2 z-10 hidden -translate-x-1/2 gap-3 md:flex">
-          {items.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              aria-label={`Ir al slide ${index + 1}`}
-              aria-current={selected === index ? "true" : undefined}
-              onClick={() => { api?.scrollTo(index); restartRef.current(); }}
-              className="relative h-6 shrink-0 cursor-pointer overflow-hidden rounded-full border-0 bg-white/40 p-0"
-              style={{ width: `calc(${selected === index ? 91 : 27}*var(--fx))` }}
-            >
-              {selected === index && (
-                <span ref={progressRef} className="absolute inset-0 origin-left bg-white" style={{ transform: "scaleX(0)" }} />
-              )}
-            </button>
-          ))}
-        </div>
-      )}
 
-      {badge && (
-        <div
-          className="absolute top-0 left-1/2 hidden -translate-x-1/2 px-24 py-12 md:flex md:px-48 md:py-16"
-          style={{ backgroundColor: badge_color || "#ffffff" }}
-        >
-          <span className="font-poppins text-14 font-medium text-white md:text-20">
-            {badge}
-          </span>
-        </div>
-      )}
+        {logo?.url && (
+          <div className="absolute left-1/2 top-257 h-100 w-380 -translate-x-1/2 md:top-143 md:h-141 md:w-612">
+            <Image
+              src={logo.url}
+              alt={logo.alt || ""}
+              fill
+              sizes="(max-width: 768px) 380px, 612px"
+              className="object-contain"
+              priority
+            />
+          </div>
+        )}
 
-      {logo?.url && (
-        <div className="absolute left-1/2 top-257 h-100 w-380 -translate-x-1/2 md:top-143 md:h-141 md:w-612">
-          <Image
-            src={logo.url}
-            alt={logo.alt || ""}
-            fill
-            sizes="(max-width: 768px) 380px, 612px"
-            className="object-contain"
-            priority
-          />
-        </div>
-      )}
-
-      {distrito && (
-        <div className="absolute left-1/2 top-405 w-274 -translate-x-1/2 border border-white px-24 py-10 md:top-312 md:px-48 md:py-12 text-center">
-          <span className="font-poppins text-18 text-white md:text-24">
-            {distrito}
-          </span>
-        </div>
-      )}
+        {distrito && (
+          <div className="absolute left-1/2 top-405 w-274 -translate-x-1/2 border border-white px-24 py-10 md:top-312 md:px-48 md:py-12 text-center">
+            <span className="font-poppins text-18 text-white md:text-24">
+              {distrito}
+            </span>
+          </div>
+        )}
+      </div>
+      <EstadoProyecto texto={badge} />
     </section>
   );
 }

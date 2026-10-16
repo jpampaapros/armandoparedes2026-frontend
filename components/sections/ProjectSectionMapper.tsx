@@ -73,6 +73,7 @@ export function ProjectSectionMapper({ sections, proyectos, lead, presupuestos }
                 brochure={section.brochure}
                 color_fondo={section.color_fondo}
                 color_titulo={section.color_titulo}
+                color_iconos={section.color_iconos}
                 icono_direccion={section.icono_direccion}
                 icono_pisos={section.icono_pisos}
                 icono_area={section.icono_area}
@@ -105,6 +106,8 @@ export function ProjectSectionMapper({ sections, proyectos, lead, presupuestos }
                 titulo={section.titulo}
                 descripcion={section.descripcion}
                 tabs={toArray(section.tabs)}
+                color_fondo={section.color_fondo}
+                color_activo={section.color_activo}
               />
             );
           case "planos":

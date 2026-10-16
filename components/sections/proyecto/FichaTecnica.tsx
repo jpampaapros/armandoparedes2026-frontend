@@ -1,4 +1,6 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
+import { resolveWordPressUrl } from "@/lib/urls";
 import { SmartLink } from "@/components/SmartLink";
 import { LocationIcon } from "@/components/icons/LocationIcon";
 import { BuildingIcon } from "@/components/icons/BuildingIcon";
@@ -10,6 +12,7 @@ type FichaTecnicaProps = {
   titulo?: string;
   color_fondo?: string;
   color_titulo?: string;
+  color_iconos?: string;
   direccion?: string;
   pisos?: string;
   area?: string;
@@ -21,7 +24,24 @@ type FichaTecnicaProps = {
   icono_dormitorios?: ACFImage;
 };
 
-export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, brochure, icono_direccion, icono_pisos, icono_area, icono_dormitorios, color_fondo, color_titulo }: FichaTecnicaProps) {
+function TechnicalIcon({ image, color, className, fallback }: {
+  image?: ACFImage;
+  color?: string;
+  className: string;
+  fallback: ReactNode;
+}) {
+  if (image?.url && color) {
+    // Usa el rewrite de uploads del CMS para servir la máscara desde el mismo origen.
+    const mask = `url(${JSON.stringify(resolveWordPressUrl(image.url))}) center / contain no-repeat`;
+    return <span aria-hidden="true" className={`block shrink-0 ${className}`} style={{ backgroundColor: color, mask, WebkitMask: mask }} />;
+  }
+  if (image?.url) {
+    return <Image src={image.url} alt="" width={40} height={40} className={`shrink-0 object-contain ${className}`} />;
+  }
+  return <span aria-hidden="true" className={`block shrink-0 text-white [&>svg]:h-full [&>svg]:w-full ${className}`} style={{ color: color || undefined }}>{fallback}</span>;
+}
+
+export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, brochure, icono_direccion, icono_pisos, icono_area, icono_dormitorios, color_fondo, color_titulo, color_iconos }: FichaTecnicaProps) {
   return (
     <section data-layout="ficha_tecnica" className="w-full bg-slate" style={{ backgroundColor: color_fondo || undefined }}>
       <div className="mx-auto max-w-1440 px-24 pt-90 pb-80 md:px-80 md:pt-90 md:pb-80">
@@ -34,11 +54,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
         <div className="mt-16 flex flex-col items-center md:mt-58 md:gap-30">
           {direccion && (
             <div className="flex items-center gap-14">
-              {icono_direccion?.url ? (
-                  <Image src={icono_direccion.url} alt="" width={40} height={40} className="h-32 w-32 text-white md:h-40 md:w-40 shrink-0 object-contain" />
-                ) : (
-                  <LocationIcon className="h-32 w-32 text-white md:h-40 md:w-40" />
-                )}
+              <TechnicalIcon image={icono_direccion} color={color_iconos} className="h-32 w-32 md:h-40 md:w-40" fallback={<LocationIcon />} />
               <span className="font-poppins text-18 text-black md:text-24">
                 {direccion}
               </span>
@@ -50,11 +66,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
           >
             {pisos && (
               <div className="flex items-center gap-14 md:justify-self-end">
-                {icono_pisos?.url ? (
-                  <Image src={icono_pisos.url} alt="" width={40} height={40} className="h-28 w-28 text-white md:h-30 md:w-30 shrink-0 object-contain" />
-                ) : (
-                  <BuildingIcon className="h-28 w-28 text-white md:h-30 md:w-30" />
-                )}
+                <TechnicalIcon image={icono_pisos} color={color_iconos} className="h-28 w-28 md:h-30 md:w-30" fallback={<BuildingIcon />} />
                 <span className="font-poppins text-18 text-black md:text-24">
                   {pisos} pisos
                 </span>
@@ -62,11 +74,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
             )}
             {area && (
               <div className="flex items-center justify-center gap-14 text-center">
-                {icono_area?.url ? (
-                  <Image src={icono_area.url} alt="" width={40} height={40} className="h-28 w-28 shrink-0 text-white md:h-36 md:w-36 shrink-0 object-contain" />
-                ) : (
-                  <AreaIcon className="h-28 w-28 shrink-0 text-white md:h-36 md:w-36" />
-                )}
+                <TechnicalIcon image={icono_area} color={color_iconos} className="h-28 w-28 md:h-36 md:w-36" fallback={<AreaIcon />} />
                 <span className="font-poppins text-18 text-black md:text-24">
                   {area} m²
                 </span>
@@ -74,11 +82,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
             )}
             {dormitorios && (
               <div className="flex items-center gap-14 md:justify-self-start">
-                {icono_dormitorios?.url ? (
-                  <Image src={icono_dormitorios.url} alt="" width={40} height={40} className="h-28 w-28 text-white md:h-36 md:w-36 shrink-0 object-contain" />
-                ) : (
-                  <BedIcon className="h-28 w-28 text-white md:h-36 md:w-36" />
-                )}
+                <TechnicalIcon image={icono_dormitorios} color={color_iconos} className="h-28 w-28 md:h-36 md:w-36" fallback={<BedIcon />} />
                 <span className="font-poppins text-18 text-black md:text-24">
                   {dormitorios} dormitorios
                 </span>

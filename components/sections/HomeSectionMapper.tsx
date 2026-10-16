@@ -81,9 +81,11 @@ export function HomeSectionMapper({
               />
             );
           case "amigos_beneficios":
+            if (section.ocultar_seccion === true || section.ocultar_seccion === 1 || section.ocultar_seccion === "1") return null;
             return (
               <AmigosBeneficios
                 key={`${section.acf_fc_layout}-${index}`}
+                color_fondo={section.color_fondo}
                 titulo={section.titulo}
                 descripcion={section.descripcion}
                 boton={section.boton}

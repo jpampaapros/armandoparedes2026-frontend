@@ -10,16 +10,20 @@ type GaleriaProyectoProps = {
   titulo?: string;
   descripcion?: string;
   tabs?: ProjectGaleriaTab[];
+  color_fondo?: string;
+  color_activo?: string;
 };
 
 function TabButton({
   label,
   active,
   onClick,
+  activeColor,
 }: {
   label?: string;
   active: boolean;
   onClick: () => void;
+  activeColor?: string;
 }) {
   return (
     <button
@@ -29,6 +33,7 @@ function TabButton({
       className="relative w-fit cursor-pointer border-0 bg-transparent p-0 pb-24 text-left md:pb-8"
     >
       <span
+        style={{ color: active ? activeColor || undefined : undefined }}
         className={`font-gotham text-20 md:text-32 ${
           active ? "font-medium text-white" : "font-light text-white"
         }`}
@@ -36,14 +41,14 @@ function TabButton({
         {label}
       </span>
       {active && (
-        <span className="absolute bottom-0 left-0 h-px w-full bg-white md:w-192" />
+        <span className="absolute bottom-0 left-0 h-px w-full bg-white md:w-192" style={{ backgroundColor: activeColor || undefined }} />
       )}
     </button>
   );
 }
 
 export function GaleriaProyecto(props: GaleriaProyectoProps) {
-  const { descripcion, tabs = [] } = props;
+  const { descripcion, tabs = [], color_fondo, color_activo } = props;
   // titulo se recibe por contrato de ACF pero no se rendera según Figma
   const [active, setActive] = useState(0);
   const [carousel, setCarousel] = useState<{ tab: number; api: EmblaCarouselType }>();
@@ -109,13 +114,14 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
         />
       </div>
 
-      <div className="flex w-full flex-col bg-near-black px-16 pt-34 pb-47 md:h-full md:w-340 md:px-35 md:pt-90 md:pb-58">
+      <div className="flex w-full flex-col bg-near-black px-16 pt-34 pb-47 md:h-full md:w-340 md:px-35 md:pt-90 md:pb-58" style={{ backgroundColor: color_fondo || undefined }}>
         <div className="flex flex-row gap-28 md:flex-col md:gap-30">
           {tabs.map((tab, i) => (
             <TabButton
               key={i}
               label={tab.titulo}
               active={i === active}
+              activeColor={color_activo}
               onClick={() => setActive(i)}
             />
           ))}
