@@ -35,20 +35,20 @@ function FooterLink({ item }: { item?: FooterLinkItem }) {
   const url = item?.link?.url;
   if (!url) return null;
 
-  const { link } = item;
-  const isClaimsBook = /reclamaciones/i.test(`${link?.title ?? ""} ${url}`);
+  const { link, icon } = item;
+  // Si el enlace trae icono en ACF (p. ej. Libro de reclamaciones), se muestra junto al texto.
   const children = (
     <>
-      {isClaimsBook && (
+      {icon?.url && (
         <Image
-          src="/images/libro-reclamaciones.avif"
+          src={icon.url}
           alt=""
           width={40}
           height={32}
           className="h-[calc(32*var(--fx))] w-[calc(40*var(--fx))] shrink-0 object-contain"
         />
       )}
-      <span className="whitespace-nowrap">{isClaimsBook ? "Libro de reclamaciones" : link?.title || url}</span>
+      <span className="whitespace-nowrap">{link?.title || url}</span>
     </>
   );
 
