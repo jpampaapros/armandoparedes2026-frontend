@@ -204,6 +204,13 @@
   text-decoration-color: #fff;
 }
 
+/* Suelto (sin layer) porque `a { text-decoration: none }` global gana a las utilidades de Tailwind. */
+.header-contact-link:hover,
+.header-contact-link:focus-visible {
+  text-decoration-line: underline;
+  text-underline-offset: 0.2em;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .header-menu-link,
   .header-menu-link:any-link {
