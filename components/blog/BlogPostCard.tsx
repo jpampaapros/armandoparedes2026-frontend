@@ -36,7 +36,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
     return (
       <Link
         href={`/blog/${post.slug}`}
-        className="group relative flex w-full flex-col overflow-hidden border-0 bg-card-dark md:aspect-[1250/561] md:flex-row md:gap-[55px]"
+        className="group relative flex w-full flex-col overflow-hidden border border-near-black bg-white text-near-black md:aspect-[1250/561] md:flex-row md:gap-[28px]"
       >
         <div className="w-full p-20 md:w-[46%] md:py-20 md:pl-20 md:pr-0">
           <div className="relative aspect-[16/10] w-full overflow-hidden md:h-full md:aspect-auto">
