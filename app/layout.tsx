@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es" className={`${poppins.variable} ${gaMaamli.variable} ${inter.variable}`}>
-      <body className="font-sans">
+      <body className="font-sans pt-55">
         <Header />
         {children}
         <Footer />

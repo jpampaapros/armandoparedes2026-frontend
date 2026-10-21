@@ -57,7 +57,7 @@ export async function LegalPage({ id }: { id: number }) {
         />
         {contenido && (
           <div
-            className="mt-32 min-w-0 max-w-full font-poppins text-16 font-normal leading-[1.6] text-near-black md:mt-48 md:text-18 md:leading-[1.7] [&_p]:m-0 [&_p+p]:mt-16 [&_ul]:mt-16 [&_ul]:list-disc [&_ul]:pl-24 [&_ol]:mt-16 [&_ol]:list-decimal [&_ol]:pl-24 [&_li]:mb-8 [&_strong]:font-semibold [&_em]:italic [&_a]:text-peach [&_a]:underline [&_h2]:mt-32 [&_h2]:text-24 [&_h2]:font-semibold [&_h3]:mt-24 [&_h3]:text-20 [&_h3]:font-semibold [&_table]:mt-16 [&_table]:w-full [&_td]:border [&_td]:border-border-light [&_td]:p-8 [&_th]:border [&_th]:border-border-light [&_th]:p-8"
+            className="mt-32 min-w-0 max-w-full font-poppins text-16 font-normal leading-[1.6] text-near-black md:mt-48 md:text-16 md:leading-[1.7] [&_p]:m-0 [&_p+p]:mt-16 [&_ul]:mt-16 [&_ul]:list-disc [&_ul]:pl-24 [&_ol]:mt-16 [&_ol]:list-decimal [&_ol]:pl-24 [&_li]:mb-8 [&_strong]:font-semibold [&_em]:italic [&_a]:text-peach [&_a]:underline [&_h2]:mt-32 [&_h2]:text-24 [&_h2]:font-semibold [&_h3]:mt-24 [&_h3]:text-20 [&_h3]:font-semibold [&_table]:mt-16 [&_table]:w-full [&_td]:border [&_td]:border-border-light [&_td]:p-8 [&_th]:border [&_th]:border-border-light [&_th]:p-8"
             dangerouslySetInnerHTML={{ __html: contenido }}
           />
         )}
