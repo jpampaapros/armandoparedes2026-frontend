@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { controlClass, fieldBorder, fieldClass, labelClass } from "@/components/forms/ContactoForm";
 import { PostventaForm } from "@/components/forms/PostventaForm";
 import type { ContactoFaqGrupo, ContactoFormularioSection } from "@/lib/types";
 import { toArray } from "@/lib/utils";
@@ -27,18 +28,20 @@ export function Postventa({
     <div className="mx-auto max-w-895">
       <h2 className="mb-0 mt-24 text-center font-gotham text-36 font-bold leading-tight text-slate md:mt-80 md:text-60">{titulo}</h2>
 
-      <div className="relative mx-auto mt-24 flex h-50 max-w-796 flex-col justify-center border border-near-black px-10 md:mt-50">
-        <label htmlFor="postventa-proyecto" className="font-poppins text-10 font-semibold leading-none text-near-black md:text-12">Proyecto*</label>
-        <select
-          id="postventa-proyecto"
-          value={proyecto}
-          onChange={(event) => setProyecto(event.target.value)}
-          className="w-full appearance-none border-0 bg-transparent p-0 pr-32 font-poppins text-16 leading-[1.2] text-near-black outline-none md:text-18"
-        >
-          <option value="" disabled>Seleccionar proyecto</option>
-          {proyectos.map((nombre) => <option key={nombre} value={nombre}>{nombre}</option>)}
-        </select>
-        <Image unoptimized src="/images/contacto/chevron.svg" alt="" width={24} height={24} className="pointer-events-none absolute right-10 top-1/2 size-24 -translate-y-1/2" />
+      <div className="mx-auto mt-24 flex max-w-796 flex-col gap-6 md:mt-50">
+        <label htmlFor="postventa-proyecto" className={labelClass}>Proyecto*</label>
+        <div className={`${fieldClass} relative`} style={fieldBorder(false)}>
+          <select
+            id="postventa-proyecto"
+            value={proyecto}
+            onChange={(event) => setProyecto(event.target.value)}
+            className={`${controlClass} appearance-none pr-28`}
+          >
+            <option value="" disabled>Seleccionar proyecto</option>
+            {proyectos.map((nombre) => <option key={nombre} value={nombre}>{nombre}</option>)}
+          </select>
+          <Image unoptimized src="/images/formulario-modal/chevron-down.svg" alt="" width={18} height={18} className="pointer-events-none absolute right-10 top-1/2 -translate-y-1/2" />
+        </div>
       </div>
 
       {proyecto && (
