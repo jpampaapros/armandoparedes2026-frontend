@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Controller, useForm, type FieldError as RHFFieldError, type RegisterOptions } from "react-hook-form";
+import { Controller, useForm, type Control, type FieldError as RHFFieldError, type FieldPath, type FieldValues, type RegisterOptions } from "react-hook-form";
 import { FieldError } from "@/components/forms/FieldError";
 import { useLeadSubmit } from "@/hooks/useLeadSubmit";
 import { TERMS_MESSAGE, emailRules, nameRules, phoneRules, requiredRules } from "@/lib/form-validation";
@@ -151,15 +151,18 @@ export function SelectField({ label, name, values, register, error, required = t
   );
 }
 
-type ConsentProps = {
-  name: "terminos" | "marketing"; required?: boolean;
-  control: ReturnType<typeof useForm<LeadFormValues>>["control"];
+type ConsentProps<T extends FieldValues> = {
+  /** El formulario debe declarar el valor inicial (`false`) en `defaultValues`. */
+  name: FieldPath<T>; required?: boolean;
+  control: Control<T>;
   children: React.ReactNode;
   idPrefix?: string;
+  /** Mensaje cuando falta marcarlo; por defecto el de las Políticas de Privacidad. */
+  requiredMessage?: string;
 };
 
-export function Consent({ name, required, control, children, idPrefix = "contacto" }: ConsentProps) {
-  return <Controller name={name} control={control} defaultValue={false} rules={required ? { required: TERMS_MESSAGE } : undefined} render={({ field, fieldState }) => (
+export function Consent<T extends FieldValues>({ name, required, control, children, idPrefix = "contacto", requiredMessage = TERMS_MESSAGE }: ConsentProps<T>) {
+  return <Controller name={name} control={control} rules={required ? { required: requiredMessage } : undefined} render={({ field, fieldState }) => (
     <div className="flex flex-col gap-6">
     <div className="flex items-start gap-8 font-inter text-13 leading-20 text-near-black md:text-14">
       <div className="relative mt-1 h-18 w-30 shrink-0">

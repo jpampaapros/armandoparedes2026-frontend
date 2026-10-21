@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 import { getPublicFormsUrl } from "@/lib/urls";
 
-export type Cf7FormValues = Record<string, string | boolean | undefined>;
+export type Cf7FormValues = Record<string, string | boolean | File | undefined>;
 
 type Cf7InvalidField = { field: string; message: string };
 type Cf7SubmitStatus = {
@@ -36,6 +36,8 @@ export function useCf7Submit(
             if (value === undefined || value === null) return;
             if (typeof value === "boolean") {
               forward.append(key, value ? "1" : "");
+            } else if (value instanceof File) {
+              forward.append(key, value);
             } else {
               forward.append(key, String(value));
             }
