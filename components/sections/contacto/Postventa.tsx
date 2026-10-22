@@ -26,7 +26,9 @@ export function Postventa({
 
   return (
     <div className="mx-auto max-w-895">
-      <h2 className="mb-0 mt-24 text-center font-gotham text-36 font-bold leading-tight text-slate md:mt-80 md:text-60">{titulo}</h2>
+      {grupos.length > 0 && <PreguntasFrecuentes titulo={preguntas?.titulo} grupos={grupos} />}
+
+      <h2 className={`mb-0 ${grupos.length > 0 ? "mt-64 md:mt-104" : "mt-24 md:mt-80"} text-center font-gotham text-36 font-bold leading-tight text-slate md:text-50`}>{titulo}</h2>
 
       <div className="mx-auto mt-24 flex max-w-796 flex-col gap-6 md:mt-50">
         <label htmlFor="postventa-proyecto" className={labelClass}>Proyecto*</label>
@@ -54,8 +56,6 @@ export function Postventa({
           onProyectoChange={setProyecto}
         />
       )}
-
-      {grupos.length > 0 && <PreguntasFrecuentes titulo={preguntas?.titulo} grupos={grupos} />}
     </div>
   );
 }
@@ -65,8 +65,8 @@ function PreguntasFrecuentes({ titulo = "Preguntas frecuentes", grupos }: { titu
   const grupo = grupos[Math.min(activo, grupos.length - 1)];
 
   return (
-    <section aria-labelledby="postventa-faq" className="mt-64 md:mt-104">
-      <h3 id="postventa-faq" className="m-0 text-center font-gotham text-28 font-bold leading-tight text-slate md:text-40">{titulo}</h3>
+    <section aria-labelledby="postventa-faq" className="mt-24 md:mt-80">
+      <h2 id="postventa-faq" className="m-0 text-center font-gotham text-36 font-bold leading-tight text-slate md:text-50">{titulo}</h2>
 
       <div aria-label="Categorías" role="group" className="mt-20 flex flex-wrap justify-center gap-10 md:mt-25">
         {grupos.map((g, index) => (

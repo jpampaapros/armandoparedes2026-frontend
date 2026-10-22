@@ -66,7 +66,7 @@ export function ContactoForm({
 
   return (
     <div className="mx-auto max-w-895">
-      <h2 className="mb-0 mt-24 text-center font-gotham text-36 font-bold leading-tight text-slate md:mt-40 md:text-60">{titulo}</h2>
+      <h2 className="mb-0 mt-24 text-center font-gotham text-36 font-bold leading-tight text-slate md:mt-40 md:text-50">{titulo}</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-24 flex flex-col gap-16 md:mt-40 md:gap-24">
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
@@ -109,7 +109,7 @@ export function ContactoForm({
           <Consent name="marketing" control={control}>Autorizo a Armando Paredes para que realice las actividades de prospección comercial y marketing descritas en las <Link href="/politica-de-privacidad" className="form-legal-link">Políticas de Privacidad</Link>.</Consent>
         </div>
 
-        <button type="submit" disabled={isPending || !isClient} className="mx-auto mt-30 flex h-50 w-full items-center justify-center bg-slate font-gotham text-16 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50 md:w-511 md:text-18">
+        <button type="submit" disabled={isPending || !isClient} className="mx-auto mt-30 flex h-50 w-full items-center justify-center bg-slate font-gotham text-16 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50 md:text-18">
           {isPending ? "Enviando..." : "Enviar"}
         </button>
         {status && <p role="status" className={`m-0 text-center text-14 ${status.ok ? "text-green-700" : "text-red-700"}`}>{status.message}</p>}

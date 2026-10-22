@@ -12,7 +12,7 @@ type SalasDeVentasProps = {
 export function SalasDeVentas({ titulo = "Visítanos en nuestra sala de ventas", cards }: SalasDeVentasProps) {
   return (
     <div className="mx-auto max-w-1280">
-      <h2 className="mb-0 mt-24 text-center font-gotham text-36 font-bold leading-tight text-slate md:mt-80 md:text-60">{titulo}</h2>
+      <h2 className="mb-0 mt-24 text-center font-gotham text-36 font-bold leading-tight text-slate md:mt-80 md:text-50">{titulo}</h2>
       {cards.length > 0 && (
         <div className="mt-24 grid grid-cols-1 gap-20 md:mt-45 md:grid-cols-2 md:gap-x-10 md:gap-y-28">
           {cards.map((card, index) => <SalaCard key={`${card.titulo}-${index}`} {...card} />)}
