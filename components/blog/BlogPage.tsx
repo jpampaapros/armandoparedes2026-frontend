@@ -40,14 +40,15 @@ export function BlogPage({
                 {bannerSubtitle}
               </p>
             </div>
-            <BlogCategoryFilter categories={categories} />
+            {/* <BlogCategoryFilter categories={categories} /> */}
           </div>
         </div>
       </section>
 
       {featuredPost && (
         <section className="bg-white">
-          <div className="mx-auto max-w-1440 px-16 pt-32 md:px-80 md:pt-50">
+          <div className="mx-auto max-w-1440 px-16 md:px-80">
+            <hr className="mb-30 mt-24 h-px w-full border-0 bg-border-light md:mt-30" />
             <BlogPostCard post={featuredPost} variant="featured" />
             <hr className="mb-0 mt-24 h-px w-full border-0 bg-border-light md:mt-30" />
           </div>
