@@ -450,7 +450,29 @@ a:-webkit-any-link {
     animation: intro-fade-in 250ms ease-out forwards;
   }
 
+  html[data-home-intro-seen] body:has(.intro-start) > header,
+  html[data-home-intro-seen] body:has(.intro-start) > footer,
+  html[data-home-intro-seen] .intro-start > :not(:first-child),
+  html[data-home-intro-seen] .intro-start [data-intro-fade] {
+    opacity: 1;
+    animation: none;
+  }
+}
 
+/* Intro ya vista hoy (cookie home-intro-seen): sin telón ni texto, el home
+   arranca directo en el slider desde el primer pintado. */
+html[data-home-intro-seen] .intro-curtain,
+html[data-home-intro-seen] [data-intro-hero],
+html[data-home-intro-seen] [data-intro-dots] {
+  display: none;
+}
+
+html[data-home-intro-seen] [data-intro-banner] {
+  padding-top: 0;
+}
+
+html[data-home-intro-seen] [data-intro-media] {
+  margin-top: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

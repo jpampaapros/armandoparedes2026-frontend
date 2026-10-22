@@ -1,13 +1,17 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import { EmblaSlider } from "@/components/EmblaSlider";
 import type { HomeBannerSlide } from "@/lib/types";
+import { HOME_INTRO_SKIP_ATTRIBUTE, hasSeenHomeIntroToday, markHomeIntroSeen } from "@/lib/home-intro";
+import { useHomeIntroSkipped } from "@/hooks/useHomeIntroSkipped";
 import { TypewriterTitle } from "./TypewriterTitle";
 
 const TYPEWRITER_COMPLETE_EVENT = "home-typewriter-complete";
+const TEXT_VISIBLE_DURATION = 30000;
+const TEXT_FADE_DURATION = 500;
 
 type BannerProps = {
   titleSlides: HomeBannerSlide[];
@@ -81,7 +85,64 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
   const [mediaReady, setMediaReady] = useState(false);
   const progressRef = useRef<HTMLSpanElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
+  const mediaRef = useRef<HTMLDivElement>(null);
+  const dotsRef = useRef<HTMLDivElement>(null);
+  const skipDecisionRef = useRef<boolean | null>(null);
+  const mediaTopRef = useRef<number | null>(null);
+  const introSkipped = useHomeIntroSkipped();
+  const [textHidden, setTextHidden] = useState(false);
+  const [textFading, setTextFading] = useState(false);
+  const showText = !introSkipped && !textHidden;
   const activeSlide = validSlides[activeIndex] ?? validSlides[0];
+
+  /* El texto se muestra una vez al día: se marca como visto en cuanto empieza.
+     La decisión se toma una sola vez por montaje (el ref sobrevive al doble
+     efecto de StrictMode) y antes del pintado, para que el CSS oculte el texto
+     también al llegar al home por navegación del cliente. */
+  useLayoutEffect(() => {
+    skipDecisionRef.current ??= hasSeenHomeIntroToday();
+    if (skipDecisionRef.current) {
+      document.documentElement.setAttribute(HOME_INTRO_SKIP_ATTRIBUTE, "");
+    } else {
+      document.documentElement.removeAttribute(HOME_INTRO_SKIP_ATTRIBUTE);
+      markHomeIntroSeen();
+    }
+  }, []);
+
+  /* El texto desaparece al pasar al slider o a los 30 s. */
+  useEffect(() => {
+    if (!showText) return;
+    const hideText = () => {
+      mediaTopRef.current = mediaRef.current?.getBoundingClientRect().top ?? null;
+      setTextHidden(true);
+    };
+    let fadeTimer: number | undefined;
+    const visibleTimer = window.setTimeout(() => {
+      setTextFading(true);
+      fadeTimer = window.setTimeout(hideText, TEXT_FADE_DURATION);
+    }, TEXT_VISIBLE_DURATION);
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting && entry.boundingClientRect.bottom <= 0) hideText();
+    });
+    if (dotsRef.current) observer.observe(dotsRef.current);
+
+    return () => {
+      window.clearTimeout(visibleTimer);
+      if (fadeTimer !== undefined) window.clearTimeout(fadeTimer);
+      observer.disconnect();
+    };
+  }, [showText]);
+
+  /* Al quitar el texto, el slider se mantiene donde estaba en pantalla (si el
+     usuario está arriba del todo, el scroll no puede subir y el slider queda arriba). */
+  useLayoutEffect(() => {
+    const previousTop = mediaTopRef.current;
+    const media = mediaRef.current;
+    if (!textHidden || previousTop === null || !media) return;
+    mediaTopRef.current = null;
+    const shift = media.getBoundingClientRect().top - previousTop;
+    if (shift) window.scrollBy(0, shift);
+  }, [textHidden]);
 
   useEffect(() => {
     const element = imageRef.current;
@@ -94,7 +155,9 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
     animation.pause();
 
     const intro = element.closest(".intro-start");
-    let textReady = !intro || intro.hasAttribute("data-intro-ready");
+    let textReady = !intro
+      || intro.hasAttribute("data-intro-ready")
+      || document.documentElement.hasAttribute(HOME_INTRO_SKIP_ATTRIBUTE);
     let inView = false;
     let started = false;
     const reveal = () => {
@@ -159,46 +222,64 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
   return (
     <section
       data-intro-banner
-      className="relative flex h-[100svh] w-full flex-col items-center overflow-hidden bg-white pt-[var(--banner-padding-top)] md:h-auto"
+      className={`relative flex h-[100svh] w-full flex-col items-center overflow-hidden bg-white md:h-auto ${
+        showText ? "pt-[var(--banner-padding-top)]" : ""
+      }`}
     >
-      <div
-        data-intro-hero
-        className="mx-auto flex w-full max-w-382 flex-col justify-center px-4 text-center md:max-w-760 md:px-0 [&_p]:m-0"
-      >
-        {activeSlide && <TypewriterTitle
-          key={activeIndex}
-          className="font-gotham font-light text-36 leading-[1.11] text-black md:text-80 md:leading-[1.14]"
-          html={processTitle(activeSlide.titulo)}
-        />}
-      </div>
-
-      <div data-intro-fade className="mt-57 flex gap-3 md:mt-153">
-        {validSlides.map((_, index) => (
-          <button
-            key={index}
-            type="button"
-            aria-label={`Ir al slide ${index + 1}`}
-            aria-current={index === activeIndex ? "true" : undefined}
-            onClick={() => setActiveIndex(index)}
-            className={`relative h-6 cursor-pointer overflow-hidden rounded-full border-0 bg-dots-inactive p-0 transition-[width] duration-300 ${
-              index === activeIndex
-                ? "w-91"
-                : "w-27"
+      {showText && (
+        <>
+          <div
+            data-intro-hero
+            className={`mx-auto flex w-full max-w-382 flex-col justify-center px-4 text-center transition-opacity duration-500 md:max-w-760 md:px-0 [&_p]:m-0 ${
+              textFading ? "opacity-0" : ""
             }`}
           >
-            {index === activeIndex && (
-              <span
-                ref={progressRef}
-                className="absolute inset-0 origin-left rounded-full bg-dots-active motion-reduce:transition-none"
-                style={{ transform: "scaleX(0)", transition: "transform 85ms linear" }}
-              />
-            )}
-          </button>
-        ))}
-      </div>
+            {activeSlide && <TypewriterTitle
+              key={activeIndex}
+              className="font-gotham font-light text-36 leading-[1.11] text-black md:text-80 md:leading-[1.14]"
+              html={processTitle(activeSlide.titulo)}
+            />}
+          </div>
+
+          <div
+            ref={dotsRef}
+            data-intro-fade
+            data-intro-dots
+            className={`mt-57 flex gap-3 transition-opacity duration-500 md:mt-153 ${textFading ? "opacity-0" : ""}`}
+          >
+            {validSlides.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                aria-label={`Ir al slide ${index + 1}`}
+                aria-current={index === activeIndex ? "true" : undefined}
+                onClick={() => setActiveIndex(index)}
+                className={`relative h-6 cursor-pointer overflow-hidden rounded-full border-0 bg-dots-inactive p-0 transition-[width] duration-300 ${
+                  index === activeIndex
+                    ? "w-91"
+                    : "w-27"
+                }`}
+              >
+                {index === activeIndex && (
+                  <span
+                    ref={progressRef}
+                    className="absolute inset-0 origin-left rounded-full bg-dots-active motion-reduce:transition-none"
+                    style={{ transform: "scaleX(0)", transition: "transform 85ms linear" }}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
 
       {mediaSlides.length > 0 && (
-        <div data-intro-fade className="relative mt-61 min-h-0 w-full flex-1 md:mt-34 md:h-817 md:flex-none">
+        <div
+          ref={mediaRef}
+          data-intro-fade
+          data-intro-media
+          className={`relative min-h-0 w-full flex-1 md:h-817 md:flex-none ${showText ? "mt-61 md:mt-34" : ""}`}
+        >
           <div ref={imageRef} className="absolute inset-0">
             <EmblaSlider
               slides={mediaSlides}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { HOME_INTRO_SKIP_ATTRIBUTE } from "@/lib/home-intro";
 
 const CURTAIN_DURATION = 2000;
 const HERO_EXIT_DURATION = 1400;
@@ -20,7 +21,9 @@ export function HomeIntro({ src, width, height, children }: HomeIntroProps) {
   const [isContentReady, setIsContentReady] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    /* El Banner (hijo) ya decidió en su layout effect si esta visita salta la intro. */
+    const skipIntro = document.documentElement.hasAttribute(HOME_INTRO_SKIP_ATTRIBUTE);
+    if (skipIntro || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       const reducedMotionTimer = window.setTimeout(() => {
         setIsCurtainDone(true);
         setIsDone(true);

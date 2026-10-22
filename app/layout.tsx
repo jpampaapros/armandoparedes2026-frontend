@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Poppins } from "next/font/google";
 import { Ga_Maamli } from "next/font/google";
 import { Inter } from "next/font/google";
+import { homeIntroSkipScript } from "@/lib/home-intro";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -34,7 +35,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={`${poppins.variable} ${gaMaamli.variable} ${inter.variable}`}>
+    <html lang="es" className={`${poppins.variable} ${gaMaamli.variable} ${inter.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Corre antes del primer pintado: si la intro del home ya se vio hoy, el CSS la oculta sin parpadeo. */}
+        <script dangerouslySetInnerHTML={{ __html: homeIntroSkipScript }} />
+      </head>
       <body className="font-sans pt-55">
         <Header />
         {children}
