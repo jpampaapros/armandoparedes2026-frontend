@@ -7,8 +7,8 @@
 import ubigeo from "@/lib/ubigeo-peru.json";
 import { getPublicFormsUrl } from "@/lib/urls";
 
-/** Formulario de Contact Form 7 del libro (`ARMANDO_PAREDES_LIBRO_FORM_ID` en WordPress). */
-export const LIBRO_RECLAMACIONES_FORM_ID = 6;
+/** Formulario de Contact Form 7 del libro (`wp-admin/admin.php?page=wpcf7&post=4446`). */
+export const LIBRO_RECLAMACIONES_FORM_ID = 4446;
 
 export type UbigeoItem = { id: string; nombre: string };
 
@@ -65,7 +65,24 @@ export async function fetchSiguienteCorrelativo(): Promise<string> {
   return data.next;
 }
 
+/**
+ * Genera la constancia del reclamo (plugin `pdf-libro` de WordPress) y devuelve su URL.
+ * Recibe los mismos campos que el correo de CF7, sin el adjunto ni el correo del proyecto.
+ */
+export async function generarConstanciaPdf(datos: Record<string, string>): Promise<string | null> {
+  const res = await fetch(`${getPublicFormsUrl()}/wp-json/pdf-libro/v1/generar-pdf`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(datos),
+  });
+  if (!res.ok) throw new Error(`Constancia no disponible (${res.status})`);
+  const data = (await res.json()) as { url_pdf?: string };
+  return data.url_pdf || null;
+}
+
+/** Mismas reglas que el campo `ArchivosAdjuntos` del formulario de CF7: un archivo PDF, PNG o JPG de hasta 4MB. */
 export const ARCHIVO_EXTENSIONES = ["pdf", "png", "jpg", "jpeg"];
+const ARCHIVO_TIPOS = ["application/pdf", "image/png", "image/jpeg", "image/pjpeg"];
 export const ARCHIVO_MAX_BYTES = 4 * 1024 * 1024;
 
 /** Devuelve el mensaje de error del adjunto o `true` si es válido (formato de `validate`). */
@@ -73,6 +90,7 @@ export function validarAdjunto(file?: File): true | string {
   if (!file) return true;
   const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
   if (!ARCHIVO_EXTENSIONES.includes(extension)) return "El archivo debe ser PDF, PNG o JPG.";
+  if (file.type && !ARCHIVO_TIPOS.includes(file.type)) return "El archivo debe ser PDF, PNG o JPG.";
   if (file.size > ARCHIVO_MAX_BYTES) return "El archivo no debe superar 4MB.";
   return true;
 }

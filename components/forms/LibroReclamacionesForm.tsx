@@ -10,8 +10,8 @@ import { useCf7Submit } from "@/hooks/useCf7Submit";
 import { useIsClient } from "@/hooks/useIsClient";
 import { REQUIRED_MESSAGE } from "@/lib/form-validation";
 import {
-  LIBRO_RECLAMACIONES_FORM_ID, departamentos, distritosDe, fetchSiguienteCorrelativo, proyectoLabel,
-  proyectosReclamo, provinciasDe, validarAdjunto,
+  LIBRO_RECLAMACIONES_FORM_ID, departamentos, distritosDe, fetchSiguienteCorrelativo, generarConstanciaPdf,
+  proyectoLabel, proyectosReclamo, provinciasDe, validarAdjunto,
 } from "@/lib/libro-reclamaciones";
 
 const ID = "reclamo";
@@ -108,7 +108,7 @@ export function LibroReclamacionesForm() {
   const [correlativo, setCorrelativo] = useState<string | null>(null);
   const [correlativoError, setCorrelativoError] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const [registrado, setRegistrado] = useState<{ codigo: string; email: string } | null>(null);
+  const [registrado, setRegistrado] = useState<{ codigo: string; email: string; urlPdf: string | null } | null>(null);
 
   const [departamento, provincia, proyectoKey, tieneMonto] = useWatch({ control, name: ["departamento", "provincia", "proyecto", "tieneMonto"] });
   const proyecto = proyectosReclamo.find((p) => p.key === proyectoKey);
@@ -144,7 +144,7 @@ export function LibroReclamacionesForm() {
     }
     const fecha = new Date();
     const codigo = `${siguiente}-${yearLima()}-${seleccionado?.codigo ?? ""}`;
-    const ok = await submit({
+    const datos = {
       CodReclamo: codigo,
       FechaReclamo: formatFecha(fecha),
       HoraReclamo: formatHora(fecha),
@@ -159,8 +159,6 @@ export function LibroReclamacionesForm() {
       Telefono: values.telefono,
       Email: values.email.trim(),
       Proyecto: seleccionado ? proyectoLabel(seleccionado) : "",
-      NombreProyecto: seleccionado?.codigo ?? "",
-      CorreoProyecto: seleccionado?.correo ?? "",
       QuejaReclamo: values.quejaReclamo,
       TipoServicio: values.tipoServicio,
       MontoReclamado: values.tieneMonto === "SI" ? values.montoReclamado : "No aplica",
@@ -168,10 +166,17 @@ export function LibroReclamacionesForm() {
       DetalleReclamo: values.detalleReclamo.trim(),
       Pedido: values.pedido.trim(),
       DescripcionProveedor: DESCRIPCION_PROVEEDOR,
+    };
+    // Como en el sitio anterior, la constancia se genera antes del correo; si falla, el reclamo se registra igual.
+    const urlPdf = await generarConstanciaPdf(datos).catch(() => null);
+    const ok = await submit({
+      ...datos,
+      NombreProyecto: seleccionado?.codigo ?? "",
+      CorreoProyecto: seleccionado?.correo ?? "",
       ArchivosAdjuntos: values.adjunto?.[0],
     });
     if (!ok) return;
-    setRegistrado({ codigo, email: values.email.trim() });
+    setRegistrado({ codigo, email: values.email.trim(), urlPdf });
     setCorrelativo(null);
     reset(DEFAULT_VALUES);
     goTo(0);
@@ -191,7 +196,10 @@ export function LibroReclamacionesForm() {
         <p className="m-0 max-w-640 font-poppins text-14 leading-[1.6] text-near-black md:text-16">
           Te enviaremos la constancia de tu reclamo o queja a <strong>{registrado.email}</strong>. {PLAZO}
         </p>
-        <button type="button" onClick={() => setRegistrado(null)} className={`${secondaryButton} mt-16`}>Registrar otro reclamo</button>
+        {registrado.urlPdf && (
+          <a href={registrado.urlPdf} download target="_blank" rel="noopener noreferrer" className={`${primaryButton} mt-16`}>Descargar constancia (PDF)</a>
+        )}
+        <button type="button" onClick={() => setRegistrado(null)} className={`${secondaryButton} ${registrado.urlPdf ? "" : "mt-16"}`}>Registrar otro reclamo</button>
       </div>
     );
   }
