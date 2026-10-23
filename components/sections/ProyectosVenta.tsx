@@ -19,9 +19,9 @@ export function ProyectosVenta({ titulo, proyectos, dataLayout }: ProyectosVenta
   const { filtered, filters } = useProjectFilters(proyectos);
 
   return (
-    <section data-layout={dataLayout} className="w-full bg-white px-15 pb-35 pt-49 md:px-4 md:pb-60 md:pt-101">
+    <section data-layout={dataLayout} className="w-full bg-white px-15 pb-35 pt-49 md:px-4 md:pb-60 md:pt-60">
       <div className="mx-auto max-w-1440 px-0 md:px-80">
-        <div className="mb-40 flex flex-col gap-24 md:flex-row md:items-start md:justify-between">
+        <div className="mb-40 flex flex-col gap-24 md:flex-row md:items-center md:justify-between">
           {titulo && (
             <h2 className="my-0 text-center md:text-left font-gotham text-36 font-bold leading-[1.1] text-slate md:text-55">
               {mobileTitle ? (
@@ -41,7 +41,7 @@ export function ProyectosVenta({ titulo, proyectos, dataLayout }: ProyectosVenta
             styles={{
               sentenceCase: true,
               className: "w-full md:w-180",
-              buttonClassName: "h-54 pl-7 text-16 font-extralight text-warm-gray border-text md:pl-0",
+              buttonClassName: "h-40 pl-7 text-16 font-extralight text-warm-gray border-text md:pl-0",
             }}
           />
         </div>
