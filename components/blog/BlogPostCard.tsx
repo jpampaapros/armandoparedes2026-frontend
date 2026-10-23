@@ -88,8 +88,16 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group relative flex h-full w-full flex-col gap-12 border-b border-border-light bg-white px-0 py-24 text-near-black md:border-b-0 md:px-24 md:[&:nth-child(odd)]:pl-0 md:[&:nth-child(even)]:pr-0 md:py-30 md:after:pointer-events-none md:after:absolute md:after:bottom-0 md:after:h-px md:after:bg-border-light md:after:content-[''] md:[&:nth-child(odd)]:before:pointer-events-none md:[&:nth-child(odd)]:before:absolute md:[&:nth-child(odd)]:before:bottom-12 md:[&:nth-child(odd)]:before:right-0 md:[&:nth-child(odd)]:before:top-12 md:[&:nth-child(odd)]:before:w-px md:[&:nth-child(odd)]:before:bg-border-light md:[&:nth-child(odd)]:before:content-[''] md:[&:nth-child(odd)]:after:left-0 md:[&:nth-child(odd)]:after:right-12 md:[&:nth-child(even)]:after:left-12 md:[&:nth-child(even)]:after:right-0"
+      className="group relative flex h-full w-full flex-col gap-12 bg-white px-0 py-24 text-near-black md:px-24 md:odd:pl-0 md:even:pr-0 md:py-30"
     >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-border-light md:group-odd:right-12 md:group-even:left-12"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute bottom-12 right-0 top-12 hidden w-px bg-border-light md:group-odd:block"
+      />
       <div className="relative aspect-[413/240] w-full overflow-hidden">
         {image?.source_url ? (
           <Image

@@ -48,9 +48,9 @@ export function BlogPage({
       {featuredPost && (
         <section className="bg-white">
           <div className="mx-auto max-w-1440 px-16 md:px-80">
-            <hr className="mb-30 mt-24 h-px w-full border-0 bg-border-light md:mt-30" />
+            <div className="mb-30 mt-24 w-full bg-border-light md:mt-30 h-px" />
             <BlogPostCard post={featuredPost} variant="featured" />
-            <hr className="mb-0 mt-24 h-px w-full border-0 bg-border-light md:mt-30" />
+            <div className="mb-0 mt-24 w-full bg-border-light md:mt-30 h-px" />
           </div>
         </section>
       )}
