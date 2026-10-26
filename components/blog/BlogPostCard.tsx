@@ -70,7 +70,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
             )}
           </div>
           <h2
-            className="font-gotham text-28 font-bold leading-[1.25] text-near-black md:text-36 md:leading-[1.5]"
+            className="font-gotham text-28 font-bold leading-[1.25] text-[#DDA783] md:text-36 md:leading-[1.5]"
             dangerouslySetInnerHTML={{ __html: post.title.rendered }}
           />
           <div
