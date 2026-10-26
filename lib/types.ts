@@ -297,6 +297,7 @@ export type ReferidosPageSection =
   | {
       acf_fc_layout: "banner_referidos";
       background_image?: ACFImage;
+      background_image_mobile?: ACFImage;
       title?: string;
       phrase?: string;
       cards?: ACFList<ReferidosCard>;

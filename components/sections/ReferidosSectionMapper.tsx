@@ -18,6 +18,7 @@ export function ReferidosSectionMapper({ sections = [] }: ReferidosSectionMapper
               <BannerReferidos
                 key={key}
                 background_image={section.background_image}
+                background_image_mobile={section.background_image_mobile}
                 title={section.title}
                 phrase={section.phrase}
                 cards={toArray(section.cards)}
