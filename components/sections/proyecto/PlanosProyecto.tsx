@@ -75,7 +75,7 @@ export function PlanosProyecto({
           </h2>
         )}
 
-        <div className={`flex flex-wrap justify-center gap-12 ${titulo ? "" : "mt-30 md:mt-50"} ${tipologias.length > 1 ? "" : "mb-40 md:mb-60"}`}>
+        <div className={`flex flex-wrap justify-center gap-12 md:gap-23 ${titulo ? "" : "mt-30 md:mt-50"} ${tipologias.length > 1 ? "" : "mb-40 md:mb-60"}`}>
           {dormitorios.map((d, i) => (
           <button
             key={i}
@@ -84,10 +84,10 @@ export function PlanosProyecto({
               setActiveDorm(i);
               setActiveTipo(0);
             }}
-            className={`min-w-120 border px-20 py-12 font-gotham text-14 font-bold transition-colors md:text-18 ${
+            className={`min-w-120 border px-20 py-12 font-gotham text-14 transition-colors md:h-50 md:w-212 md:p-10 md:text-18 ${
               i === activeDorm
-                ? "border-peach bg-peach text-white"
-                : "border-peach text-near-black hover:bg-peach/10"
+                ? "border-peach bg-peach font-bold text-white"
+                : "border-peach font-normal text-near-black hover:bg-peach/10"
             }`}
           >
               <span className="md:hidden">{abbreviateDormitorios(d.numero)}</span>
@@ -97,16 +97,16 @@ export function PlanosProyecto({
         </div>
 
         {tipologias.length > 1 && (
-          <div className="mb-40 mt-16 flex flex-wrap justify-center gap-15 px-15 md:mb-60 md:gap-12 md:px-0">
+          <div className="mb-40 mt-16 flex flex-wrap justify-center gap-15 px-15 md:mx-auto md:mb-60 md:mt-30 md:w-682 md:max-w-full md:px-0">
             {tipologias.map((t, i) => (
               <button
                 key={i}
                 type="button"
                 onClick={() => setActiveTipo(i)}
-                className={`min-w-0 flex-1 border px-20 py-10 font-gotham text-14 font-bold transition-colors md:flex-none md:text-18 ${
+                className={`min-w-0 flex-1 border px-20 py-10 font-gotham text-14 transition-colors md:h-50 md:p-10 md:text-18 ${
                   i === activeTipo
-                    ? "border-peach bg-peach text-white"
-                    : "border-peach text-near-black hover:bg-peach/10"
+                    ? "border-peach bg-peach font-bold text-white"
+                    : "border-peach font-normal text-near-black hover:bg-peach/10"
                 }`}
               >
                 {t.titulo || t.nombre}
