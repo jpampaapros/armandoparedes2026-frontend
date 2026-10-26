@@ -312,7 +312,7 @@ export function ProyectoLeadForm({
           <button
             type="submit"
             disabled={isPending || !isClient}
-            className="mx-auto inline-flex h-50 w-full items-center justify-center bg-slate font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:w-459 md:bg-peach md:text-18"
+            className="mx-auto mt-30 inline-flex h-50 w-full items-center justify-center bg-slate font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:mt-24 md:w-459 md:bg-peach md:text-18"
           >
             {isPending ? "Enviando..." : "ENVIAR"}
           </button>
