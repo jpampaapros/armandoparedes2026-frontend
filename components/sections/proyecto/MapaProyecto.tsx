@@ -75,15 +75,15 @@ export function MapaProyecto({ titulo, google_maps, imagen, latitud, longitud, u
                             alt={u.icono.alt || ""}
                             width={17}
                             height={17}
-                            className="h-17 w-17 object-contain"
+                            className="h-17 w-17 object-contain brightness-0 invert"
                           />
                         )}
-                        <span className="font-poppins text-13 font-medium uppercase text-white">
+                        <span className="font-poppins text-13 font-light uppercase text-white">
                           {u.nombre}
                         </span>
                       </div>
                       {u.minutos && (
-                        <span className="font-poppins text-13 font-medium text-white">
+                        <span className="font-poppins text-13 font-light text-white">
                           {u.minutos}
                         </span>
                       )}
