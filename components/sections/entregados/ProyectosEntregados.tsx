@@ -70,31 +70,26 @@ export function ProyectosEntregados({
         <div className="relative min-w-0 md:hidden">
           <div className="absolute bottom-0 left-5 top-60 w-[2px] bg-[#748CA4]" />
           {grouped.map(([year, projects]) => (
-            <div
-              key={year}
-              className="relative mb-6 grid min-w-0 grid-cols-[auto_minmax(0,1fr)] gap-20 pt-60 last:mb-0"
-            >
-              <div className="order-2 flex min-w-0 flex-col gap-20">
+            <div key={year} className="relative pt-60 last:mb-0">
+              <div className="relative flex items-center">
+                <div className="absolute left-[calc(5*var(--fx)+1px)] top-1/2 z-10 h-[14px] w-[14px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate [outline:calc(3*var(--fx))_solid_white]" />
+                <span className="pl-30 font-gotham text-20 font-medium leading-none text-near-black">
+                  {year}
+                </span>
+              </div>
+              <div className="mt-20 flex min-w-0 flex-col gap-20 pl-30">
                 {projects.map((project) => (
                   <div key={project.id} className="h-352 w-full">
                     <DeliveredCard
                       project={project}
                       size="large"
-                      showButton
+                      showButton={false}
                       showYear={false}
                       strongVeil
                       distrito={project.acf.distrito}
                     />
                   </div>
                 ))}
-              </div>
-              <div className="relative order-1 flex min-w-10 justify-start">
-                <div className="relative flex h-fit items-center gap-14">
-                  <span className="absolute -top-36 whitespace-nowrap font-gotham text-20 font-medium leading-none text-near-black">
-                    {year}
-                  </span>
-                  <div className="absolute left-[calc(5*var(--fx)+1px)] top-0 z-10 h-[14px] w-[14px] shrink-0 -translate-x-1/2 rounded-full bg-slate [outline:calc(3*var(--fx))_solid_white]" />
-                </div>
               </div>
             </div>
           ))}
