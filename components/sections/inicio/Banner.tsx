@@ -6,7 +6,6 @@ import Autoplay from "embla-carousel-autoplay";
 import { EmblaSlider } from "@/components/EmblaSlider";
 import type { HomeBannerSlide } from "@/lib/types";
 import { HOME_INTRO_SKIP_ATTRIBUTE, hasSeenHomeIntroToday, markHomeIntroSeen } from "@/lib/home-intro";
-import { useHomeIntroSkipped } from "@/hooks/useHomeIntroSkipped";
 import { TypewriterTitle } from "./TypewriterTitle";
 
 const TYPEWRITER_COMPLETE_EVENT = "home-typewriter-complete";
@@ -93,21 +92,20 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
   const viewedSecondBannerRef = useRef(false);
   const programmaticScrollRef = useRef(false);
   const restoreArmedAtRef = useRef(0);
-  const introSkipped = useHomeIntroSkipped();
+  const pendingRestoreScrollRef = useRef(false);
   const [textHidden, setTextHidden] = useState(false);
   const [textFading, setTextFading] = useState(false);
   const [textPresentation, setTextPresentation] = useState<"typewriter" | "static">("typewriter");
-  const showText = !textHidden && (textPresentation === "static" || !introSkipped);
+  const showText = !textHidden;
   const activeSlide = validSlides[activeIndex] ?? validSlides[0];
 
-  /* El texto se muestra una vez al día: se marca como visto en cuanto empieza.
-     La decisión se toma una sola vez por montaje (el ref sobrevive al doble
-     efecto de StrictMode) y antes del pintado, para que el CSS oculte el texto
-     también al llegar al home por navegación del cliente. */
+  /* La máquina de escribir corre solo la primera vez del día. En una recarga
+     el texto sigue visible, ya completo. */
   useLayoutEffect(() => {
     skipDecisionRef.current ??= hasSeenHomeIntroToday();
     if (skipDecisionRef.current) {
       document.documentElement.setAttribute(HOME_INTRO_SKIP_ATTRIBUTE, "");
+      setTextPresentation("static");
     } else {
       document.documentElement.removeAttribute(HOME_INTRO_SKIP_ATTRIBUTE);
       markHomeIntroSeen();
@@ -154,6 +152,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
       const mediaTop = mediaRef.current?.getBoundingClientRect().top ?? 0;
       if (mediaTop < -8) return;
       viewedSecondBannerRef.current = false;
+      pendingRestoreScrollRef.current = true;
       setTextFading(false);
       setActiveIndex(0);
       setTextPresentation("static");
@@ -207,7 +206,8 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
   }, [textHidden]);
 
   useLayoutEffect(() => {
-    if (textHidden || textPresentation !== "static" || !sectionRef.current) return;
+    if (!pendingRestoreScrollRef.current || textHidden || textPresentation !== "static" || !sectionRef.current) return;
+    pendingRestoreScrollRef.current = false;
     const top = sectionRef.current.getBoundingClientRect().top + window.scrollY;
     if (Math.abs(window.scrollY - top) > 1) window.scrollTo(0, top);
   }, [textHidden, textPresentation]);
