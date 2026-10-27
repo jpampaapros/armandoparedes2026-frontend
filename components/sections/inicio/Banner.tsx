@@ -89,10 +89,15 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
   const dotsRef = useRef<HTMLDivElement>(null);
   const skipDecisionRef = useRef<boolean | null>(null);
   const mediaTopRef = useRef<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const viewedSecondBannerRef = useRef(false);
+  const programmaticScrollRef = useRef(false);
+  const restoreArmedAtRef = useRef(0);
   const introSkipped = useHomeIntroSkipped();
   const [textHidden, setTextHidden] = useState(false);
   const [textFading, setTextFading] = useState(false);
-  const showText = !introSkipped && !textHidden;
+  const [textPresentation, setTextPresentation] = useState<"typewriter" | "static">("typewriter");
+  const showText = !textHidden && (textPresentation === "static" || !introSkipped);
   const activeSlide = validSlides[activeIndex] ?? validSlides[0];
 
   /* El texto se muestra una vez al día: se marca como visto en cuanto empieza.
@@ -109,29 +114,81 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
     }
   }, []);
 
-  /* El texto desaparece al pasar al slider o a los 30 s. */
+  /* El texto desaparece al pasar al slider o, en la primera visita, a los 30 s. */
   useEffect(() => {
     if (!showText) return;
-    const hideText = () => {
+    const hideText = (fromScroll: boolean) => {
       mediaTopRef.current = mediaRef.current?.getBoundingClientRect().top ?? null;
+      if (fromScroll) {
+        viewedSecondBannerRef.current = true;
+        restoreArmedAtRef.current = performance.now() + 500;
+      }
       setTextHidden(true);
     };
     let fadeTimer: number | undefined;
-    const visibleTimer = window.setTimeout(() => {
-      setTextFading(true);
-      fadeTimer = window.setTimeout(hideText, TEXT_FADE_DURATION);
-    }, TEXT_VISIBLE_DURATION);
+    const visibleTimer = textPresentation === "typewriter"
+      ? window.setTimeout(() => {
+          setTextFading(true);
+          fadeTimer = window.setTimeout(() => hideText(false), TEXT_FADE_DURATION);
+        }, TEXT_VISIBLE_DURATION)
+      : undefined;
     const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting && entry.boundingClientRect.bottom <= 0) hideText();
+      if (!entry.isIntersecting && entry.boundingClientRect.bottom <= 0) hideText(true);
     });
     if (dotsRef.current) observer.observe(dotsRef.current);
 
     return () => {
-      window.clearTimeout(visibleTimer);
+      if (visibleTimer !== undefined) window.clearTimeout(visibleTimer);
       if (fadeTimer !== undefined) window.clearTimeout(fadeTimer);
       observer.disconnect();
     };
-  }, [showText]);
+  }, [showText, textPresentation]);
+
+  /* Tras ver el slider, subir de nuevo muestra el primer texto ya completo. */
+  useEffect(() => {
+    if (!textHidden) return;
+
+    const restore = () => {
+      if (!viewedSecondBannerRef.current || programmaticScrollRef.current) return;
+      if (performance.now() < restoreArmedAtRef.current) return;
+      const mediaTop = mediaRef.current?.getBoundingClientRect().top ?? 0;
+      if (mediaTop < -8) return;
+      viewedSecondBannerRef.current = false;
+      setTextFading(false);
+      setActiveIndex(0);
+      setTextPresentation("static");
+      setTextHidden(false);
+    };
+
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const goingUp = window.scrollY < lastY - 1;
+      lastY = window.scrollY;
+      if (goingUp) restore();
+    };
+    const onWheel = (event: WheelEvent) => {
+      if (event.deltaY < 0) restore();
+    };
+    let touchStartY = 0;
+    const onTouchStart = (event: TouchEvent) => {
+      touchStartY = event.touches[0]?.clientY ?? 0;
+    };
+    const onTouchMove = (event: TouchEvent) => {
+      const y = event.touches[0]?.clientY ?? 0;
+      if (y - touchStartY > 12) restore();
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+    };
+  }, [textHidden]);
 
   /* Al quitar el texto, el slider se mantiene donde estaba en pantalla (si el
      usuario está arriba del todo, el scroll no puede subir y el slider queda arriba). */
@@ -141,8 +198,19 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
     if (!textHidden || previousTop === null || !media) return;
     mediaTopRef.current = null;
     const shift = media.getBoundingClientRect().top - previousTop;
-    if (shift) window.scrollBy(0, shift);
+    if (!shift) return;
+    programmaticScrollRef.current = true;
+    window.scrollBy(0, shift);
+    requestAnimationFrame(() => {
+      programmaticScrollRef.current = false;
+    });
   }, [textHidden]);
+
+  useLayoutEffect(() => {
+    if (textHidden || textPresentation !== "static" || !sectionRef.current) return;
+    const top = sectionRef.current.getBoundingClientRect().top + window.scrollY;
+    if (Math.abs(window.scrollY - top) > 1) window.scrollTo(0, top);
+  }, [textHidden, textPresentation]);
 
   useEffect(() => {
     const element = imageRef.current;
@@ -221,6 +289,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
 
   return (
     <section
+      ref={sectionRef}
       data-intro-banner
       className={`relative flex h-[100svh] w-full flex-col items-center overflow-hidden bg-white md:h-auto ${
         showText ? "pt-[var(--banner-padding-top)]" : ""
@@ -236,6 +305,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
           >
             {activeSlide && <TypewriterTitle
               key={activeIndex}
+              animate={textPresentation === "typewriter"}
               className="font-gotham font-light text-36 leading-[1.11] text-black md:text-80 md:leading-[1.14]"
               html={processTitle(activeSlide.titulo)}
             />}
@@ -264,7 +334,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
                   <span
                     ref={progressRef}
                     className="absolute inset-0 origin-left rounded-full bg-dots-active motion-reduce:transition-none"
-                    style={{ transform: "scaleX(0)", transition: "transform 85ms linear" }}
+                    style={{ transform: textPresentation === "static" ? "scaleX(1)" : "scaleX(0)", transition: "transform 85ms linear" }}
                   />
                 )}
               </button>

@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 type TypewriterTitleProps = {
   html: string;
   className?: string;
+  animate?: boolean;
 };
 
 const INTRO_TITLE_DELAY = 2000;
@@ -13,12 +14,12 @@ const CHARACTER_DELAY = 85;
 const TITLE_HOLD_DELAY = 3000;
 const TYPEWRITER_COMPLETE_EVENT = "home-typewriter-complete";
 
-export function TypewriterTitle({ html, className }: TypewriterTitleProps) {
+export function TypewriterTitle({ html, className, animate = true }: TypewriterTitleProps) {
   const animatedTitleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const animatedTitle = animatedTitleRef.current;
-    if (!animatedTitle) return;
+    if (!animate || !animatedTitle) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       animatedTitle.style.visibility = "visible";
@@ -115,7 +116,11 @@ export function TypewriterTitle({ html, className }: TypewriterTitleProps) {
       animatedTitle.closest("[data-intro-banner]")?.removeAttribute("data-typewriter-complete");
       animatedTitle.innerHTML = html;
     };
-  }, [html]);
+  }, [animate, html]);
+
+  if (!animate) {
+    return <div className={className} dangerouslySetInnerHTML={{ __html: html }} />;
+  }
 
   return (
     <div className={`relative ${className ?? ""}`}>
