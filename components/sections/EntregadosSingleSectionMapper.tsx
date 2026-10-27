@@ -4,7 +4,15 @@ import { Detalle } from "@/components/sections/entregados/Detalle";
 import { Navegacion } from "@/components/sections/entregados/Navegacion";
 import { ProyectosVenta } from "@/components/sections/ProyectosVenta";
 import type { Delivered, EntregadosSingleSection, Project } from "@/lib/types";
-import { selectByPostObject, toArray } from "@/lib/utils";
+import { selectByPostObject, stripHtml, toArray } from "@/lib/utils";
+
+function withoutGracias(projects: Project[]) {
+  return projects.filter((project) => {
+    const title = stripHtml(project.title?.rendered);
+    const name = project.slug.replace(/-/g, " ");
+    return !/\bgracias\b/i.test(`${title} ${name}`);
+  });
+}
 
 type EntregadosSingleSectionMapperProps = {
   current: Delivered;
@@ -62,7 +70,7 @@ export function EntregadosSingleSectionMapper({
               <ProyectosVenta
                 key={`${section.acf_fc_layout}-${index}`}
                 titulo={section.titulo}
-                proyectos={selectByPostObject(proyectos, section.post)}
+                proyectos={withoutGracias(selectByPostObject(proyectos, section.post))}
               />
             );
           default:

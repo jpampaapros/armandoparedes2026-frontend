@@ -3,6 +3,7 @@ import type { ACFImage, ReferidosCard } from "@/lib/types";
 
 type BannerReferidosProps = {
   background_image?: ACFImage;
+  background_image_mobile?: ACFImage;
   title?: string;
   phrase?: string;
   cards?: ReferidosCard[];
@@ -73,6 +74,7 @@ function BenefitCards({ cards }: { cards: ReferidosCard[] }) {
 
 export function BannerReferidos({
   background_image,
+  background_image_mobile,
   title,
   phrase,
   cards,
@@ -87,31 +89,46 @@ export function BannerReferidos({
       data-layout="banner_referidos"
       className="relative w-full overflow-hidden bg-white md:h-1139"
     >
-      {/* Imagen de fondo: parte superior en mobile, cubre todo en desktop */}
-      <div className="relative h-402 w-full md:absolute md:inset-0 md:h-full">
+      {/* Imagen de fondo: cubre todo el banner en mobile y en desktop */}
+      <div className="absolute inset-0">
+        {background_image_mobile?.url ? (
+          <Image
+            src={background_image_mobile.url}
+            alt={background_image_mobile.alt || background_image?.alt || "Banner referidos"}
+            fill
+            priority
+            className="object-cover object-center md:hidden"
+            sizes="100vw"
+          />
+        ) : null}
+
         {background_image?.url ? (
           <Image
             src={background_image.url}
             alt={background_image.alt || "Banner referidos"}
             fill
             priority
-            className="object-cover object-center"
+            className={`object-cover object-center${background_image_mobile?.url ? " hidden md:block" : ""}`}
             sizes="100vw"
           />
-        ) : (
-          <div className="absolute inset-0 bg-near-black" />
-        )}
+        ) : null}
 
+        {!background_image_mobile?.url && !background_image?.url ? (
+          <div className="absolute inset-0 bg-near-black" />
+        ) : null}
+      </div>
+
+      <div className="relative z-10 h-402 w-full md:hidden">
         {title && (
-          <h1 className="absolute bottom-52 left-1/2 z-10 m-0 w-full -translate-x-1/2 px-24 text-center font-gotham-black text-36 uppercase leading-[1.1] text-near-black md:hidden">
+          <h1 className="absolute bottom-52 left-1/2 z-10 m-0 w-full -translate-x-1/2 px-24 text-center font-gotham-black text-36 uppercase leading-[1.1] text-near-black">
             {titleFirstLine && <span className="block">{titleFirstLine}</span>}
             {titleLastWord && <span className="block">{titleLastWord}</span>}
           </h1>
         )}
       </div>
 
-      {/* Contenido mobile: flujo normal debajo de la imagen */}
-      <div className="relative z-10 mx-auto flex w-full max-w-1440 flex-col items-center bg-white px-16 pb-48 md:hidden">
+      {/* Contenido mobile: sobre la imagen */}
+      <div className="relative z-10 mx-auto flex w-full max-w-1440 flex-col items-center px-16 pb-48 md:hidden">
         {phrase && (
           <div className="relative z-20 mt-16 flex w-256 max-w-full items-center justify-center rounded-15 bg-near-black px-24 py-24">
             <div
