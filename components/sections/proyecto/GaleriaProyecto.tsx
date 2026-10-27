@@ -34,14 +34,14 @@ function TabButton({
     >
       <span
         style={{ color: active ? activeColor || undefined : undefined }}
-        className={`font-gotham text-20 md:text-32 ${
+        className={`font-gotham text-20 md:text-26 ${
           active ? "font-medium text-white" : "font-light text-white"
         }`}
       >
         {label}
       </span>
       {active && (
-        <span className="absolute bottom-0 left-0 h-px w-full bg-white md:w-192" style={{ backgroundColor: activeColor || undefined }} />
+        <span className="absolute bottom-0 left-0 h-px w-full bg-white" style={{ backgroundColor: activeColor || undefined }} />
       )}
     </button>
   );
