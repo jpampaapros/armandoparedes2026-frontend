@@ -29,12 +29,12 @@ export function DeliveredCard({
   const titleClass = isLarge
     ? "text-20 md:text-36"
     : size === "medium"
-      ? "text-20 md:text-22"
+      ? "text-20 md:text-20"
       : "text-20 md:text-16";
   const metaClass = isLarge
     ? "text-16 md:text-24"
     : size === "medium"
-      ? "text-16 md:text-20"
+      ? "text-16 md:text-18"
       : "text-16 md:text-16";
   const paddingClass = isLarge
     ? "p-16 md:p-54"

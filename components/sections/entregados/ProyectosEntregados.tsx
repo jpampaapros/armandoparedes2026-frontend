@@ -48,15 +48,15 @@ export function ProyectosEntregados({
         <div className="mt-60 hidden grid-cols-4 gap-x-24 gap-y-60 md:grid">
           {grouped.flatMap(([year, projects]) =>
             projects.map((project, index) => (
-              <div key={project.id} className="flex min-w-0 flex-col gap-24">
-                <span className="h-24 font-gotham text-24 font-bold leading-none text-near-black">
+              <div key={project.id} className="flex min-w-0 flex-col md:gap-20 gap-24">
+                <span className="h-24 font-gotham md:text-20 text-24 font-semibold leading-none text-near-black">
                   {index === 0 ? year : null}
                 </span>
                 <div className="aspect-square w-full">
                   <DeliveredCard
                     project={project}
                     size="medium"
-                    showButton
+                    showButton={false}
                     showYear={false}
                     strongVeil
                     distrito={project.acf.distrito}
