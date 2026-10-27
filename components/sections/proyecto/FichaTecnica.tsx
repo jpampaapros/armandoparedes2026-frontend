@@ -18,6 +18,7 @@ type FichaTecnicaProps = {
   area?: string;
   dormitorios?: string;
   brochure?: ACFLink;
+  planos?: ACFLink;
   icono_direccion?: ACFImage;
   icono_pisos?: ACFImage;
   icono_area?: ACFImage;
@@ -41,7 +42,7 @@ function TechnicalIcon({ image, color, className, fallback }: {
   return <span aria-hidden="true" className={`block shrink-0 text-white [&>svg]:h-full [&>svg]:w-full ${className}`} style={{ color: color || undefined }}>{fallback}</span>;
 }
 
-export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, brochure, icono_direccion, icono_pisos, icono_area, icono_dormitorios, color_fondo, color_titulo, color_iconos }: FichaTecnicaProps) {
+export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, brochure, planos, icono_direccion, icono_pisos, icono_area, icono_dormitorios, color_fondo, color_titulo, color_iconos }: FichaTecnicaProps) {
   return (
     <section data-layout="ficha_tecnica" className="w-full bg-slate" style={{ backgroundColor: color_fondo || undefined }}>
       <div className="mx-auto max-w-1440 px-24 pt-90 pb-80 md:px-80 md:pt-90 md:pb-80">
@@ -91,8 +92,9 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
           </div>
         </div>
 
+<div className="flex md:flex-row flex-col items-center justify-center gap-24 md:gap-80 mt-80 md:mt-60">
         {brochure?.url && brochure.url !== "#" && (
-          <div className="mt-80 flex justify-center md:mt-60">
+          <div className="flex justify-center ">
             <SmartLink
               link={brochure}
               className="inline-flex h-50 w-380 max-w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-60 md:w-429 md:text-18"
@@ -101,6 +103,18 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
             </SmartLink>
           </div>
         )}
+        {planos?.url && planos.url !== "#" && (
+          <div className="flex justify-center">
+            <SmartLink
+              link={planos}
+              className="inline-flex h-50 w-380 max-w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-60 md:w-429 md:text-18"
+            >
+              {planos.title || "REVISA NUESTRO PLANOS"}
+            </SmartLink>
+          </div>
+        )}
+</div>
+
       </div>
     </section>
   );

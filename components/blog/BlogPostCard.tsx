@@ -55,7 +55,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
               </div>
             )}
             {category && (
-              <span className="absolute left-0 top-16 bg-white px-10 py-6 font-poppins text-14 font-medium text-near-black md:bottom-16 md:left-16 md:top-auto">
+              <span className="absolute left-0 top-0 bg-white px-10 py-6 font-poppins text-14 font-medium text-near-black md:bottom-16 md:left-16 md:top-auto">
                 {category}
               </span>
             )}
@@ -113,7 +113,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
           </div>
         )}
         {category && (
-          <span className="absolute left-0 top-32 bg-slate px-16 py-6 font-poppins text-14 font-medium text-white">
+          <span className="absolute left-0 top-0 md:top-32 bg-slate px-16 py-6 font-poppins text-14 font-medium text-white">
             {category}
           </span>
         )}
