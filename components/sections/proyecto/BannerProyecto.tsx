@@ -135,7 +135,7 @@ export function BannerProyecto({ badge, badge_color, distrito, logo, slides = []
           </div>
         )}
       </div>
-      <EstadoProyecto texto={badge} />
+      <EstadoProyecto texto={badge} color_fondo={badge_color} />
     </section>
   );
 }
