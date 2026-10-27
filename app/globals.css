@@ -460,20 +460,10 @@ a:-webkit-any-link {
   }
 }
 
-/* Intro ya vista hoy (cookie home-intro-seen): sin telón ni texto, el home
-   arranca directo en el slider desde el primer pintado. */
-html[data-home-intro-seen] .intro-curtain,
-html[data-home-intro-seen] [data-intro-hero],
-html[data-home-intro-seen] [data-intro-dots] {
+/* Intro ya vista hoy: no se repite el telón. El texto del banner permanece,
+   completo, sin la máquina de escribir. */
+html[data-home-intro-seen] .intro-curtain {
   display: none;
-}
-
-html[data-home-intro-seen] [data-intro-banner] {
-  padding-top: 0;
-}
-
-html[data-home-intro-seen] [data-intro-media] {
-  margin-top: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
