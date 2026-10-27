@@ -134,7 +134,7 @@ export function ProjectCard({
 
       {distrito && (
         <div className={`absolute right-16 top-16 z-10 bg-white ${sliderCard ? "px-24" : "px-10"} ${saleListing ? "max-md:px-[calc(34*var(--fx))]" : ""} py-6 md:right-20 md:top-61 md:py-8`}>
-          <span className={`font-poppins text-16 font-medium leading-18 text-near-black md:text-24 md:leading-24 ${saleListing ? "max-md:text-[calc(14*var(--fx))]" : ""}`}>
+          <span className={`font-poppins text-16 font-medium leading-18 text-near-black ${saleCarousel ? "":"md:text-24"}  md:leading-24 ${saleListing ? "max-md:text-[calc(14*var(--fx))]" : ""}`}>
             {distrito.name}
           </span>
         </div>
