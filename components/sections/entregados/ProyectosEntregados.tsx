@@ -49,7 +49,7 @@ export function ProyectosEntregados({
           {grouped.flatMap(([year, projects]) =>
             projects.map((project, index) => (
               <div key={project.id} className="flex min-w-0 flex-col md:gap-20 gap-24">
-                <span className="h-24 font-gotham md:text-20 text-24 font-semibold leading-none text-near-black">
+                <span className="h-24 font-source-sans-pro md:text-23 text-24 font-semibold leading-none text-near-black">
                   {index === 0 ? year : null}
                 </span>
                 <div className="aspect-square w-full">
