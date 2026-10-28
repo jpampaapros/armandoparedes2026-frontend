@@ -8,22 +8,32 @@ type DescripcionProyectoProps = {
   cambiar_lado?: boolean;
 };
 
+function hasTitleMarkup(value: string) {
+  return /<\/?[a-z][^>]*>/i.test(value);
+}
+
 export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado }: DescripcionProyectoProps) {
   let head = "";
   let tail = "";
   const normalized = (titulo || "").trim();
-  if (normalized) {
+  const markup = hasTitleMarkup(normalized);
+  if (normalized && !markup) {
     const splitMarker = " si estás ";
     const idx = normalized.toLowerCase().indexOf(splitMarker);
     if (idx >= 0) {
       head = normalized.slice(0, idx + splitMarker.length - 1).trimEnd();
       tail = normalized.slice(idx + splitMarker.length).trim();
     } else {
-      const words = normalized.split(" ");
+      const words = normalized.split(/\s+/);
       head = words.slice(0, -1).join(" ");
       tail = words.at(-1) || "";
     }
   }
+  const titleHtml = markup
+    ? normalized
+        .replace(/<br\b[^>]*>/gi, '<br style="display: none" />')
+        .replace(/\r\n|\r|\n/g, '<br style="display: none" />')
+    : `${head}<span class="font-medium text-peach"> ${tail}</span>`;
 
   const imageCell = (
     <div className="relative h-430 w-full md:h-772">
@@ -45,12 +55,10 @@ export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado 
     <div className="flex flex-col justify-start px-16 pt-48 pb-38 md:pb-0 md:pt-0 md:px-0">
       <div className="mx-auto w-full max-w-573">
         <div className={cambiar_lado ? "text-left" : "text-right"}>
-          {tail ? (
+          {markup || tail ? (
             <h2
-              className="m-0 font-gotham text-32 leading-[1.1] text-near-black md:text-60 md:leading-60"
-              dangerouslySetInnerHTML={{
-                __html: `${head}<span class="font-medium text-peach"> ${tail}</span>`,
-              }}
+              className="m-0 font-gotham text-32 leading-[1.1] text-near-black md:text-60 md:leading-60 [&_br]:hidden"
+              dangerouslySetInnerHTML={{ __html: titleHtml }}
             />
           ) : (
             <h2 className="m-0 font-gotham text-32 font-light leading-[1.1] text-near-black md:text-60 md:leading-60">
