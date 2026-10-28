@@ -91,7 +91,7 @@ export function FormularioContacto({
         <form
           onSubmit={handleSubmit(onSubmit)}
           noValidate
-          className="mt-24 flex flex-col gap-20 md:mt-32 md:gap-24"
+          className="mt-24 flex flex-col gap-20 md:mt-52 md:gap-24"
         >
           <div className="grid grid-cols-1 gap-x-30 gap-y-20 md:grid-cols-2">
             <div className="flex flex-col gap-8">
