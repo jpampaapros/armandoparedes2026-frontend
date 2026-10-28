@@ -355,7 +355,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
           <button
             type="submit"
             disabled={isPending || !isClient}
-            className="mx-auto inline-flex h-50 w-full items-center justify-center bg-peach font-gotham text-18 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50 md:w-372"
+            className="mx-auto inline-flex h-50 w-full items-center justify-center bg-peach font-gotham text-18 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {isPending ? "Enviando..." : "ENVIAR"}
           </button>
