@@ -36,7 +36,7 @@ export function ContactoFormulario({
   const proyectosPostventa = [...new Set([...proyectos, ...entregados].map((p) => p.title.rendered))];
 
   return (
-    <section data-layout="formulario" className="w-full bg-white px-16 pb-80 pt-36 md:px-24 md:pb-100 md:pt-76">
+    <section data-layout="formulario" className="w-full bg-white px-16 md:px-24 py-52 md:py-90">
       <div role="tablist" aria-label="Opciones de contacto" className="mx-auto grid max-w-895 grid-cols-1 gap-10 sm:flex sm:justify-center">
         {TABS.map((tab) => (
           <button

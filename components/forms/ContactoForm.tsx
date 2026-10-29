@@ -109,7 +109,7 @@ export function ContactoForm({
           <Consent name="marketing" control={control}>Autorizo a Armando Paredes para que realice las actividades de prospección comercial y marketing descritas en las <Link href="/politica-de-privacidad" className="form-legal-link">Políticas de Privacidad</Link>.</Consent>
         </div>
 
-        <button type="submit" disabled={isPending || !isClient} className="mx-auto mt-30 flex h-50 w-full items-center justify-center bg-slate font-gotham text-16 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50 md:text-18">
+        <button type="submit" disabled={isPending || !isClient} className="mx-auto mt-30 flex h-50 cursor-pointer w-full items-center justify-center bg-slate font-gotham text-16 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50 md:text-18">
           {isPending ? "Enviando..." : "Enviar"}
         </button>
         {status && <p role="status" className={`m-0 text-center text-14 ${status.ok ? "text-green-700" : "text-red-700"}`}>{status.message}</p>}

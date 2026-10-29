@@ -11,7 +11,7 @@ export function Espacios({ titulo, subtitulo, indicadores }: EspaciosProps) {
   const items = indicadores?.filter(Boolean) ?? [];
 
   return (
-    <section className="w-full bg-white px-4 pt-49 md:pt-60">
+    <section className="w-full bg-white px-4 pt-52 md:pt-90">
       <div className="mx-auto max-w-1440 px-4 md:px-80">
         <div className="mx-auto mb-60 max-w-799 text-center md:mb-60">
           {subtitulo && (

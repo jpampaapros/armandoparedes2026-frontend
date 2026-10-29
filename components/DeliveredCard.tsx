@@ -71,7 +71,7 @@ export function DeliveredCard({
             : "from-black/70 via-transparent to-transparent"
         }`}
       />
-      <div className="relative z-10 mt-auto flex flex-col gap-10">
+      <div className="relative z-10 mt-auto flex flex-col gap-10 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none max-md:opacity-100">
         <div className="flex flex-col gap-8">
           <h3 className={`font-gotham font-bold uppercase leading-[1.1] text-white ${titleClass}`}>
             {project.title.rendered}
