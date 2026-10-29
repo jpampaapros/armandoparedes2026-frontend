@@ -26,7 +26,7 @@ export function AmigosBeneficios({ titulo, descripcion, boton, color_fondo }: Am
         {boton && (
           <SmartLink
             link={boton}
-            className="inline-flex h-60 w-339 items-center justify-center bg-slate px-24 font-gotham text-26 font-bold text-white transition-opacity hover:opacity-90 md:w-429"
+            className="inline-flex h-50 w-339 items-center justify-center bg-slate px-24 font-gotham text-26 font-bold text-white transition-opacity hover:opacity-90 md:w-429"
           />
         )}
       </div>
