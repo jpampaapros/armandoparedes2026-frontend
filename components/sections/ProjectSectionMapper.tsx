@@ -10,12 +10,14 @@ import { PlanosProyecto } from "@/components/sections/proyecto/PlanosProyecto";
 import { MapaProyecto } from "@/components/sections/proyecto/MapaProyecto";
 import { FormularioContacto } from "@/components/sections/FormularioContacto";
 import { MasProyectos } from "@/components/sections/MasProyectos";
+import { PreguntasFrecuentes } from "@/components/sections/contacto/PreguntasFrecuentes";
 import type { LeadContext } from "@/lib/lead";
 import type { Project, ProjectSection } from "@/lib/types";
 import { toArray } from "@/lib/utils";
 
 /** Template de WordPress que usan las páginas de gracias de cada proyecto. */
-const GRACIAS_TEMPLATE = "page-templates/template-proyectos-interna-gracias.php";
+const GRACIAS_TEMPLATE =
+  "page-templates/template-proyectos-interna-gracias.php";
 
 type ProjectSectionMapperProps = {
   sections: ProjectSection[];
@@ -26,7 +28,12 @@ type ProjectSectionMapperProps = {
   presupuestos?: string[];
 };
 
-export function ProjectSectionMapper({ sections, proyectos, lead, presupuestos }: ProjectSectionMapperProps) {
+export function ProjectSectionMapper({
+  sections,
+  proyectos,
+  lead,
+  presupuestos,
+}: ProjectSectionMapperProps) {
   return (
     <>
       {sections.map((section, index) => {
@@ -158,14 +165,30 @@ export function ProjectSectionMapper({ sections, proyectos, lead, presupuestos }
                 presupuestos={presupuestos}
               />
             );
+          case "preguntas_frecuentes": {
+            const grupos = toArray(section.grupos).filter(
+              (grupo) => toArray(grupo.preguntas).length > 0,
+            );
+            if (grupos.length === 0) return null;
+            return (
+              <PreguntasFrecuentes
+                key={key}
+                titulo={section.titulo}
+                grupos={grupos}
+              />
+            );
+          }
           case "mas_proyectos":
             return (
               <MasProyectos
                 key={key}
                 titulo="Otros Proyectos"
-                proyectos={proyectos?.filter((p) => p.template !== GRACIAS_TEMPLATE)}
+                proyectos={proyectos?.filter(
+                  (p) => p.template !== GRACIAS_TEMPLATE,
+                )}
               />
             );
+
           case "blog":
             return null;
           default:

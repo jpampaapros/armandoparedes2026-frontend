@@ -93,6 +93,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
   const programmaticScrollRef = useRef(false);
   const restoreArmedAtRef = useRef(0);
   const pendingRestoreScrollRef = useRef(false);
+  const ignoreHideRef = useRef(false);
   const [textHidden, setTextHidden] = useState(false);
   const [textFading, setTextFading] = useState(false);
   const [textPresentation, setTextPresentation] = useState<"typewriter" | "static">("typewriter");
@@ -116,6 +117,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
   useEffect(() => {
     if (!showText) return;
     const hideText = (fromScroll: boolean) => {
+      if (ignoreHideRef.current) return;
       mediaTopRef.current = mediaRef.current?.getBoundingClientRect().top ?? null;
       if (fromScroll) {
         viewedSecondBannerRef.current = true;
@@ -131,6 +133,10 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
         }, TEXT_VISIBLE_DURATION)
       : undefined;
     const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        ignoreHideRef.current = false;
+        return;
+      }
       if (!entry.isIntersecting && entry.boundingClientRect.bottom <= 0) hideText(true);
     });
     if (dotsRef.current) observer.observe(dotsRef.current);
@@ -152,6 +158,8 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
       const mediaTop = mediaRef.current?.getBoundingClientRect().top ?? 0;
       if (mediaTop < -8) return;
       viewedSecondBannerRef.current = false;
+      ignoreHideRef.current = true;
+      mediaTopRef.current = mediaRef.current?.getBoundingClientRect().top ?? null;
       pendingRestoreScrollRef.current = true;
       setTextFading(false);
       setActiveIndex(0);
@@ -189,12 +197,14 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
     };
   }, [textHidden]);
 
-  /* Al quitar el texto, el slider se mantiene donde estaba en pantalla (si el
-     usuario está arriba del todo, el scroll no puede subir y el slider queda arriba). */
+  /* Al ocultar o devolver el texto, el slider se queda donde el usuario lo
+     estaba viendo. No se fuerza el scroll al inicio del banner. */
   useLayoutEffect(() => {
     const previousTop = mediaTopRef.current;
     const media = mediaRef.current;
-    if (!textHidden || previousTop === null || !media) return;
+    const shouldAdjust = textHidden || pendingRestoreScrollRef.current;
+    if (!shouldAdjust || previousTop === null || !media) return;
+    pendingRestoreScrollRef.current = false;
     mediaTopRef.current = null;
     const shift = media.getBoundingClientRect().top - previousTop;
     if (!shift) return;
@@ -204,13 +214,6 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
       programmaticScrollRef.current = false;
     });
   }, [textHidden]);
-
-  useLayoutEffect(() => {
-    if (!pendingRestoreScrollRef.current || textHidden || textPresentation !== "static" || !sectionRef.current) return;
-    pendingRestoreScrollRef.current = false;
-    const top = sectionRef.current.getBoundingClientRect().top + window.scrollY;
-    if (Math.abs(window.scrollY - top) > 1) window.scrollTo(0, top);
-  }, [textHidden, textPresentation]);
 
   useEffect(() => {
     const element = imageRef.current;
@@ -291,7 +294,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
     <section
       ref={sectionRef}
       data-intro-banner
-      className={`relative flex h-[100svh] w-full flex-col items-center overflow-hidden bg-white md:h-auto ${
+      className={`relative flex h-[100svh] w-full flex-col items-center overflow-hidden overflow-anchor-none bg-white md:h-auto ${
         showText ? "pt-[var(--banner-padding-top)]" : ""
       }`}
     >
