@@ -132,6 +132,7 @@ export function ProjectSectionMapper({ sections, proyectos, lead, presupuestos }
                 latitud={section.latitud}
                 longitud={section.longitud}
                 ubicaciones={toArray(section.ubicaciones)}
+                color_tarjeta={section.color_tarjeta}
               />
             );
           case "formulario_contacto":

@@ -22,9 +22,10 @@ type MapaProyectoProps = {
   latitud?: number | string;
   longitud?: number | string;
   ubicaciones?: ProjectMapaUbicacion[];
+  color_tarjeta?: string;
 };
 
-export function MapaProyecto({ titulo, google_maps, imagen, latitud, longitud, ubicaciones = [] }: MapaProyectoProps) {
+export function MapaProyecto({ titulo, google_maps, imagen, latitud, longitud, ubicaciones = [], color_tarjeta }: MapaProyectoProps) {
   const proyecto = parseLatLng(latitud, longitud);
   const puntos: MapaPunto[] = [
     ...(proyecto ? [{ ...proyecto, nombre: imagen?.alt || "Ubicación del proyecto", principal: true, logo: getLogo(imagen) }] : []),
@@ -54,7 +55,11 @@ export function MapaProyecto({ titulo, google_maps, imagen, latitud, longitud, u
         {/* La lista flota encima del mapa (abajo en mobile, a la izquierda desde md). pointer-events-none deja arrastrar el mapa fuera de la tarjeta. */}
         <div className="pointer-events-none absolute inset-0">
           <div className="flex h-full items-end px-32 pb-32 md:items-center md:px-80 md:pb-0">
-            <div className="pointer-events-auto flex max-h-[45%] w-full flex-col overflow-hidden rounded-15 bg-peach/90 px-20 pt-24 pb-24 shadow-[0_10px_30px_rgba(0,0,0,0.25)] backdrop-blur-sm md:max-h-[calc(100%-80px)] md:w-389 md:rounded-30 md:px-40 md:pt-53 md:pb-40">
+            <div className="pointer-events-auto flex max-h-[45%] w-full flex-col 
+            overflow-hidden rounded-15 px-20 pt-24 pb-24 shadow-[0_10px_30px_rgba(0,0,0,0.25)] 
+            backdrop-blur-sm md:max-h-[calc(100%-80px)] md:w-389 md:rounded-30 md:px-40 md:pt-53 md:pb-40"
+            style={{ backgroundColor: color_tarjeta?.trim() || "#D8A684E6" }}
+            >
               {titulo && (
                 <h2 className="m-0 font-gotham text-24 font-medium text-white md:text-32">
                   {titulo}
