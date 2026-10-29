@@ -30,7 +30,7 @@ export function BlogPage({
   return (
     <main className="w-full bg-white">
       <section className="bg-white">
-        <div className="mx-auto max-w-1440 px-16 pt-32 md:px-80 md:pt-50">
+        <div className="mx-auto max-w-1440 px-16 pt-52 md:px-80 md:pt-90">
           <div className="flex flex-col gap-16 md:flex-row md:items-start md:justify-between">
             <div>
               <h1 className="font-gotham text-42 font-bold leading-[1.1] text-slate md:text-60">
@@ -72,7 +72,7 @@ export function BlogPage({
       </section>
 
       {totalPages > 1 && (
-        <section className="bg-white pb-40 md:pb-80">
+        <section className="bg-white pb-52 md:pb-90">
           <div className="mx-auto max-w-1440 px-16 md:px-80">
             <BlogPagination currentPage={currentPage} totalPages={totalPages} />
           </div>

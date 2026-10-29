@@ -36,7 +36,7 @@ export function ProyectosEntregados({
   return (
     <section
       data-section="proyectos_entregados"
-      className="w-full bg-white pl-4 pr-0 pt-60 pb-67 md:pr-4"
+      className="w-full bg-white pl-4 pr-0 py-52 md:py-90 md:pr-4"
     >
       <div className="mx-auto max-w-1440 pl-12 pr-0 md:px-80">
         {titulo && (

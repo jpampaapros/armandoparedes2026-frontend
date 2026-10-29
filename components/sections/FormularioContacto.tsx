@@ -81,7 +81,7 @@ export function FormularioContacto({
 
   return (
     <section data-layout="formulario_contacto" className="w-full bg-white">
-      <div className="mx-auto max-w-895 px-16 pt-40 pb-0 md:px-24 md:pt-67">
+      <div className="mx-auto max-w-895 px-16 pt-52 pb-0 md:px-24 md:pt-90">
         {titulo && (
           <h2 className="m-0 font-gotham text-32 font-bold text-slate md:text-48 text-center">
             {titulo}

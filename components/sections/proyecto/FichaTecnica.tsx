@@ -45,7 +45,7 @@ function TechnicalIcon({ image, color, className, fallback }: {
 export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, brochure, planos, icono_direccion, icono_pisos, icono_area, icono_dormitorios, color_fondo, color_titulo, color_iconos }: FichaTecnicaProps) {
   return (
     <section data-layout="ficha_tecnica" className="w-full bg-slate" style={{ backgroundColor: color_fondo || undefined }}>
-      <div className="mx-auto max-w-1440 px-24 pt-90 pb-80 md:px-80 md:pt-90 md:pb-80">
+      <div className="mx-auto max-w-1440 px-24 md:px-80 py-52 md:py-90">
         {titulo && (
           <h2 style={{ color: color_titulo || undefined }} className="m-0 text-center font-gotham text-32 font-bold leading-[1.2] text-white md:text-60 md:leading-66">
             {titulo.replace(/ficha\s+técnica/gi, "Ficha técnica")}

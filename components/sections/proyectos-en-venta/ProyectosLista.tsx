@@ -14,7 +14,7 @@ export function ProyectosLista({ titulo, proyectos }: ProyectosListaProps) {
   const { filtered, filters } = useProjectFilters(proyectos);
 
   return (
-    <section data-section="proyectos_en_venta" className="w-full bg-white px-15 pt-24 pb-60 md:px-0 md:pt-40 md:pb-120">
+    <section data-section="proyectos_en_venta" className="w-full bg-white px-15 md:px-0 py-52 md:py-90">
       <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col md:flex-row gap-24 justify-between md:items-center">
           {titulo && (

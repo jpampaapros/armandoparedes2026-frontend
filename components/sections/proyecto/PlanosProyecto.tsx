@@ -68,7 +68,7 @@ export function PlanosProyecto({
 
   return (
     <section data-layout="planos" className="w-full bg-white">
-      <div className="mx-auto max-w-1440 px-0 py-60 md:px-80 md:py-100">
+      <div className="mx-auto max-w-1440 px-0 py-52 md:px-80 md:py-90">
         {titulo && (
           <h2 className="mb-30 mt-0 text-center font-gotham text-36 font-bold text-slate md:mb-50 md:text-60">
             {titulo}

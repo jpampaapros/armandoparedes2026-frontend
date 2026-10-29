@@ -19,7 +19,7 @@ export function ProyectosVenta({ titulo, proyectos, dataLayout }: ProyectosVenta
   const { filtered, filters } = useProjectFilters(proyectos);
 
   return (
-    <section data-layout={dataLayout} className="w-full bg-white px-15 pb-35 pt-49 md:px-4 md:pb-60 md:pt-60">
+    <section data-layout={dataLayout} className="w-full bg-white px-15 md:px-4 py-52 md:py-90">
       <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col gap-24 md:flex-row md:items-center md:justify-between">
           {titulo && (

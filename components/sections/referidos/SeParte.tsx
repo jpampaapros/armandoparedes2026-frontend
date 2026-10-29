@@ -121,7 +121,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
   const errorClass = "text-12 text-red-300";
 
   return (
-    <section data-layout="se_parte" className="w-full bg-slate px-16 py-60 md:px-24 md:py-100">
+    <section data-layout="se_parte" className="w-full bg-slate px-16 py-52 md:px-24 md:py-90">
       <div className="mx-auto max-w-1025">
         {title && (
           <h2 className="m-0 text-center font-medium not-italic leading-[normal] text-white">
