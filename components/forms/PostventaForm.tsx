@@ -55,7 +55,7 @@ export function PostventaForm({
       <h3 className="m-0 text-center font-gotham text-28 font-bold leading-tight text-slate md:text-40">{titulo}</h3>
       {subtitulo && <p className="m-0 mt-8 text-center font-poppins text-14 text-near-black md:text-16">{subtitulo}</p>}
 
-      <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-24 flex flex-col gap-16 md:mt-40 md:gap-24">
+      <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-24 flex flex-col gap-16 md:mt-44 md:gap-24">
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
           <SelectField idPrefix={ID} label="Proyecto adquirido" name="proyecto" values={proyectos} register={register} error={errors.proyecto} classes={{ fieldClass, labelClass, controlClass }} onChange={onProyectoChange} />
           {([
