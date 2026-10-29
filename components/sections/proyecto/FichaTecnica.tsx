@@ -97,7 +97,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
           <div className="flex justify-center ">
             <SmartLink
               link={brochure}
-              className="inline-flex h-50 w-380 max-w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-60 md:w-429 md:text-18"
+              className="inline-flex h-50 w-380 max-w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-50 md:w-429 md:text-18"
             >
               {brochure.title || "REVISA NUESTRO BROCHURE"}
             </SmartLink>
@@ -107,7 +107,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
           <div className="flex justify-center">
             <SmartLink
               link={planos}
-              className="inline-flex h-50 w-380 max-w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-60 md:w-429 md:text-18"
+              className="inline-flex h-50 w-380 max-w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-50 md:w-429 md:text-18"
             >
               {planos.title || "REVISA NUESTRO PLANOS"}
             </SmartLink>

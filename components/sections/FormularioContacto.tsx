@@ -304,7 +304,7 @@ export function FormularioContacto({
           <button
             type="submit"
             disabled={isPending || !isClient}
-            className="mx-auto mt-26 inline-flex h-44 w-full items-center justify-center bg-slate font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50 md:mt-30 md:h-50 md:text-16"
+            className="mx-auto mt-26 inline-flex h-50 w-full items-center justify-center bg-slate font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50 md:mt-30 md:h-50 md:text-16"
           >
             {isPending ? "Enviando..." : "Enviar"}
           </button>
