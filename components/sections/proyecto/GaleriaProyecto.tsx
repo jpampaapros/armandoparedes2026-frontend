@@ -129,7 +129,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
 
         {activeDescription && (
           <div
-            className="mt-61 font-poppins text-16 font-light leading-[1.4] text-white md:mt-auto md:text-20 [&_p]:m-0"
+            className="mt-61 font-poppins text-16 font-light leading-[1.4] text-white md:mt-auto md:text-18 [&_p]:m-0"
             dangerouslySetInnerHTML={{ __html: activeDescription }}
           />
         )}
