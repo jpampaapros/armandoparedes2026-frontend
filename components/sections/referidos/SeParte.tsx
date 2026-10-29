@@ -143,7 +143,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
         <form
           onSubmit={handleSubmit(onSubmit)}
           noValidate
-          className="mt-24 flex flex-col gap-16 md:mt-40 md:gap-30"
+          className="mt-24 flex flex-col gap-16 md:mt-36 md:gap-30"
         >
           {/* Tus datos */}
           <div className="flex flex-col gap-16">
@@ -355,7 +355,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
           <button
             type="submit"
             disabled={isPending || !isClient}
-            className="mx-auto inline-flex h-50 cursor-pointer w-full items-center justify-center bg-peach font-gotham text-18 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="mx-auto inline-flex h-50 cursor-pointer w-full items-center justify-center bg-peach font-gotham text-18 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50 md:mt-22"
           >
             {isPending ? "Enviando..." : "ENVIAR"}
           </button>

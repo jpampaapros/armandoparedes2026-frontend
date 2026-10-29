@@ -68,7 +68,7 @@ export function ContactoForm({
     <div className="mx-auto max-w-895">
       <h2 className="mb-0 mt-24 text-center font-gotham text-36 font-bold leading-tight text-slate md:mt-40 md:text-50">{titulo}</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-24 flex flex-col gap-16 md:mt-40 md:gap-24">
+      <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-24 flex flex-col gap-16 md:mt-44 md:gap-24">
         <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
           {([
             ["nombres", "Nombres*", "text", nameRules], ["apellido", "Apellido*", "text", nameRules],
