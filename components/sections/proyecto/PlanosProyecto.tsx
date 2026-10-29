@@ -84,7 +84,7 @@ export function PlanosProyecto({
               setActiveDorm(i);
               setActiveTipo(0);
             }}
-            className={`min-w-120 border px-20 py-12 font-gotham text-14 transition-colors md:h-50 md:w-212 md:p-10 md:text-18 ${
+            className={`min-w-120 h-50 border px-20 py-12 font-gotham text-14 transition-colors md:h-50 md:w-212 md:p-10 md:text-18 ${
               i === activeDorm
                 ? "border-peach bg-peach font-bold text-white"
                 : "border-peach font-normal text-near-black hover:bg-peach/10"
@@ -103,7 +103,7 @@ export function PlanosProyecto({
                 key={i}
                 type="button"
                 onClick={() => setActiveTipo(i)}
-                className={`min-w-0 flex-1 border px-20 py-10 font-gotham text-14 transition-colors md:h-50 md:p-10 md:text-18 ${
+                className={`min-w-0 flex-1 border px-20 py-10 font-gotham text-14 transition-colors cursor-pointer h-50 md:p-10 md:text-18 ${
                   i === activeTipo
                     ? "border-peach bg-peach font-bold text-white"
                     : "border-peach font-normal text-near-black hover:bg-peach/10"
@@ -173,7 +173,7 @@ export function PlanosProyecto({
                 <button
                   type="button"
                   onClick={() => openModal(tipologia.nombre)}
-                  className="inline-flex h-50 w-full items-center justify-center bg-slate px-20 font-gotham text-14 font-bold uppercase text-white transition-colors hover:bg-slate/90 md:text-18"
+                  className="inline-flex h-50 cursor-pointer w-full items-center justify-center bg-slate px-20 font-gotham text-14 font-bold uppercase text-white transition-colors hover:bg-slate/90 md:text-18"
                 >
                   QUIERO ESTE DEPA
                 </button>
