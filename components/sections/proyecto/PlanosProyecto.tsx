@@ -117,7 +117,7 @@ export function PlanosProyecto({
 
         {tipologia && (
           <div className="grid grid-cols-1 gap-24 md:grid-cols-[minmax(0,1fr)_calc(382*var(--fx))] md:gap-109">
-            <div className="relative">
+            <div className="relative order-2 md:order-1">
               <div className="relative h-304 w-full md:h-470">
                 {tipologia.imagen?.url ? (
                   <Image
@@ -134,7 +134,8 @@ export function PlanosProyecto({
 
             </div>
 
-            <div className="mx-auto flex w-382 max-w-full flex-col justify-center gap-18">
+            <div className="contents md:order-2 md:mx-auto md:flex md:w-382 md:max-w-full md:flex-col md:justify-center md:gap-18">
+              <div className="order-1 mx-auto flex w-382 max-w-full flex-col gap-18 md:contents">
               <h3 className="font-gotham text-40 font-bold text-near-black md:text-60">
                 {tipologia.nombre}
               </h3>
@@ -168,8 +169,9 @@ export function PlanosProyecto({
                   />
                 )}
               </div>
+              </div>
 
-              <div className="mt-26 flex flex-col gap-16">
+              <div className="order-3 mx-auto flex w-382 max-w-full flex-col gap-16 md:mt-26">
                 <button
                   type="button"
                   onClick={() => openModal(tipologia.nombre)}

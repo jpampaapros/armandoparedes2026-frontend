@@ -23,9 +23,10 @@ type MapaProyectoProps = {
   longitud?: number | string;
   ubicaciones?: ProjectMapaUbicacion[];
   color_tarjeta?: string;
+  color_box_alrededores?: string;
 };
 
-export function MapaProyecto({ titulo, google_maps, imagen, latitud, longitud, ubicaciones = [], color_tarjeta }: MapaProyectoProps) {
+export function MapaProyecto({ titulo, google_maps, imagen, latitud, longitud, ubicaciones = [], color_tarjeta, color_box_alrededores }: MapaProyectoProps) {
   const proyecto = parseLatLng(latitud, longitud);
   const puntos: MapaPunto[] = [
     ...(proyecto ? [{ ...proyecto, nombre: imagen?.alt || "Ubicación del proyecto", principal: true, logo: getLogo(imagen) }] : []),
@@ -50,6 +51,10 @@ export function MapaProyecto({ titulo, google_maps, imagen, latitud, longitud, u
               Ubicación próximamente disponible
             </div>
           )}
+          <div className="md:hidden block absolute h-50 w-[90%] inset-0 bg-white/70 left-1/2 -translate-x-1/2 top-10 rounded-10 flex items-center pl-10">
+              <p className="text-25 font-poppins font-bold"
+              style={{ color: color_box_alrededores ? color_box_alrededores : '#000000' }}>Alrededores:</p>
+          </div>
         </div>
 
         {/* La lista flota encima del mapa (abajo en mobile, a la izquierda desde md). pointer-events-none deja arrastrar el mapa fuera de la tarjeta. */}

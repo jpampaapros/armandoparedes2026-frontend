@@ -43,16 +43,32 @@ function TechnicalIcon({ image, color, className, fallback }: {
 }
 
 export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, brochure, planos, icono_direccion, icono_pisos, icono_area, icono_dormitorios, color_fondo, color_titulo, color_iconos }: FichaTecnicaProps) {
+  const mobileRows = [
+    direccion ? { key: "direccion", image: icono_direccion, fallback: <LocationIcon />, label: direccion } : null,
+    pisos ? { key: "pisos", image: icono_pisos, fallback: <BuildingIcon />, label: `${pisos} pisos` } : null,
+    area ? { key: "area", image: icono_area, fallback: <AreaIcon />, label: `${area} m²` } : null,
+    dormitorios ? { key: "dormitorios", image: icono_dormitorios, fallback: <BedIcon />, label: `${dormitorios} dormitorios` } : null,
+  ].filter((row) => row !== null);
+
   return (
     <section data-layout="ficha_tecnica" className="w-full bg-slate" style={{ backgroundColor: color_fondo || undefined }}>
-      <div className="mx-auto max-w-1440 px-24 md:px-80 py-52 md:py-90">
+      <div className="mx-auto max-w-1440 px-24 py-52 md:px-80 md:py-90">
         {titulo && (
-          <h2 style={{ color: color_titulo || undefined }} className="m-0 text-center font-gotham text-32 font-bold leading-[1.2] text-white md:text-60 md:leading-66">
+          <h2 style={{ color: color_titulo || undefined }} className="m-0 text-left font-gotham text-32 font-bold leading-[1.2] text-white md:text-center md:text-60 md:leading-66">
             {titulo.replace(/ficha\s+técnica/gi, "Ficha técnica")}
           </h2>
         )}
 
-        <div className="mt-16 flex flex-col items-center md:mt-58 md:gap-30">
+        <div className="mt-24 flex flex-col md:hidden">
+          {mobileRows.map((row) => (
+            <div key={row.key} className="flex items-center gap-14 border-b border-black/15 py-16">
+              <TechnicalIcon image={row.image} color={color_iconos} className="h-24 w-24" fallback={row.fallback} />
+              <span className="font-poppins text-16 text-black">{row.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-16 hidden flex-col items-center md:mt-58 md:flex md:gap-30">
           {direccion && (
             <div className="flex items-center gap-14">
               <TechnicalIcon image={icono_direccion} color={color_iconos} className="h-32 w-32 md:h-40 md:w-40" fallback={<LocationIcon />} />
@@ -92,28 +108,24 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
           </div>
         </div>
 
-<div className="flex md:flex-row flex-col items-center justify-center gap-24 md:gap-80 mt-80 md:mt-60">
-        {brochure?.url && brochure.url !== "#" && (
-          <div className="flex justify-center ">
+        <div className="mt-28 flex flex-col items-stretch gap-16 md:mt-60 md:flex-row md:items-center md:justify-center md:gap-80">
+          {brochure?.url && brochure.url !== "#" && (
             <SmartLink
               link={brochure}
-              className="inline-flex h-50 w-380 max-w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-50 md:w-429 md:text-18"
+              className="inline-flex h-50 w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-50 md:w-429 md:text-18"
             >
               {brochure.title || "REVISA NUESTRO BROCHURE"}
             </SmartLink>
-          </div>
-        )}
-        {planos?.url && planos.url !== "#" && (
-          <div className="flex justify-center">
+          )}
+          {planos?.url && planos.url !== "#" && (
             <SmartLink
               link={planos}
-              className="inline-flex h-50 w-380 max-w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-50 md:w-429 md:text-18"
+              className="inline-flex h-50 w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-50 md:w-429 md:text-18"
             >
               {planos.title || "REVISA NUESTRO PLANOS"}
             </SmartLink>
-          </div>
-        )}
-</div>
+          )}
+        </div>
 
       </div>
     </section>
