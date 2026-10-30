@@ -11,9 +11,10 @@ type ProyectosVentaProps = {
   titulo?: string;
   proyectos: Project[];
   dataLayout?: string;
+  mobileSlider?: boolean;
 };
 
-export function ProyectosVenta({ titulo, proyectos, dataLayout }: ProyectosVentaProps) {
+export function ProyectosVenta({ titulo, proyectos, dataLayout, mobileSlider = false }: ProyectosVentaProps) {
   const [emblaApi, setEmblaApi] = useState<EmblaCarouselType | null>(null);
   const mobileTitle = titulo?.match(/^(.*?)\s+(en\s+venta)$/i);
   const { filtered, filters } = useProjectFilters(proyectos);
@@ -52,11 +53,27 @@ export function ProyectosVenta({ titulo, proyectos, dataLayout }: ProyectosVenta
           </p>
         ) : (
           <>
-            <div className="flex flex-col items-center gap-14 md:hidden">
-              {filtered.map((project) => (
-                <ProjectCard key={project.id} project={project} saleCarousel />
-              ))}
-            </div>
+            {mobileSlider ? (
+              <div className="md:hidden">
+                <EmblaSlider
+                  slides={filtered}
+                  slidesPerView={{ base: 1.22, sm: 1.22 }}
+                  gap={12}
+                  loop={false}
+                  align="start"
+                  showArrows={false}
+                  className="h-auto"
+                  viewportClassName="h-auto [&>.flex]:h-auto"
+                  renderSlide={(project) => <ProjectCard project={project} />}
+                />
+              </div>
+            ) : (
+              <div className="flex flex-col items-center gap-14 md:hidden">
+                {filtered.map((project) => (
+                  <ProjectCard key={project.id} project={project} saleCarousel />
+                ))}
+              </div>
+            )}
           <div className="relative hidden md:block md:w-[calc(50vw+50%)]">
             <EmblaSlider
               slides={filtered}

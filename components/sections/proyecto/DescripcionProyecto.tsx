@@ -69,7 +69,7 @@ export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado 
         {descripcion && (
           <div
             className={`mt-24 font-gotham text-16 leading-[1.5] text-near-black md:mt-40 md:text-24 md:leading-38 [&_p]:m-0 ${
-              cambiar_lado ? "text-left" : "text-right"
+              cambiar_lado ? "md:text-left text-justify" : "md:text-right text-justify"
             }`}
             dangerouslySetInnerHTML={{ __html: descripcion }}
           />

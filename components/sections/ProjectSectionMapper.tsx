@@ -116,6 +116,8 @@ export function ProjectSectionMapper({
                 tabs={toArray(section.tabs)}
                 color_fondo={section.color_fondo}
                 color_activo={section.color_activo}
+                color_barra_tabs_movil={section.color_barra_tabs_movil}
+                color_active_tab_movil={section.color_active_tab_movil}
               />
             );
           case "planos":
@@ -140,6 +142,7 @@ export function ProjectSectionMapper({
                 longitud={section.longitud}
                 ubicaciones={toArray(section.ubicaciones)}
                 color_tarjeta={section.color_tarjeta}
+                color_box_alrededores={section.color_box_alrededores}
               />
             );
           case "formulario_contacto":
@@ -175,6 +178,7 @@ export function ProjectSectionMapper({
                 key={key}
                 titulo={section.titulo}
                 grupos={grupos}
+                ocultar_en_movil={section.ocultar_en_movil === true || section.ocultar_en_movil === 1 || section.ocultar_en_movil === "1"}
               />
             );
           }

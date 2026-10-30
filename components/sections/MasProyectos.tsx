@@ -35,6 +35,7 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
       titulo={titulo}
       proyectos={proyectos}
       dataLayout="mas_proyectos"
+      mobileSlider
     />
   );
 }
