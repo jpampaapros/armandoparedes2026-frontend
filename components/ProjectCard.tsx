@@ -77,7 +77,7 @@ export function ProjectCard({
   const sliderCard = compact || saleCarousel;
   const [showAlternateImage, setShowAlternateImage] = useState(false);
   const image = project._embedded?.["wp:featuredmedia"]?.[0];
-  const mobileImage = saleCarousel ? project.acf.general_imagen_mobile : undefined;
+  const mobileImage = saleCarousel || saleListing ? project.acf.general_imagen_mobile : undefined;
   const mobileImageUrl = mobileImage ? mobileImage.url : undefined;
   const imageSizes = saleCarousel ? "(max-width: 768px) 382px, 474px" : "(max-width: 768px) 382px, 630px";
   const distrito = project._embedded?.["wp:term"]
@@ -88,10 +88,11 @@ export function ProjectCard({
     <article
       data-project-card
       data-sale-carousel={saleCarousel || undefined}
+      data-sale-listing={saleListing || undefined}
       data-alternate-image={showAlternateImage || undefined}
       className={`group relative flex w-full min-w-0 flex-col overflow-hidden bg-black ${
         saleCarousel ? "h-465 md:w-474 md:h-641" : compact ? "h-430 md:max-w-630 md:h-680" : "h-465 md:max-w-630 md:h-825 md:max-lap:h-640"
-      } ${saleListing ? "max-md:h-[calc(510*var(--fx))]" : ""}`}
+      }`}
     >
       {(image?.source_url || mobileImageUrl) && (
         <picture>
@@ -133,8 +134,8 @@ export function ProjectCard({
       )}
 
       {distrito && (
-        <div className={`absolute right-16 top-16 z-10 bg-white ${sliderCard ? "px-24" : "px-10"} ${saleListing ? "max-md:px-[calc(34*var(--fx))]" : ""} py-6 md:right-20 md:top-61 md:py-8`}>
-          <span className={`font-poppins text-16 font-medium leading-18 text-near-black ${saleCarousel ? "":"md:text-24"}  md:leading-24 ${saleListing ? "max-md:text-[calc(14*var(--fx))]" : ""}`}>
+        <div className={`absolute right-16 top-16 z-10 bg-white ${sliderCard ? "px-24" : "px-10"} py-6 md:right-20 md:top-61 md:py-8`}>
+          <span className={`font-poppins text-16 font-medium leading-18 text-near-black ${saleCarousel ? "":"md:text-24"}  md:leading-24`}>
             {distrito.name}
           </span>
         </div>
@@ -156,12 +157,12 @@ export function ProjectCard({
             url: `/proyectos/${project.slug}`,
             target: "",
           }}
-          className={`${saleCarousel ? "hidden md:inline-flex" : "inline-flex"} h-50 w-full items-center justify-center border border-white px-10 font-poppins text-16 font-semibold text-white transition-colors duration-500 ease-out hover:text-card-dark hover:bg-white group-hover:text-card-dark group-hover:bg-white motion-reduce:transition-none md:w-250 ${sliderCard ? "md:text-16" : "md:text-18"}`}
+          className={`${saleCarousel || saleListing ? "hidden md:inline-flex" : "inline-flex"} h-50 w-full items-center justify-center border border-white px-10 font-poppins text-16 font-semibold text-white transition-colors duration-500 ease-out hover:text-card-dark hover:bg-white group-hover:text-card-dark group-hover:bg-white motion-reduce:transition-none md:w-250 ${sliderCard ? "md:text-16" : "md:text-18"}`}
         >
           Ver proyecto
         </SmartLink>
       </div>
-      {saleCarousel && (
+      {(saleCarousel || saleListing) && (
         <SmartLink
           link={{ title: "Ver proyecto", url: `/proyectos/${project.slug}` }}
           className="absolute bottom-12 right-12 z-20 flex h-36 w-36 items-center justify-center text-white md:hidden"

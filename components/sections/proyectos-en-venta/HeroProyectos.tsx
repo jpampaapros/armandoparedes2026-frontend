@@ -18,7 +18,7 @@ export function HeroProyectos({ titulo, imagen, dataSection = "hero_proyectos" }
   return (
     <section
       data-section={dataSection}
-      className="relative h-323 w-full overflow-hidden md:h-600"
+      className="relative h-550 w-full overflow-hidden md:h-600"
     >
       {imagen?.url ? (
         <Image
