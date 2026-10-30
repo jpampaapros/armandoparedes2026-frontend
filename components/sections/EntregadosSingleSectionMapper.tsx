@@ -63,6 +63,10 @@ export function EntregadosSingleSectionMapper({
                 icono_area={section.icono_area}
                 icono_dormitorios={section.icono_dormitorios}
                 icono_fecha={section.icono_fecha}
+                color_fondo={section.color_fondo}
+                color_titulo={section.color_titulo}
+                color_texto={section.color_texto}
+                color_iconos={section.color_iconos}
               />
             );
           case "proyectos_venta":

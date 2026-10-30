@@ -5,6 +5,7 @@ import { AreaIcon } from "@/components/icons/AreaIcon";
 import { BedIcon } from "@/components/icons/BedIcon";
 import { CalendarIcon } from "@/components/icons/CalendarIcon";
 import type { ACFImage } from "@/lib/types";
+import { resolveWordPressUrl } from "@/lib/urls";
 
 type DetalleProps = {
   imagen?: ACFImage;
@@ -18,24 +19,41 @@ type DetalleProps = {
   area?: string;
   dormitorios?: string;
   fecha?: string;
+  color_fondo?: string;
+  color_titulo?: string;
+  color_texto?: string;
+  color_iconos?: string;
 };
 
 type ItemConfig = {
   value?: string;
   icon: React.ReactNode;
   customIcon?: ACFImage;
+  colorTitulo?: string;
+  colorTexto?: string;
+  colorIconos?: string;
 };
 
-function DetailItem({ icon, customIcon, value }: ItemConfig) {
+function DetailItem({ icon, customIcon, value, colorTexto, colorIconos }: ItemConfig) {
   if (!value) return null;
+  const iconColor = colorIconos || "#000000";
+  const mask = customIcon?.url
+    ? `url(${JSON.stringify(resolveWordPressUrl(customIcon.url))}) center / contain no-repeat`
+    : undefined;
   return (
     <div className="flex items-center gap-14">
-      <div className="h-30 w-30 shrink-0 text-white">
-        {customIcon?.url ? (
-          <Image src={customIcon.url} alt="" width={30} height={30} className="h-full w-full object-contain" />
+      <div className="h-30 w-30 shrink-0" style={{ color: iconColor }}>
+        {mask ? (
+          <div
+            className="h-full w-full"
+            style={{ backgroundColor: iconColor, mask, WebkitMask: mask }}
+          />
         ) : icon}
       </div>
-      <span className="font-poppins text-20 font-medium leading-24 text-white md:text-24">
+      <span
+        className="font-poppins text-20 font-medium leading-24 md:text-24"
+        style={{ color: colorTexto || "#000000" }}
+      >
         {value}
       </span>
     </div>
@@ -54,6 +72,10 @@ export function Detalle({
   area,
   dormitorios,
   fecha,
+  color_fondo,
+  color_titulo,
+  color_texto,
+  color_iconos,
 }: DetalleProps) {
   const items: ItemConfig[] = [
     { value: direccion, customIcon: icono_direccion, icon: <LocationIcon className="h-full w-full" /> },
@@ -68,7 +90,8 @@ export function Detalle({
   return (
     <section
       data-section="detalle"
-      className="w-full bg-slate"
+      className="w-full"
+      style={{ backgroundColor: color_fondo || '#ffffff' }}
     >
       <div className="flex w-full flex-col md:h-800 md:flex-row">
         {imagen?.url && (
@@ -86,8 +109,21 @@ export function Detalle({
         <div className="order-1 flex w-full flex-col justify-center px-27 py-60 md:order-2 md:w-1/2 md:px-80 md:py-0">
           {items.length > 0 && (
             <div className="flex flex-col gap-30">
+              <h3
+                className="mb-5 font-gotham text-45 font-bold"
+                style={{ color: color_titulo || "#748CA4" }}
+              >
+                Ficha técnica
+              </h3>
               {items.map((item, index) => (
-                <DetailItem key={index} icon={item.icon} customIcon={item.customIcon} value={item.value} />
+                <DetailItem
+                  key={index}
+                  icon={item.icon}
+                  customIcon={item.customIcon}
+                  value={item.value}
+                  colorTexto={color_texto}
+                  colorIconos={color_iconos}
+                />
               ))}
             </div>
           )}

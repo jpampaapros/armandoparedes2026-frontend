@@ -102,6 +102,10 @@ export type EntregadosSingleSection =
       area?: string;
       dormitorios?: string;
       fecha?: string;
+      color_fondo?: string;
+      color_titulo?: string;
+      color_texto?: string;
+      color_iconos?: string;
     }
   | { acf_fc_layout: "proyectos_venta"; titulo?: string; post?: ACFList<ACFPostObject> };
 
