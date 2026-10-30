@@ -29,7 +29,7 @@ export function EntregadosSingleSectionMapper({
 }: EntregadosSingleSectionMapperProps) {
   return (
     <>
-      <Navegacion current={current} entregados={entregados} />
+      <Navegacion current={current} entregados={entregados} color_fondo={current.acf?.color_barra_navegacion} />
       {sections.map((section, index) => {
         switch (section.acf_fc_layout) {
           case "banner":

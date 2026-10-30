@@ -44,9 +44,10 @@ function resolveNavLink(
 type NavegacionProps = {
   current: Delivered;
   entregados: Delivered[];
+  color_fondo?: string;
 };
 
-export function Navegacion({ current, entregados }: NavegacionProps) {
+export function Navegacion({ current, entregados, color_fondo }: NavegacionProps) {
   const prev = resolveNavLink(
     current,
     entregados,
@@ -68,7 +69,8 @@ export function Navegacion({ current, entregados }: NavegacionProps) {
   return (
     <nav
       data-section="navegacion"
-      className="h-87 w-full bg-peach px-10 md:px-80"
+      className="h-87 w-full px-10 md:px-80"
+      style={color_fondo ? { backgroundColor: color_fondo } : { backgroundColor: "#dda783" }}
     >
       <div className="mx-auto flex h-full max-w-1440 items-center justify-between gap-16">
         <div className="flex-1">

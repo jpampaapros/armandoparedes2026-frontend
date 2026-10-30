@@ -231,6 +231,7 @@ export type Delivered = {
     distrito?: string;
     navegacion_anterior?: ACFLink;
     navegacion_posterior?: ACFLink;
+    color_barra_navegacion?: string;
     sections?: ACFList<EntregadosSingleSection>;
   };
   featured_media: number;
