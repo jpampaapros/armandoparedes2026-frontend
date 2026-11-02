@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import { EmblaSlider } from "@/components/EmblaSlider";
 import type { HomeBannerSlide } from "@/lib/types";
@@ -118,19 +118,22 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
   const validSlides = titleSlides.filter((slide) => slide.titulo?.trim());
   const mediaSlides = imageSlides.flatMap<{
     image?: HomeBannerSlide["imagen"];
+    imageMobile?: HomeBannerSlide["imagen_mobile"];
     videoUrl?: string;
     videoUrlMobile?: string;
   }>((slide) => {
+    const image = slide.imagen?.url ? slide.imagen : undefined;
+    const imageMobile = slide.imagen_mobile?.url ? slide.imagen_mobile : undefined;
     if (slide.tipo_medio !== "video") {
-      return slide.imagen?.url ? [{ image: slide.imagen }] : [];
+      return image || imageMobile ? [{ image, imageMobile }] : [];
     }
     const videoUrl = slide.video && typeof slide.video === "object" ? slide.video.url : undefined;
     const videoUrlMobile =
       slide.video_mobile && typeof slide.video_mobile === "object" ? slide.video_mobile.url : undefined;
     if (!videoUrl && !videoUrlMobile) {
-      return slide.imagen?.url ? [{ image: slide.imagen }] : [];
+      return image || imageMobile ? [{ image, imageMobile }] : [];
     }
-    return [{ image: slide.imagen, videoUrl: videoUrl || videoUrlMobile, videoUrlMobile }];
+    return [{ image, imageMobile, videoUrl: videoUrl || videoUrlMobile, videoUrlMobile }];
   });
   const autoplay = useMemo(() => Autoplay({ delay: 5000, stopOnInteraction: false, playOnInit: false }), []);
   const imagePlugins = useMemo(() => [autoplay], [autoplay]);
@@ -350,16 +353,14 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
       ref={sectionRef}
       data-intro-banner
       className={`relative flex w-full flex-col items-center overflow-x-hidden overflow-anchor-none bg-white md:h-auto ${
-        showText
-          ? "min-h-[100svh] pt-[var(--banner-padding-top)]"
-          : "h-[100svh] overflow-hidden"
+        showText ? "min-h-[100svh]" : "h-[100svh] overflow-hidden"
       }`}
     >
       {showText && (
-        <>
+        <div className="flex h-[calc(100svh_-_120px)] w-full shrink-0 flex-col items-center pt-[var(--banner-padding-top)] md:h-auto">
           <div
             data-intro-hero
-            className={`mx-auto flex w-full max-w-382 flex-col justify-center px-4 text-center transition-opacity duration-500 md:max-w-760 md:px-0 [&_p]:m-0 ${
+            className={`mx-auto flex w-full max-w-382 flex-1 flex-col justify-center px-4 text-center transition-opacity duration-500 md:max-w-760 md:flex-none md:px-0 [&_p]:m-0 ${
               textFading ? "opacity-0" : ""
             }`}
           >
@@ -375,7 +376,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
             ref={dotsRef}
             data-intro-fade
             data-intro-dots
-            className={`mt-57 flex shrink-0 gap-3 transition-opacity duration-500 md:mt-153 ${textFading ? "opacity-0" : ""}`}
+            className={`mt-57 mb-61 flex shrink-0 justify-center gap-3 transition-opacity duration-500 md:mt-153 md:mb-0 ${textFading ? "opacity-0" : ""}`}
           >
             {validSlides.map((_, index) => (
               <button
@@ -400,7 +401,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
               </button>
             ))}
           </div>
-        </>
+        </div>
       )}
 
       {mediaSlides.length > 0 && (
@@ -410,7 +411,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
           data-intro-media
           className={`relative w-full md:h-817 md:flex-none ${
             showText
-              ? "mt-61 h-[100svh] shrink-0 md:mt-34 md:h-817"
+              ? "h-[100svh] shrink-0 md:mt-34 md:h-817"
               : "min-h-0 flex-1"
           }`}
         >
@@ -447,8 +448,24 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
                       poster={slide.image?.url}
                       active={mediaReady && index === activeMediaIndex}
                     />
-                  ) : slide.image?.url ? (
-                    <Image src={slide.image.url} alt={slide.image.alt || ""} fill className="object-cover" sizes="100vw" priority={index === 0} />
+                  ) : slide.image?.url || slide.imageMobile?.url ? (
+                    <picture>
+                      {slide.imageMobile?.url && (
+                        <source
+                          media="(max-width: 767px)"
+                          srcSet={getImageProps({ src: slide.imageMobile.url, alt: "", fill: true, sizes: "100vw" }).props.srcSet}
+                          sizes="100vw"
+                        />
+                      )}
+                      <Image
+                        src={slide.image?.url || slide.imageMobile?.url || ""}
+                        alt={slide.image?.alt || slide.imageMobile?.alt || ""}
+                        fill
+                        className="object-cover"
+                        sizes="100vw"
+                        priority={index === 0}
+                      />
+                    </picture>
                   ) : null}
                 </div>
               )}

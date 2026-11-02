@@ -60,6 +60,7 @@ export type WordPressPage<
 export type HomeBannerSlide = {
   titulo?: string;
   imagen?: ACFImage;
+  imagen_mobile?: ACFImage;
   tipo_medio?: "imagen" | "video";
   video?: { url?: string; mime_type?: string } | false;
   video_mobile?: { url?: string; mime_type?: string } | false;
