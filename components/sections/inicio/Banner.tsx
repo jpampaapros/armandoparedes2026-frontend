@@ -24,58 +24,113 @@ function processTitle(html?: string) {
     .replace(/<\/strong>/gi, "</span>");
 }
 
-function BannerVideo({ src, poster, active }: { src: string; poster?: string; active: boolean }) {
-  const ref = useRef<HTMLVideoElement>(null);
+function BannerVideo({
+  src,
+  mobileSrc,
+  poster,
+  active,
+}: {
+  src: string;
+  mobileSrc?: string;
+  poster?: string;
+  active: boolean;
+}) {
+  const desktopRef = useRef<HTMLVideoElement>(null);
+  const mobileRef = useRef<HTMLVideoElement>(null);
+  const mobileUrl = mobileSrc || src;
 
   useEffect(() => {
-    const video = ref.current;
-    if (!video) return;
+    const desktop = desktopRef.current;
+    const mobile = mobileRef.current;
+    const videos = [desktop, mobile].filter((video): video is HTMLVideoElement => !!video);
+    if (videos.length === 0) return;
+
     let inView = false;
+    const media = window.matchMedia("(max-width: 378px)");
+    const visibleVideo = () => (media.matches ? mobile ?? desktop : desktop ?? mobile);
+
     const updatePlayback = () => {
-      if (active && inView && !document.hidden) {
-        void video.play().catch(() => {
-          // El navegador puede bloquear la reproducción automática; quedan los controles disponibles.
-        });
-      } else {
-        video.pause();
+      const current = visibleVideo();
+      for (const video of videos) {
+        if (video === current && active && inView && !document.hidden) {
+          void video.play().catch(() => {
+            // El navegador puede bloquear la reproducción automática; quedan los controles disponibles.
+          });
+        } else {
+          video.pause();
+        }
       }
     };
-    if (active) video.currentTime = 0;
+
+    if (active) {
+      for (const video of videos) video.currentTime = 0;
+    }
+
     const observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
       updatePlayback();
     }, { threshold: 0.1 });
-    observer.observe(video);
+    for (const video of videos) observer.observe(video);
+
+    media.addEventListener("change", updatePlayback);
     document.addEventListener("visibilitychange", updatePlayback);
+    updatePlayback();
+
     return () => {
       observer.disconnect();
+      media.removeEventListener("change", updatePlayback);
       document.removeEventListener("visibilitychange", updatePlayback);
-      video.pause();
+      for (const video of videos) video.pause();
     };
-  }, [active]);
+  }, [active, src, mobileUrl]);
 
   return (
-    <video
-      ref={ref}
-      src={src}
-      poster={poster}
-      muted
-      playsInline
-      loop
-      controls
-      preload="metadata"
-      aria-label="Video del proyecto"
-      className="absolute inset-0 h-full w-full object-cover"
-    />
+    <>
+      <video
+        ref={mobileRef}
+        src={mobileUrl}
+        poster={poster}
+        muted
+        playsInline
+        loop
+        controls
+        preload="metadata"
+        aria-label="Video del proyecto"
+        className="absolute inset-0 h-full w-full object-cover min-[379px]:hidden"
+      />
+      <video
+        ref={desktopRef}
+        src={src}
+        poster={poster}
+        muted
+        playsInline
+        loop
+        controls
+        preload="metadata"
+        aria-label="Video del proyecto"
+        className="absolute inset-0 hidden h-full w-full object-cover min-[379px]:block"
+      />
+    </>
   );
 }
 
 export function Banner({ titleSlides, imageSlides }: BannerProps) {
   const validSlides = titleSlides.filter((slide) => slide.titulo?.trim());
-  const mediaSlides = imageSlides.flatMap<{ image?: HomeBannerSlide["imagen"]; videoUrl?: string }>((slide) => {
-    const videoUrl = slide.tipo_medio === "video" && slide.video ? slide.video.url : undefined;
-    if (videoUrl) return [{ image: slide.imagen, videoUrl }];
-    return slide.imagen?.url ? [{ image: slide.imagen, videoUrl: undefined }] : [];
+  const mediaSlides = imageSlides.flatMap<{
+    image?: HomeBannerSlide["imagen"];
+    videoUrl?: string;
+    videoUrlMobile?: string;
+  }>((slide) => {
+    if (slide.tipo_medio !== "video") {
+      return slide.imagen?.url ? [{ image: slide.imagen }] : [];
+    }
+    const videoUrl = slide.video && typeof slide.video === "object" ? slide.video.url : undefined;
+    const videoUrlMobile =
+      slide.video_mobile && typeof slide.video_mobile === "object" ? slide.video_mobile.url : undefined;
+    if (!videoUrl && !videoUrlMobile) {
+      return slide.imagen?.url ? [{ image: slide.imagen }] : [];
+    }
+    return [{ image: slide.imagen, videoUrl: videoUrl || videoUrlMobile, videoUrlMobile }];
   });
   const autoplay = useMemo(() => Autoplay({ delay: 5000, stopOnInteraction: false, playOnInit: false }), []);
   const imagePlugins = useMemo(() => [autoplay], [autoplay]);
@@ -380,7 +435,12 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
               renderSlide={(slide, index) => (
                 <div className="relative h-full w-full">
                   {slide.videoUrl ? (
-                    <BannerVideo src={slide.videoUrl} poster={slide.image?.url} active={mediaReady && index === activeMediaIndex} />
+                    <BannerVideo
+                      src={slide.videoUrl}
+                      mobileSrc={slide.videoUrlMobile}
+                      poster={slide.image?.url}
+                      active={mediaReady && index === activeMediaIndex}
+                    />
                   ) : slide.image?.url ? (
                     <Image src={slide.image.url} alt={slide.image.alt || ""} fill className="object-cover" sizes="100vw" priority={index === 0} />
                   ) : null}
