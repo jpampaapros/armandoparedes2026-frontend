@@ -46,7 +46,7 @@ function BannerVideo({
     if (videos.length === 0) return;
 
     let inView = false;
-    const media = window.matchMedia("(max-width: 378px)");
+    const media = window.matchMedia("(max-width: 767px)");
     const visibleVideo = () => (media.matches ? mobile ?? desktop : desktop ?? mobile);
 
     const updatePlayback = () => {
@@ -96,7 +96,7 @@ function BannerVideo({
         controls
         preload="metadata"
         aria-label="Video del proyecto"
-        className="absolute inset-0 h-full w-full object-cover min-[379px]:hidden"
+        className="absolute inset-0 h-full w-full object-cover md:hidden"
       />
       <video
         ref={desktopRef}
@@ -108,7 +108,7 @@ function BannerVideo({
         controls
         preload="metadata"
         aria-label="Video del proyecto"
-        className="absolute inset-0 hidden h-full w-full object-cover min-[379px]:block"
+        className="absolute inset-0 hidden h-full w-full object-cover md:block"
       />
     </>
   );
@@ -349,8 +349,10 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
     <section
       ref={sectionRef}
       data-intro-banner
-      className={`relative flex h-[100svh] w-full flex-col items-center overflow-hidden overflow-anchor-none bg-white md:h-auto ${
-        showText ? "pt-[var(--banner-padding-top)]" : ""
+      className={`relative flex w-full flex-col items-center overflow-x-hidden overflow-anchor-none bg-white md:h-auto ${
+        showText
+          ? "min-h-[100svh] pt-[var(--banner-padding-top)]"
+          : "h-[100svh] overflow-hidden"
       }`}
     >
       {showText && (
@@ -373,7 +375,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
             ref={dotsRef}
             data-intro-fade
             data-intro-dots
-            className={`mt-57 flex gap-3 transition-opacity duration-500 md:mt-153 ${textFading ? "opacity-0" : ""}`}
+            className={`mt-57 flex shrink-0 gap-3 transition-opacity duration-500 md:mt-153 ${textFading ? "opacity-0" : ""}`}
           >
             {validSlides.map((_, index) => (
               <button
@@ -406,7 +408,11 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
           ref={mediaRef}
           data-intro-fade
           data-intro-media
-          className={`relative min-h-0 w-full flex-1 md:h-817 md:flex-none ${showText ? "mt-61 md:mt-34" : ""}`}
+          className={`relative w-full md:h-817 md:flex-none ${
+            showText
+              ? "mt-61 h-[100svh] shrink-0 md:mt-34 md:h-817"
+              : "min-h-0 flex-1"
+          }`}
         >
           <div ref={imageRef} className="absolute inset-0">
             <EmblaSlider
