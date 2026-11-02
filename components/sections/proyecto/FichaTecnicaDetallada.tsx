@@ -10,12 +10,14 @@ type FichaTecnicaDetalladaProps = {
   imagen?: ACFImage;
   titulo?: string;
   info?: FichaItem[];
+  color_botones?: string;
 };
 
 export function FichaTecnicaDetallada({
   imagen,
   titulo,
   info = [],
+  color_botones,
 }: FichaTecnicaDetalladaProps) {
   if (info.length === 0 && !imagen && !titulo) return null;
 

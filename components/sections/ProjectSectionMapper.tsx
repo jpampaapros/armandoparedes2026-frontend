@@ -82,6 +82,7 @@ export function ProjectSectionMapper({
                 color_fondo={section.color_fondo}
                 color_titulo={section.color_titulo}
                 color_iconos={section.color_iconos}
+                color_botones={section.color_botones}
                 icono_direccion={section.icono_direccion}
                 icono_pisos={section.icono_pisos}
                 icono_area={section.icono_area}
@@ -95,6 +96,7 @@ export function ProjectSectionMapper({
                 imagen={section.imagen}
                 titulo={section.titulo}
                 info={toArray(section.info)}
+                color_botones={section.color_botones}
               />
             );
           case "video":
@@ -129,6 +131,9 @@ export function ProjectSectionMapper({
                 boton_mas_planos={section.boton_mas_planos}
                 texto_adicional={section.texto_adicional}
                 leyenda={toArray(section.leyenda)}
+                color_botones={section.color_botones}
+                color_boton_quiero_este_depa={section.color_boton_quiero_este_depa}
+                color_titulo={section.color_titulo}
               />
             );
           case "mapa":
@@ -179,6 +184,7 @@ export function ProjectSectionMapper({
                 titulo={section.titulo}
                 grupos={grupos}
                 ocultar_en_movil={section.ocultar_en_movil === true || section.ocultar_en_movil === 1 || section.ocultar_en_movil === "1"}
+                color_boton={section.color_boton}
               />
             );
           }
