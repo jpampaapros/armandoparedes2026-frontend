@@ -46,7 +46,6 @@ export function ProjectSectionMapper({
                 badge={section.badge}
                 badge_color={section.badget_color_fondo}
                 distrito={section.distrito}
-                logo={section.logo}
                 slides={toArray(section.slides)}
               />
             );
