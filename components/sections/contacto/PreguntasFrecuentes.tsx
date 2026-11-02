@@ -26,7 +26,7 @@ export function PreguntasFrecuentes({ titulo = "Preguntas frecuentes", grupos, o
               className="flex h-44 cursor-pointer items-center justify-center border px-14 font-gotham text-15 font-bold md:h-50 md:text-18"
               style={{
                 borderColor: buttonColor,
-                backgroundColor: active ? buttonColor : "#dda783",
+                backgroundColor: active ? buttonColor : "#ffffff",
                 color: active ? "#ffffff" : buttonColor,
               }}
             >
