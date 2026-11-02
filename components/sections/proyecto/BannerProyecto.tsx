@@ -79,7 +79,7 @@ export function BannerProyecto({ badge, badge_color, distrito, slides = [] }: Ba
               ) : (
                 <div className="h-full w-full bg-neutral-800" />
               )}
-              <div className="absolute inset-0 bg-black/35" />
+              {/* <div className="absolute inset-0 bg-black/35" /> */}
             </div>
           )}
           loop={items.length > 1}
