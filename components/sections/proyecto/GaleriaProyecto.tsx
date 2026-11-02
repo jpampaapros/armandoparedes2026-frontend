@@ -95,7 +95,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
   return (
     <section
       data-layout="galeria"
-      className="flex w-full flex-col overflow-hidden md:h-800 md:flex-row"
+      className="flex w-full flex-col overflow-hidden md:h-[100vh] md:flex-row"
     >
       <div className="flex gap-24 overflow-x-auto  px-20 py-16 md:hidden"
        style={{ backgroundColor: color_barra_tabs_movil || '#ffffff' }}>
@@ -162,7 +162,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
 
         {activeDescription && (
           <div
-            className="mt-61 font-poppins text-16 font-light leading-[1.4] text-white md:mt-auto md:text-18 [&_p]:m-0"
+            className="mt-61 font-poppins text-16 font-light leading-[1.4] text-white md:mt-auto [&_p]:m-0"
             dangerouslySetInnerHTML={{ __html: activeDescription }}
           />
         )}
