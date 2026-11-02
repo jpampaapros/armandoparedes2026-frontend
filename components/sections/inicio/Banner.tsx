@@ -1,12 +1,67 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import Image, { getImageProps } from "next/image";
+import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import { EmblaSlider } from "@/components/EmblaSlider";
-import type { HomeBannerSlide } from "@/lib/types";
+import type { ACFImage, HomeBannerSlide } from "@/lib/types";
 import { HOME_INTRO_SKIP_ATTRIBUTE, hasSeenHomeIntroToday, markHomeIntroSeen } from "@/lib/home-intro";
 import { TypewriterTitle } from "./TypewriterTitle";
+
+function BannerImage({
+  image,
+  imageMobile,
+  priority,
+}: {
+  image?: ACFImage;
+  imageMobile?: ACFImage;
+  priority?: boolean;
+}) {
+  const desktopUrl = image?.url || imageMobile?.url;
+  const mobileUrl = imageMobile?.url || image?.url;
+  if (!desktopUrl && !mobileUrl) return null;
+
+  const alt = image?.alt || imageMobile?.alt || "";
+  const sameUrl = desktopUrl === mobileUrl;
+
+  if (sameUrl && desktopUrl) {
+    return (
+      <Image
+        src={desktopUrl}
+        alt={alt}
+        fill
+        className="object-cover"
+        sizes="100vw"
+        priority={priority}
+      />
+    );
+  }
+
+  return (
+    <>
+      {mobileUrl && (
+        <Image
+          src={mobileUrl}
+          alt={alt}
+          fill
+          className="object-cover md:hidden"
+          sizes="100vw"
+          priority={priority}
+        />
+      )}
+      {desktopUrl && (
+        <Image
+          src={desktopUrl}
+          alt={alt}
+          fill
+          className="hidden object-cover md:block"
+          sizes="100vw"
+          priority={priority}
+        />
+      )}
+    </>
+  );
+}
 
 const TYPEWRITER_COMPLETE_EVENT = "home-typewriter-complete";
 const TEXT_VISIBLE_DURATION = 30000;
@@ -448,25 +503,13 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
                       poster={slide.image?.url}
                       active={mediaReady && index === activeMediaIndex}
                     />
-                  ) : slide.image?.url || slide.imageMobile?.url ? (
-                    <picture>
-                      {slide.imageMobile?.url && (
-                        <source
-                          media="(max-width: 767px)"
-                          srcSet={getImageProps({ src: slide.imageMobile.url, alt: "", fill: true, sizes: "100vw" }).props.srcSet}
-                          sizes="100vw"
-                        />
-                      )}
-                      <Image
-                        src={slide.image?.url || slide.imageMobile?.url || ""}
-                        alt={slide.image?.alt || slide.imageMobile?.alt || ""}
-                        fill
-                        className="object-cover"
-                        sizes="100vw"
-                        priority={index === 0}
-                      />
-                    </picture>
-                  ) : null}
+                  ) : (
+                    <BannerImage
+                      image={slide.image}
+                      imageMobile={slide.imageMobile}
+                      priority={index === 0}
+                    />
+                  )}
                 </div>
               )}
             />

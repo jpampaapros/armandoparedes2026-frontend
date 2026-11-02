@@ -11,12 +11,11 @@ type BannerProyectoProps = {
   badge?: string;
   badge_color?: string;
   distrito?: string;
-  logo?: ACFImage;
   slides?: { imagen?: ACFImage }[];
 };
 
-export function BannerProyecto({ badge, badge_color, distrito, logo, slides = [] }: BannerProyectoProps) {
-  const items = slides.length > 0 ? slides : [{ imagen: logo }];
+export function BannerProyecto({ badge, badge_color, distrito, slides = [] }: BannerProyectoProps) {
+  const items = slides.length > 0 ? slides : [{ imagen: undefined }];
   const [api, setApi] = useState<EmblaCarouselType>();
   const [selected, setSelected] = useState(0);
   const progressRef = useRef<HTMLSpanElement>(null);
@@ -113,19 +112,6 @@ export function BannerProyecto({ badge, badge_color, distrito, logo, slides = []
           </div>
         )}
 
-
-        {logo?.url && (
-          <div className="absolute left-1/2 top-257 h-100 w-380 -translate-x-1/2 md:top-143 md:h-141 md:w-612">
-            <Image
-              src={logo.url}
-              alt={logo.alt || ""}
-              fill
-              sizes="(max-width: 768px) 380px, 612px"
-              className="object-contain"
-              priority
-            />
-          </div>
-        )}
 
         {distrito && (
           <div className="absolute left-1/2 top-405 w-274 -translate-x-1/2 border border-white px-24 py-10 md:top-312 md:px-48 md:py-12 text-center">
