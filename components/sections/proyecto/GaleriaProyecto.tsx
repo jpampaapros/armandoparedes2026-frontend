@@ -37,7 +37,7 @@ function TabButton({
       className={`relative w-fit shrink-0 cursor-pointer border-0 bg-transparent p-0 text-left ${onBar ? "pb-8" : "pb-24 md:pb-8"}`}
     >
       <span
-        style={{ color: !onBar && active ? activeColor || undefined : undefined }}
+        style={{ color: active ? activeColor || undefined : undefined }}
         className={
           onBar
             ? `font-gotham text-16 ${active ? "font-medium text-near-black" : "font-light text-warm-gray"}`
