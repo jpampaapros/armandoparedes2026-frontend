@@ -120,7 +120,7 @@ export function BannerReferidos({
 
       <div className="relative z-10 h-402 w-full md:hidden">
         {title && (
-          <h1 className="absolute bottom-52 left-1/2 z-10 m-0 w-full -translate-x-1/2 px-24 text-center font-gotham-black text-36 uppercase leading-[1.1] text-near-black">
+          <h1 className="absolute bottom-245 md:bottom-52 left-1/2 z-10 m-0 w-full -translate-x-1/2 px-24 text-center font-gotham-black text-36 uppercase leading-[1.1] text-near-black">
             {titleFirstLine && <span className="block">{titleFirstLine}</span>}
             {titleLastWord && <span className="block">{titleLastWord}</span>}
           </h1>
