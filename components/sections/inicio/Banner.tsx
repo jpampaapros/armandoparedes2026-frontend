@@ -8,6 +8,8 @@ import type { ACFImage, HomeBannerSlide } from "@/lib/types";
 import { HOME_INTRO_SKIP_ATTRIBUTE, hasSeenHomeIntroToday, markHomeIntroSeen } from "@/lib/home-intro";
 import { TypewriterTitle } from "./TypewriterTitle";
 
+/* Imagen de escritorio + imagen_mobile. Dos <Image> con corte md (767px),
+   igual que BannerVideo: evita object-cover de un landscape en móvil. */
 function BannerImage({
   image,
   imageMobile,
@@ -24,6 +26,7 @@ function BannerImage({
   const alt = image?.alt || imageMobile?.alt || "";
   const sameUrl = desktopUrl === mobileUrl;
 
+  // Misma URL en ambos campos: un solo Image basta.
   if (sameUrl && desktopUrl) {
     return (
       <Image
@@ -66,6 +69,7 @@ function BannerImage({
 const TYPEWRITER_COMPLETE_EVENT = "home-typewriter-complete";
 const TEXT_VISIBLE_DURATION = 30000;
 const TEXT_FADE_DURATION = 500;
+/** Tiempo del autoplay del carrusel de media según tipo de slide. */
 const IMAGE_SLIDE_DELAY = 5000;
 const VIDEO_SLIDE_DELAY = 15000;
 
@@ -81,6 +85,8 @@ function processTitle(html?: string) {
     .replace(/<\/strong>/gi, "</span>");
 }
 
+/* Dos <video>: desktop (src) y mobile (video_mobile). Solo reproduce el
+   visible según max-width 767px (= Tailwind md). */
 function BannerVideo({
   src,
   mobileSrc,
@@ -103,6 +109,7 @@ function BannerVideo({
     if (videos.length === 0) return;
 
     let inView = false;
+    // Mismo corte que md:hidden / md:block en el markup.
     const media = window.matchMedia("(max-width: 767px)");
     const visibleVideo = () => (media.matches ? mobile ?? desktop : desktop ?? mobile);
 
@@ -143,6 +150,7 @@ function BannerVideo({
 
   return (
     <>
+      {/* Móvil: video_mobile (o desktop si no hay). */}
       <video
         ref={mobileRef}
         src={mobileUrl}
@@ -155,6 +163,7 @@ function BannerVideo({
         aria-label="Video del proyecto"
         className="absolute inset-0 h-full w-full object-cover md:hidden"
       />
+      {/* Desktop desde md. */}
       <video
         ref={desktopRef}
         src={src}
@@ -173,6 +182,7 @@ function BannerVideo({
 
 export function Banner({ titleSlides, imageSlides }: BannerProps) {
   const validSlides = titleSlides.filter((slide) => slide.titulo?.trim());
+  // Normaliza slides ACF: imagen / imagen_mobile / video / video_mobile.
   const mediaSlides = useMemo(() => imageSlides.flatMap<{
     image?: HomeBannerSlide["imagen"];
     imageMobile?: HomeBannerSlide["imagen_mobile"];
@@ -192,6 +202,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
     }
     return [{ image, imageMobile, videoUrl: videoUrl || videoUrlMobile, videoUrlMobile }];
   }), [imageSlides]);
+  // Delay por slide: video 15s, imagen 5s (API de Embla Autoplay).
   const autoplay = useMemo(
     () =>
       Autoplay({
@@ -421,10 +432,13 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
       ref={sectionRef}
       data-intro-banner
       className={`relative flex w-full flex-col items-center overflow-x-hidden overflow-anchor-none bg-white md:h-auto ${
+        // Con texto: la sección puede crecer. Sin texto: media a pantalla completa.
         showText ? "min-h-[100svh]" : "h-[100svh] overflow-hidden"
       }`}
     >
       {showText && (
+        /* Bloque blanco del intro en mobile ≈ viewport menos peek del media (120px).
+           Título centrado (flex-1); dots abajo. En md vuelve a altura auto. */
         <div className="flex h-[calc(100svh_-_120px)] w-full shrink-0 flex-col items-center pt-[var(--banner-padding-top)] md:h-auto">
           <div
             data-intro-hero
@@ -473,6 +487,8 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
       )}
 
       {mediaSlides.length > 0 && (
+        /* Altura fija 100svh en mobile (con o sin texto) para que object-cover
+           no cambie de encuadre al ocultar el intro. */
         <div
           ref={mediaRef}
           data-intro-fade

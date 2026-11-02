@@ -278,6 +278,8 @@ export function EmblaSlider<T>({
 
   const bulletProgressRef = useRef<HTMLSpanElement>(null);
   const bulletProgressDuration = bulletProgress?.duration;
+  /* Barra del bullet activo: usa el delay real del slide (p. ej. 5s imagen /
+     15s video). Al reiniciar el timer de Autoplay se vuelve a leer la duración. */
   useEffect(() => {
     if (!emblaApi || !bulletProgressDuration) return;
     const autoplay: AutoplayType | undefined = emblaApi.plugins().autoplay;

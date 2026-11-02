@@ -60,9 +60,11 @@ export type WordPressPage<
 export type HomeBannerSlide = {
   titulo?: string;
   imagen?: ACFImage;
+  /** Versión vertical/móvil del slide; en desktop se usa `imagen`. */
   imagen_mobile?: ACFImage;
   tipo_medio?: "imagen" | "video";
   video?: { url?: string; mime_type?: string } | false;
+  /** Video para viewport menor a md (767px); si falta, se usa `video`. */
   video_mobile?: { url?: string; mime_type?: string } | false;
 };
 
