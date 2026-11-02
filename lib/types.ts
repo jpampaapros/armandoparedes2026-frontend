@@ -92,6 +92,7 @@ export type EntregadosSingleSection =
   | {
       acf_fc_layout: "detalle";
       icono_direccion?: ACFImage;
+      icono_direccion1?: ACFImage;
       icono_pisos?: ACFImage;
       icono_area?: ACFImage;
       icono_dormitorios?: ACFImage;
