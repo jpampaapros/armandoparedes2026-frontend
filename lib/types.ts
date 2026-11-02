@@ -62,6 +62,7 @@ export type HomeBannerSlide = {
   imagen?: ACFImage;
   tipo_medio?: "imagen" | "video";
   video?: { url?: string; mime_type?: string } | false;
+  video_mobile?: { url?: string; mime_type?: string } | false;
 };
 
 export type HomeSection =
