@@ -1,3 +1,4 @@
+import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
 import { resolveWordPressUrl, isExternalUrl } from "@/lib/urls";
 import type { ACFLink } from "@/lib/types";
@@ -5,10 +6,11 @@ import type { ACFLink } from "@/lib/types";
 export type SmartLinkProps = {
   link?: ACFLink;
   className?: string;
-  children?: React.ReactNode;
+  style?: CSSProperties;
+  children?: ReactNode;
 };
 
-export function SmartLink({ link, className, children }: SmartLinkProps) {
+export function SmartLink({ link, className, style, children }: SmartLinkProps) {
   if (!link?.url) return null;
 
   const href = resolveWordPressUrl(link.url);
@@ -22,6 +24,7 @@ export function SmartLink({ link, className, children }: SmartLinkProps) {
         target={link.target || "_blank"}
         rel="noopener noreferrer"
         className={className}
+        style={style}
       >
         {content}
       </a>
@@ -29,7 +32,7 @@ export function SmartLink({ link, className, children }: SmartLinkProps) {
   }
 
   return (
-    <Link href={href} target={link.target || undefined} className={className} prefetch={false}>
+    <Link href={href} target={link.target || undefined} className={className} style={style} prefetch={false}>
       {content}
     </Link>
   );

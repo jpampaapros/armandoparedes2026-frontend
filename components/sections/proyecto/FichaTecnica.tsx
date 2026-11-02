@@ -13,6 +13,7 @@ type FichaTecnicaProps = {
   color_fondo?: string;
   color_titulo?: string;
   color_iconos?: string;
+  color_botones?: string;
   direccion?: string;
   pisos?: string;
   area?: string;
@@ -42,7 +43,8 @@ function TechnicalIcon({ image, color, className, fallback }: {
   return <span aria-hidden="true" className={`block shrink-0 text-white [&>svg]:h-full [&>svg]:w-full ${className}`} style={{ color: color || undefined }}>{fallback}</span>;
 }
 
-export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, brochure, planos, icono_direccion, icono_pisos, icono_area, icono_dormitorios, color_fondo, color_titulo, color_iconos }: FichaTecnicaProps) {
+export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, brochure, planos, icono_direccion, icono_pisos, icono_area, icono_dormitorios, color_fondo, color_titulo, color_iconos, color_botones }: FichaTecnicaProps) {
+  const buttonColor = color_botones?.trim() || "#dda783";
   const mobileRows = [
     direccion ? { key: "direccion", image: icono_direccion, fallback: <LocationIcon />, label: direccion } : null,
     pisos ? { key: "pisos", image: icono_pisos, fallback: <BuildingIcon />, label: `${pisos} pisos` } : null,
@@ -112,7 +114,8 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
           {brochure?.url && brochure.url !== "#" && (
             <SmartLink
               link={brochure}
-              className="inline-flex h-50 w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-50 md:w-429 md:text-18"
+              className="inline-flex h-50 w-full items-center justify-center px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-50 md:w-429 md:text-18"
+              style={{ backgroundColor: buttonColor }}
             >
               {brochure.title || "REVISA NUESTRO BROCHURE"}
             </SmartLink>
@@ -120,7 +123,8 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
           {planos?.url && planos.url !== "#" && (
             <SmartLink
               link={planos}
-              className="inline-flex h-50 w-full items-center justify-center bg-peach px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-50 md:w-429 md:text-18"
+              className="inline-flex h-50 w-full items-center justify-center px-40 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:h-50 md:w-429 md:text-18"
+              style={{ backgroundColor: buttonColor }}
             >
               {planos.title || "REVISA NUESTRO PLANOS"}
             </SmartLink>

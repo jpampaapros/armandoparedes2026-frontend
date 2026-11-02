@@ -173,18 +173,18 @@ export type ProjectCotizador = {
 export type ProjectSection =
   | { acf_fc_layout: "banner_proyecto"; badge?: string; badget_color_fondo?: string; distrito?: string; logo?: ACFImage; slides?: ACFList<ProjectSlide> }
   | { acf_fc_layout: "descripcion_proyecto"; titulo?: string; descripcion?: string; imagen?: ACFImage; cambiar_lado?: boolean }
-  | { acf_fc_layout: "ficha_tecnica"; color_iconos?: string; titulo?: string; color_fondo?: string; color_titulo?: string; direccion?: string; pisos?: string; area?: string; dormitorios?: string; brochure?: ACFLink; planos?: ACFLink; icono_direccion?: ACFImage; icono_pisos?: ACFImage; icono_area?: ACFImage; icono_dormitorios?: ACFImage }
-  | { acf_fc_layout: "ficha_tecnica_detallada"; imagen?: ACFImage; titulo?: string; info?: ACFList<{ icono?: ACFImage; texto?: string }> }
+  | { acf_fc_layout: "ficha_tecnica"; color_iconos?: string; titulo?: string; color_fondo?: string; color_titulo?: string; color_botones?: string; direccion?: string; pisos?: string; area?: string; dormitorios?: string; brochure?: ACFLink; planos?: ACFLink; icono_direccion?: ACFImage; icono_pisos?: ACFImage; icono_area?: ACFImage; icono_dormitorios?: ACFImage }
+  | { acf_fc_layout: "ficha_tecnica_detallada"; imagen?: ACFImage; titulo?: string; info?: ACFList<{ icono?: ACFImage; texto?: string }>; color_botones?: string }
   | { acf_fc_layout: "video"; titulo?: string; imagen_previa?: ACFImage; url_youtube?: string; desactivar_seccion?: boolean }
   | { acf_fc_layout: "galeria"; titulo?: string; descripcion?: string; tabs?: ACFList<ProjectGaleriaTab>; color_fondo?: string; color_activo?: string; color_barra_tabs_movil?: string; color_active_tab_movil?: string }
-  | { acf_fc_layout: "planos"; titulo?: string; dormitorios?: ACFList<ProjectDormitorio>; boton_mas_planos?: ACFLink; texto_adicional?: string; leyenda?: ACFList<ProjectLeyendaItem> }
+  | { acf_fc_layout: "planos"; titulo?: string; dormitorios?: ACFList<ProjectDormitorio>; boton_mas_planos?: ACFLink; texto_adicional?: string; leyenda?: ACFList<ProjectLeyendaItem>; color_botones?: string, color_boton_quiero_este_depa?: string, color_titulo?: string }
   | { acf_fc_layout: "mapa"; titulo?: string; google_maps?: string; imagen?: ACFImage; latitud?: number | string; longitud?: number | string; ubicaciones?: ACFList<ProjectMapaUbicacion>; color_tarjeta?: string; color_box_alrededores?: string }
   | { acf_fc_layout: "formulario_contacto"; titulo?: string; formulario_id?: string | number }
   | { acf_fc_layout: "quiero_mas_info"; titulo?: string; formulario_id?: string | number; imagen_fondo?: ACFImage; blog_titulo?: string; blog_boton?: ACFLink }
   | { acf_fc_layout: "banner_pre_lanzamiento"; badge?: string; slides?: ACFList<{ imagen_fondo?: ACFImage; titulo?: string; descripcion?: string }> }
   | { acf_fc_layout: "mas_proyectos"; titulo?: string }
   | { acf_fc_layout: "blog"; titulo?: string; boton?: ACFLink }
-  | { acf_fc_layout: "preguntas_frecuentes"; titulo?: string; grupos?: ACFList<ContactoFaqGrupo>; ocultar_en_movil?: boolean | 0 | 1 | "0" | "1" };
+  | { acf_fc_layout: "preguntas_frecuentes"; titulo?: string; grupos?: ACFList<ContactoFaqGrupo>; ocultar_en_movil?: boolean | 0 | 1 | "0" | "1"; color_boton?: string };
 
 export type WPTerm = {
   id: number;

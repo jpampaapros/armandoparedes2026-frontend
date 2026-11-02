@@ -14,6 +14,9 @@ type PlanosProyectoProps = {
   boton_mas_planos?: ACFLink;
   texto_adicional?: string;
   leyenda?: { etiqueta?: string; valor?: string }[];
+  color_botones?: string;
+  color_boton_quiero_este_depa?: string;
+  color_titulo?: string;
 };
 
 function abbreviateDormitorios(value?: string) {
@@ -25,6 +28,9 @@ export function PlanosProyecto({
   dormitorios = [],
   boton_mas_planos,
   texto_adicional,
+  color_botones,
+  color_boton_quiero_este_depa,
+  color_titulo,
 }: PlanosProyectoProps) {
   const [activeDorm, setActiveDorm] = useState(0);
   const [activeTipo, setActiveTipo] = useState(0);
@@ -36,6 +42,7 @@ export function PlanosProyecto({
   const dormitorio = dormitorios[activeDorm];
   const tipologias = toArray(dormitorio?.tipologias);
   const tipologia = tipologias[activeTipo] ?? tipologias[0];
+  const buttonColor = color_botones?.trim() || "#dda783";
 
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => {
@@ -70,48 +77,62 @@ export function PlanosProyecto({
     <section data-layout="planos" className="w-full bg-white">
       <div className="mx-auto max-w-1440 px-0 py-52 md:px-80 md:py-90">
         {titulo && (
-          <h2 className="mb-30 mt-0 text-left md:text-center font-gotham text-36 font-bold text-slate md:mb-50 md:text-60">
+          <h2 className="mb-30 mt-0 text-left md:text-center font-gotham text-36 font-bold md:mb-50 md:text-60"
+          style={{
+            color: color_titulo?.trim() || "#748ca4",
+          }}
+          >
             {titulo}
           </h2>
         )}
 
         <div className={`flex flex-wrap justify-center gap-12 md:gap-23 ${titulo ? "" : "mt-30 md:mt-50"} ${tipologias.length > 1 ? "" : "mb-40 md:mb-60"}`}>
-          {dormitorios.map((d, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => {
-              setActiveDorm(i);
-              setActiveTipo(0);
-            }}
-            className={`min-w-120 h-50 border px-20 py-12 font-gotham text-14 transition-colors md:h-50 md:w-212 md:p-10 md:text-18 ${
-              i === activeDorm
-                ? "border-peach bg-peach font-bold text-white"
-                : "border-peach font-normal text-near-black hover:bg-peach/10"
-            }`}
-          >
-              <span className="md:hidden">{abbreviateDormitorios(d.numero)}</span>
-              <span className="hidden md:inline">{d.numero}</span>
-            </button>
-          ))}
+          {dormitorios.map((d, i) => {
+            const active = i === activeDorm;
+            return (
+              <button
+                key={i}
+                type="button"
+                onClick={() => {
+                  setActiveDorm(i);
+                  setActiveTipo(0);
+                }}
+                className={`min-w-120 h-50 border px-20 py-12 font-gotham text-14 transition-colors md:h-50 md:w-212 md:p-10 md:text-18 ${
+                  active ? "font-bold text-white" : "font-normal text-near-black"
+                }`}
+                style={{
+                  borderColor: buttonColor,
+                  backgroundColor: active ? buttonColor : "transparent",
+                }}
+              >
+                <span className="md:hidden">{abbreviateDormitorios(d.numero)}</span>
+                <span className="hidden md:inline">{d.numero}</span>
+              </button>
+            );
+          })}
         </div>
 
         {tipologias.length > 1 && (
           <div className="mb-40 mt-16 flex flex-wrap justify-center gap-15 px-15 md:mx-auto md:mb-60 md:mt-30 md:w-682 md:max-w-full md:px-0">
-            {tipologias.map((t, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => setActiveTipo(i)}
-                className={`min-w-0 flex-1 border px-20 py-10 font-gotham text-14 transition-colors cursor-pointer h-50 md:p-10 md:text-18 ${
-                  i === activeTipo
-                    ? "border-peach bg-peach font-bold text-white"
-                    : "border-peach font-normal text-near-black hover:bg-peach/10"
-                }`}
-              >
-                {t.titulo || t.nombre}
-              </button>
-            ))}
+            {tipologias.map((t, i) => {
+              const active = i === activeTipo;
+              return (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setActiveTipo(i)}
+                  className={`min-w-0 flex-1 border px-20 py-10 font-gotham text-14 transition-colors cursor-pointer h-50 md:p-10 md:text-18 ${
+                    active ? "font-bold text-white" : "font-normal text-near-black"
+                  }`}
+                  style={{
+                    borderColor: buttonColor,
+                    backgroundColor: active ? buttonColor : "transparent",
+                  }}
+                >
+                  {t.titulo || t.nombre}
+                </button>
+              );
+            })}
           </div>
         )}
 
@@ -175,7 +196,8 @@ export function PlanosProyecto({
                 <button
                   type="button"
                   onClick={() => openModal(tipologia.nombre)}
-                  className="inline-flex h-50 cursor-pointer w-full items-center justify-center bg-slate px-20 font-gotham text-14 font-bold uppercase text-white transition-colors hover:bg-slate/90 md:text-18"
+                  className="inline-flex h-50 w-full cursor-pointer items-center justify-center bg-slate px-20 font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 md:text-18"
+                  style={{ backgroundColor: color_boton_quiero_este_depa?.trim() || undefined }}
                 >
                   QUIERO ESTE DEPA
                 </button>
