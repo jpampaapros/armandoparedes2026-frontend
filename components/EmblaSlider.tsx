@@ -283,17 +283,27 @@ export function EmblaSlider<T>({
     const autoplay: AutoplayType | undefined = emblaApi.plugins().autoplay;
     if (!autoplay) return;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let slideDuration = bulletProgressDuration;
+    const syncDuration = () => {
+      const remaining = autoplay.timeUntilNext();
+      if (remaining !== null) slideDuration = remaining;
+    };
     let frame = 0;
     const update = () => {
       const remaining = autoplay.timeUntilNext();
-      const progress = remaining === null ? 0 : Math.max(0, Math.min(1, 1 - remaining / bulletProgressDuration));
+      const progress = remaining === null ? 0 : Math.max(0, Math.min(1, 1 - remaining / slideDuration));
       if (bulletProgressRef.current) {
         bulletProgressRef.current.style.transform = `scaleX(${reducedMotion.matches ? 1 : progress})`;
       }
       frame = requestAnimationFrame(update);
     };
+    syncDuration();
+    emblaApi.on("autoplay:timerset", syncDuration);
     frame = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(frame);
+      emblaApi.off("autoplay:timerset", syncDuration);
+    };
   }, [emblaApi, bulletProgressDuration]);
 
   const basisPercent = 100 / spv;

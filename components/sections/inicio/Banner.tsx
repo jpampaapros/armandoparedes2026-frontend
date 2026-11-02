@@ -66,6 +66,8 @@ function BannerImage({
 const TYPEWRITER_COMPLETE_EVENT = "home-typewriter-complete";
 const TEXT_VISIBLE_DURATION = 30000;
 const TEXT_FADE_DURATION = 500;
+const IMAGE_SLIDE_DELAY = 5000;
+const VIDEO_SLIDE_DELAY = 15000;
 
 type BannerProps = {
   titleSlides: HomeBannerSlide[];
@@ -171,7 +173,7 @@ function BannerVideo({
 
 export function Banner({ titleSlides, imageSlides }: BannerProps) {
   const validSlides = titleSlides.filter((slide) => slide.titulo?.trim());
-  const mediaSlides = imageSlides.flatMap<{
+  const mediaSlides = useMemo(() => imageSlides.flatMap<{
     image?: HomeBannerSlide["imagen"];
     imageMobile?: HomeBannerSlide["imagen_mobile"];
     videoUrl?: string;
@@ -189,8 +191,19 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
       return image || imageMobile ? [{ image, imageMobile }] : [];
     }
     return [{ image, imageMobile, videoUrl: videoUrl || videoUrlMobile, videoUrlMobile }];
-  });
-  const autoplay = useMemo(() => Autoplay({ delay: 5000, stopOnInteraction: false, playOnInit: false }), []);
+  }), [imageSlides]);
+  const autoplay = useMemo(
+    () =>
+      Autoplay({
+        delay: (scrollSnaps) =>
+          scrollSnaps.map((_, index) =>
+            mediaSlides[index]?.videoUrl ? VIDEO_SLIDE_DELAY : IMAGE_SLIDE_DELAY,
+          ),
+        stopOnInteraction: false,
+        playOnInit: false,
+      }),
+    [mediaSlides],
+  );
   const imagePlugins = useMemo(() => [autoplay], [autoplay]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
@@ -480,7 +493,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
               bulletClassName="h-6 cursor-pointer rounded-full border-0 p-0 transition-[width] duration-300"
               bulletActiveClassName="w-91 bg-dots-inactive"
               bulletInactiveClassName="w-27 bg-dots-inactive"
-              bulletProgress={{ duration: 5000, className: "bg-dots-active" }}
+              bulletProgress={{ duration: IMAGE_SLIDE_DELAY, className: "bg-dots-active" }}
               onApiReady={(api) => {
                 const startWhenReady = () => {
                   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches && imageRef.current) {
