@@ -29,9 +29,9 @@ export function Postventa({
     <div className="mx-auto max-w-895">
       {grupos.length > 0 && <PreguntasFrecuentes titulo={preguntas?.titulo} grupos={grupos} />}
 
-      <h2 className={`mb-0 ${grupos.length > 0 ? "mt-64 md:mt-104" : "mt-24 md:mt-80"} text-center font-gotham text-36 font-bold leading-tight text-slate md:text-50`}>{titulo}</h2>
+      {/* <h2 className={`mb-0 ${grupos.length > 0 ? "mt-64 md:mt-104" : "mt-24 md:mt-80"} text-center font-gotham text-36 font-bold leading-tight text-slate md:text-50`}>{titulo}</h2> */}
 
-      <div className="mx-auto mt-24 flex max-w-796 flex-col gap-6 md:mt-50">
+      {/* <div className="mx-auto mt-24 flex max-w-796 flex-col gap-6 md:mt-50">
         <label htmlFor="postventa-proyecto" className={labelClass}>Proyecto*</label>
         <div className={`${fieldClass} relative`} style={fieldBorder(false)}>
           <select
@@ -45,7 +45,7 @@ export function Postventa({
           </select>
           <Image unoptimized src="/images/formulario-modal/chevron-down.svg" alt="" width={18} height={18} className="pointer-events-none absolute right-10 top-1/2 -translate-y-1/2" />
         </div>
-      </div>
+      </div> */}
 
       {proyecto && (
         <PostventaForm
