@@ -47,7 +47,7 @@ export function Postventa({
         </div>
       </div> */}
 
-      {proyecto && (
+      {/* {proyecto && ( */}
         <PostventaForm
           titulo={titulo_secundario || undefined}
           subtitulo={subtitulo_secundario || undefined}
@@ -56,7 +56,7 @@ export function Postventa({
           proyecto={proyecto}
           onProyectoChange={setProyecto}
         />
-      )}
+      {/* )} */}
     </div>
   );
 }
