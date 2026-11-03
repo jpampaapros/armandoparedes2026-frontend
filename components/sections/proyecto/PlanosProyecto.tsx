@@ -77,7 +77,7 @@ export function PlanosProyecto({
     <section data-layout="planos" className="w-full bg-white">
       <div className="mx-auto max-w-1440 px-0 py-52 md:px-80 md:py-90">
         {titulo && (
-          <h2 className="mb-30 mt-0 ml-12 md:ml-0 text-left md:text-center font-gotham text-36 font-bold md:mb-50 md:text-60"
+          <h2 className="mb-30 mt-0 ml-12 md:ml-0 text-left md:text-center font-gotham text-30 font-semibold md:font-bold md:mb-50 md:text-60"
           style={{
             color: color_titulo?.trim() || "#748ca4",
           }}

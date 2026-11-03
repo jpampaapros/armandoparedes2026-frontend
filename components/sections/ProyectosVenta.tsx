@@ -25,7 +25,7 @@ export function ProyectosVenta({ titulo, color_titulo, proyectos, dataLayout, mo
       <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col gap-24 md:flex-row md:items-center md:justify-between">
           {titulo && (
-            <h2 className="my-0 text-center md:text-left font-gotham text-36 font-bold leading-[1.1] md:text-55"
+            <h2 className="my-0 text-center md:text-left font-gotham text-30 font-semibold md:font-bold leading-[1.1] md:text-55"
             style={{ color: color_titulo || "rgb(116, 140, 164)" }}>
               {mobileTitle ? (
                 <>
