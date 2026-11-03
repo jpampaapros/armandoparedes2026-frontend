@@ -431,15 +431,15 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
     <section
       ref={sectionRef}
       data-intro-banner
-      className={`relative flex w-full flex-col items-center overflow-x-hidden overflow-anchor-none bg-white md:h-auto ${
-        // Con texto: la sección puede crecer. Sin texto: media a pantalla completa.
-        showText ? "min-h-[100svh]" : "h-[100svh] overflow-hidden"
+      className={`bb2 relative flex w-full flex-col items-center overflow-x-hidden overflow-anchor-none bg-white md:h-auto ${
+        // Con texto: texto + media. Sin texto: media fijo 75svh en mobile (no crece al scrollear).
+        showText ? "min-h-[100svh]" : "h-[75svh] overflow-hidden md:h-[100svh]"
       }`}
     >
       {showText && (
-        /* Bloque blanco del intro en mobile ≈ viewport menos peek del media (120px).
-           Título centrado (flex-1); dots abajo. En md vuelve a altura auto. */
-        <div className="flex h-[calc(100svh_-_120px)] w-full shrink-0 flex-col items-center pt-[var(--banner-padding-top)] md:h-auto">
+        /* Bloque blanco del intro en mobile ≈ 75svh (peek del media ~25%).
+           Título centrado (flex-1); dots cerca del borde inferior. En md: altura auto. */
+        <div className="flex h-[75svh] w-full shrink-0 flex-col items-center pt-[var(--banner-padding-top)] md:h-auto">
           <div
             data-intro-hero
             className={`mx-auto flex w-full max-w-382 flex-1 flex-col justify-center px-4 text-center transition-opacity duration-500 md:max-w-760 md:flex-none md:px-0 [&_p]:m-0 ${
@@ -458,7 +458,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
             ref={dotsRef}
             data-intro-fade
             data-intro-dots
-            className={`mt-57 mb-61 flex shrink-0 justify-center gap-3 transition-opacity duration-500 md:mt-153 md:mb-0 ${textFading ? "opacity-0" : ""}`}
+            className={`mt-40 mb-32 flex shrink-0 justify-center gap-3 transition-opacity duration-500 md:mt-153 md:mb-0 ${textFading ? "opacity-0" : ""}`}
           >
             {validSlides.map((_, index) => (
               <button
@@ -487,16 +487,14 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
       )}
 
       {mediaSlides.length > 0 && (
-        /* Altura fija 100svh en mobile (con o sin texto) para que object-cover
-           no cambie de encuadre al ocultar el intro. */
+        /* Mobile: siempre 75svh (igual que el bloque de texto). Si fuera flex-1
+           al ocultar el intro, el media crecería al scrollear. */
         <div
           ref={mediaRef}
           data-intro-fade
           data-intro-media
-          className={`relative w-full md:h-817 md:flex-none ${
-            showText
-              ? "h-[100svh] shrink-0 md:mt-34 md:h-817"
-              : "min-h-0 flex-1"
+          className={`relative h-[75svh] w-full shrink-0 md:h-817 md:flex-none ${
+            showText ? "md:mt-34" : "md:min-h-0 md:flex-1"
           }`}
         >
           <div ref={imageRef} className="absolute inset-0">

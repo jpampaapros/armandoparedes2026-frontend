@@ -134,7 +134,7 @@ export function ProjectCard({
       )}
 
       {distrito && (
-        <div className={`absolute right-0 md:right-16 top-16 z-10 bg-white ${sliderCard ? "px-24" : "px-10"} py-6 md:right-20 md:top-61 md:py-8`}>
+        <div className={`absolute right-0 md:right-16 top-16 z-10 bg-white ${sliderCard ? "px-24" : "px-10"} py-2 md:right-20 md:top-61 md:py-8`}>
           <span className={`font-poppins text-16 font-medium leading-18 text-near-black ${saleCarousel ? "":"md:text-24"}  md:leading-24`}>
             {distrito.name}
           </span>

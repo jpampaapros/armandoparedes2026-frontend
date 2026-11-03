@@ -5,6 +5,7 @@ import { QuienEsArmando } from "@/components/sections/inicio/QuienEsArmando";
 import { ProyectosEntregados } from "@/components/sections/inicio/ProyectosEntregados";
 import { AmigosBeneficios } from "@/components/sections/inicio/AmigosBeneficios";
 import { Blog } from "@/components/sections/Blog";
+import { ContactoForm } from "@/components/forms/ContactoForm";
 import type { HomeSection, Project, Delivered } from "@/lib/types";
 import { selectByPostObject, toArray } from "@/lib/utils";
 
@@ -44,6 +45,7 @@ export function HomeSectionMapper({
               />
             );
           case "espacios":
+            if (section.ocultar_seccion === true || section.ocultar_seccion === 1 || section.ocultar_seccion === "1") return null;
             return (
               <Espacios
                 key={`${section.acf_fc_layout}-${index}`}
@@ -61,6 +63,7 @@ export function HomeSectionMapper({
               />
             );
           case "quien_es_armando":
+            if (section.ocultar_seccion === true || section.ocultar_seccion === 1 || section.ocultar_seccion === "1") return null;
             return (
               <QuienEsArmando
                 key={`${section.acf_fc_layout}-${index}`}
@@ -71,6 +74,7 @@ export function HomeSectionMapper({
               />
             );
           case "proyectos_entregados":
+            if (section.ocultar_seccion === true || section.ocultar_seccion === 1 || section.ocultar_seccion === "1") return null;
             return (
               <ProyectosEntregados
                 key={`${section.acf_fc_layout}-${index}`}
@@ -92,12 +96,28 @@ export function HomeSectionMapper({
               />
             );
           case "blog":
+            if (section.ocultar_seccion === true || section.ocultar_seccion === 1 || section.ocultar_seccion === "1") return null;
             return (
               <Blog
                 key={`${section.acf_fc_layout}-${index}`}
                 titulo={section.titulo}
                 boton={section.boton}
               />
+            );
+          case "quiero_mas_informacion":
+            // ACF solo manda `titulo`; el form usa defaults (CF7 4298, distritos/medios) + proyectos del home.
+            return (
+              <section
+                key={`${section.acf_fc_layout}-${index}`}
+                data-layout="quiero_mas_informacion"
+                className="w-full bg-white px-16 py-52 md:px-24 md:py-90"
+              >
+                <ContactoForm
+                  titulo={section.titulo}
+                  proyectos={proyectos}
+                  lead={{ formSource: "Home - Quiero más información" }}
+                />
+              </section>
             );
           default:
             return null;
