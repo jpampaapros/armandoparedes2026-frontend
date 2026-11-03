@@ -75,7 +75,9 @@ export type HomeSection =
   | { acf_fc_layout: "quien_es_armando"; titulo?: string; imagen_fondo?: ACFImage; descripcion?: string; boton?: ACFLink }
   | { acf_fc_layout: "proyectos_entregados"; texto?: string; subtitulo?: string; boton?: ACFLink }
   | { acf_fc_layout: "amigos_beneficios"; titulo?: string; descripcion?: string; boton?: ACFLink; color_fondo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
-  | { acf_fc_layout: "blog"; titulo?: string; boton?: ACFLink };
+  | { acf_fc_layout: "blog"; titulo?: string; boton?: ACFLink }
+  /** Solo `titulo` desde ACF; CF7/distritos/medios usan defaults de ContactoForm. */
+  | { acf_fc_layout: "quiero_mas_informacion"; titulo?: string };
 
 export type GraciasPageSection =
   | { acf_fc_layout: "banner_gracias"; titulo?: string; descripcion?: string; imagen_de_fondo?: ACFImage }
