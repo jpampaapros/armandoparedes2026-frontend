@@ -70,12 +70,12 @@ export type HomeBannerSlide = {
 
 export type HomeSection =
   | { acf_fc_layout: "banner"; titulo?: string; imagen?: ACFImage; banner_titulos?: ACFList<{ titulo?: string }>; banner_imagenes?: ACFList<HomeBannerSlide> }
-  | { acf_fc_layout: "espacios"; titulo?: string; subtitulo?: string; indicadores?: ACFList<ACFIndicator> }
+  | { acf_fc_layout: "espacios"; titulo?: string; subtitulo?: string; indicadores?: ACFList<ACFIndicator>; ocultar_seccion?: boolean | 0 | 1 | "0" | "1"  }
   | { acf_fc_layout: "proyectos_venta"; titulo?: string; post?: ACFList<ACFPostObject> }
-  | { acf_fc_layout: "quien_es_armando"; titulo?: string; imagen_fondo?: ACFImage; descripcion?: string; boton?: ACFLink }
-  | { acf_fc_layout: "proyectos_entregados"; texto?: string; subtitulo?: string; boton?: ACFLink }
+  | { acf_fc_layout: "quien_es_armando"; titulo?: string; imagen_fondo?: ACFImage; descripcion?: string; boton?: ACFLink; ocultar_seccion?: boolean | 0 | 1 | "0" | "1"  }
+  | { acf_fc_layout: "proyectos_entregados"; texto?: string; subtitulo?: string; boton?: ACFLink; ocultar_seccion?: boolean | 0 | 1 | "0" | "1"  }
   | { acf_fc_layout: "amigos_beneficios"; titulo?: string; descripcion?: string; boton?: ACFLink; color_fondo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
-  | { acf_fc_layout: "blog"; titulo?: string; boton?: ACFLink }
+  | { acf_fc_layout: "blog"; titulo?: string; boton?: ACFLink; ocultar_seccion?: boolean | 0 | 1 | "0" | "1"  }
   /** Solo `titulo` desde ACF; CF7/distritos/medios usan defaults de ContactoForm. */
   | { acf_fc_layout: "quiero_mas_informacion"; titulo?: string };
 
