@@ -7,10 +7,11 @@ import type { Project } from "@/lib/types";
 
 type MasProyectosProps = {
   titulo?: string;
+  color_titulo?: string;
   proyectos?: Project[];
 };
 
-export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosProps) {
+export function MasProyectos({ titulo, color_titulo, proyectos: proyectosProp }: MasProyectosProps) {
   const [proyectosFetch, setProyectosFetch] = useState<Project[]>(proyectosProp ?? []);
   const proyectos = proyectosProp ?? proyectosFetch;
 
@@ -33,6 +34,7 @@ export function MasProyectos({ titulo, proyectos: proyectosProp }: MasProyectosP
   return (
     <ProyectosVenta
       titulo={titulo}
+      color_titulo={color_titulo}
       proyectos={proyectos}
       dataLayout="mas_proyectos"
       mobileSlider

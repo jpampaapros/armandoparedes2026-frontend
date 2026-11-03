@@ -5,14 +5,17 @@ import { useState } from "react";
 import type { ContactoFaqGrupo } from "@/lib/types";
 import { toArray } from "@/lib/utils";
 
-export function PreguntasFrecuentes({ titulo = "Preguntas frecuentes", grupos, ocultar_en_movil, color_boton }: { titulo?: string; grupos: ContactoFaqGrupo[]; ocultar_en_movil?: boolean; color_boton?: string }) {
+export function PreguntasFrecuentes({ titulo = "Preguntas frecuentes", grupos, ocultar_en_movil, color_boton, color_titulo }: { titulo?: string; grupos: ContactoFaqGrupo[]; ocultar_en_movil?: boolean; color_boton?: string; color_titulo?: string }) {
   const [activo, setActivo] = useState(0);
   const grupo = grupos[Math.min(activo, grupos.length - 1)];
   const buttonColor = color_boton?.trim() || "#dda783";
 
   return (
     <section aria-labelledby="postventa-faq" className={`mt-24 md:mt-40 ${ocultar_en_movil ? "hidden md:block" : ""}`}>
-      <h2 id="postventa-faq" className="m-0 text-center font-gotham text-36 font-bold leading-tight text-slate md:text-50">{titulo}</h2>
+      <h2 id="postventa-faq" className="m-0 text-center font-gotham text-36 font-bold leading-tight md:text-50"
+      style={{ color: color_titulo || "rgb(116, 140, 164)" }}>
+        {titulo}
+      </h2>
 
       <div aria-label="Categorías" role="group" className="mt-20 flex flex-wrap justify-center gap-10 md:mt-25">
         {grupos.map((g, index) => {

@@ -9,12 +9,13 @@ import type { Project } from "@/lib/types";
 
 type ProyectosVentaProps = {
   titulo?: string;
+  color_titulo?: string;
   proyectos: Project[];
   dataLayout?: string;
   mobileSlider?: boolean;
 };
 
-export function ProyectosVenta({ titulo, proyectos, dataLayout, mobileSlider = false }: ProyectosVentaProps) {
+export function ProyectosVenta({ titulo, color_titulo, proyectos, dataLayout, mobileSlider = false }: ProyectosVentaProps) {
   const [emblaApi, setEmblaApi] = useState<EmblaCarouselType | null>(null);
   const mobileTitle = titulo?.match(/^(.*?)\s+(en\s+venta)$/i);
   const { filtered, filters } = useProjectFilters(proyectos);
@@ -24,7 +25,8 @@ export function ProyectosVenta({ titulo, proyectos, dataLayout, mobileSlider = f
       <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col gap-24 md:flex-row md:items-center md:justify-between">
           {titulo && (
-            <h2 className="my-0 text-center md:text-left font-gotham text-36 font-bold leading-[1.1] text-slate md:text-55">
+            <h2 className="my-0 text-center md:text-left font-gotham text-36 font-bold leading-[1.1] md:text-55"
+            style={{ color: color_titulo || "rgb(116, 140, 164)" }}>
               {mobileTitle ? (
                 <>
                   <span className="block md:hidden">{mobileTitle[1]}</span>

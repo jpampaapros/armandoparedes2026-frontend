@@ -40,7 +40,7 @@ function TabButton({
         style={{ color: active ? activeColor || undefined : undefined }}
         className={
           onBar
-            ? `font-gotham text-16 ${active ? "font-medium text-near-black" : "font-light text-warm-gray"}`
+            ? `font-gotham text-16 ${active ? "font-bold text-near-black" : "font-light text-warm-gray"}`
             : `font-gotham text-20 md:text-26 ${active ? "font-medium text-white" : "font-light text-white"}`
         }
       >
