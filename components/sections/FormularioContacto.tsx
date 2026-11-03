@@ -36,6 +36,8 @@ const ERROR_CLASS = "font-poppins text-12 text-red-700";
 type FormularioContactoProps = {
   titulo?: string;
   formulario_id?: string | number;
+  color_titulo?: string;
+  color_boton?: string;
   lead?: LeadContext;
   /** Opciones del select de presupuesto; si falta, se usa la lista por defecto. */
   presupuestos?: string[];
@@ -44,6 +46,8 @@ type FormularioContactoProps = {
 export function FormularioContacto({
   titulo,
   formulario_id,
+  color_titulo,
+  color_boton,
   lead,
   presupuestos,
 }: FormularioContactoProps) {
@@ -83,7 +87,8 @@ export function FormularioContacto({
     <section data-layout="formulario_contacto" className="w-full bg-white">
       <div className="mx-auto max-w-895 px-16 pt-52 pb-0 md:px-24 md:pt-90 pb-28 md:pb-50">
         {titulo && (
-          <h2 className="m-0 font-gotham text-32 font-bold text-slate md:text-48 text-center">
+          <h2 className="m-0 font-gotham text-30 font-semibold md:font-bold md:text-48 text-center"
+          style={{ color: color_titulo || "rgb(116, 140, 164)" }}>
             {titulo}
           </h2>
         )}
@@ -304,7 +309,8 @@ export function FormularioContacto({
           <button
             type="submit"
             disabled={isPending || !isClient}
-            className="mx-auto cursor-pointer mt-26 inline-flex h-50 w-full items-center justify-center bg-slate font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50 md:mt-30 md:h-50 md:text-16"
+            className="mx-auto cursor-pointer mt-26 inline-flex h-50 w-full items-center justify-center font-gotham text-14 font-bold uppercase text-white transition-opacity hover:opacity-90 disabled:opacity-50 md:mt-30 md:h-50 md:text-16"
+            style={{ backgroundColor: color_boton || "#748ca4" }}
           >
             {isPending ? "Enviando..." : "Enviar"}
           </button>

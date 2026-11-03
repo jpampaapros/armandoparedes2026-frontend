@@ -155,6 +155,8 @@ export function ProjectSectionMapper({
                 key={key}
                 titulo={section.titulo}
                 formulario_id={section.formulario_id}
+                color_titulo={section.color_titulo}
+                color_boton={section.color_boton}
                 lead={lead}
                 presupuestos={presupuestos}
               />
@@ -184,6 +186,7 @@ export function ProjectSectionMapper({
                 grupos={grupos}
                 ocultar_en_movil={section.ocultar_en_movil === true || section.ocultar_en_movil === 1 || section.ocultar_en_movil === "1"}
                 color_boton={section.color_boton}
+                color_titulo={section.color_titulo}
               />
             );
           }
@@ -192,6 +195,7 @@ export function ProjectSectionMapper({
               <MasProyectos
                 key={key}
                 titulo="Otros Proyectos"
+                color_titulo={section.color_titulo}
                 proyectos={proyectos?.filter(
                   (p) => p.template !== GRACIAS_TEMPLATE,
                 )}

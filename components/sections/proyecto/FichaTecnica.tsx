@@ -56,7 +56,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
     <section data-layout="ficha_tecnica" className="w-full bg-slate" style={{ backgroundColor: color_fondo || undefined }}>
       <div className="mx-auto max-w-1440 px-24 py-52 md:px-80 md:py-90">
         {titulo && (
-          <h2 style={{ color: color_titulo || undefined }} className="m-0 text-left font-gotham text-32 font-bold leading-[1.2] text-white md:text-center md:text-60 md:leading-66">
+          <h2 style={{ color: color_titulo || undefined }} className="m-0 text-left font-gotham text-30 font-semibold md:font-bold leading-[1.2] text-white md:text-center md:text-60 md:leading-66">
             {titulo.replace(/ficha\s+técnica/gi, "Ficha técnica")}
           </h2>
         )}
