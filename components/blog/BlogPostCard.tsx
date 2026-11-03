@@ -17,10 +17,16 @@ export function formatBlogDate(dateString: string): string {
   });
 }
 
+/** WordPress envía nombres con entidades ("Arte &amp; Cultura"); React las muestra literales. */
+export function decodeHtmlEntities(text: string) {
+  return text.replace(/&amp;/g, "&").replace(/&#0?38;/g, "&");
+}
+
 export function getBlogCategory(post: WPPost): string | undefined {
-  return post._embedded?.["wp:term"]
+  const name = post._embedded?.["wp:term"]
     ?.flat()
     .find((t) => t.taxonomy === "category")?.name;
+  return name ? decodeHtmlEntities(name) : undefined;
 }
 
 export function getBlogImage(post: WPPost) {

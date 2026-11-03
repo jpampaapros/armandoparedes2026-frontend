@@ -64,8 +64,9 @@ export function DeliveredCard({
           priority={priority}
         />
       )}
+      {/* Velo + texto: ocultos hasta hover/focus; en mobile siempre visibles. */}
       <div
-        className={`absolute inset-0 bg-gradient-to-t ${
+        className={`absolute inset-0 bg-gradient-to-t opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none max-md:opacity-100 ${
           strongVeil
             ? "from-black/85 via-black/75 via-40% to-transparent to-85%"
             : "from-black/70 via-transparent to-transparent"
