@@ -143,12 +143,12 @@ export function ProjectCard({
 
       <div data-card-content className="relative z-10 mt-auto flex flex-col gap-16 p-24 md:p-54">
         <div className="flex flex-col">
-          <h3 className={`mb-20 font-gotham text-26 font-bold uppercase leading-33 text-white ${sliderCard ? "md:text-25" : "md:text-36"}`}>
+          <h3 className={`mb-20 font-gotham text-26 font-bold uppercase leading-33 text-white ${sliderCard ? "md:text-25" : "md:text-35"}`}>
             {project.title.rendered}
           </h3>
           <hr className="my-0 h-px w-full border-0 bg-white" />
         </div>
-        <div data-card-description className={`font-poppins text-16 leading-20 text-white ${sliderCard ? "md:text-18 md:leading-26" : "md:text-24 md:leading-30"} [&_p]:my-0 ${mobileDescriptionSemibold ? "[&_p]:font-semibold md:[&_p]:font-light" : "[&_p]:font-light"}`}
+        <div data-card-description className={`font-poppins text-16 leading-20 text-white ${sliderCard ? "md:text-18 md:leading-26" : "md:text-20 md:leading-30"} [&_p]:my-0 ${mobileDescriptionSemibold ? "[&_p]:font-semibold md:[&_p]:font-light" : "[&_p]:font-light"}`}
           dangerouslySetInnerHTML={{ __html: project.acf.descripcion || "" }}
         />
         <SmartLink
@@ -157,7 +157,7 @@ export function ProjectCard({
             url: `/proyectos/${project.slug}`,
             target: "",
           }}
-          className={`${saleCarousel || saleListing ? "hidden md:inline-flex" : "inline-flex"} h-50 w-full items-center justify-center border border-white px-10 font-poppins text-16 font-semibold text-white transition-colors duration-500 ease-out hover:text-card-dark hover:bg-white group-hover:text-card-dark group-hover:bg-white motion-reduce:transition-none md:w-250 ${sliderCard ? "md:text-16" : "md:text-18"}`}
+          className={`${saleCarousel || saleListing ? "hidden md:inline-flex" : "inline-flex"} h-50 w-full items-center justify-center border border-white px-10 font-poppins text-16 font-semibold text-white transition-colors duration-500 ease-out hover:text-card-dark hover:bg-white group-hover:text-card-dark group-hover:bg-white motion-reduce:transition-none md:w-250 ${sliderCard ? "md:text-16" : "md:text-17"}`}
         >
           Ver proyecto
         </SmartLink>
