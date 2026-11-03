@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { ContactoForm } from "@/components/forms/ContactoForm";
 import { Postventa } from "@/components/sections/contacto/Postventa";
 import { SalasDeVentas } from "@/components/sections/contacto/SalasDeVentas";
@@ -14,6 +15,10 @@ const TABS = [
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
+
+function isTabId(value: string | null): value is TabId {
+  return TABS.some((tab) => tab.id === value);
+}
 
 type ContactoFormularioProps = Omit<ContactoFormularioSection, "acf_fc_layout"> & {
   /** Campos del formulario de leads (ids de CF7, opciones de los selects) que no viven en el layout. */
@@ -31,9 +36,24 @@ export function ContactoFormulario({
   proyectos,
   entregados,
 }: ContactoFormularioProps) {
-  const [activo, setActivo] = useState<TabId>("solicitar-informacion");
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const [activo, setActivo] = useState<TabId>(() => (isTabId(tabParam) ? tabParam : "solicitar-informacion"));
   // Postventa atiende a propietarios: también de edificios ya entregados.
   const proyectosPostventa = [...new Set([...proyectos, ...entregados].map((p) => p.title.rendered))];
+
+  useEffect(() => {
+    if (isTabId(tabParam)) setActivo(tabParam);
+  }, [tabParam]);
+
+  useEffect(() => {
+    if (activo !== "postventa" || typeof window === "undefined") return;
+    if (window.location.hash !== "#postventa-faq") return;
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById("postventa-faq")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [activo]);
 
   return (
     <section data-layout="formulario" className="w-full bg-white px-16 md:px-24 py-52 md:py-90">

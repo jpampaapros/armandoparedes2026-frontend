@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { ContactoFormulario } from "@/components/sections/contacto/ContactoFormulario";
 import type { ContactoPageFields, ContactoPageSection, Delivered, Project } from "@/lib/types";
 
@@ -16,16 +17,17 @@ export function ContactoSectionMapper({ sections, formulario, proyectos, entrega
         switch (section.acf_fc_layout) {
           case "formulario":
             return (
-              <ContactoFormulario
-                key={key}
-                solicitar_informacion={section.solicitar_informacion}
-                salas_de_ventas={section.salas_de_ventas}
-                postventa={section.postventa}
-                preguntas_frecuentes={section.preguntas_frecuentes}
-                formulario={formulario}
-                proyectos={proyectos}
-                entregados={entregados}
-              />
+              <Suspense key={key} fallback={<section className="w-full bg-white px-16 py-52 md:px-24 md:py-90" />}>
+                <ContactoFormulario
+                  solicitar_informacion={section.solicitar_informacion}
+                  salas_de_ventas={section.salas_de_ventas}
+                  postventa={section.postventa}
+                  preguntas_frecuentes={section.preguntas_frecuentes}
+                  formulario={formulario}
+                  proyectos={proyectos}
+                  entregados={entregados}
+                />
+              </Suspense>
             );
           default:
             return null;
