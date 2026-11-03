@@ -7,9 +7,11 @@ type BannerGraciasProps = {
   titulo?: string;
   descripcion?: string;
   imagen_de_fondo?: ACFImage;
+  /** Si hay proyecto, "Volver" regresa a `/proyectos/{slug}`. */
   proyectoSlug?: string;
+  /** Destino de "Volver" cuando no hay proyecto (contacto, postventa, etc.). */
   fallbackHref?: string;
-  /** CTA opcional (p. ej. postventa → preguntas frecuentes). */
+  /** CTA opcional del banner (p. ej. postventa → "Ver preguntas frecuentes"). */
   boton?: ACFLink;
 };
 
@@ -21,6 +23,7 @@ export function BannerGracias({
   fallbackHref,
   boton,
 }: BannerGraciasProps) {
+  // Prioridad: fallback explícito → proyecto → listado de proyectos.
   const backHref =
     fallbackHref ?? (proyectoSlug ? `/proyectos/${proyectoSlug}` : "/proyectos");
   const botonHref = boton?.url?.trim();
@@ -38,11 +41,13 @@ export function BannerGracias({
           className="object-cover"
         />
       )}
+      {/* Veladura para legibilidad del texto blanco sobre la foto. */}
       <div className="absolute inset-0 bg-black/50" />
 
       <div className="relative z-10 mx-auto flex h-full max-w-1440 flex-col items-center px-16 pt-116 text-center md:items-start md:px-80 md:pt-58 md:text-left">
         <BackButton fallbackHref={backHref}>Volver</BackButton>
 
+        {/* max-w amplio + leading holgado: el copy de postventa/contacto es más largo que el de proyecto. */}
         {titulo && (
           <h1
             className="mt-110 w-full max-w-900 font-gotham text-36 font-bold leading-[1.15] text-white md:mt-29 md:text-88 md:font-medium md:leading-96"
@@ -57,6 +62,7 @@ export function BannerGracias({
           />
         )}
 
+        {/* Solo se renderiza si la página de gracias pasa `bannerBoton` (hoy: postventa). */}
         {botonHref && botonLabel && (
           <Link
             href={botonHref}

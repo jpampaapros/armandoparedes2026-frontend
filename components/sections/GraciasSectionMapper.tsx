@@ -6,14 +6,20 @@ import { selectByPostObject } from "@/lib/utils";
 
 type GraciasSectionMapperProps = {
   sections: GraciasPageSection[];
+  /** Proyectos para la sección `proyectos_venta` (gracias de proyecto). */
   proyectos?: Project[];
+  /** Slug del proyecto: "Volver" y contexto de la gracias de cotizador. */
   proyectoSlug?: string;
   /** Destino del botón Volver cuando no hay proyecto (p. ej. `/contacto`). */
   fallbackHref?: string;
-  /** CTA del banner (solo páginas que lo necesiten, p. ej. postventa). */
+  /**
+   * CTA del banner_gracias. No viene de ACF: lo inyecta la página
+   * (p. ej. postventa → FAQ en `/contacto?tab=postventa`).
+   */
   bannerBoton?: ACFLink;
 };
 
+/** Mapea layouts ACF de páginas de gracias (proyecto, contacto, postventa). */
 export function GraciasSectionMapper({
   sections,
   proyectos,

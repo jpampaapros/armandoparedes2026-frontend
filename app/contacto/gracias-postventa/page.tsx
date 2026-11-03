@@ -5,7 +5,10 @@ import { GraciasSectionMapper } from "@/components/sections/GraciasSectionMapper
 import type { GraciasPageSection, WordPressPage } from "@/lib/types";
 import { stripHtml, toArray } from "@/lib/utils";
 
-/** Página WP "Gracias de PostVenta" (solo banner_gracias). */
+/**
+ * Página WP "Gracias de PostVenta" (id 4826).
+ * Distinta de /contacto/gracias (4823) y de la gracias de proyecto (18 / cotizador).
+ */
 const POSTVENTA_GRACIAS_PAGE_ID = 4826;
 
 type WordPressGraciasPage = WordPressPage<GraciasPageSection, "acf">;
@@ -46,7 +49,9 @@ export default async function PostventaGraciasPage() {
     <main className="w-full max-w-none p-0">
       <GraciasSectionMapper
         sections={sections}
+        // "Volver" regresa al formulario de contacto (no a un proyecto).
         fallbackHref="/contacto"
+        // Abre el tab Postventa y hace scroll a las FAQ (`ContactoFormulario` lee `tab` y el hash).
         bannerBoton={{
           title: "Ver preguntas frecuentes",
           url: "/contacto?tab=postventa#postventa-faq",

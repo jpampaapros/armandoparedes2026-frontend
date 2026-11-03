@@ -5,7 +5,10 @@ import { GraciasSectionMapper } from "@/components/sections/GraciasSectionMapper
 import type { GraciasPageSection, WordPressPage } from "@/lib/types";
 import { stripHtml, toArray } from "@/lib/utils";
 
-/** Página WP "Gracias contacto" (solo banner_gracias). */
+/**
+ * Página WP "Gracias contacto" (id 4823) — formulario "Solicitar información".
+ * No usar para postventa (4826) ni para gracias de proyecto.
+ */
 const CONTACTO_GRACIAS_PAGE_ID = 4823;
 
 type WordPressGraciasPage = WordPressPage<GraciasPageSection, "acf">;
@@ -44,6 +47,7 @@ export default async function ContactoGraciasPage() {
 
   return (
     <main className="w-full max-w-none p-0">
+      {/* Sin bannerBoton: solo postventa muestra el CTA de preguntas frecuentes. */}
       <GraciasSectionMapper sections={sections} fallbackHref="/contacto" />
     </main>
   );
