@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Consent, SelectField, controlClass, fieldBorder, fieldBorderColor, fieldClass, labelClass } from "@/components/forms/ContactoForm";
@@ -32,11 +33,12 @@ export function PostventaForm({
   proyecto,
   onProyectoChange,
 }: PostventaFormProps) {
-  const { register, handleSubmit, reset, setValue, control, formState: { errors } } = useForm<LeadFormValues>({
+  const { register, handleSubmit, setValue, control, formState: { errors } } = useForm<LeadFormValues>({
     defaultValues: {
       proyecto, departamento: "", nombres: "", apellido: "", correo: "", celular: "", consulta: "", terminos: false,
     },
   });
+  const router = useRouter();
   // Las consultas de postventa no son leads comerciales: van a CF7 y no a Sperant.
   const { submit, isPending, status } = useCf7Submit(formularioId, { raw: true });
   const isClient = useIsClient();
@@ -47,7 +49,9 @@ export function PostventaForm({
 
   const onSubmit = async (values: LeadFormValues) => {
     const ok = await submit(values);
-    if (ok) reset({ proyecto, departamento: "", nombres: "", apellido: "", correo: "", celular: "", consulta: "", terminos: false });
+    if (!ok) return;
+    // Página WP 4826 (“Gracias de PostVenta”), distinta a la de solicitar información.
+    router.push("/contacto/gracias-postventa");
   };
 
   return (

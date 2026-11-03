@@ -1,16 +1,26 @@
 import { BannerGracias } from "@/components/sections/gracias/BannerGracias";
 import { ProyectosVenta } from "@/components/sections/ProyectosVenta";
 import { Blog } from "@/components/sections/Blog";
-import type { GraciasPageSection, Project } from "@/lib/types";
+import type { ACFLink, GraciasPageSection, Project } from "@/lib/types";
 import { selectByPostObject } from "@/lib/utils";
 
 type GraciasSectionMapperProps = {
   sections: GraciasPageSection[];
   proyectos?: Project[];
   proyectoSlug?: string;
+  /** Destino del botón Volver cuando no hay proyecto (p. ej. `/contacto`). */
+  fallbackHref?: string;
+  /** CTA del banner (solo páginas que lo necesiten, p. ej. postventa). */
+  bannerBoton?: ACFLink;
 };
 
-export function GraciasSectionMapper({ sections, proyectos, proyectoSlug }: GraciasSectionMapperProps) {
+export function GraciasSectionMapper({
+  sections,
+  proyectos,
+  proyectoSlug,
+  fallbackHref,
+  bannerBoton,
+}: GraciasSectionMapperProps) {
   return (
     <>
       {sections.map((section, index) => {
@@ -24,6 +34,8 @@ export function GraciasSectionMapper({ sections, proyectos, proyectoSlug }: Grac
                 descripcion={section.descripcion}
                 imagen_de_fondo={section.imagen_de_fondo}
                 proyectoSlug={proyectoSlug}
+                fallbackHref={fallbackHref}
+                boton={bannerBoton}
               />
             );
           case "proyectos_venta":

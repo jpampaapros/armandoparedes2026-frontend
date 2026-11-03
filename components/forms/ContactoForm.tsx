@@ -47,7 +47,7 @@ export function ContactoForm({
   proyectos = [],
   lead,
 }: Props) {
-  const { register, handleSubmit, reset, control, formState: { errors } } = useForm<LeadFormValues>({
+  const { register, handleSubmit, control, formState: { errors } } = useForm<LeadFormValues>({
     defaultValues: {
       nombres: "", apellido: "", correo: "", celular: "", distrito: "",
       proyecto: "", medio: "", terminos: false, marketing: false,
@@ -57,11 +57,12 @@ export function ContactoForm({
     ...lead,
     formSource: lead?.formSource || "Página de contacto",
     cf7FormId: formulario_id,
+    // Formulario general de /contacto: gracias fija, no ligada a un proyecto.
+    redirectTo: lead?.redirectTo || "/contacto/gracias",
   });
   const isClient = useIsClient();
   const onSubmit = async (values: LeadFormValues) => {
-    const ok = await submit(values);
-    if (ok) reset();
+    await submit(values);
   };
 
   return (
