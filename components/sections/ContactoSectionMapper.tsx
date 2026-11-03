@@ -16,6 +16,7 @@ export function ContactoSectionMapper({ sections, formulario, proyectos, entrega
         const key = `${section.acf_fc_layout}-${index}`;
         switch (section.acf_fc_layout) {
           case "formulario":
+            // Suspense: ContactoFormulario usa useSearchParams (`?tab=`) para deep-links.
             return (
               <Suspense key={key} fallback={<section className="w-full bg-white px-16 py-52 md:px-24 md:py-90" />}>
                 <ContactoFormulario

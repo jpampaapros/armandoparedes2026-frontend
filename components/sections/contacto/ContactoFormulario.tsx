@@ -16,6 +16,7 @@ const TABS = [
 
 type TabId = (typeof TABS)[number]["id"];
 
+/** Valida el query `?tab=` contra los ids conocidos del tablist. */
 function isTabId(value: string | null): value is TabId {
   return TABS.some((tab) => tab.id === value);
 }
@@ -36,16 +37,19 @@ export function ContactoFormulario({
   proyectos,
   entregados,
 }: ContactoFormularioProps) {
+  // Deep-link desde gracias-postventa: `/contacto?tab=postventa#postventa-faq`.
   const searchParams = useSearchParams();
   const tabParam = searchParams.get("tab");
   const [activo, setActivo] = useState<TabId>(() => (isTabId(tabParam) ? tabParam : "solicitar-informacion"));
   // Postventa atiende a propietarios: también de edificios ya entregados.
   const proyectosPostventa = [...new Set([...proyectos, ...entregados].map((p) => p.title.rendered))];
 
+  // Si cambia `?tab=` (navegación client-side), sincroniza la pestaña activa.
   useEffect(() => {
     if (isTabId(tabParam)) setActivo(tabParam);
   }, [tabParam]);
 
+  // Con `#postventa-faq`, espera a que el panel Postventa esté visible y hace scroll a las FAQ.
   useEffect(() => {
     if (activo !== "postventa" || typeof window === "undefined") return;
     if (window.location.hash !== "#postventa-faq") return;
