@@ -120,6 +120,8 @@ export type ProyectosPageSection =
 
 export type ProjectSlide = {
   imagen?: ACFImage;
+  /** Versión vertical/móvil del slide; en desktop se usa `imagen`. */
+  imagen_mobile?: ACFImage | false;
 };
 
 export type ProjectTipologia = {

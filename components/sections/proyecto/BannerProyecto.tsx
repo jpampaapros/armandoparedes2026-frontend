@@ -7,12 +7,72 @@ import type { EmblaCarouselType } from "embla-carousel";
 import { EmblaSlider } from "@/components/EmblaSlider";
 import type { ACFImage } from "@/lib/types";
 
+type BannerSlide = {
+  imagen?: ACFImage;
+  imagen_mobile?: ACFImage | false;
+};
+
 type BannerProyectoProps = {
   badge?: string;
   badge_color?: string;
   distrito?: string;
-  slides?: { imagen?: ACFImage }[];
+  slides?: BannerSlide[];
 };
+
+/** Imagen desktop + imagen_mobile con corte md (767px), como el banner del home. */
+function BannerSlideImage({
+  image,
+  imageMobile,
+  priority,
+}: {
+  image?: ACFImage;
+  imageMobile?: ACFImage | false;
+  priority?: boolean;
+}) {
+  const mobile = imageMobile && typeof imageMobile === "object" ? imageMobile : undefined;
+  const desktopUrl = image?.url || mobile?.url;
+  const mobileUrl = mobile?.url || image?.url;
+  if (!desktopUrl && !mobileUrl) return null;
+
+  const alt = image?.alt || mobile?.alt || "";
+  if (desktopUrl === mobileUrl && desktopUrl) {
+    return (
+      <Image
+        src={desktopUrl}
+        alt={alt}
+        fill
+        sizes="100vw"
+        className="object-cover"
+        priority={priority}
+      />
+    );
+  }
+
+  return (
+    <>
+      {mobileUrl && (
+        <Image
+          src={mobileUrl}
+          alt={alt}
+          fill
+          sizes="100vw"
+          className="object-cover md:hidden"
+          priority={priority}
+        />
+      )}
+      {desktopUrl && (
+        <Image
+          src={desktopUrl}
+          alt={alt}
+          fill
+          sizes="100vw"
+          className="hidden object-cover md:block"
+          priority={priority}
+        />
+      )}
+    </>
+  );
+}
 
 export function BannerProyecto({ badge, badge_color, distrito, slides = [] }: BannerProyectoProps) {
   const items = slides.length > 0 ? slides : [{ imagen: undefined }];
@@ -65,21 +125,17 @@ export function BannerProyecto({ badge, badge_color, distrito, slides = [] }: Ba
         <EmblaSlider
           slides={items}
           onApiReady={setApi}
-          renderSlide={(slide) => (
+          renderSlide={(slide, index) => (
             <div className="relative h-full w-full">
-              {slide?.imagen?.url ? (
-                <Image
-                  src={slide.imagen.url}
-                  alt={slide.imagen.alt || ""}
-                  fill
-                  sizes="100vw"
-                  className="object-cover"
-                  priority
+              {slide?.imagen?.url || (slide?.imagen_mobile && typeof slide.imagen_mobile === "object" && slide.imagen_mobile.url) ? (
+                <BannerSlideImage
+                  image={slide.imagen}
+                  imageMobile={slide.imagen_mobile}
+                  priority={index === 0}
                 />
               ) : (
                 <div className="h-full w-full bg-neutral-800" />
               )}
-              {/* <div className="absolute inset-0 bg-black/35" /> */}
             </div>
           )}
           loop={items.length > 1}
