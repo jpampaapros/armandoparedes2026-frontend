@@ -31,7 +31,7 @@ function getFeaturedPostId(
 async function getBlogPage(): Promise<BlogPageData | null> {
   try {
     const wordpress = createWordPressRestClient({
-      cache: { revalidate: 3600, tags: ["wordpress-content"] },
+      cache: { revalidate: 60, tags: ["wordpress-content"] },
     });
     const response = await wordpress.collection<BlogPageData[]>(
       `/wp-json/wp/v2/pages?slug=blog&acf_format=standard&status=publish&_fields=acf,title`,
