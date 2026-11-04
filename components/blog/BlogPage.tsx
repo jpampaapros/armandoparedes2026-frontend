@@ -26,6 +26,8 @@ export function BlogPage({
 }: BlogPageProps) {
   const bannerTitle = bannerSection?.banner_title || page?.title?.rendered || "Blog";
   const bannerSubtitle = bannerSection?.banner_subtitulo || "Arquitectura, comunidad y más";
+  // ACF color picker; vacío → el card usa su bg-white por defecto.
+  const colorFondoDestacado = bannerSection?.color_fondo_destacado?.trim() || undefined;
 
   return (
     <main className="w-full bg-white">
@@ -48,9 +50,13 @@ export function BlogPage({
       {featuredPost && (
         <section className="bg-white">
           <div className="mx-auto max-w-1440 px-16 md:px-80">
-            <div className="mb-30 mt-24 w-full bg-border-light md:mt-30 h-px" />
-            <BlogPostCard post={featuredPost} variant="featured" />
-            <div className="mb-0 mt-24 w-full bg-border-light md:mt-30 h-px" />
+            <div className="mb-30 mt-24 h-px w-full bg-border-light md:mt-30" />
+            <BlogPostCard
+              post={featuredPost}
+              variant="featured"
+              backgroundColor={colorFondoDestacado}
+            />
+            <div className="mb-0 mt-24 h-px w-full bg-border-light md:mt-30" />
           </div>
         </section>
       )}
