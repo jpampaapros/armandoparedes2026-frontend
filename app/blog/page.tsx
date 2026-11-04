@@ -10,6 +10,8 @@ type BlogRouteProps = {
 };
 
 const POSTS_PER_PAGE = 10;
+/** Caché ISR de /blog (ACF, posts, categorías). 60s para ver pronto cambios como color_fondo_destacado. */
+const BLOG_REVALIDATE_SECONDS = 3600;
 
 function stripHtml(html?: string): string {
   if (!html) return "";
@@ -31,7 +33,7 @@ function getFeaturedPostId(
 async function getBlogPage(): Promise<BlogPageData | null> {
   try {
     const wordpress = createWordPressRestClient({
-      cache: { revalidate: 60, tags: ["wordpress-content"] },
+      cache: { revalidate: BLOG_REVALIDATE_SECONDS, tags: ["wordpress-content"] },
     });
     const response = await wordpress.collection<BlogPageData[]>(
       `/wp-json/wp/v2/pages?slug=blog&acf_format=standard&status=publish&_fields=acf,title`,
@@ -45,7 +47,7 @@ async function getBlogPage(): Promise<BlogPageData | null> {
 async function getCategories(): Promise<WPCategory[]> {
   try {
     const wordpress = createWordPressRestClient({
-      cache: { revalidate: 3600, tags: ["wordpress-content"] },
+      cache: { revalidate: BLOG_REVALIDATE_SECONDS, tags: ["wordpress-content"] },
     });
     const response = await wordpress.collection<WPCategory[]>(
       "/wp-json/wp/v2/categories?per_page=100&hide_empty=true",
@@ -67,7 +69,7 @@ async function getPosts({
 }): Promise<{ posts: WPPost[]; totalPages: number }> {
   try {
     const wordpress = createWordPressRestClient({
-      cache: { revalidate: 3600, tags: ["wordpress-content"] },
+      cache: { revalidate: BLOG_REVALIDATE_SECONDS, tags: ["wordpress-content"] },
     });
     const params = new URLSearchParams();
     params.set("per_page", String(POSTS_PER_PAGE));
@@ -87,7 +89,7 @@ async function getPosts({
 async function getPostById(id: number): Promise<WPPost | null> {
   try {
     const wordpress = createWordPressRestClient({
-      cache: { revalidate: 3600, tags: ["wordpress-content"] },
+      cache: { revalidate: BLOG_REVALIDATE_SECONDS, tags: ["wordpress-content"] },
     });
     return await wordpress.request<WPPost>(
       `/wp-json/wp/v2/posts/${id}?_embed=1`,
@@ -100,7 +102,7 @@ async function getPostById(id: number): Promise<WPPost | null> {
 async function getStickyPost(categoryId?: number): Promise<WPPost | null> {
   try {
     const wordpress = createWordPressRestClient({
-      cache: { revalidate: 3600, tags: ["wordpress-content"] },
+      cache: { revalidate: BLOG_REVALIDATE_SECONDS, tags: ["wordpress-content"] },
     });
     const params = new URLSearchParams({
       sticky: "true",
