@@ -24,6 +24,14 @@ export function toArray<T>(value: T[] | false | null | undefined): T[] {
 }
 
 /**
+ * True/false de ACF vía REST: puede llegar como boolean, 0/1 o "0"/"1".
+ * Usar para `ocultar_seccion`, `desactivar_seccion`, etc.
+ */
+export function isAcfTrue(value: unknown): boolean {
+  return value === true || value === 1 || value === "1";
+}
+
+/**
  * Filtra una colección del REST con la selección de un campo "post object" de ACF,
  * respetando el orden en que el editor ordenó los posts.
  *

@@ -7,7 +7,7 @@ import { AmigosBeneficios } from "@/components/sections/inicio/AmigosBeneficios"
 import { Blog } from "@/components/sections/Blog";
 import { ContactoForm } from "@/components/forms/ContactoForm";
 import type { HomeSection, Project, Delivered } from "@/lib/types";
-import { selectByPostObject, toArray } from "@/lib/utils";
+import { isAcfTrue, selectByPostObject, toArray } from "@/lib/utils";
 
 type HomeSectionMapperProps = {
   sections?: HomeSection[];
@@ -45,7 +45,7 @@ export function HomeSectionMapper({
               />
             );
           case "espacios":
-            if (section.ocultar_seccion === true || section.ocultar_seccion === 1 || section.ocultar_seccion === "1") return null;
+            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <Espacios
                 key={`${section.acf_fc_layout}-${index}`}
@@ -63,7 +63,7 @@ export function HomeSectionMapper({
               />
             );
           case "quien_es_armando":
-            if (section.ocultar_seccion === true || section.ocultar_seccion === 1 || section.ocultar_seccion === "1") return null;
+            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <QuienEsArmando
                 key={`${section.acf_fc_layout}-${index}`}
@@ -74,7 +74,7 @@ export function HomeSectionMapper({
               />
             );
           case "proyectos_entregados":
-            if (section.ocultar_seccion === true || section.ocultar_seccion === 1 || section.ocultar_seccion === "1") return null;
+            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <ProyectosEntregados
                 key={`${section.acf_fc_layout}-${index}`}
@@ -85,7 +85,7 @@ export function HomeSectionMapper({
               />
             );
           case "amigos_beneficios":
-            if (section.ocultar_seccion === true || section.ocultar_seccion === 1 || section.ocultar_seccion === "1") return null;
+            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <AmigosBeneficios
                 key={`${section.acf_fc_layout}-${index}`}
@@ -96,7 +96,7 @@ export function HomeSectionMapper({
               />
             );
           case "blog":
-            if (section.ocultar_seccion === true || section.ocultar_seccion === 1 || section.ocultar_seccion === "1") return null;
+            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <Blog
                 key={`${section.acf_fc_layout}-${index}`}
