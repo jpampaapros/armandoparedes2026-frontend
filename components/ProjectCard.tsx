@@ -91,7 +91,14 @@ export function ProjectCard({
       data-sale-listing={saleListing || undefined}
       data-alternate-image={showAlternateImage || undefined}
       className={`group relative flex w-full min-w-0 flex-col overflow-hidden bg-black ${
-        saleCarousel ? "h-465 md:w-474 md:h-641" : compact ? "h-430 md:max-w-630 md:h-680" : "h-465 md:max-w-630 md:h-825 md:max-lap:h-640"
+        // saleListing: altura fija en md+ (sin saltar a h-825 en pantallas grandes).
+        saleListing
+          ? "h-465 md:h-640"
+          : saleCarousel
+            ? "h-465 md:w-474 md:h-641"
+            : compact
+              ? "h-430 md:max-w-630 md:h-680"
+              : "h-465 md:max-w-630 md:h-825 md:max-lap:h-640"
       }`}
     >
       {(image?.source_url || mobileImageUrl) && (
