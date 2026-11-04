@@ -286,6 +286,8 @@ export type BlogPageSection = {
   banner_subtitulo?: string;
   banner_description?: string;
   featured_post?: { ID?: number; id?: number; post_title?: string; post_type?: string };
+  /** Color de fondo del post destacado (picker ACF). */
+  color_fondo_destacado?: string;
 };
 
 export type BlogPage = WordPressPage<BlogPageSection, "acf">;

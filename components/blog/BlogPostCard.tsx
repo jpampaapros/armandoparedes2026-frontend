@@ -5,6 +5,8 @@ import type { WPPost } from "@/lib/types";
 export type BlogPostCardProps = {
   post: WPPost;
   variant?: "default" | "featured";
+  /** Solo featured: color ACF `color_fondo_destacado`. */
+  backgroundColor?: string;
 };
 
 export function formatBlogDate(dateString: string): string {
@@ -33,7 +35,7 @@ export function getBlogImage(post: WPPost) {
   return post._embedded?.["wp:featuredmedia"]?.[0];
 }
 
-export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
+export function BlogPostCard({ post, variant = "default", backgroundColor }: BlogPostCardProps) {
   const image = getBlogImage(post);
   const category = getBlogCategory(post);
   const date = formatBlogDate(post.date);
@@ -43,6 +45,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
       <Link
         href={`/blog/${post.slug}`}
         className="group relative flex w-full flex-col overflow-hidden bg-white text-near-black md:aspect-[1250/561] md:flex-row md:gap-[28px]"
+        style={backgroundColor ? { backgroundColor } : undefined}
       >
         <div className="w-full p-20 md:w-[46%] md:py-20 md:pl-20 md:pr-0">
           <div className="relative aspect-[16/10] w-full overflow-hidden md:h-full md:aspect-auto">
