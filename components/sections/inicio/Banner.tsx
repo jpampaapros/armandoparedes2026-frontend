@@ -454,11 +454,15 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
             />}
           </div>
 
+          {/* Un solo slide: se ocultan los dots pero se conserva el espacio (mismo alto de layout). */}
           <div
             ref={dotsRef}
             data-intro-fade
             data-intro-dots
-            className={`mt-40 mb-32 flex shrink-0 justify-center gap-3 transition-opacity duration-500 md:mt-153 md:mb-0 ${textFading ? "opacity-0" : ""}`}
+            className={`mt-40 mb-32 flex shrink-0 justify-center gap-3 transition-opacity duration-500 md:mt-153 md:mb-0 ${
+              textFading ? "opacity-0" : ""
+            } ${validSlides.length <= 1 ? "invisible pointer-events-none" : ""}`}
+            aria-hidden={validSlides.length <= 1 || undefined}
           >
             {validSlides.map((_, index) => (
               <button
@@ -467,6 +471,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
                 aria-label={`Ir al slide ${index + 1}`}
                 aria-current={index === activeIndex ? "true" : undefined}
                 onClick={() => setActiveIndex(index)}
+                tabIndex={validSlides.length <= 1 ? -1 : undefined}
                 className={`relative h-6 cursor-pointer overflow-hidden rounded-full border-0 bg-dots-inactive p-0 transition-[width] duration-300 ${
                   index === activeIndex
                     ? "w-91"
