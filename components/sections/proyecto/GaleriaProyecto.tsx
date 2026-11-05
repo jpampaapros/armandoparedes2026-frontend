@@ -69,6 +69,8 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
     if (!carousel || carousel.tab !== active || tabs.length === 0) return;
     const { api } = carousel;
     let timer: ReturnType<typeof setTimeout>;
+    // Arrastre más allá del borde (px). Positivo = hacia la siguiente pestaña.
+    let overscroll = 0;
 
     const scheduleNext = () => {
       clearTimeout(timer);
@@ -85,11 +87,40 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
     };
     const pause = () => clearTimeout(timer);
 
+    const resetOverscroll = () => {
+      overscroll = 0;
+    };
+    // En móvil: una sola imagen cambia de pestaña al swipe; con varias, solo al pasar la última o la primera.
+    const trackOverscroll = () => {
+      if (!window.matchMedia("(max-width: 767px)").matches) return;
+      if (!api.internalEngine().dragHandler.pointerDown()) return;
+      const { limit, location } = api.internalEngine();
+      const pastEnd = limit.max - location.get();
+      const pastStart = location.get() - limit.min;
+      if (pastEnd > Math.abs(overscroll)) overscroll = pastEnd;
+      if (pastStart > Math.abs(overscroll)) overscroll = -pastStart;
+    };
+    const swipeToTab = () => {
+      if (!window.matchMedia("(max-width: 767px)").matches || tabs.length < 2) return;
+      const snaps = api.scrollSnapList().length;
+      const index = api.selectedScrollSnap();
+      const threshold = 48;
+      const atEnd = snaps <= 1 || index === snaps - 1;
+      const atStart = snaps <= 1 || index === 0;
+      if (overscroll > threshold && atEnd) {
+        clearTimeout(timer);
+        setActive((current) => (current + 1) % tabs.length);
+      } else if (overscroll < -threshold && atStart) {
+        clearTimeout(timer);
+        setActive((current) => (current - 1 + tabs.length) % tabs.length);
+      }
+    };
+
     scheduleNext();
-    api.on("select", scheduleNext).on("pointerDown", pause).on("pointerUp", scheduleNext);
+    api.on("select", scheduleNext).on("pointerDown", pause).on("pointerDown", resetOverscroll).on("scroll", trackOverscroll).on("pointerUp", swipeToTab).on("pointerUp", scheduleNext);
     return () => {
       clearTimeout(timer);
-      api.off("select", scheduleNext).off("pointerDown", pause).off("pointerUp", scheduleNext);
+      api.off("select", scheduleNext).off("pointerDown", pause).off("pointerDown", resetOverscroll).off("scroll", trackOverscroll).off("pointerUp", swipeToTab).off("pointerUp", scheduleNext);
     };
   }, [active, carousel, tabs.length]);
 

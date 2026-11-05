@@ -10,7 +10,7 @@ import { PlanosProyecto } from "@/components/sections/proyecto/PlanosProyecto";
 import { MapaProyecto } from "@/components/sections/proyecto/MapaProyecto";
 import { FormularioContacto } from "@/components/sections/FormularioContacto";
 import { MasProyectos } from "@/components/sections/MasProyectos";
-import { PreguntasFrecuentes } from "@/components/sections/contacto/PreguntasFrecuentes";
+import { PreguntasFrecuentesProyecto } from "@/components/sections/proyecto/PreguntasFrecuentesProyecto";
 import type { LeadContext } from "@/lib/lead";
 import type { Project, ProjectSection } from "@/lib/types";
 import { isAcfTrue, toArray } from "@/lib/utils";
@@ -186,15 +186,16 @@ export function ProjectSectionMapper({
               />
             );
           case "preguntas_frecuentes": {
-            const grupos = toArray(section.grupos).filter(
-              (grupo) => toArray(grupo.preguntas).length > 0,
+            // Repetidor ACF `preguntas`: cada fila es { titulo, respuesta }, no un grupo.
+            const preguntas = toArray(section.preguntas).filter(
+              (pregunta) => Boolean(pregunta.titulo?.trim() || pregunta.respuesta?.trim()),
             );
-            if (grupos.length === 0) return null;
+            if (preguntas.length === 0) return null;
             return (
-              <PreguntasFrecuentes
+              <PreguntasFrecuentesProyecto
                 key={key}
                 titulo={section.titulo}
-                grupos={grupos}
+                preguntas={preguntas}
                 color_boton={section.color_boton}
                 color_titulo={section.color_titulo}
                 ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
