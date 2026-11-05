@@ -5,6 +5,7 @@ import type { Delivered } from "@/lib/types";
 
 type ProyectosEntregadosProps = {
   titulo?: string;
+  descripcion?: string;
   entregados: Delivered[];
 };
 
@@ -27,11 +28,12 @@ function groupByYear(entregados: Delivered[]) {
 
 export function ProyectosEntregados({
   titulo,
+  descripcion,
   entregados,
 }: ProyectosEntregadosProps) {
   const grouped = groupByYear(entregados);
 
-  if (grouped.length === 0 && !titulo) return null;
+  if (grouped.length === 0 && !titulo && !descripcion) return null;
 
   return (
     <section
@@ -43,6 +45,12 @@ export function ProyectosEntregados({
           <h2 className="m-0 w-full text-center font-gotham text-36 font-bold leading-[1.1] text-slate md:text-left md:text-50">
             {titulo}
           </h2>
+        )}
+        {descripcion && (
+          <div
+            className="mt-16 max-w-720 text-center font-poppins text-16 font-light leading-[1.4] text-near-black md:text-left md:text-18 [&_p]:m-0"
+            dangerouslySetInnerHTML={{ __html: descripcion }}
+          />
         )}
 
         <div className="mt-60 hidden grid-cols-4 gap-x-24 gap-y-60 md:grid">

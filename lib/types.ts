@@ -86,7 +86,7 @@ export type GraciasPageSection =
 
 export type EntregadosPageSection =
   | { acf_fc_layout: "banner"; titulo?: string; descripcion?: string; imagen?: ACFImage }
-  | { acf_fc_layout: "proyectos_entregados"; titulo?: string };
+  | { acf_fc_layout: "proyectos_entregados"; titulo?: string; descripcion?: string };
 
 export type EntregadosGaleriaImagen = {
   imagen?: ACFImage;

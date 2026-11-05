@@ -29,6 +29,7 @@ export function EntregadosPageSectionMapper({
               <ProyectosEntregados
                 key={`${section.acf_fc_layout}-${index}`}
                 titulo={section.titulo}
+                descripcion={section.descripcion}
                 entregados={entregados}
               />
             );

@@ -25,7 +25,7 @@ export function Espacios({ titulo, subtitulo, indicadores, ocultar_en_movil = fa
           )}
         </div>
 
-        <div className="border-t border-b border-near-black pt-32 pb-40 md:py-40">
+        <div className="border-t border-b border-near-black pt-32 pb-40 md:py-40 hidden md:block">
           <div className="flex flex-col md:grid md:grid-cols-3 gap-24 md:gap-0">
             {items.map((item, i) => (
               <div key={i} className={`flex items-center justify-center gap-24 md:gap-0 ${i !== items.length - 1 && 'md:border-r-1'}`}>
