@@ -38,7 +38,8 @@ function TabButton({
       className={`relative w-fit shrink-0 cursor-pointer border-0 bg-transparent p-0 text-left ${onBar ? "pb-8" : "pb-24 md:pb-8"}`}
     >
       <span
-        style={{ color: active ? activeColor || undefined : undefined }}
+        // El color del admin solo pinta el tab móvil. En desktop el activo se queda blanco.
+        style={onBar && active && activeColor ? { color: activeColor } : undefined}
         className={
           onBar
             ? `font-gotham text-16 ${active ? "font-bold text-near-black" : "font-light text-warm-gray"}`
@@ -50,7 +51,7 @@ function TabButton({
       {active && (
         <span
           className={`absolute bottom-0 left-0 w-full ${onBar ? "h-2" : "h-px bg-white"}`}
-          style={{ backgroundColor: activeColor || (onBar ? "#c4786a" : undefined) }}
+          style={onBar ? { backgroundColor: activeColor || "#c4786a" } : undefined}
         />
       )}
     </button>
@@ -58,7 +59,7 @@ function TabButton({
 }
 
 export function GaleriaProyecto(props: GaleriaProyectoProps) {
-  const { descripcion, tabs = [], color_fondo, color_activo, color_barra_tabs_movil, color_active_tab_movil, ocultar_en_movil = false } = props;
+  const { descripcion, tabs = [], color_fondo, color_barra_tabs_movil, color_active_tab_movil, ocultar_en_movil = false } = props;
   // titulo se recibe por contrato de ACF pero no se rendera según Figma
   const [active, setActive] = useState(0);
   const [carousel, setCarousel] = useState<{ tab: number; api: EmblaCarouselType }>();
@@ -186,7 +187,6 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
               key={i}
               label={tab.titulo}
               active={i === active}
-              activeColor={color_activo}
               onClick={() => setActive(i)}
             />
           ))}
