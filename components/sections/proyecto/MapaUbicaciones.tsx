@@ -21,12 +21,16 @@ export type MapaPunto = LatLng & {
   principal?: boolean;
   /** Logo del proyecto (sólo en el principal); sin él se usa el pin. */
   logo?: { url: string; width?: number; height?: number };
+  color_de_pin?: string;
+  color_hover_de_pin?: string;
 };
 
 type MapaUbicacionesProps = {
   apiKey: string;
   puntos: MapaPunto[];
   titulo?: string;
+  color_de_pin?: string;
+  color_hover_de_pin?: string;
 };
 
 // Los AdvancedMarker exigen un Map ID; DEMO_MAP_ID sirve mientras no se cree uno propio en Google Cloud.
@@ -58,10 +62,33 @@ const PIN_HUECO =
  * Marcador en forma de pin. El color sale de `currentColor` y el ancho de `className`.
  * Con `icono`, la cabeza va sólida y el ícono ocupa el lugar del agujero.
  * Medidas en px reales: el marcador no sigue la escala --fx del sitio.
+ * El color del admin va en `style`: Tailwind no genera clases armadas en runtime (`text-[${color}]`).
  */
-function Pin({ className, icono }: { className?: string; icono?: string }) {
+function Pin({ className, icono, color, colorHover }: { className?: string; icono?: string; color?: string; colorHover?: string }) {
+  const pinColor = color?.trim() || undefined;
+  const pinHover = colorHover?.trim() || undefined;
+  const usaColorAdmin = Boolean(pinColor || pinHover);
+
   return (
-    <span className={cn("relative block origin-bottom drop-shadow-[0_2px_4px_rgba(0,0,0,0.35)]", className)}>
+    <span
+      className={cn("relative block origin-bottom drop-shadow-[0_2px_4px_rgba(0,0,0,0.35)]", className)}
+      style={pinColor ? { color: pinColor } : undefined}
+      onMouseEnter={
+        usaColorAdmin
+          ? (event) => {
+              // Sin color de hover se mantiene el color del pin.
+              event.currentTarget.style.color = pinHover || pinColor || "var(--color-near-black)";
+            }
+          : undefined
+      }
+      onMouseLeave={
+        usaColorAdmin
+          ? (event) => {
+              event.currentTarget.style.color = pinColor || "var(--color-near-black)";
+            }
+          : undefined
+      }
+    >
       <svg viewBox="0 0 43 53" fill="none" aria-hidden="true" className="block h-auto w-full">
         <path fill="currentColor" d={icono ? PIN_SILUETA : PIN_SILUETA + PIN_HUECO} />
       </svg>
@@ -161,7 +188,7 @@ function ReiniciarVista({ vista }: { vista: Vista }) {
   return null;
 }
 
-export function MapaUbicaciones({ apiKey, puntos, titulo }: MapaUbicacionesProps) {
+export function MapaUbicaciones({ apiKey, puntos, titulo, color_de_pin, color_hover_de_pin }: MapaUbicacionesProps) {
   const { seleccion } = useMapaSeleccion();
   const proyecto = puntos.find((p) => p.principal);
   // Centrado en el proyecto; si no tiene coordenadas, se encuadran las ubicaciones.
@@ -209,6 +236,8 @@ export function MapaUbicaciones({ apiKey, puntos, titulo }: MapaUbicacionesProps
                 ) : (
                   <Pin
                     icono={punto.icono}
+                    color={color_de_pin}
+                    colorHover={color_hover_de_pin}
                     className={cn(
                       "w-[36px] text-near-black transition-transform duration-200 hover:scale-110",
                       activo && "scale-125 hover:scale-125",

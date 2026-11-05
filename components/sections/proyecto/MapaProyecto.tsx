@@ -25,9 +25,11 @@ type MapaProyectoProps = {
   color_tarjeta?: string;
   color_box_alrededores?: string;
   ocultar_en_movil?: boolean;
+  color_de_pin?: string;
+  color_hover_de_pin?: string;
 };
 
-export function MapaProyecto({ titulo, google_maps, imagen, latitud, longitud, ubicaciones = [], color_tarjeta, color_box_alrededores, ocultar_en_movil = false }: MapaProyectoProps) {
+export function MapaProyecto({ titulo, google_maps, imagen, latitud, longitud, ubicaciones = [], color_tarjeta, color_box_alrededores, ocultar_en_movil = false, color_de_pin, color_hover_de_pin }: MapaProyectoProps) {
   const proyecto = parseLatLng(latitud, longitud);
   const puntos: MapaPunto[] = [
     ...(proyecto ? [{ ...proyecto, nombre: imagen?.alt || "Ubicación del proyecto", principal: true, logo: getLogo(imagen) }] : []),
@@ -44,7 +46,7 @@ export function MapaProyecto({ titulo, google_maps, imagen, latitud, longitud, u
       <MapaSeleccionProvider>
         <div className="relative h-600 w-full overflow-hidden md:h-730">
           {apiKey && puntos.length > 0 ? (
-            <MapaUbicaciones apiKey={apiKey} puntos={puntos} titulo={titulo} />
+            <MapaUbicaciones apiKey={apiKey} puntos={puntos} titulo={titulo} color_de_pin={color_de_pin} color_hover_de_pin={color_hover_de_pin} />
           ) : mapUrl ? (
             <MapaIframe src={mapUrl} title={titulo || "Ubicación del proyecto en Google Maps"} />
           ) : (

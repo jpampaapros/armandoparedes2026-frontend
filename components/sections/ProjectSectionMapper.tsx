@@ -156,6 +156,8 @@ export function ProjectSectionMapper({
                 color_tarjeta={section.color_tarjeta}
                 color_box_alrededores={section.color_box_alrededores}
                 ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
+                color_de_pin={section.color_de_pin}
+                color_hover_de_pin={section.color_hover_de_pin}
               />
             );
           case "formulario_contacto":
