@@ -6,11 +6,12 @@ type AmigosBeneficiosProps = {
   descripcion?: string;
   boton?: ACFLink;
   color_fondo?: string;
+  ocultar_en_movil?: boolean;
 };
 
-export function AmigosBeneficios({ titulo, descripcion, boton, color_fondo }: AmigosBeneficiosProps) {
+export function AmigosBeneficios({ titulo, descripcion, boton, color_fondo, ocultar_en_movil = false }: AmigosBeneficiosProps) {
   return (
-    <section className="flex w-full items-center justify-center bg-dark/80 px-4 py-61 md:py-120" style={{ backgroundColor: color_fondo || undefined }}>
+    <section className={`w-full items-center justify-center bg-dark/80 px-4 py-61 md:py-120 ${ocultar_en_movil ? "hidden md:flex" : "flex"}`} style={{ backgroundColor: color_fondo || undefined }}>
       <div className="mx-auto flex max-w-381 flex-col items-center gap-25 text-center md:max-w-685">
         {titulo && (
           <h2 className="font-gotham text-36 font-bold leading-[1.1] text-white md:font-gotham-black md:text-95 md:font-medium md:leading-100">

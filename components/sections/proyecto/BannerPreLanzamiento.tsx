@@ -14,18 +14,20 @@ type Slide = {
 type BannerPreLanzamientoProps = {
   badge?: string;
   slides?: Slide[];
+  ocultar_en_movil?: boolean;
 };
 
 export function BannerPreLanzamiento({
   badge,
   slides = [],
+  ocultar_en_movil = false,
 }: BannerPreLanzamientoProps) {
   if (slides.length === 0) return null;
 
   return (
     <section
       data-layout="banner_pre_lanzamiento"
-      className="w-full"
+      className={`w-full ${ocultar_en_movil ? "hidden md:block" : ""}`}
     >
       <div className="relative h-672 w-full overflow-hidden md:h-700">
         <EmblaSlider

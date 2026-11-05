@@ -7,11 +7,12 @@ type QuienEsArmandoProps = {
   imagen_fondo?: ACFImage;
   descripcion?: string;
   boton?: ACFLink;
+  ocultar_en_movil?: boolean;
 };
 
-export function QuienEsArmando({ titulo, imagen_fondo, descripcion, boton }: QuienEsArmandoProps) {
+export function QuienEsArmando({ titulo, imagen_fondo, descripcion, boton, ocultar_en_movil = false }: QuienEsArmandoProps) {
   return (
-    <section className="relative flex min-h-369 w-full items-center justify-center overflow-hidden md:min-h-613">
+    <section className={`relative min-h-369 w-full items-center justify-center overflow-hidden md:min-h-613 ${ocultar_en_movil ? "hidden md:flex" : "flex"}`}>
       {imagen_fondo?.url && (
         <Image
           src={imagen_fondo.url}

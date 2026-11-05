@@ -69,15 +69,15 @@ export type HomeBannerSlide = {
 };
 
 export type HomeSection =
-  | { acf_fc_layout: "banner"; titulo?: string; imagen?: ACFImage; banner_titulos?: ACFList<{ titulo?: string }>; banner_imagenes?: ACFList<HomeBannerSlide> }
+  | { acf_fc_layout: "banner"; titulo?: string; imagen?: ACFImage; banner_titulos?: ACFList<{ titulo?: string }>; banner_imagenes?: ACFList<HomeBannerSlide>; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "espacios"; titulo?: string; subtitulo?: string; indicadores?: ACFList<ACFIndicator>; ocultar_seccion?: boolean | 0 | 1 | "0" | "1"  }
-  | { acf_fc_layout: "proyectos_venta"; titulo?: string; post?: ACFList<ACFPostObject> }
+  | { acf_fc_layout: "proyectos_venta"; titulo?: string; post?: ACFList<ACFPostObject>; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "quien_es_armando"; titulo?: string; imagen_fondo?: ACFImage; descripcion?: string; boton?: ACFLink; ocultar_seccion?: boolean | 0 | 1 | "0" | "1"  }
   | { acf_fc_layout: "proyectos_entregados"; texto?: string; subtitulo?: string; boton?: ACFLink; ocultar_seccion?: boolean | 0 | 1 | "0" | "1"  }
   | { acf_fc_layout: "amigos_beneficios"; titulo?: string; descripcion?: string; boton?: ACFLink; color_fondo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "blog"; titulo?: string; boton?: ACFLink; ocultar_seccion?: boolean | 0 | 1 | "0" | "1"  }
   /** Solo `titulo` desde ACF; CF7/distritos/medios usan defaults de ContactoForm. */
-  | { acf_fc_layout: "quiero_mas_informacion"; titulo?: string };
+  | { acf_fc_layout: "quiero_mas_informacion"; titulo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" };
 
 export type GraciasPageSection =
   | { acf_fc_layout: "banner_gracias"; titulo?: string; descripcion?: string; imagen_de_fondo?: ACFImage }
@@ -182,17 +182,17 @@ export type ProjectSection =
   | { acf_fc_layout: "banner_proyecto"; badge?: string; badget_color_fondo?: string; distrito?: string; slides?: ACFList<ProjectSlide>; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "descripcion_proyecto"; titulo?: string; descripcion?: string; imagen?: ACFImage; cambiar_lado?: boolean; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "ficha_tecnica"; color_iconos?: string; titulo?: string; color_fondo?: string; color_titulo?: string; color_botones?: string; direccion?: string; pisos?: string; area?: string; dormitorios?: string; brochure?: ACFLink; planos?: ACFLink; icono_direccion?: ACFImage; icono_pisos?: ACFImage; icono_area?: ACFImage; icono_dormitorios?: ACFImage; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
-  | { acf_fc_layout: "ficha_tecnica_detallada"; imagen?: ACFImage; titulo?: string; info?: ACFList<{ icono?: ACFImage; texto?: string }>; color_botones?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
+  | { acf_fc_layout: "ficha_tecnica_detallada"; imagen?: ACFImage; titulo?: string; info?: ACFList<{ icono?: ACFImage; texto?: string }>; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "video"; titulo?: string; imagen_previa?: ACFImage; url_youtube?: string; desactivar_seccion?: boolean; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "galeria"; titulo?: string; descripcion?: string; tabs?: ACFList<ProjectGaleriaTab>; color_fondo?: string; color_activo?: string; color_barra_tabs_movil?: string; color_active_tab_movil?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
     | { acf_fc_layout: "planos"; titulo?: string; dormitorios?: ACFList<ProjectDormitorio>; boton_mas_planos?: ACFLink; texto_adicional?: string; leyenda?: ACFList<ProjectLeyendaItem>; color_botones?: string, color_boton_quiero_este_depa?: string, color_titulo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
-  | { acf_fc_layout: "mapa"; titulo?: string; google_maps?: string; imagen?: ACFImage; latitud?: number | string; longitud?: number | string; ubicaciones?: ACFList<ProjectMapaUbicacion>; color_tarjeta?: string; color_box_alrededores?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
+  | { acf_fc_layout: "mapa"; titulo?: string; google_maps?: string; imagen?: ACFImage; latitud?: number | string; longitud?: number | string; ubicaciones?: ACFList<ProjectMapaUbicacion>; color_tarjeta?: string; color_box_alrededores?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1"; color_de_pin?: string; color_hover_de_pin?: string }
   | { acf_fc_layout: "formulario_contacto"; titulo?: string; formulario_id?: string | number; color_titulo?: string; color_boton?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "quiero_mas_info"; titulo?: string; formulario_id?: string | number; imagen_fondo?: ACFImage; blog_titulo?: string; blog_boton?: ACFLink; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "banner_pre_lanzamiento"; badge?: string; slides?: ACFList<{ imagen_fondo?: ACFImage; titulo?: string; descripcion?: string }>; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "mas_proyectos"; titulo?: string; color_titulo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "blog"; titulo?: string; boton?: ACFLink; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
-  | { acf_fc_layout: "preguntas_frecuentes"; titulo?: string; grupos?: ACFList<ContactoFaqGrupo>; ocultar_en_movil?: boolean | 0 | 1 | "0" | "1"; color_boton?: string; color_titulo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" };
+  | { acf_fc_layout: "preguntas_frecuentes"; titulo?: string; preguntas?: ACFList<ContactoPregunta>; color_boton?: string; color_titulo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" };
 
 export type WPTerm = {
   id: number;

@@ -14,6 +14,7 @@ type GaleriaProyectoProps = {
   color_activo?: string;
   color_barra_tabs_movil?: string;
   color_active_tab_movil?: string;
+  ocultar_en_movil?: boolean;
 };
 
 function TabButton({
@@ -57,7 +58,7 @@ function TabButton({
 }
 
 export function GaleriaProyecto(props: GaleriaProyectoProps) {
-  const { descripcion, tabs = [], color_fondo, color_activo, color_barra_tabs_movil, color_active_tab_movil } = props;
+  const { descripcion, tabs = [], color_fondo, color_activo, color_barra_tabs_movil, color_active_tab_movil, ocultar_en_movil = false } = props;
   // titulo se recibe por contrato de ACF pero no se rendera según Figma
   const [active, setActive] = useState(0);
   const [carousel, setCarousel] = useState<{ tab: number; api: EmblaCarouselType }>();
@@ -68,6 +69,8 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
     if (!carousel || carousel.tab !== active || tabs.length === 0) return;
     const { api } = carousel;
     let timer: ReturnType<typeof setTimeout>;
+    // Arrastre más allá del borde (px). Positivo = hacia la siguiente pestaña.
+    let overscroll = 0;
 
     const scheduleNext = () => {
       clearTimeout(timer);
@@ -84,18 +87,47 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
     };
     const pause = () => clearTimeout(timer);
 
+    const resetOverscroll = () => {
+      overscroll = 0;
+    };
+    // En móvil: una sola imagen cambia de pestaña al swipe; con varias, solo al pasar la última o la primera.
+    const trackOverscroll = () => {
+      if (!window.matchMedia("(max-width: 767px)").matches) return;
+      if (!api.internalEngine().dragHandler.pointerDown()) return;
+      const { limit, location } = api.internalEngine();
+      const pastEnd = limit.max - location.get();
+      const pastStart = location.get() - limit.min;
+      if (pastEnd > Math.abs(overscroll)) overscroll = pastEnd;
+      if (pastStart > Math.abs(overscroll)) overscroll = -pastStart;
+    };
+    const swipeToTab = () => {
+      if (!window.matchMedia("(max-width: 767px)").matches || tabs.length < 2) return;
+      const snaps = api.scrollSnapList().length;
+      const index = api.selectedScrollSnap();
+      const threshold = 48;
+      const atEnd = snaps <= 1 || index === snaps - 1;
+      const atStart = snaps <= 1 || index === 0;
+      if (overscroll > threshold && atEnd) {
+        clearTimeout(timer);
+        setActive((current) => (current + 1) % tabs.length);
+      } else if (overscroll < -threshold && atStart) {
+        clearTimeout(timer);
+        setActive((current) => (current - 1 + tabs.length) % tabs.length);
+      }
+    };
+
     scheduleNext();
-    api.on("select", scheduleNext).on("pointerDown", pause).on("pointerUp", scheduleNext);
+    api.on("select", scheduleNext).on("pointerDown", pause).on("pointerDown", resetOverscroll).on("scroll", trackOverscroll).on("pointerUp", swipeToTab).on("pointerUp", scheduleNext);
     return () => {
       clearTimeout(timer);
-      api.off("select", scheduleNext).off("pointerDown", pause).off("pointerUp", scheduleNext);
+      api.off("select", scheduleNext).off("pointerDown", pause).off("pointerDown", resetOverscroll).off("scroll", trackOverscroll).off("pointerUp", swipeToTab).off("pointerUp", scheduleNext);
     };
   }, [active, carousel, tabs.length]);
 
   return (
     <section
       data-layout="galeria"
-      className="flex w-full flex-col overflow-hidden md:h-[100vh] md:flex-row"
+      className={`w-full flex-col overflow-hidden md:h-[100vh] md:flex-row ${ocultar_en_movil ? "hidden md:flex" : "flex"}`}
     >
       <div className="flex gap-24 overflow-x-auto  px-20 py-16 md:hidden"
        style={{ backgroundColor: color_barra_tabs_movil || '#ffffff' }}>

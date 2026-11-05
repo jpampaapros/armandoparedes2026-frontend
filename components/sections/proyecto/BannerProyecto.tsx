@@ -17,6 +17,7 @@ type BannerProyectoProps = {
   badge_color?: string;
   distrito?: string;
   slides?: BannerSlide[];
+  ocultar_en_movil?: boolean;
 };
 
 /** Imagen desktop + imagen_mobile con corte md (767px), como el banner del home. */
@@ -74,7 +75,7 @@ function BannerSlideImage({
   );
 }
 
-export function BannerProyecto({ badge, badge_color, distrito, slides = [] }: BannerProyectoProps) {
+export function BannerProyecto({ badge, badge_color, distrito, slides = [], ocultar_en_movil = false }: BannerProyectoProps) {
   const items = slides.length > 0 ? slides : [{ imagen: undefined }];
   const [api, setApi] = useState<EmblaCarouselType>();
   const [selected, setSelected] = useState(0);
@@ -119,7 +120,7 @@ export function BannerProyecto({ badge, badge_color, distrito, slides = [] }: Ba
   return (
     <section
       data-layout="banner_proyecto"
-      className="w-full"
+      className={`w-full ${ocultar_en_movil ? "hidden md:block" : ""}`}
     >
       <div className="relative h-672 w-full overflow-hidden md:h-700">
         <EmblaSlider

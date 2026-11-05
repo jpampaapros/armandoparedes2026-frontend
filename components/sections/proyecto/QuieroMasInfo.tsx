@@ -11,6 +11,7 @@ type QuieroMasInfoProps = {
   blog_boton?: ACFLink;
   lead?: LeadContext;
   presupuestos?: string[];
+  ocultar_en_movil?: boolean;
 };
 
 export function QuieroMasInfo({
@@ -21,9 +22,10 @@ export function QuieroMasInfo({
   blog_boton,
   lead,
   presupuestos,
+  ocultar_en_movil = false,
 }: QuieroMasInfoProps) {
   return (
-    <div data-layout="quiero_mas_info">
+    <div data-layout="quiero_mas_info" className={`${ocultar_en_movil ? "hidden md:block" : ""}`}>
       <ProyectoLeadForm
         titulo={titulo}
         formulario_id={formulario_id}

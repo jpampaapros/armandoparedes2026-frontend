@@ -141,8 +141,8 @@ export function ProjectCard({
       )}
 
       {distrito && (
-        <div className={`absolute right-0 md:right-16 top-16 z-10 bg-white ${sliderCard ? "px-24" : "px-10"} !py-1 md:right-20 md:top-61 md:py-8`}>
-          <span className={`font-poppins text-16 font-medium leading-18 text-near-black ${saleCarousel ? "":"md:text-24"}  md:leading-24`}>
+        <div className={`absolute right-0 md:right-16 top-16 z-10 bg-white ${sliderCard ? "px-24" : "px-24"} py-1 md:right-20 md:top-61 md:py-8`}>
+          <span className={`font-poppins text-16 font-medium leading-18 text-near-black ${saleCarousel ? "":"md:text-16"}  md:leading-24`}>
             {distrito.name}
           </span>
         </div>
@@ -150,12 +150,12 @@ export function ProjectCard({
 
       <div data-card-content className="relative z-10 mt-auto flex flex-col gap-16 p-24 md:p-54">
         <div className="flex flex-col">
-          <h3 className={`mb-20 font-gotham text-26 font-bold uppercase leading-33 text-white ${sliderCard ? "md:text-25" : "md:text-35"}`}>
+          <h3 className={`mb-20 font-gotham text-26 font-bold uppercase leading-33 text-white ${sliderCard ? "md:text-25" : "md:text-25"}`}>
             {project.title.rendered}
           </h3>
           <hr className="my-0 h-px w-full border-0 bg-white" />
         </div>
-        <div data-card-description className={`font-poppins text-16 leading-20 text-white ${sliderCard ? "md:text-18 md:leading-26" : "md:text-20 md:leading-30"} [&_p]:my-0 ${mobileDescriptionSemibold ? "[&_p]:font-semibold md:[&_p]:font-light" : "[&_p]:font-light"}`}
+        <div data-card-description className={`font-poppins text-16 leading-20 text-white ${sliderCard ? "md:text-18 md:leading-26" : "md:text-18 md:leading-26"} [&_p]:my-0 ${mobileDescriptionSemibold ? "[&_p]:font-semibold md:[&_p]:font-light" : "[&_p]:font-light"}`}
           dangerouslySetInnerHTML={{ __html: project.acf.descripcion || "" }}
         />
         <SmartLink
@@ -164,7 +164,7 @@ export function ProjectCard({
             url: `/proyectos/${project.slug}`,
             target: "",
           }}
-          className={`${saleCarousel || saleListing ? "hidden md:inline-flex" : "inline-flex"} h-50 w-full items-center justify-center border border-white px-10 font-poppins text-16 font-semibold text-white transition-colors duration-500 ease-out hover:text-card-dark hover:bg-white group-hover:text-card-dark group-hover:bg-white motion-reduce:transition-none md:w-250 ${sliderCard ? "md:text-16" : "md:text-17"}`}
+          className={`${saleCarousel || saleListing ? "hidden md:inline-flex" : "inline-flex"} h-50 w-full items-center justify-center border border-white px-10 font-poppins text-16 font-semibold text-white transition-colors duration-500 ease-out hover:text-card-dark hover:bg-white group-hover:text-card-dark group-hover:bg-white motion-reduce:transition-none md:w-250 ${sliderCard ? "md:text-16" : "md:text-16"}`}
         >
           Ver proyecto
         </SmartLink>
@@ -172,10 +172,19 @@ export function ProjectCard({
       {(saleCarousel || saleListing) && (
         <SmartLink
           link={{ title: "Ver proyecto", url: `/proyectos/${project.slug}` }}
-          className="absolute bottom-12 right-12 z-20 flex h-36 w-36 items-center justify-center text-white md:hidden"
+          className={
+            saleListing
+              ? "absolute inset-0 z-20 text-white md:hidden"
+              : "absolute bottom-12 right-12 z-20 flex h-36 w-36 items-center justify-center text-white md:hidden"
+          }
         >
           <span className="sr-only">Ver proyecto {project.title.rendered}</span>
-          <svg aria-hidden="true" viewBox="0 0 32 32" fill="none" className="h-30 w-30">
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 32 32"
+            fill="none"
+            className={`h-30 w-30 ${saleListing ? "absolute bottom-12 right-12" : ""}`}
+          >
             <path d="M16 2v28M2 16h28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </SmartLink>

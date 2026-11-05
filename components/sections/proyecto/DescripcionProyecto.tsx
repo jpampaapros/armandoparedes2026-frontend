@@ -6,13 +6,14 @@ type DescripcionProyectoProps = {
   descripcion?: string;
   imagen?: ACFImage;
   cambiar_lado?: boolean;
+  ocultar_en_movil?: boolean;
 };
 
 function hasTitleMarkup(value: string) {
   return /<\/?[a-z][^>]*>/i.test(value);
 }
 
-export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado }: DescripcionProyectoProps) {
+export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado, ocultar_en_movil = false }: DescripcionProyectoProps) {
   let head = "";
   let tail = "";
   const normalized = (titulo || "").trim();
@@ -79,7 +80,7 @@ export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado 
   );
 
   return (
-    <section data-layout="descripcion_proyecto" className="w-full bg-white">
+    <section data-layout="descripcion_proyecto" className={`w-full bg-white ${ocultar_en_movil ? "hidden md:block" : ""}`}>
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div
           className={`${cambiar_lado ? "order-2 md:order-2" : "order-2 md:order-1"} px-15 pb-15 md:px-0 md:pb-0`}

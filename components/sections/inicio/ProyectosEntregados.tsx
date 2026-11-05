@@ -7,9 +7,10 @@ type ProyectosEntregadosProps = {
   subtitulo?: string;
   boton?: ACFLink;
   entregados: Delivered[];
+  ocultar_en_movil?: boolean;
 };
 
-export function ProyectosEntregados({ texto, subtitulo, boton, entregados }: ProyectosEntregadosProps) {
+export function ProyectosEntregados({ texto, subtitulo, boton, entregados, ocultar_en_movil = false }: ProyectosEntregadosProps) {
   const sorted = [...entregados].sort((a, b) => {
     const aYear = a.acf?.ano || "";
     const bYear = b.acf?.ano || "";
@@ -18,7 +19,7 @@ export function ProyectosEntregados({ texto, subtitulo, boton, entregados }: Pro
   const [first, ...rest] = sorted.slice(0, 5);
 
   return (
-    <section className="w-full bg-white px-15 md:px-4 py-52 md:py-90">
+    <section className={`w-full bg-white px-15 md:px-4 py-52 md:py-90 ${ocultar_en_movil ? "hidden md:block" : ""}`}>
       <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col items-center gap-24 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-col items-center gap-13 md:items-start">

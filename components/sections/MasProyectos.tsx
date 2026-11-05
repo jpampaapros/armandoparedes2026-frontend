@@ -9,9 +9,10 @@ type MasProyectosProps = {
   titulo?: string;
   color_titulo?: string;
   proyectos?: Project[];
+  ocultar_en_movil?: boolean;
 };
 
-export function MasProyectos({ titulo, color_titulo, proyectos: proyectosProp }: MasProyectosProps) {
+export function MasProyectos({ titulo, color_titulo, proyectos: proyectosProp, ocultar_en_movil = false }: MasProyectosProps) {
   const [proyectosFetch, setProyectosFetch] = useState<Project[]>(proyectosProp ?? []);
   const proyectos = proyectosProp ?? proyectosFetch;
 
@@ -32,6 +33,7 @@ export function MasProyectos({ titulo, color_titulo, proyectos: proyectosProp }:
   }, [proyectosProp]);
 
   return (
+    <section className={`${ocultar_en_movil ? "hidden md:block" : ""}`}>
     <ProyectosVenta
       titulo={titulo}
       color_titulo={color_titulo}
@@ -39,5 +41,6 @@ export function MasProyectos({ titulo, color_titulo, proyectos: proyectosProp }:
       dataLayout="mas_proyectos"
       mobileSlider
     />
+    </section>
   );
 }
