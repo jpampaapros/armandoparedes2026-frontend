@@ -53,7 +53,7 @@ export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado,
   );
 
   const textCell = (
-    <div className="flex flex-col justify-start px-16 pt-52 pb-38 md:pb-0 md:pt-0 md:px-0">
+    <div className="flex flex-col justify-start px-24 pt-52 pb-38 md:pb-0 md:pt-0 md:px-0">
       <div className="mx-auto w-full max-w-573">
         <div className={cambiar_lado ? "text-left" : "md:text-right text-left"}>
           {markup || tail ? (
@@ -83,7 +83,7 @@ export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado,
     <section data-layout="descripcion_proyecto" className={`w-full bg-white ${ocultar_en_movil ? "hidden md:block" : ""}`}>
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div
-          className={`${cambiar_lado ? "order-2 md:order-2" : "order-2 md:order-1"} px-15 pb-15 md:px-0 md:pb-0`}
+          className={`${cambiar_lado ? "order-2 md:order-2" : "order-2 md:order-1"} px-24 md:px-15 pb-15 md:px-0 md:pb-0`}
         >
           {imageCell}
         </div>

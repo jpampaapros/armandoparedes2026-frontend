@@ -114,7 +114,7 @@ export function HomeSectionMapper({
               <section
                 key={`${section.acf_fc_layout}-${index}`}
                 data-layout="quiero_mas_informacion"
-                className={`w-full bg-white px-16 py-52 md:px-24 md:py-90 ${isAcfTrue(section.ocultar_seccion) ? "hidden md:block" : ""}`}
+                className={`w-full bg-white px-24 py-52 md:px-24 md:py-90 ${isAcfTrue(section.ocultar_seccion) ? "hidden md:block" : ""}`}
               >
                 <ContactoForm
                   titulo={section.titulo}
