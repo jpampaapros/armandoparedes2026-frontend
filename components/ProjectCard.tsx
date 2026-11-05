@@ -172,10 +172,19 @@ export function ProjectCard({
       {(saleCarousel || saleListing) && (
         <SmartLink
           link={{ title: "Ver proyecto", url: `/proyectos/${project.slug}` }}
-          className="absolute bottom-12 right-12 z-20 flex h-36 w-36 items-center justify-center text-white md:hidden"
+          className={
+            saleListing
+              ? "absolute inset-0 z-20 text-white md:hidden"
+              : "absolute bottom-12 right-12 z-20 flex h-36 w-36 items-center justify-center text-white md:hidden"
+          }
         >
           <span className="sr-only">Ver proyecto {project.title.rendered}</span>
-          <svg aria-hidden="true" viewBox="0 0 32 32" fill="none" className="h-30 w-30">
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 32 32"
+            fill="none"
+            className={`h-30 w-30 ${saleListing ? "absolute bottom-12 right-12" : ""}`}
+          >
             <path d="M16 2v28M2 16h28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </SmartLink>
