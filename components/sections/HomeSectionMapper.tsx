@@ -34,6 +34,7 @@ export function HomeSectionMapper({
           case "banner":
             if (index !== firstBannerIndex) return null;
             return (
+
               <Banner
                 key={`${section.acf_fc_layout}-${index}`}
                 titleSlides={bannerSections.some((banner) => toArray(banner.banner_titulos).length > 0)
@@ -42,16 +43,18 @@ export function HomeSectionMapper({
                 imageSlides={bannerSections.some((banner) => toArray(banner.banner_imagenes).length > 0)
                   ? bannerSections.flatMap((banner) => toArray(banner.banner_imagenes))
                   : bannerSections}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
+
             );
           case "espacios":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <Espacios
                 key={`${section.acf_fc_layout}-${index}`}
                 titulo={section.titulo}
                 subtitulo={section.subtitulo}
                 indicadores={toArray(section.indicadores)}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "proyectos_venta":
@@ -60,10 +63,10 @@ export function HomeSectionMapper({
                 key={`${section.acf_fc_layout}-${index}`}
                 titulo={section.titulo}
                 proyectos={selectByPostObject(proyectos, section.post)}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "quien_es_armando":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <QuienEsArmando
                 key={`${section.acf_fc_layout}-${index}`}
@@ -71,10 +74,10 @@ export function HomeSectionMapper({
                 imagen_fondo={section.imagen_fondo}
                 descripcion={section.descripcion}
                 boton={section.boton}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "proyectos_entregados":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <ProyectosEntregados
                 key={`${section.acf_fc_layout}-${index}`}
@@ -82,10 +85,10 @@ export function HomeSectionMapper({
                 subtitulo={section.subtitulo}
                 boton={section.boton}
                 entregados={entregados}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "amigos_beneficios":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <AmigosBeneficios
                 key={`${section.acf_fc_layout}-${index}`}
@@ -93,15 +96,16 @@ export function HomeSectionMapper({
                 titulo={section.titulo}
                 descripcion={section.descripcion}
                 boton={section.boton}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "blog":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <Blog
                 key={`${section.acf_fc_layout}-${index}`}
                 titulo={section.titulo}
                 boton={section.boton}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "quiero_mas_informacion":
@@ -110,7 +114,7 @@ export function HomeSectionMapper({
               <section
                 key={`${section.acf_fc_layout}-${index}`}
                 data-layout="quiero_mas_informacion"
-                className="w-full bg-white px-16 py-52 md:px-24 md:py-90"
+                className={`w-full bg-white px-16 py-52 md:px-24 md:py-90 ${isAcfTrue(section.ocultar_seccion) ? "hidden md:block" : ""}`}
               >
                 <ContactoForm
                   titulo={section.titulo}

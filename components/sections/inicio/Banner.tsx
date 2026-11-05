@@ -76,6 +76,7 @@ const VIDEO_SLIDE_DELAY = 15000;
 type BannerProps = {
   titleSlides: HomeBannerSlide[];
   imageSlides: HomeBannerSlide[];
+  ocultar_en_movil?: boolean;
 };
 
 function processTitle(html?: string) {
@@ -180,7 +181,7 @@ function BannerVideo({
   );
 }
 
-export function Banner({ titleSlides, imageSlides }: BannerProps) {
+export function Banner({ titleSlides, imageSlides, ocultar_en_movil = false }: BannerProps) {
   const validSlides = titleSlides.filter((slide) => slide.titulo?.trim());
   // Normaliza slides ACF: imagen / imagen_mobile / video / video_mobile.
   const mediaSlides = useMemo(() => imageSlides.flatMap<{
@@ -431,7 +432,7 @@ export function Banner({ titleSlides, imageSlides }: BannerProps) {
     <section
       ref={sectionRef}
       data-intro-banner
-      className={`bb2 relative flex w-full flex-col items-center overflow-x-hidden overflow-anchor-none bg-white md:h-auto ${
+      className={`bb2 relative flex w-full flex-col items-center overflow-x-hidden overflow-anchor-none bg-white md:h-auto ${ocultar_en_movil ? "hidden md:block" : ""} ${
         // Con texto: texto + media. Sin texto: media fijo 75svh en mobile (no crece al scrollear).
         showText ? "min-h-[100svh]" : "h-[75svh] overflow-hidden md:h-[100svh]"
       }`}

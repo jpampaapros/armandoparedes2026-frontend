@@ -6,6 +6,7 @@ type BlogProps = {
   titulo?: string;
   boton?: ACFLink;
   variant?: "dark" | "light";
+  ocultar_en_movil?: boolean;
 };
 
 async function getLatestPosts(): Promise<WPPost[]> {
@@ -22,9 +23,14 @@ async function getLatestPosts(): Promise<WPPost[]> {
   }
 }
 
-export async function Blog({ titulo, boton, variant = "dark" }: BlogProps) {
+export async function Blog({ titulo, boton, variant = "dark", ocultar_en_movil = false }: BlogProps) {
   const posts = await getLatestPosts();
   if (posts.length === 0) return null;
 
-  return <BlogSlider titulo={titulo} boton={boton} posts={posts} variant={variant} />;
+  return (  
+  <section className={`${ocultar_en_movil ? "hidden md:block" : ""}`}>
+    <BlogSlider titulo={titulo} boton={boton} posts={posts} variant={variant} />
+  </section>
+  );
+
 }

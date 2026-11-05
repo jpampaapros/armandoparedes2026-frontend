@@ -5,13 +5,14 @@ type EspaciosProps = {
   titulo?: string;
   subtitulo?: string;
   indicadores?: ACFIndicator[];
+  ocultar_en_movil?: boolean;
 };
 
-export function Espacios({ titulo, subtitulo, indicadores }: EspaciosProps) {
+export function Espacios({ titulo, subtitulo, indicadores, ocultar_en_movil = false }: EspaciosProps) {
   const items = indicadores?.filter(Boolean) ?? [];
 
   return (
-    <section className="w-full bg-white px-4 pt-52 md:pt-90">
+    <section className={`w-full bg-white px-4 pt-52 md:pt-90 ${ocultar_en_movil ? "hidden md:block" : ""}`}>
       <div className="mx-auto max-w-1440 px-4 md:px-80">
         <div className="mx-auto mb-60 max-w-799 text-center md:mb-60">
           {subtitulo && (
