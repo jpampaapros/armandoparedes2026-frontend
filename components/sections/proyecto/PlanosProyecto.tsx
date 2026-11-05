@@ -17,6 +17,7 @@ type PlanosProyectoProps = {
   color_botones?: string;
   color_boton_quiero_este_depa?: string;
   color_titulo?: string;
+  ocultar_en_movil?: boolean;
 };
 
 function abbreviateDormitorios(value?: string) {
@@ -31,6 +32,7 @@ export function PlanosProyecto({
   color_botones,
   color_boton_quiero_este_depa,
   color_titulo,
+  ocultar_en_movil = false,
 }: PlanosProyectoProps) {
   const [activeDorm, setActiveDorm] = useState(0);
   const [activeTipo, setActiveTipo] = useState(0);
@@ -74,7 +76,7 @@ export function PlanosProyecto({
   };
 
   return (
-    <section data-layout="planos" className="w-full bg-white">
+    <section data-layout="planos" className={`w-full bg-white ${ocultar_en_movil ? "hidden md:block" : ""}`}>
       <div className="mx-auto max-w-1440 px-0 py-52 md:px-80 md:py-90">
         {titulo && (
           <h2 className="mb-30 mt-0 ml-12 md:ml-0 text-left md:text-center font-gotham text-30 font-semibold md:font-bold md:mb-50 md:text-60"

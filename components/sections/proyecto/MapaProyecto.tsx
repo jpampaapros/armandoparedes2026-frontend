@@ -24,9 +24,10 @@ type MapaProyectoProps = {
   ubicaciones?: ProjectMapaUbicacion[];
   color_tarjeta?: string;
   color_box_alrededores?: string;
+  ocultar_en_movil?: boolean;
 };
 
-export function MapaProyecto({ titulo, google_maps, imagen, latitud, longitud, ubicaciones = [], color_tarjeta, color_box_alrededores }: MapaProyectoProps) {
+export function MapaProyecto({ titulo, google_maps, imagen, latitud, longitud, ubicaciones = [], color_tarjeta, color_box_alrededores, ocultar_en_movil = false }: MapaProyectoProps) {
   const proyecto = parseLatLng(latitud, longitud);
   const puntos: MapaPunto[] = [
     ...(proyecto ? [{ ...proyecto, nombre: imagen?.alt || "Ubicación del proyecto", principal: true, logo: getLogo(imagen) }] : []),
@@ -39,7 +40,7 @@ export function MapaProyecto({ titulo, google_maps, imagen, latitud, longitud, u
   // Sin API key o sin coordenadas se mantiene el iframe embebido (un solo punto).
   const mapUrl = getGoogleMapsCoordinateUrl(latitud, longitud) ?? getGoogleMapsEmbedUrl(google_maps);
   return (
-    <section data-layout="mapa" className="relative w-full bg-peach">
+    <section data-layout="mapa" className={`relative w-full bg-peach ${ocultar_en_movil ? "hidden md:block" : ""}`}>
       <MapaSeleccionProvider>
         <div className="relative h-600 w-full overflow-hidden md:h-730">
           {apiKey && puntos.length > 0 ? (

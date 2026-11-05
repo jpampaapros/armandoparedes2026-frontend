@@ -40,7 +40,6 @@ export function ProjectSectionMapper({
         const key = `${section.acf_fc_layout}-${index}`;
         switch (section.acf_fc_layout) {
           case "banner_proyecto":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <BannerProyecto
                 key={key}
@@ -48,19 +47,19 @@ export function ProjectSectionMapper({
                 badge_color={section.badget_color_fondo}
                 distrito={section.distrito}
                 slides={toArray(section.slides)}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "banner_pre_lanzamiento":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <BannerPreLanzamiento
                 key={key}
                 badge={section.badge}
                 slides={toArray(section.slides)}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "descripcion_proyecto":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <DescripcionProyecto
                 key={key}
@@ -68,10 +67,10 @@ export function ProjectSectionMapper({
                 descripcion={section.descripcion}
                 imagen={section.imagen}
                 cambiar_lado={section.cambiar_lado}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "ficha_tecnica":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <FichaTecnica
                 key={key}
@@ -90,22 +89,21 @@ export function ProjectSectionMapper({
                 icono_pisos={section.icono_pisos}
                 icono_area={section.icono_area}
                 icono_dormitorios={section.icono_dormitorios}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "ficha_tecnica_detallada":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <FichaTecnicaDetallada
                 key={key}
                 imagen={section.imagen}
                 titulo={section.titulo}
                 info={toArray(section.info)}
-                color_botones={section.color_botones}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "video":
             // Video también tiene `desactivar_seccion` (legacy ACF).
-            if (isAcfTrue(section.ocultar_seccion) || isAcfTrue(section.desactivar_seccion)) return null;
             return (
               <VideoProyecto
                 key={key}
@@ -113,10 +111,10 @@ export function ProjectSectionMapper({
                 imagen_previa={section.imagen_previa}
                 url_youtube={section.url_youtube}
                 desactivar_seccion={section.desactivar_seccion}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "galeria":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <GaleriaProyecto
                 key={key}
@@ -127,10 +125,10 @@ export function ProjectSectionMapper({
                 color_activo={section.color_activo}
                 color_barra_tabs_movil={section.color_barra_tabs_movil}
                 color_active_tab_movil={section.color_active_tab_movil}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "planos":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <PlanosProyecto
                 key={key}
@@ -142,10 +140,10 @@ export function ProjectSectionMapper({
                 color_botones={section.color_botones}
                 color_boton_quiero_este_depa={section.color_boton_quiero_este_depa}
                 color_titulo={section.color_titulo}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "mapa":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <MapaProyecto
                 key={key}
@@ -157,10 +155,10 @@ export function ProjectSectionMapper({
                 ubicaciones={toArray(section.ubicaciones)}
                 color_tarjeta={section.color_tarjeta}
                 color_box_alrededores={section.color_box_alrededores}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "formulario_contacto":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <FormularioContacto
                 key={key}
@@ -170,10 +168,10 @@ export function ProjectSectionMapper({
                 color_boton={section.color_boton}
                 lead={lead}
                 presupuestos={presupuestos}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "quiero_mas_info":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <QuieroMasInfo
                 key={key}
@@ -184,6 +182,7 @@ export function ProjectSectionMapper({
                 blog_boton={section.blog_boton}
                 lead={lead}
                 presupuestos={presupuestos}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           case "preguntas_frecuentes": {
@@ -191,20 +190,18 @@ export function ProjectSectionMapper({
               (grupo) => toArray(grupo.preguntas).length > 0,
             );
             if (grupos.length === 0) return null;
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <PreguntasFrecuentes
                 key={key}
                 titulo={section.titulo}
                 grupos={grupos}
-                ocultar_en_movil={isAcfTrue(section.ocultar_en_movil)}
                 color_boton={section.color_boton}
                 color_titulo={section.color_titulo}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
           }
           case "mas_proyectos":
-            if (isAcfTrue(section.ocultar_seccion)) return null;
             return (
               <MasProyectos
                 key={key}
@@ -213,6 +210,7 @@ export function ProjectSectionMapper({
                 proyectos={proyectos?.filter(
                   (p) => p.template !== GRACIAS_TEMPLATE,
                 )}
+                ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
               />
             );
 

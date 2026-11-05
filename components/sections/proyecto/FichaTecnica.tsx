@@ -24,6 +24,7 @@ type FichaTecnicaProps = {
   icono_pisos?: ACFImage;
   icono_area?: ACFImage;
   icono_dormitorios?: ACFImage;
+  ocultar_en_movil?: boolean;
 };
 
 function TechnicalIcon({ image, color, className, fallback }: {
@@ -43,7 +44,7 @@ function TechnicalIcon({ image, color, className, fallback }: {
   return <span aria-hidden="true" className={`block shrink-0 text-white [&>svg]:h-full [&>svg]:w-full ${className}`} style={{ color: color || undefined }}>{fallback}</span>;
 }
 
-export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, brochure, planos, icono_direccion, icono_pisos, icono_area, icono_dormitorios, color_fondo, color_titulo, color_iconos, color_botones }: FichaTecnicaProps) {
+export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, brochure, planos, icono_direccion, icono_pisos, icono_area, icono_dormitorios, color_fondo, color_titulo, color_iconos, color_botones, ocultar_en_movil = false }: FichaTecnicaProps) {
   const buttonColor = color_botones?.trim() || "#dda783";
   const mobileRows = [
     direccion ? { key: "direccion", image: icono_direccion, fallback: <LocationIcon />, label: direccion } : null,
@@ -53,7 +54,7 @@ export function FichaTecnica({ titulo, direccion, pisos, area, dormitorios, broc
   ].filter((row) => row !== null);
 
   return (
-    <section data-layout="ficha_tecnica" className="w-full bg-slate" style={{ backgroundColor: color_fondo || undefined }}>
+    <section data-layout="ficha_tecnica" className={`w-full bg-slate ${ocultar_en_movil ? "hidden md:block" : ""}`} style={{ backgroundColor: color_fondo || undefined }}>
       <div className="mx-auto max-w-1440 px-24 py-52 md:px-80 md:py-90">
         {titulo && (
           <h2 style={{ color: color_titulo || undefined }} className="m-0 text-left font-gotham text-30 font-semibold md:font-bold leading-[1.2] text-white md:text-center md:text-60 md:leading-66">

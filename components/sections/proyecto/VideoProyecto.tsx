@@ -8,6 +8,7 @@ type VideoProyectoProps = {
   imagen_previa?: ACFImage;
   url_youtube?: string;
   desactivar_seccion?: boolean;
+  ocultar_en_movil?: boolean;
 };
 
 function getYouTubeId(url = ""): string | null {
@@ -24,7 +25,7 @@ function getPlainText(html = "") {
   return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
 
-export function VideoProyecto({ titulo, url_youtube, imagen_previa, desactivar_seccion }: VideoProyectoProps) {
+export function VideoProyecto({ titulo, url_youtube, imagen_previa, desactivar_seccion, ocultar_en_movil = false }: VideoProyectoProps) {
   if (desactivar_seccion) return null;
   const videoId = getYouTubeId(url_youtube || "");
   const plainTitle = getPlainText(titulo);
@@ -32,7 +33,7 @@ export function VideoProyecto({ titulo, url_youtube, imagen_previa, desactivar_s
   return (
     <section
       data-layout="video"
-      className="relative h-500 w-full overflow-hidden md:h-800"
+      className={`relative h-500 w-full overflow-hidden md:h-800 ${ocultar_en_movil ? "hidden md:block" : ""}`}
     >
       {videoId ? (
         <iframe

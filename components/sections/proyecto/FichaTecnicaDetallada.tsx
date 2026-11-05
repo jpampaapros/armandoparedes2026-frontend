@@ -10,21 +10,21 @@ type FichaTecnicaDetalladaProps = {
   imagen?: ACFImage;
   titulo?: string;
   info?: FichaItem[];
-  color_botones?: string;
+  ocultar_en_movil?: boolean;
 };
 
 export function FichaTecnicaDetallada({
   imagen,
   titulo,
   info = [],
-  color_botones,
+  ocultar_en_movil = false,
 }: FichaTecnicaDetalladaProps) {
   if (info.length === 0 && !imagen && !titulo) return null;
 
   return (
     <section
       data-layout="ficha_tecnica_detallada"
-      className="w-full bg-white"
+      className={`w-full bg-white ${ocultar_en_movil ? "hidden md:block" : ""}`}
     >
       <div className="grid grid-cols-1 md:grid-cols-2">
         {imagen?.url && (

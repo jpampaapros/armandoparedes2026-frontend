@@ -5,7 +5,8 @@ import { useState } from "react";
 import type { ContactoFaqGrupo } from "@/lib/types";
 import { toArray } from "@/lib/utils";
 
-export function PreguntasFrecuentes({ titulo = "Preguntas frecuentes", grupos, ocultar_en_movil, color_boton, color_titulo }: { titulo?: string; grupos: ContactoFaqGrupo[]; ocultar_en_movil?: boolean; color_boton?: string; color_titulo?: string }) {
+export function PreguntasFrecuentes({ titulo = "Preguntas frecuentes", grupos, color_boton, color_titulo, ocultar_en_movil }: 
+  { titulo?: string; grupos: ContactoFaqGrupo[]; color_boton?: string; color_titulo?: string; ocultar_en_movil?: boolean }) {
   const [activo, setActivo] = useState(0);
   const grupo = grupos[Math.min(activo, grupos.length - 1)];
   const buttonColor = color_boton?.trim() || "#dda783";

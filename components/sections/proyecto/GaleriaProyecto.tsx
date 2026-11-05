@@ -14,6 +14,7 @@ type GaleriaProyectoProps = {
   color_activo?: string;
   color_barra_tabs_movil?: string;
   color_active_tab_movil?: string;
+  ocultar_en_movil?: boolean;
 };
 
 function TabButton({
@@ -57,7 +58,7 @@ function TabButton({
 }
 
 export function GaleriaProyecto(props: GaleriaProyectoProps) {
-  const { descripcion, tabs = [], color_fondo, color_activo, color_barra_tabs_movil, color_active_tab_movil } = props;
+  const { descripcion, tabs = [], color_fondo, color_activo, color_barra_tabs_movil, color_active_tab_movil, ocultar_en_movil = false } = props;
   // titulo se recibe por contrato de ACF pero no se rendera según Figma
   const [active, setActive] = useState(0);
   const [carousel, setCarousel] = useState<{ tab: number; api: EmblaCarouselType }>();
@@ -95,7 +96,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
   return (
     <section
       data-layout="galeria"
-      className="flex w-full flex-col overflow-hidden md:h-[100vh] md:flex-row"
+      className={`w-full flex-col overflow-hidden md:h-[100vh] md:flex-row ${ocultar_en_movil ? "hidden md:flex" : "flex"}`}
     >
       <div className="flex gap-24 overflow-x-auto  px-20 py-16 md:hidden"
        style={{ backgroundColor: color_barra_tabs_movil || '#ffffff' }}>
