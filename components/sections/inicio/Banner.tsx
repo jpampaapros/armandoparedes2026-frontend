@@ -86,6 +86,53 @@ function processTitle(html?: string) {
     .replace(/<\/strong>/gi, "</span>");
 }
 
+/* Controles propios, sin barra de duración: los nativos no dejan ocultar solo el tiempo. */
+function VideoControls({
+  paused,
+  muted,
+  onTogglePlay,
+  onToggleMute,
+  onFullscreen,
+}: {
+  paused: boolean;
+  muted: boolean;
+  onTogglePlay: () => void;
+  onToggleMute: () => void;
+  onFullscreen: () => void;
+}) {
+  const buttonClass =
+    "flex h-44 w-44 cursor-pointer items-center justify-center rounded-full border-0 bg-black/70 p-0";
+
+  return (
+    <div
+      data-video-controls
+      className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex items-center gap-8 bg-gradient-to-t from-black/45 to-transparent px-16 py-16 opacity-0 transition-opacity duration-300 group-hover:pointer-events-auto group-hover:opacity-100"
+    >
+      <button type="button" className={buttonClass} aria-label={paused ? "Reproducir" : "Pausar"} onClick={onTogglePlay}>
+        <Image
+          unoptimized
+          src={paused ? "/images/banner-video/play.svg" : "/images/banner-video/pause.svg"}
+          alt=""
+          width={22}
+          height={22}
+        />
+      </button>
+      <button type="button" className={buttonClass} aria-label={muted ? "Activar sonido" : "Silenciar"} onClick={onToggleMute}>
+        <Image
+          unoptimized
+          src={muted ? "/images/banner-video/speaker-x-mark.svg" : "/images/banner-video/speaker-wave.svg"}
+          alt=""
+          width={22}
+          height={22}
+        />
+      </button>
+      <button type="button" className={`${buttonClass} ml-auto`} aria-label="Pantalla completa" onClick={onFullscreen}>
+        <Image unoptimized src="/images/banner-video/arrows-pointing-out.svg" alt="" width={22} height={22} />
+      </button>
+    </div>
+  );
+}
+
 /* Dos <video>: desktop (src) y mobile (video_mobile). Solo reproduce el
    visible según max-width 767px (= Tailwind md). */
 function BannerVideo({
@@ -101,7 +148,18 @@ function BannerVideo({
 }) {
   const desktopRef = useRef<HTMLVideoElement>(null);
   const mobileRef = useRef<HTMLVideoElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const userPausedRef = useRef(false);
   const mobileUrl = mobileSrc || src;
+  const [paused, setPaused] = useState(false);
+  const [muted, setMuted] = useState(true);
+
+  const visibleVideo = () => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const mobile = mobileRef.current;
+    const desktop = desktopRef.current;
+    return media.matches ? mobile ?? desktop : desktop ?? mobile;
+  };
 
   useEffect(() => {
     const desktop = desktopRef.current;
@@ -112,12 +170,12 @@ function BannerVideo({
     let inView = false;
     // Mismo corte que md:hidden / md:block en el markup.
     const media = window.matchMedia("(max-width: 767px)");
-    const visibleVideo = () => (media.matches ? mobile ?? desktop : desktop ?? mobile);
+    const currentVideo = () => (media.matches ? mobile ?? desktop : desktop ?? mobile);
 
     const updatePlayback = () => {
-      const current = visibleVideo();
+      const current = currentVideo();
       for (const video of videos) {
-        if (video === current && active && inView && !document.hidden) {
+        if (video === current && active && inView && !document.hidden && !userPausedRef.current) {
           void video.play().catch(() => {
             // El navegador puede bloquear la reproducción automática; quedan los controles disponibles.
           });
@@ -125,9 +183,12 @@ function BannerVideo({
           video.pause();
         }
       }
+      setPaused(userPausedRef.current || Boolean(current?.paused));
+      setMuted(current?.muted ?? true);
     };
 
     if (active) {
+      userPausedRef.current = false;
       for (const video of videos) video.currentTime = 0;
     }
 
@@ -149,8 +210,43 @@ function BannerVideo({
     };
   }, [active, src, mobileUrl]);
 
+  const togglePlay = () => {
+    const video = visibleVideo();
+    if (!video) return;
+    if (video.paused) {
+      userPausedRef.current = false;
+      void video.play();
+      setPaused(false);
+      return;
+    }
+    userPausedRef.current = true;
+    video.pause();
+    setPaused(true);
+  };
+
+  const toggleMute = () => {
+    const video = visibleVideo();
+    if (!video) return;
+    const nextMuted = !video.muted;
+    if (desktopRef.current) desktopRef.current.muted = nextMuted;
+    if (mobileRef.current) mobileRef.current.muted = nextMuted;
+    setMuted(nextMuted);
+    if (!nextMuted) void video.play();
+  };
+
+  const enterFullscreen = () => {
+    const video = visibleVideo();
+    const target = video ?? rootRef.current;
+    if (!target) return;
+    if (document.fullscreenElement) {
+      void document.exitFullscreen();
+      return;
+    }
+    void target.requestFullscreen?.();
+  };
+
   return (
-    <>
+    <div ref={rootRef} className="group absolute inset-0">
       {/* Móvil: video_mobile (o desktop si no hay). */}
       <video
         ref={mobileRef}
@@ -159,7 +255,6 @@ function BannerVideo({
         muted
         playsInline
         loop
-        controls
         preload="metadata"
         aria-label="Video del proyecto"
         className="absolute inset-0 h-full w-full object-cover md:hidden"
@@ -172,12 +267,18 @@ function BannerVideo({
         muted
         playsInline
         loop
-        controls
         preload="metadata"
         aria-label="Video del proyecto"
         className="absolute inset-0 hidden h-full w-full object-cover md:block"
       />
-    </>
+      <VideoControls
+        paused={paused}
+        muted={muted}
+        onTogglePlay={togglePlay}
+        onToggleMute={toggleMute}
+        onFullscreen={enterFullscreen}
+      />
+    </div>
   );
 }
 
