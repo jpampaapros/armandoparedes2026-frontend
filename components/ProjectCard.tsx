@@ -79,7 +79,7 @@ export function ProjectCard({
   const image = project._embedded?.["wp:featuredmedia"]?.[0];
   const mobileImage = saleCarousel || saleListing ? project.acf.general_imagen_mobile : undefined;
   const mobileImageUrl = mobileImage ? mobileImage.url : undefined;
-  const imageSizes = saleCarousel ? "(max-width: 768px) 382px, 474px" : "(max-width: 768px) 382px, 630px";
+  const imageSizes = saleCarousel ? "(max-width: 768px) 382px, 474px" : "(max-width: 768px) 382px, 584px";
   const distrito = project._embedded?.["wp:term"]
     ?.flat()
     .find((t) => t.taxonomy === "distrito");
@@ -91,9 +91,9 @@ export function ProjectCard({
       data-sale-listing={saleListing || undefined}
       data-alternate-image={showAlternateImage || undefined}
       className={`group relative flex w-full min-w-0 flex-col overflow-hidden bg-black ${
-        // saleListing: altura fija en md+ (sin saltar a h-825 en pantallas grandes).
+        // Proyectos en venta: 465 en móvil y 584 desde md.
         saleListing
-          ? "h-465 md:h-640"
+          ? "h-465 md:h-584"
           : saleCarousel
             ? "h-465 md:w-474 md:h-641"
             : compact
