@@ -128,7 +128,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
   return (
     <section
       data-layout="galeria"
-      className={`w-full flex-col overflow-hidden md:h-[100vh] md:flex-row ${ocultar_en_movil ? "hidden md:flex" : "flex"}`}
+      className={`w-full flex-col overflow-hidden md:h-[100vh] ${ocultar_en_movil ? "hidden md:flex" : "flex"}`}
     >
       <div className="flex gap-24 overflow-x-auto  px-20 py-16 md:hidden"
        style={{ backgroundColor: color_barra_tabs_movil || '#ffffff' }}>
@@ -144,7 +144,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
         ))}
       </div>
 
-      <div className="relative h-640 w-full md:h-full md:flex-[1105]">
+      <div className="relative h-640 w-full md:min-h-0 md:flex-1">
         <EmblaSlider
           key={active}
           slides={activeTab.imagenes || []}
@@ -172,6 +172,22 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
           bulletActiveClassName="w-24 bg-white"
           bulletInactiveClassName="w-12 bg-white/75"
         />
+        {(activeTab.titulo || activeDescription) && (
+          // Solo escritorio. El velo sale de la esquina y se desvanece hacia arriba y a la derecha, sin borde de caja.
+          <div className="pointer-events-none absolute bottom-0 left-0 z-10 hidden w-[58%] max-w-680 bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0.5)_24%,rgba(0,0,0,0.18)_52%,transparent_74%)] pb-35 pl-40 pr-100 pt-120 md:block">
+            <div className="max-w-420">
+              {activeTab.titulo && (
+                <p className="m-0 font-gotham text-24 font-medium text-white">{activeTab.titulo}</p>
+              )}
+              {activeDescription && (
+                <div
+                  className="mt-8 font-poppins text-16 font-light leading-[1.4] text-white [&_p]:m-0 [&_p+p]:mt-8"
+                  dangerouslySetInnerHTML={{ __html: activeDescription }}
+                />
+              )}
+            </div>
+          </div>
+        )}
         {activeDescription && (
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] bg-gradient-to-t from-black/70 via-black/30 to-transparent px-20 pt-48 pb-40 font-poppins text-16 font-light leading-[1.4] text-white md:hidden [&_p]:m-0"
@@ -179,26 +195,20 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
           />
         )}
       </div>
-
-      <div className="hidden w-full flex-col bg-near-black px-16 pt-34 pb-47 md:flex md:h-full md:w-340 md:px-35 md:pt-90 md:pb-58" style={{ backgroundColor: color_fondo || undefined }}>
-        <div className="flex flex-row gap-28 md:flex-col md:gap-30">
-          {tabs.map((tab, i) => (
-            <TabButton
-              key={i}
-              label={tab.titulo}
-              active={i === active}
-              onClick={() => setActive(i)}
-            />
-          ))}
-        </div>
-
-        {activeDescription && (
-          <div
-            className="mt-61 font-poppins text-16 font-light leading-[1.4] text-white md:mt-auto [&_p]:m-0"
-            dangerouslySetInnerHTML={{ __html: activeDescription }}
-          />
+        {tabs.length > 1 && (
+          <div className="hidden shrink-0 items-center justify-center gap-8 bg-white py-16 md:flex">
+            {tabs.map((tab, i) => (
+              <button
+                key={i}
+                type="button"
+                aria-label={tab.titulo || `Ir a la imagen ${i + 1}`}
+                aria-current={i === active ? "true" : undefined}
+                onClick={() => setActive(i)}
+                className={`cursor-pointer h-8 rounded-full ${i === active ? "w-28 bg-near-black/40" : "w-14 bg-near-black/35"}`}
+              />
+            ))}
+          </div>
         )}
-      </div>
     </section>
   );
 }

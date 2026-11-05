@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
+import Viewer from "viewerjs";
 import { SmartLink } from "@/components/SmartLink";
+import "viewerjs/dist/viewer.css";
 import { useCf7Submit, type Cf7FormValues } from "@/hooks/useCf7Submit";
 import type { ACFLink, ProjectDormitorio } from "@/lib/types";
 import { toArray } from "@/lib/utils";
@@ -24,6 +26,54 @@ function abbreviateDormitorios(value?: string) {
   return value?.replace(/\bdormitorios?\b/gi, "dorm.");
 }
 
+const ETIQUETAS_VISOR: Record<string, string> = {
+  "viewer-zoom-in": "Acercar",
+  "viewer-zoom-out": "Alejar",
+  "viewer-one-to-one": "Tamaño real",
+  "viewer-reset": "Restablecer",
+  "viewer-button": "Cerrar",
+};
+
+/** Abre el plano a tamaño real para poder acercarlo, alejarlo y moverlo. */
+function abrirPlano(url: string, alt: string, visorActual: { current: Viewer | null }) {
+  visorActual.current?.destroy();
+  const imagen = document.createElement("img");
+  imagen.src = url;
+  imagen.alt = alt;
+  const visor = new Viewer(imagen, {
+    navbar: false,
+    title: false,
+    toolbar: {
+      zoomIn: 1,
+      zoomOut: 1,
+      oneToOne: 1,
+      reset: 1,
+      prev: 0,
+      play: 0,
+      next: 0,
+      rotateLeft: 0,
+      rotateRight: 0,
+      flipHorizontal: 0,
+      flipVertical: 0,
+    },
+    shown() {
+      const raiz = document.querySelector(".viewer-container");
+      if (!raiz) return;
+      for (const [clase, etiqueta] of Object.entries(ETIQUETAS_VISOR)) {
+        const control = raiz.querySelector(`.${clase}`);
+        control?.setAttribute("aria-label", etiqueta);
+        control?.removeAttribute("aria-hidden");
+      }
+    },
+    hidden() {
+      visor.destroy();
+      if (visorActual.current === visor) visorActual.current = null;
+    },
+  });
+  visorActual.current = visor;
+  visor.show();
+}
+
 export function PlanosProyecto({
   titulo,
   dormitorios = [],
@@ -36,6 +86,7 @@ export function PlanosProyecto({
 }: PlanosProyectoProps) {
   const [activeDorm, setActiveDorm] = useState(0);
   const [activeTipo, setActiveTipo] = useState(0);
+  const visorRef = useRef<Viewer | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTipologia, setModalTipologia] = useState("");
   const { register, handleSubmit, reset } = useForm<Cf7FormValues>();
@@ -51,7 +102,10 @@ export function PlanosProyecto({
       if (e.key === "Escape") setModalOpen(false);
     };
     window.addEventListener("keydown", onEsc);
-    return () => window.removeEventListener("keydown", onEsc);
+    return () => {
+      window.removeEventListener("keydown", onEsc);
+      visorRef.current?.destroy();
+    };
   }, []);
 
   useEffect(() => {
@@ -77,7 +131,7 @@ export function PlanosProyecto({
 
   return (
     <section data-layout="planos" className={`w-full bg-white ${ocultar_en_movil ? "hidden md:block" : ""}`}>
-      <div className="mx-auto max-w-1440 px-0 py-52 md:px-80 md:py-90">
+      <div className="mx-auto max-w-1440 px-24 py-52 md:px-80 md:py-90">
         {titulo && (
           <h2 className="mb-30 mt-0 ml-12 md:ml-0 text-left md:text-center font-gotham text-30 font-semibold md:font-bold md:mb-50 md:text-60"
           style={{
@@ -141,8 +195,19 @@ export function PlanosProyecto({
         {tipologia && (
           <div className="grid grid-cols-1 gap-24 md:grid-cols-[minmax(0,1fr)_calc(382*var(--fx))] md:gap-109">
             <div className="relative order-2 md:order-1">
-              <div className="relative h-304 w-full md:h-470">
-                {tipologia.imagen?.url ? (
+              {tipologia.imagen?.url ? (
+                <button
+                  type="button"
+                  aria-label="Ampliar plano"
+                  onClick={() =>
+                    abrirPlano(
+                      tipologia.imagen?.url || "",
+                      tipologia.imagen?.alt || tipologia.titulo || tipologia.nombre || "Plano",
+                      visorRef,
+                    )
+                  }
+                  className="relative block h-304 w-full cursor-zoom-in border-0 bg-transparent p-0 md:h-470"
+                >
                   <Image
                     src={tipologia.imagen.url}
                     alt={tipologia.imagen.alt || tipologia.titulo || ""}
@@ -150,11 +215,10 @@ export function PlanosProyecto({
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-contain"
                   />
-                ) : (
-                  <div className="h-full w-full bg-neutral-100" />
-                )}
-              </div>
-
+                </button>
+              ) : (
+                <div className="relative h-304 w-full bg-neutral-100 md:h-470" />
+              )}
             </div>
 
             <div className="contents md:order-2 md:mx-auto md:flex md:w-382 md:max-w-full md:flex-col md:justify-center md:gap-18">

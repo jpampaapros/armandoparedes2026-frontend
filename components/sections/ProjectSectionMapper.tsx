@@ -201,6 +201,7 @@ export function ProjectSectionMapper({
                 color_boton={section.color_boton}
                 color_titulo={section.color_titulo}
                 ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
+                color_borde={section.color_borde}
               />
             );
           }

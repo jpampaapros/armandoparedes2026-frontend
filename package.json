@@ -25,7 +25,8 @@
     "react-hook-form": "^7.82.0",
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.3",
-    "tailwindcss-calc": "^0.0.7"
+    "tailwindcss-calc": "^0.0.7",
+    "viewerjs": "^1.15.2"
   },
   "devDependencies": {
     "@types/node": "20.19.33",

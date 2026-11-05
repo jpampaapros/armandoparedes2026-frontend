@@ -86,7 +86,7 @@ export type GraciasPageSection =
 
 export type EntregadosPageSection =
   | { acf_fc_layout: "banner"; titulo?: string; descripcion?: string; imagen?: ACFImage }
-  | { acf_fc_layout: "proyectos_entregados"; titulo?: string };
+  | { acf_fc_layout: "proyectos_entregados"; titulo?: string; descripcion?: string };
 
 export type EntregadosGaleriaImagen = {
   imagen?: ACFImage;
@@ -192,7 +192,7 @@ export type ProjectSection =
   | { acf_fc_layout: "banner_pre_lanzamiento"; badge?: string; slides?: ACFList<{ imagen_fondo?: ACFImage; titulo?: string; descripcion?: string }>; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "mas_proyectos"; titulo?: string; color_titulo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "blog"; titulo?: string; boton?: ACFLink; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
-  | { acf_fc_layout: "preguntas_frecuentes"; titulo?: string; preguntas?: ACFList<ContactoPregunta>; color_boton?: string; color_titulo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" };
+  | { acf_fc_layout: "preguntas_frecuentes"; titulo?: string; preguntas?: ACFList<ContactoPregunta>; color_boton?: string; color_titulo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1"; color_borde?: string};
 
 export type WPTerm = {
   id: number;
