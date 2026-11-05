@@ -53,7 +53,7 @@ export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado,
   );
 
   const textCell = (
-    <div className="flex flex-col justify-start px-16 pt-48 pb-38 md:pb-0 md:pt-0 md:px-0">
+    <div className="flex flex-col justify-start px-16 pt-52 pb-38 md:pb-0 md:pt-0 md:px-0">
       <div className="mx-auto w-full max-w-573">
         <div className={cambiar_lado ? "text-left" : "md:text-right text-left"}>
           {markup || tail ? (
