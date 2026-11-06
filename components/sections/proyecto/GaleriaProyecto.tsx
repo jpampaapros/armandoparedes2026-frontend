@@ -128,7 +128,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
   return (
     <section
       data-layout="galeria"
-      className={`w-full flex-col overflow-hidden md:h-[100vh] ${ocultar_en_movil ? "hidden md:flex" : "flex"}`}
+      className={`w-full flex-col overflow-hidden ${ocultar_en_movil ? "hidden md:flex" : "flex"}`}
     >
       <div className="flex gap-24 overflow-x-auto  px-20 py-16 md:hidden"
        style={{ backgroundColor: color_barra_tabs_movil || '#ffffff' }}>
@@ -144,13 +144,19 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
         ))}
       </div>
 
-      <div className="relative h-640 w-full md:min-h-0 md:flex-1">
+      {/* El carrusel va en absolute: su alto no entra en el flujo. El marco es el único que mide, y overflow recorta la foto. */}
+      <div
+        className="relative w-full shrink-0 overflow-hidden"
+        style={{ height: "calc(640 * var(--fx))", maxHeight: "calc(640 * var(--fx))", contain: "size" }}
+      >
+        <div className="absolute inset-0">
         <EmblaSlider
           key={active}
           slides={activeTab.imagenes || []}
+          slideClassName="h-full overflow-hidden"
           onApiReady={(api) => setCarousel({ tab: active, api })}
           renderSlide={(slide) => (
-            <div className="relative h-full w-full">
+            <div className="relative h-full w-full overflow-hidden">
               {slide?.imagen?.url ? (
                 <Image
                   src={slide.imagen.url}
@@ -172,6 +178,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
           bulletActiveClassName="w-24 bg-white"
           bulletInactiveClassName="w-12 bg-white/75"
         />
+        </div>
         {(activeTab.titulo || activeDescription) && (
           // Solo escritorio. El velo sale de la esquina y se desvanece hacia arriba y a la derecha, sin borde de caja.
           <div className="pointer-events-none absolute bottom-0 left-0 z-10 hidden w-[58%] max-w-680 bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0.5)_24%,rgba(0,0,0,0.18)_52%,transparent_74%)] pb-35 pl-40 pr-100 pt-120 md:block">

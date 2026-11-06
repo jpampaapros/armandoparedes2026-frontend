@@ -141,8 +141,10 @@ export function ProjectCard({
       )}
 
       {distrito && (
-        <div className={`absolute right-0 md:right-16 top-16 z-10 bg-white ${sliderCard ? "px-24" : "px-24"} py-1 md:right-20 md:top-61 md:py-8`}>
-          <span className={`font-poppins text-16 font-medium leading-18 text-near-black ${saleCarousel ? "":"md:text-16"}  md:leading-24`}>
+        <div className={`absolute right-0 md:right-16 top-16 z-10 flex items-center justify-center bg-white ${sliderCard ? "px-24" : "px-24"} py-4 md:right-20 md:top-61 md:py-8`}>
+          {/* Poppins reserva aire sobre la mayúscula y bajo la línea base. Sin este recorte,
+              items-center centra esa caja vacía y "Miraflores" se ve alto. */}
+          <span className={`font-poppins text-16 font-medium leading-none text-near-black [text-box:trim-both_cap_alphabetic] ${saleCarousel ? "":"md:text-16"}`}>
             {distrito.name}
           </span>
         </div>

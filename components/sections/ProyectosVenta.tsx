@@ -22,7 +22,7 @@ export function ProyectosVenta({ titulo, color_titulo, proyectos, dataLayout, mo
   const { filtered, filters } = useProjectFilters(proyectos);
 
   return (
-    <section data-layout={dataLayout} className={`w-full bg-white pl-15 pr-0 md:px-4 py-52 md:py-90 ${ocultar_en_movil ? "hidden md:block" : ""}`}>
+    <section data-layout={dataLayout} className={`w-full bg-white pl-15 pr-15 md:px-4 py-52 md:py-90 ${ocultar_en_movil ? "hidden md:block" : ""}`}>
       <div className="mx-auto max-w-1440 px-0 md:px-80">
         <div className="mb-40 flex flex-col gap-24 md:flex-row md:items-center md:justify-between">
           {titulo && (
