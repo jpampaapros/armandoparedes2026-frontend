@@ -54,13 +54,12 @@
   [data-sale-listing] > .bg-white {
     right: 0;
     top: calc(16 * var(--fx));
-    padding: calc(4 * var(--fx)) calc(12 * var(--fx));
   }
 
   [data-sale-carousel] > .bg-white span,
   [data-sale-listing] > .bg-white span {
     font-size: calc(14 * var(--fx));
-    line-height: 1.2;
+    line-height: 1;
   }
 
   [data-sale-carousel] [data-card-content],
