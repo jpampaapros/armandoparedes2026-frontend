@@ -256,6 +256,37 @@ function BannerVideo({
     void target.requestFullscreen?.();
   };
 
+  /* Sin poster, el <video> se queda en negro hasta decodificar el primer
+     fotograma. Forzamos un seek mínimo para pintarlo y evitar el hueco negro
+     antes de que arranque la reproducción. */
+  useEffect(() => {
+    if (poster) return;
+    const videos = [desktopRef.current, mobileRef.current].filter(
+      (video): video is HTMLVideoElement => !!video,
+    );
+    const paintFirstFrame = (video: HTMLVideoElement) => {
+      if (video.currentTime > 0) return;
+      try {
+        video.currentTime = 0.001;
+      } catch {
+        // El navegador aún no permite el seek; queda el fotograma en negro.
+      }
+    };
+    const cleanups: Array<() => void> = [];
+    for (const video of videos) {
+      if (video.readyState >= 1) {
+        paintFirstFrame(video);
+        continue;
+      }
+      const onLoadedMetadata = () => paintFirstFrame(video);
+      video.addEventListener("loadedmetadata", onLoadedMetadata, { once: true });
+      cleanups.push(() => video.removeEventListener("loadedmetadata", onLoadedMetadata));
+    }
+    return () => {
+      for (const cleanup of cleanups) cleanup();
+    };
+  }, [poster, src, mobileUrl]);
+
   return (
     <div ref={rootRef} className="group absolute inset-0">
       {/* Móvil: video_mobile (o desktop si no hay). */}
@@ -266,7 +297,7 @@ function BannerVideo({
         muted
         playsInline
         loop
-        preload="metadata"
+        preload={poster ? "metadata" : "auto"}
         aria-label="Video del proyecto"
         className="absolute inset-0 h-full w-full object-cover md:hidden"
       />
@@ -278,7 +309,7 @@ function BannerVideo({
         muted
         playsInline
         loop
-        preload="metadata"
+        preload={poster ? "metadata" : "auto"}
         aria-label="Video del proyecto"
         className="absolute inset-0 hidden h-full w-full object-cover md:block"
       />
@@ -639,24 +670,31 @@ export function Banner({ titleSlides, imageSlides, ocultar_en_movil = false }: B
                 api.on("destroy", () => api.off("reInit", startWhenReady));
               }}
               onSelectChange={setActiveMediaIndex}
-              renderSlide={(slide, index) => (
-                <div className="relative h-full w-full">
-                  {slide.videoUrl ? (
-                    <BannerVideo
-                      src={slide.videoUrl}
-                      mobileSrc={slide.videoUrlMobile}
-                      poster={slide.image?.url}
-                      active={mediaReady && index === activeMediaIndex}
-                    />
-                  ) : (
-                    <BannerImage
-                      image={slide.image}
-                      imageMobile={slide.imageMobile}
-                      priority={index === 0}
-                    />
-                  )}
-                </div>
-              )}
+              renderSlide={(slide, index) => {
+                // Sin poster no hay imagen que tape el hueco negro: arrancamos
+                // la reproducción en cuanto el slide es el activo, sin esperar
+                // a mediaReady (que llega tras el fundido del intro).
+                const posterUrl = slide.image?.url;
+                const active = index === activeMediaIndex && (mediaReady || !posterUrl);
+                return (
+                  <div className="relative h-full w-full">
+                    {slide.videoUrl ? (
+                      <BannerVideo
+                        src={slide.videoUrl}
+                        mobileSrc={slide.videoUrlMobile}
+                        poster={posterUrl}
+                        active={active}
+                      />
+                    ) : (
+                      <BannerImage
+                        image={slide.image}
+                        imageMobile={slide.imageMobile}
+                        priority={index === 0}
+                      />
+                    )}
+                  </div>
+                );
+              }}
             />
           </div>
         </div>
