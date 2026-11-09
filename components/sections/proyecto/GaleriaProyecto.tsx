@@ -224,7 +224,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
           </div>
         )}
         {tabs.length > 1 && (
-          <div className="absolute bottom-14 md:bottom-16 left-1/2 z-10 flex -translate-x-1/2 items-center gap-8 shrink-0 items-center justify-center gap-8 py-16 md:flex">
+          <div className="absolute bottom-13 md:bottom-16 left-1/2 z-10 flex -translate-x-1/2 items-center gap-8 shrink-0 items-center justify-center gap-8 py-16 md:flex">
             {tabs.map((tab, i) => (
               <button
                 key={i}
