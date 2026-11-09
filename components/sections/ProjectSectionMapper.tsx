@@ -126,6 +126,7 @@ export function ProjectSectionMapper({
                 color_barra_tabs_movil={section.color_barra_tabs_movil}
                 color_active_tab_movil={section.color_active_tab_movil}
                 ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
+                titulo_flotante={section.titulo_flotante}
               />
             );
           case "planos":

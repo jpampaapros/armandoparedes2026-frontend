@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { EmblaCarouselType } from "embla-carousel";
 import Image from "next/image";
 import { EmblaSlider } from "@/components/EmblaSlider";
-import type { ProjectGaleriaTab } from "@/lib/types";
+import type { ACFImage, ProjectGaleriaTab } from "@/lib/types";
 
 type GaleriaProyectoProps = {
   titulo?: string;
@@ -15,6 +15,7 @@ type GaleriaProyectoProps = {
   color_barra_tabs_movil?: string;
   color_active_tab_movil?: string;
   ocultar_en_movil?: boolean;
+  titulo_flotante?: string;
 };
 
 function TabButton({
@@ -59,28 +60,58 @@ function TabButton({
 }
 
 export function GaleriaProyecto(props: GaleriaProyectoProps) {
-  const { descripcion, tabs = [], color_fondo, color_barra_tabs_movil, color_active_tab_movil, ocultar_en_movil = false } = props;
+  const { descripcion, tabs = [], color_fondo, color_barra_tabs_movil, color_active_tab_movil, ocultar_en_movil = false, titulo_flotante = "" } = props;
   // titulo se recibe por contrato de ACF pero no se rendera según Figma
-  const [active, setActive] = useState(0);
-  const [carousel, setCarousel] = useState<{ tab: number; api: EmblaCarouselType }>();
+
+  // Un único carrusel con las imágenes de todas las pestañas concatenadas: así el
+  // cambio de pestaña usa el mismo deslizamiento que el cambio entre imágenes de
+  // una misma pestaña (sin remount ni corte). `tabStarts` guarda el índice del
+  // primer slide de cada pestaña para poder saltar a ella.
+  const { slides, tabStarts } = useMemo(() => {
+    const flat: { imagen?: ACFImage }[] = [];
+    const starts: number[] = [];
+    for (const tab of tabs) {
+      starts.push(flat.length);
+      for (const item of tab.imagenes || []) {
+        flat.push({ imagen: item.imagen });
+      }
+    }
+    return { slides: flat, tabStarts: starts };
+  }, [tabs]);
+
+  const [api, setApi] = useState<EmblaCarouselType>();
+  const [selected, setSelected] = useState(0);
+  // Pestaña a la que pertenece el slide seleccionado.
+  const active = useMemo(() => {
+    let tab = 0;
+    for (let i = 0; i < tabStarts.length; i++) {
+      if (tabStarts[i] <= selected) tab = i;
+      else break;
+    }
+    return tab;
+  }, [tabStarts, selected]);
+
   const activeTab = tabs[active] ?? { imagenes: [] };
   const activeDescription = activeTab.descripcion ?? (active === 0 ? descripcion : undefined);
+  const tabStart = tabStarts[active] ?? 0;
+  const tabImageCount = (tabs[active]?.imagenes || []).length;
+  const localIndex = selected - tabStart;
+
+  const goToTab = (tabIndex: number) => {
+    const start = tabStarts[tabIndex];
+    if (start == null) return;
+    api?.scrollTo(start);
+  };
 
   useEffect(() => {
-    if (!carousel || carousel.tab !== active || tabs.length === 0) return;
-    const { api } = carousel;
+    if (!api || slides.length === 0) return;
     let timer: ReturnType<typeof setTimeout>;
-    // Arrastre más allá del borde (px). Positivo = hacia la siguiente pestaña.
-    let overscroll = 0;
 
     const scheduleNext = () => {
       clearTimeout(timer);
       timer = setTimeout(() => {
-        if (api.canScrollNext()) {
-          api.scrollNext();
-        } else if (tabs.length > 1) {
-          setActive((current) => (current + 1) % tabs.length);
-        } else {
+        if (api.canScrollNext()) api.scrollNext();
+        else {
           api.scrollTo(0);
           scheduleNext();
         }
@@ -88,42 +119,13 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
     };
     const pause = () => clearTimeout(timer);
 
-    const resetOverscroll = () => {
-      overscroll = 0;
-    };
-    // En móvil: una sola imagen cambia de pestaña al swipe; con varias, solo al pasar la última o la primera.
-    const trackOverscroll = () => {
-      if (!window.matchMedia("(max-width: 767px)").matches) return;
-      if (!api.internalEngine().dragHandler.pointerDown()) return;
-      const { limit, location } = api.internalEngine();
-      const pastEnd = limit.max - location.get();
-      const pastStart = location.get() - limit.min;
-      if (pastEnd > Math.abs(overscroll)) overscroll = pastEnd;
-      if (pastStart > Math.abs(overscroll)) overscroll = -pastStart;
-    };
-    const swipeToTab = () => {
-      if (!window.matchMedia("(max-width: 767px)").matches || tabs.length < 2) return;
-      const snaps = api.scrollSnapList().length;
-      const index = api.selectedScrollSnap();
-      const threshold = 48;
-      const atEnd = snaps <= 1 || index === snaps - 1;
-      const atStart = snaps <= 1 || index === 0;
-      if (overscroll > threshold && atEnd) {
-        clearTimeout(timer);
-        setActive((current) => (current + 1) % tabs.length);
-      } else if (overscroll < -threshold && atStart) {
-        clearTimeout(timer);
-        setActive((current) => (current - 1 + tabs.length) % tabs.length);
-      }
-    };
-
     scheduleNext();
-    api.on("select", scheduleNext).on("pointerDown", pause).on("pointerDown", resetOverscroll).on("scroll", trackOverscroll).on("pointerUp", swipeToTab).on("pointerUp", scheduleNext);
+    api.on("select", scheduleNext).on("pointerDown", pause).on("pointerUp", scheduleNext);
     return () => {
       clearTimeout(timer);
-      api.off("select", scheduleNext).off("pointerDown", pause).off("pointerDown", resetOverscroll).off("scroll", trackOverscroll).off("pointerUp", swipeToTab).off("pointerUp", scheduleNext);
+      api.off("select", scheduleNext).off("pointerDown", pause).off("pointerUp", scheduleNext);
     };
-  }, [active, carousel, tabs.length]);
+  }, [api, slides.length]);
 
   return (
     <section
@@ -139,7 +141,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
             active={i === active}
             activeColor={color_active_tab_movil}
             onBar
-            onClick={() => setActive(i)}
+            onClick={() => goToTab(i)}
           />
         ))}
       </div>
@@ -151,18 +153,22 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
       >
         <div className="absolute inset-0">
         <EmblaSlider
-          key={active}
-          slides={activeTab.imagenes || []}
+          slides={slides}
           slideClassName="h-full overflow-hidden"
-          onApiReady={(api) => setCarousel({ tab: active, api })}
+          onApiReady={(instance) => setApi(instance)}
+          onSelectChange={setSelected}
           renderSlide={(slide) => (
-            <div className="relative h-full w-full overflow-hidden">
-              {slide?.imagen?.url ? (
+            <div
+              className="relative h-full w-full overflow-hidden"
+              onDragStart={(event) => event.preventDefault()}
+            >
+              {slide.imagen?.url ? (
                 <Image
                   src={slide.imagen.url}
                   alt={slide.imagen.alt || ""}
                   fill
                   sizes="(max-width: 768px) 100vw, 75vw"
+                  draggable={false}
                   className="object-cover"
                 />
               ) : (
@@ -172,12 +178,23 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
           )}
           loop={false}
           showArrows={false}
-          showBullets={{ mobile: true, desktop: false }}
-          bulletsContainerClassName="bottom-16 gap-8"
-          bulletClassName="h-4 rounded-full"
-          bulletActiveClassName="w-24 bg-white"
-          bulletInactiveClassName="w-12 bg-white/75"
+          showBullets={false}
         />
+        {/* Bullets móvil: sólo cuentan las imágenes de la pestaña activa. */}
+        {tabImageCount > 0 && (
+          <div className="absolute bottom-16 left-1/2 z-10 flex -translate-x-1/2 items-center gap-8 md:hidden">
+            {Array.from({ length: tabImageCount }, (_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => api?.scrollTo(tabStart + i)}
+                aria-label={`Ir a la imagen ${i + 1}`}
+                aria-current={i === localIndex ? "true" : undefined}
+                className={`h-4 rounded-full transition-all ${i === localIndex ? "w-24 bg-white" : "w-12 bg-white/75"}`}
+              />
+            ))}
+          </div>
+        )}
         </div>
         {(activeTab.titulo || activeDescription) && (
           // Solo escritorio. El velo sale de la esquina y se desvanece hacia arriba y a la derecha, sin borde de caja.
@@ -201,6 +218,11 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
             dangerouslySetInnerHTML={{ __html: activeDescription }}
           />
         )}
+        {titulo_flotante && (
+          <div className="absolute top-20 left-20 md:left-40 z-10 font-gotham text-24 font-medium text-white">
+            {titulo_flotante}
+          </div>
+        )}
       </div>
         {tabs.length > 1 && (
           <div className="hidden shrink-0 items-center justify-center gap-8 bg-white py-16 md:flex">
@@ -210,7 +232,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
                 type="button"
                 aria-label={tab.titulo || `Ir a la imagen ${i + 1}`}
                 aria-current={i === active ? "true" : undefined}
-                onClick={() => setActive(i)}
+                onClick={() => goToTab(i)}
                 className={`cursor-pointer h-8 rounded-full ${i === active ? "w-28 bg-near-black/40" : "w-14 bg-near-black/35"}`}
               />
             ))}

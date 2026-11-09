@@ -79,7 +79,7 @@ export function ContactoFormulario({
       </div>
 
       {/* Los paneles quedan montados para no perder lo escrito en el formulario al cambiar de pestaña. */}
-      <div id="panel-solicitar-informacion" role="tabpanel" aria-labelledby="tab-solicitar-informacion" hidden={activo !== "solicitar-informacion"}>
+      <div id="panel-solicitar-informacion" className="mt-24 md:mt-40" role="tabpanel" aria-labelledby="tab-solicitar-informacion" hidden={activo !== "solicitar-informacion"}>
         <ContactoForm {...formulario} titulo={solicitar_informacion?.titulo || formulario.titulo} formulario_id={solicitar_informacion?.formulario_id || formulario.formulario_id || undefined} proyectos={proyectos} />
       </div>
       <div id="panel-salas-de-ventas" role="tabpanel" aria-labelledby="tab-salas-de-ventas" hidden={activo !== "salas-de-ventas"}>
