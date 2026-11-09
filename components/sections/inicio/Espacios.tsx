@@ -21,7 +21,7 @@ export function Espacios({ titulo, subtitulo, indicadores, ocultar_en_movil = fa
             </p>
           )}
           {titulo && (
-            <h2 className="my-0  font-gotham text-36 font-normal leading-[1.1] md:text-60 [&_strong]:font-medium" dangerouslySetInnerHTML={{ __html: titulo }} />
+            <h2 className="my-0  font-gotham text-30 font-normal leading-[1.1] md:text-60 [&_strong]:font-medium" dangerouslySetInnerHTML={{ __html: titulo }} />
           )}
         </div>
 
