@@ -181,7 +181,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
           showBullets={false}
         />
         {/* Bullets móvil: sólo cuentan las imágenes de la pestaña activa. */}
-        {tabImageCount > 0 && (
+        {/* {tabImageCount > 0 && (
           <div className="absolute bottom-16 left-1/2 z-10 flex -translate-x-1/2 items-center gap-8 md:hidden">
             {Array.from({ length: tabImageCount }, (_, i) => (
               <button
@@ -194,11 +194,11 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
               />
             ))}
           </div>
-        )}
+        )} */}
         </div>
         {(activeTab.titulo || activeDescription) && (
           // Solo escritorio. El velo sale de la esquina y se desvanece hacia arriba y a la derecha, sin borde de caja.
-          <div className="pointer-events-none absolute bottom-0 left-0 z-10 hidden w-[58%] max-w-680 bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0.5)_24%,rgba(0,0,0,0.18)_52%,transparent_74%)] pb-35 pl-40 pr-100 pt-120 md:block">
+          <div className="pointer-events-none absolute bottom-0 left-0 z-10 hidden w-[58%] max-w-680 bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0.5)_24%,rgba(0,0,0,0.18)_52%,transparent_74%)] pb-55 pl-40 pr-100 pt-120 md:block">
             <div className="max-w-420">
               {activeTab.titulo && (
                 <p className="m-0 font-gotham text-24 font-medium text-white">{activeTab.titulo}</p>
@@ -214,7 +214,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
         )}
         {activeDescription && (
           <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] bg-gradient-to-t from-black/70 via-black/30 to-transparent px-20 pt-48 pb-40 font-poppins text-16 font-light leading-[1.4] text-white md:hidden [&_p]:m-0"
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] bg-gradient-to-t from-black/70 via-black/30 to-transparent px-20 pt-48 pb-50 font-poppins text-16 font-light leading-[1.4] text-white md:hidden [&_p]:m-0"
             dangerouslySetInnerHTML={{ __html: activeDescription }}
           />
         )}
@@ -223,8 +223,22 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
             {titulo_flotante}
           </div>
         )}
-      </div>
         {tabs.length > 1 && (
+          <div className="absolute bottom-13 md:bottom-16 left-1/2 z-10 flex -translate-x-1/2 items-center gap-8 shrink-0 items-center justify-center gap-8 py-16 md:flex">
+            {tabs.map((tab, i) => (
+              <button
+                key={i}
+                type="button"
+                aria-label={tab.titulo || `Ir a la imagen ${i + 1}`}
+                aria-current={i === active ? "true" : undefined}
+                onClick={() => goToTab(i)}
+                className={`cursor-pointer h-4 md:h-8 rounded-full ${i === active ? "md:w-28 w-24 bg-white" : "md:w-14 w-12 bg-white/75"}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+        {/* {tabs.length > 1 && (
           <div className="hidden shrink-0 items-center justify-center gap-8 bg-white py-16 md:flex">
             {tabs.map((tab, i) => (
               <button
@@ -237,7 +251,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
               />
             ))}
           </div>
-        )}
+        )} */}
     </section>
   );
 }
