@@ -15,6 +15,7 @@ type GaleriaProyectoProps = {
   color_barra_tabs_movil?: string;
   color_active_tab_movil?: string;
   ocultar_en_movil?: boolean;
+  titulo_flotante?: string;
 };
 
 function TabButton({
@@ -59,7 +60,7 @@ function TabButton({
 }
 
 export function GaleriaProyecto(props: GaleriaProyectoProps) {
-  const { descripcion, tabs = [], color_fondo, color_barra_tabs_movil, color_active_tab_movil, ocultar_en_movil = false } = props;
+  const { descripcion, tabs = [], color_fondo, color_barra_tabs_movil, color_active_tab_movil, ocultar_en_movil = false, titulo_flotante = "" } = props;
   // titulo se recibe por contrato de ACF pero no se rendera según Figma
   const [active, setActive] = useState(0);
   const [carousel, setCarousel] = useState<{ tab: number; api: EmblaCarouselType }>();
@@ -200,6 +201,11 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
             className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] bg-gradient-to-t from-black/70 via-black/30 to-transparent px-20 pt-48 pb-40 font-poppins text-16 font-light leading-[1.4] text-white md:hidden [&_p]:m-0"
             dangerouslySetInnerHTML={{ __html: activeDescription }}
           />
+        )}
+        {titulo_flotante && (
+          <div className="absolute top-20 left-20 md:left-40 z-10 font-gotham text-24 font-medium text-white">
+            {titulo_flotante}
+          </div>
         )}
       </div>
         {tabs.length > 1 && (
