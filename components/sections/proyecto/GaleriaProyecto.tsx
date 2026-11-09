@@ -158,13 +158,17 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
           onApiReady={(instance) => setApi(instance)}
           onSelectChange={setSelected}
           renderSlide={(slide) => (
-            <div className="relative h-full w-full overflow-hidden">
+            <div
+              className="relative h-full w-full overflow-hidden"
+              onDragStart={(event) => event.preventDefault()}
+            >
               {slide.imagen?.url ? (
                 <Image
                   src={slide.imagen.url}
                   alt={slide.imagen.alt || ""}
                   fill
                   sizes="(max-width: 768px) 100vw, 75vw"
+                  draggable={false}
                   className="object-cover"
                 />
               ) : (
