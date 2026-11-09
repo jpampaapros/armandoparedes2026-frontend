@@ -172,23 +172,27 @@ export function ProjectCard({
         </SmartLink>
       </div>
       {(saleCarousel || saleListing) && (
+        // Enlace que cubre toda la tarjeta: clicleable completo en móvil y desktop.
         <SmartLink
           link={{ title: "Ver proyecto", url: `/proyectos/${project.slug}` }}
-          className={
-            saleListing
-              ? "absolute inset-0 z-20 text-white"
-              : "absolute bottom-12 right-12 z-20 flex h-36 w-36 items-center justify-center text-white md:hidden"
-          }
+          className="absolute inset-0 z-20 text-white"
         >
           <span className="sr-only">Ver proyecto {project.title.rendered}</span>
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 32 32"
-            fill="none"
-            className={`h-30 w-30 ${saleListing ? "absolute bottom-12 right-12 md:hidden" : ""}`}
+          {/* El "+" solo se muestra en móvil; en desktop el diseño usa el botón "Ver proyecto". */}
+          <span
+            className={`absolute bottom-12 right-12 flex md:hidden ${
+              saleListing ? "" : "h-36 w-36 items-center justify-center"
+            }`}
           >
-            <path d="M16 2v28M2 16h28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          </svg>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 32 32"
+              fill="none"
+              className="h-30 w-30"
+            >
+              <path d="M16 2v28M2 16h28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </span>
         </SmartLink>
       )}
     </article>
