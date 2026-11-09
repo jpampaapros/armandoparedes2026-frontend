@@ -192,20 +192,31 @@ function BannerVideo({
       for (const video of videos) video.currentTime = 0;
     }
 
-    const observer = new IntersectionObserver(([entry]) => {
-      inView = entry.isIntersecting;
+    // Hay dos <video> (escritorio oculto con md:hidden). El observer avisa de los dos
+    // juntos y el primero es el de escritorio, que en móvil no intersecta. Si solo
+    // se lee esa entrada, inView queda en false y el video visible nunca hace play().
+    const inViewByVideo = new WeakMap<HTMLVideoElement, boolean>();
+    const syncPlayback = () => {
+      const current = currentVideo();
+      inView = current ? inViewByVideo.get(current) === true : false;
       updatePlayback();
+    };
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        inViewByVideo.set(entry.target as HTMLVideoElement, entry.isIntersecting);
+      }
+      syncPlayback();
     }, { threshold: 0.1 });
     for (const video of videos) observer.observe(video);
 
-    media.addEventListener("change", updatePlayback);
-    document.addEventListener("visibilitychange", updatePlayback);
-    updatePlayback();
+    media.addEventListener("change", syncPlayback);
+    document.addEventListener("visibilitychange", syncPlayback);
+    syncPlayback();
 
     return () => {
       observer.disconnect();
-      media.removeEventListener("change", updatePlayback);
-      document.removeEventListener("visibilitychange", updatePlayback);
+      media.removeEventListener("change", syncPlayback);
+      document.removeEventListener("visibilitychange", syncPlayback);
       for (const video of videos) video.pause();
     };
   }, [active, src, mobileUrl]);
