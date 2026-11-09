@@ -176,7 +176,7 @@ export function ProjectCard({
           link={{ title: "Ver proyecto", url: `/proyectos/${project.slug}` }}
           className={
             saleListing
-              ? "absolute inset-0 z-20 text-white md:hidden"
+              ? "absolute inset-0 z-20 text-white"
               : "absolute bottom-12 right-12 z-20 flex h-36 w-36 items-center justify-center text-white md:hidden"
           }
         >
@@ -185,7 +185,7 @@ export function ProjectCard({
             aria-hidden="true"
             viewBox="0 0 32 32"
             fill="none"
-            className={`h-30 w-30 ${saleListing ? "absolute bottom-12 right-12" : ""}`}
+            className={`h-30 w-30 ${saleListing ? "absolute bottom-12 right-12 md:hidden" : ""}`}
           >
             <path d="M16 2v28M2 16h28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
