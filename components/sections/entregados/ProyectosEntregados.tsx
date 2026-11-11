@@ -78,7 +78,7 @@ export function ProyectosEntregados({
         <div className="relative min-w-0 md:hidden">
           <div className="absolute bottom-0 left-5 top-60 w-[2px] bg-[#748CA4]" />
           {grouped.map(([year, projects]) => (
-            <div key={year} className="relative pt-60 last:mb-0">
+            <div key={year} className="relative pt-60 last:mb-0 pr-21 md:pr-0">
               <div className="relative flex items-center">
                 <div className="absolute left-[calc(5*var(--fx)+1px)] top-1/2 z-10 h-[14px] w-[14px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate [outline:calc(3*var(--fx))_solid_white]" />
                 <span className="pl-30 font-gotham text-20 font-medium leading-none text-near-black">
