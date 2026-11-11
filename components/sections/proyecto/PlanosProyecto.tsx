@@ -131,7 +131,7 @@ export function PlanosProyecto({
 
   return (
     <section data-layout="planos" className={`w-full bg-white ${ocultar_en_movil ? "hidden md:block" : ""}`}>
-      <div className="mx-auto max-w-1440 px-24 py-52 md:px-80 md:py-90">
+      <div className="mx-auto max-w-1440 px-24 py-52 md:px-80 md:pt-50 md:pb-90">
         {titulo && (
           <h2 className="mb-30 mt-0 ml-12 md:ml-0 text-left md:text-center font-gotham text-30 font-semibold md:font-bold md:mb-50 md:text-60"
           style={{
@@ -168,8 +168,9 @@ export function PlanosProyecto({
           })}
         </div>
 
-        {tipologias.length > 1 && (
-          <div className="mb-40 mt-16 flex flex-wrap justify-center gap-15 px-15 md:mx-auto md:mb-60 md:mt-30 md:w-682 md:max-w-full md:px-0">
+        {tipologias.length >= 1 && (
+          <div className={`mb-40 mt-16 flex flex-wrap justify-center gap-15 px-15 md:mx-auto md:mb-60 md:mt-30 md:max-w-full md:px-0 
+                          ${tipologias.length === 1 ? "md:w-1/4" : "md:w-682"}`}>
             {tipologias.map((t, i) => {
               const active = i === activeTipo;
               return (
