@@ -152,6 +152,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
         style={{ height: "calc(640 * var(--fx))", maxHeight: "calc(640 * var(--fx))", contain: "size" }}
       >
         <div className="absolute inset-0">
+        {/* Con loop, seguir avanzando en el último slide vuelve al primero (drag y autoplay). */}
         <EmblaSlider
           slides={slides}
           slideClassName="h-full overflow-hidden"
@@ -176,7 +177,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
               )}
             </div>
           )}
-          loop={false}
+          loop
           showArrows={false}
           showBullets={false}
         />

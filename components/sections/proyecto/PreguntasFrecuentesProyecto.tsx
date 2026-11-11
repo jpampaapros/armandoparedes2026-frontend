@@ -6,7 +6,7 @@ import type { ContactoPregunta } from "@/lib/types";
 export function PreguntasFrecuentesProyecto({ titulo = "Preguntas frecuentes", preguntas, color_titulo, ocultar_en_movil, color_borde }:
   { titulo?: string; preguntas: ContactoPregunta[]; color_boton?: string; color_titulo?: string; ocultar_en_movil?: boolean; color_borde?: string }) {
   return (
-    <section aria-labelledby="proyecto-faq" className={`mt-24 md:mt-40 px-24 md:px-0 ${ocultar_en_movil ? "hidden md:block" : ""}`}>
+    <section aria-labelledby="proyecto-faq" className={`mt-52 md:mt-90 px-24 md:px-0 ${ocultar_en_movil ? "hidden md:block" : ""}`}>
       <h2 id="proyecto-faq" className="m-0 text-center font-gotham text-36 font-bold leading-tight md:text-50"
       style={{ color: color_titulo || "rgb(116, 140, 164)" }}>
         {titulo}

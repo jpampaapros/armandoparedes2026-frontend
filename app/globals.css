@@ -155,6 +155,8 @@
   --color-border-light: #c5c5c5;
   --color-dots-active: #bdbdbd;
   --color-dots-inactive: rgba(221, 221, 221, 0.8);
+  --color-dots-active2: #999997;
+  --color-dots-inactive2: #D6D6D2;
   --font-gotham: 'Gotham', Arial, sans-serif;
   --font-gotham-black: 'Gotham Black', 'Gotham', Arial, sans-serif;
   --font-source-sans-pro: 'Source Sans Pro', Arial, sans-serif;
