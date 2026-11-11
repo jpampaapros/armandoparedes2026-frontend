@@ -37,7 +37,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="es" className={`${poppins.variable} ${gaMaamli.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
-        {/* Corre antes del primer pintado: si la intro del home ya se vio hoy, el CSS la oculta sin parpadeo. */}
+        {/* Corre antes del primer pintado: si la intro del home ya se ejecutó en esta pestaña hace menos de 5 minutos, el CSS la oculta sin parpadeo. */}
         <script dangerouslySetInnerHTML={{ __html: homeIntroSkipScript }} />
       </head>
       <body className="font-sans pt-55">

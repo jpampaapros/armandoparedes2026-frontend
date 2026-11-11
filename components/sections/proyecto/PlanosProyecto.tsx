@@ -142,7 +142,7 @@ export function PlanosProyecto({
           </h2>
         )}
 
-        <div className={`flex flex-wrap justify-center gap-12 md:gap-23 ${titulo ? "" : "mt-30 md:mt-50"} ${tipologias.length > 1 ? "" : "mb-40 md:mb-60"}`}>
+        <div className={`flex flex-wrap justify-center gap-15 ${titulo ? "" : "mt-30 md:mt-50"} ${tipologias.length > 1 ? "" : "mb-40 md:mb-60"}`}>
           {dormitorios.map((d, i) => {
             const active = i === activeDorm;
             return (
@@ -178,7 +178,7 @@ export function PlanosProyecto({
                   type="button"
                   onClick={() => setActiveTipo(i)}
                   className={`min-w-0 flex-1 border px-20 py-10 font-gotham text-14 transition-colors cursor-pointer h-50 md:p-10 md:text-18 ${
-                    active ? "font-bold text-white" : "font-normal text-near-black"
+                    active ? "font-normal text-white" : "font-normal text-near-black"
                   }`}
                   style={{
                     borderColor: buttonColor,

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import { EmblaSlider } from "@/components/EmblaSlider";
 import type { ACFImage, HomeBannerSlide } from "@/lib/types";
-import { HOME_INTRO_SKIP_ATTRIBUTE, hasSeenHomeIntroToday, markHomeIntroSeen } from "@/lib/home-intro";
+import { HOME_INTRO_SKIP_ATTRIBUTE, hasSeenHomeIntroRecently, markHomeIntroSeen } from "@/lib/home-intro";
 import { TypewriterTitle } from "./TypewriterTitle";
 
 /* Imagen de escritorio + imagen_mobile. Dos <Image> con corte md (767px),
@@ -392,10 +392,11 @@ export function Banner({ titleSlides, imageSlides, ocultar_en_movil = false }: B
   const showText = !textHidden;
   const activeSlide = validSlides[activeIndex] ?? validSlides[0];
 
-  /* La máquina de escribir corre solo la primera vez del día. En una recarga
-     el texto sigue visible, ya completo. */
+  /* La máquina de escribir corre al entrar al home. Dentro de la ventana de 5
+     minutos volver al home no la repite (texto ya completo); pasada la ventana
+     se vuelve a ejecutar. */
   useLayoutEffect(() => {
-    skipDecisionRef.current ??= hasSeenHomeIntroToday();
+    skipDecisionRef.current ??= hasSeenHomeIntroRecently();
     if (skipDecisionRef.current) {
       document.documentElement.setAttribute(HOME_INTRO_SKIP_ATTRIBUTE, "");
       setTextPresentation("static");
@@ -663,11 +664,11 @@ export function Banner({ titleSlides, imageSlides, ocultar_en_movil = false }: B
               plugins={imagePlugins}
               showArrows={false}
               showBullets={mediaSlides.length > 1}
-              bulletsContainerClassName="bottom-32 gap-3 md:bottom-34"
+              bulletsContainerClassName="-bottom-15 gap-3 md:bottom-34"
               bulletClassName="h-6 cursor-pointer rounded-full border-0 p-0 transition-[width] duration-300"
-              bulletActiveClassName="w-91 bg-dots-inactive"
-              bulletInactiveClassName="w-27 bg-dots-inactive"
-              bulletProgress={{ duration: IMAGE_SLIDE_DELAY, className: "bg-dots-active" }}
+              bulletActiveClassName="w-91 md:bg-dots-inactive bg-dots-inactive2"
+              bulletInactiveClassName="w-27 md:bg-dots-inactive bg-dots-inactive2"
+              bulletProgress={{ duration: IMAGE_SLIDE_DELAY, className: "md:bg-dots-active bg-dots-active2" }}
               onApiReady={(api) => {
                 const startWhenReady = () => {
                   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches && imageRef.current) {
