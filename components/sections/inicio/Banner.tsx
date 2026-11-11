@@ -13,10 +13,12 @@ import { TypewriterTitle } from "./TypewriterTitle";
 function BannerImage({
   image,
   imageMobile,
+  enlace,
   priority,
 }: {
   image?: ACFImage;
   imageMobile?: ACFImage;
+  enlace?: string;
   priority?: boolean;
 }) {
   const desktopUrl = image?.url || imageMobile?.url;
@@ -27,8 +29,8 @@ function BannerImage({
   const sameUrl = desktopUrl === mobileUrl;
 
   // Misma URL en ambos campos: un solo Image basta.
-  if (sameUrl && desktopUrl) {
-    return (
+  const content =
+    sameUrl && desktopUrl ? (
       <Image
         src={desktopUrl}
         alt={alt}
@@ -37,32 +39,38 @@ function BannerImage({
         sizes="100vw"
         priority={priority}
       />
+    ) : (
+      <>
+        {mobileUrl && (
+          <Image
+            src={mobileUrl}
+            alt={alt}
+            fill
+            className="object-cover md:hidden"
+            sizes="100vw"
+            priority={priority}
+          />
+        )}
+        {desktopUrl && (
+          <Image
+            src={desktopUrl}
+            alt={alt}
+            fill
+            className="hidden object-cover md:block"
+            sizes="100vw"
+            priority={priority}
+          />
+        )}
+      </>
     );
-  }
+
+  // Con enlace el slide entero es clickeable; sin enlace todo queda igual.
+  if (!enlace) return content;
 
   return (
-    <>
-      {mobileUrl && (
-        <Image
-          src={mobileUrl}
-          alt={alt}
-          fill
-          className="object-cover md:hidden"
-          sizes="100vw"
-          priority={priority}
-        />
-      )}
-      {desktopUrl && (
-        <Image
-          src={desktopUrl}
-          alt={alt}
-          fill
-          className="hidden object-cover md:block"
-          sizes="100vw"
-          priority={priority}
-        />
-      )}
-    </>
+    <a href={enlace} className="absolute inset-0 block">
+      {content}
+    </a>
   );
 }
 
@@ -332,19 +340,22 @@ export function Banner({ titleSlides, imageSlides, ocultar_en_movil = false }: B
     imageMobile?: HomeBannerSlide["imagen_mobile"];
     videoUrl?: string;
     videoUrlMobile?: string;
+    enlace?: string;
   }>((slide) => {
     const image = slide.imagen?.url ? slide.imagen : undefined;
     const imageMobile = slide.imagen_mobile?.url ? slide.imagen_mobile : undefined;
+    // ACF puede devolver "" o null: normalizamos a undefined para el check de enlace.
+    const enlace = slide.enlace || undefined;
     if (slide.tipo_medio !== "video") {
-      return image || imageMobile ? [{ image, imageMobile }] : [];
+      return image || imageMobile ? [{ image, imageMobile, enlace }] : [];
     }
     const videoUrl = slide.video && typeof slide.video === "object" ? slide.video.url : undefined;
     const videoUrlMobile =
       slide.video_mobile && typeof slide.video_mobile === "object" ? slide.video_mobile.url : undefined;
     if (!videoUrl && !videoUrlMobile) {
-      return image || imageMobile ? [{ image, imageMobile }] : [];
+      return image || imageMobile ? [{ image, imageMobile, enlace }] : [];
     }
-    return [{ image, imageMobile, videoUrl: videoUrl || videoUrlMobile, videoUrlMobile }];
+    return [{ image, imageMobile, videoUrl: videoUrl || videoUrlMobile, videoUrlMobile, enlace }];
   }), [imageSlides]);
   // Delay por slide: video 15s, imagen 5s (API de Embla Autoplay).
   const autoplay = useMemo(
@@ -652,7 +663,7 @@ export function Banner({ titleSlides, imageSlides, ocultar_en_movil = false }: B
               plugins={imagePlugins}
               showArrows={false}
               showBullets={mediaSlides.length > 1}
-              bulletsContainerClassName="bottom-61 gap-3 md:bottom-34"
+              bulletsContainerClassName="bottom-32 gap-3 md:bottom-34"
               bulletClassName="h-6 cursor-pointer rounded-full border-0 p-0 transition-[width] duration-300"
               bulletActiveClassName="w-91 bg-dots-inactive"
               bulletInactiveClassName="w-27 bg-dots-inactive"
@@ -689,6 +700,7 @@ export function Banner({ titleSlides, imageSlides, ocultar_en_movil = false }: B
                       <BannerImage
                         image={slide.image}
                         imageMobile={slide.imageMobile}
+                        enlace={slide.enlace}
                         priority={index === 0}
                       />
                     )}
