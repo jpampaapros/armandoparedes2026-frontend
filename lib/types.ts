@@ -66,6 +66,8 @@ export type HomeBannerSlide = {
   video?: { url?: string; mime_type?: string } | false;
   /** Video para viewport menor a md (767px); si falta, se usa `video`. */
   video_mobile?: { url?: string; mime_type?: string } | false;
+  /** URL a la que apunta el slide; vacío o ausente = slide sin enlace. */
+  enlace?: string;
 };
 
 export type HomeSection =
