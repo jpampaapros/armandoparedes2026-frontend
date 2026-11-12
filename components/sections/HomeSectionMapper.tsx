@@ -139,7 +139,7 @@ export function HomeSectionMapper({
                   color_titulo={section.color_titulo}
                   ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
                   color_borde={section.color_borde}
-                  margin={'md:mb-90 md-52'}
+                  margin={'md:mb-90 mb-52'}
                 />
               );
             }
