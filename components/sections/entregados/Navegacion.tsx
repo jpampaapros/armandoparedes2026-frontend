@@ -48,6 +48,9 @@ type NavegacionProps = {
 };
 
 export function Navegacion({ current, entregados, color_fondo }: NavegacionProps) {
+  const textColor = current.slug?.includes("pasaje-vanderghen")
+    ? "text-white"
+    : "text-black";
   const prev = resolveNavLink(
     current,
     entregados,
@@ -79,7 +82,7 @@ export function Navegacion({ current, entregados, color_fondo }: NavegacionProps
               href={resolveWordPressUrl(prev.url)}
               target={prev.target || undefined}
               prefetch={false}
-              className="group flex items-center gap-10 text-black transition-opacity hover:opacity-70"
+              className={`group inline-flex items-center justify-end gap-10 transition-opacity hover:opacity-70 ${textColor}`}
             >
               <ChevronLeft className="h-24 w-24" />
             </Link>
@@ -90,7 +93,7 @@ export function Navegacion({ current, entregados, color_fondo }: NavegacionProps
           )}
         </div>
 
-        <div className="flex flex-col items-center gap-4 text-center text-black">
+        <div className={`flex flex-col items-center gap-4 text-center ${textColor}`}>
           {year && (
             <span className="font-poppins text-16 font-light">{year}</span>
           )}
@@ -105,7 +108,7 @@ export function Navegacion({ current, entregados, color_fondo }: NavegacionProps
               href={resolveWordPressUrl(next.url)}
               target={next.target || undefined}
               prefetch={false}
-              className="group inline-flex items-center justify-end gap-10 text-black transition-opacity hover:opacity-70"
+              className={`group inline-flex items-center justify-end gap-10 transition-opacity hover:opacity-70 ${textColor}`}
             >
               <ChevronRight className="h-24 w-24" />
             </Link>

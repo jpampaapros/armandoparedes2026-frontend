@@ -5,6 +5,7 @@ import { QuienEsArmando } from "@/components/sections/inicio/QuienEsArmando";
 import { ProyectosEntregados } from "@/components/sections/inicio/ProyectosEntregados";
 import { AmigosBeneficios } from "@/components/sections/inicio/AmigosBeneficios";
 import { Blog } from "@/components/sections/Blog";
+import { PreguntasFrecuentesProyecto } from "@/components/sections/proyecto/PreguntasFrecuentesProyecto";
 import { ContactoForm } from "@/components/forms/ContactoForm";
 import type { HomeSection, Project, Delivered } from "@/lib/types";
 import { isAcfTrue, selectByPostObject, toArray } from "@/lib/utils";
@@ -123,6 +124,25 @@ export function HomeSectionMapper({
                 />
               </section>
             );
+            case "preguntas_frecuentes": {
+              // Repetidor ACF `preguntas`: cada fila es { titulo, respuesta }, no un grupo.
+              const preguntas = toArray(section.preguntas).filter(
+                (pregunta) => Boolean(pregunta.titulo?.trim() || pregunta.respuesta?.trim()),
+              );
+              if (preguntas.length === 0) return null;
+              return (
+                <PreguntasFrecuentesProyecto
+                  key={`${section.acf_fc_layout}-${index}`}
+                  titulo={section.titulo}
+                  preguntas={preguntas}
+                  color_boton={section.color_boton}
+                  color_titulo={section.color_titulo}
+                  ocultar_en_movil={isAcfTrue(section.ocultar_seccion)}
+                  color_borde={section.color_borde}
+                  margin={'md:mb-90 md-52'}
+                />
+              );
+            }
           default:
             return null;
         }

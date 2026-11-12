@@ -143,7 +143,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
         <form
           onSubmit={handleSubmit(onSubmit)}
           noValidate
-          className="mt-24 flex flex-col gap-16 md:mt-36 md:gap-30"
+          className="mt-24 flex flex-col gap-16 md:mt-36 md:gap-36"
         >
           {/* Tus datos */}
           <div className="flex flex-col gap-16">
