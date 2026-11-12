@@ -78,8 +78,8 @@ export type HomeSection =
   | { acf_fc_layout: "proyectos_entregados"; texto?: string; subtitulo?: string; boton?: ACFLink; ocultar_seccion?: boolean | 0 | 1 | "0" | "1"  }
   | { acf_fc_layout: "amigos_beneficios"; titulo?: string; descripcion?: string; boton?: ACFLink; color_fondo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
   | { acf_fc_layout: "blog"; titulo?: string; boton?: ACFLink; ocultar_seccion?: boolean | 0 | 1 | "0" | "1"  }
-  /** Solo `titulo` desde ACF; CF7/distritos/medios usan defaults de ContactoForm. */
-  | { acf_fc_layout: "quiero_mas_informacion"; titulo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" };
+  | { acf_fc_layout: "quiero_mas_informacion"; titulo?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" }
+  | { acf_fc_layout: "preguntas_frecuentes"; titulo?: string; preguntas?: ACFList<ContactoPregunta>; color_titulo?: string; color_boton?: string; color_borde?: string; ocultar_seccion?: boolean | 0 | 1 | "0" | "1" };
 
 export type GraciasPageSection =
   | { acf_fc_layout: "banner_gracias"; titulo?: string; descripcion?: string; imagen_de_fondo?: ACFImage }
