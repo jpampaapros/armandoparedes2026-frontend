@@ -193,7 +193,7 @@ export function SeParte({ title, form_id }: SeParteProps) {
           </div>
 
           {/* Datos del referido */}
-          <div className="flex flex-col gap-16 pt-12 md:pt-0">
+          <div className="flex flex-col gap-16">
             <p className="m-0 text-center font-gotham text-24 font-medium not-italic text-white" style={{ lineHeight: 1.3 }}>
               Ingresa los datos de tu referido:
             </p>
