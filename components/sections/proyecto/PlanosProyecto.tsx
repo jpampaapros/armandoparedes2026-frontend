@@ -154,7 +154,7 @@ export function PlanosProyecto({
                   setActiveTipo(0);
                 }}
                 className={`min-w-120 h-50 border px-20 py-12 font-gotham text-14 transition-colors md:h-50 md:w-212 md:p-10 md:text-18 ${
-                  active ? "font-bold text-white" : "font-normal text-near-black"
+                  active ? "font-normal text-white" : "font-normal text-near-black"
                 }`}
                 style={{
                   borderColor: buttonColor,

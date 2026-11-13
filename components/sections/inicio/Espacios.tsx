@@ -16,7 +16,7 @@ export function Espacios({ titulo, subtitulo, indicadores, ocultar_en_movil = fa
       <div className="mx-auto max-w-1440 px-4 md:px-80">
         <div className="mx-auto mb-0 max-w-799 text-center md:mb-60">
           {subtitulo && (
-            <p className="mb-5 font-poppins text-14 font-light uppercase tracking-[0.05em] text-near-black md:mb-27 md:text-18">
+            <p className="md:hidden blockmb-5 font-poppins text-14 font-light uppercase tracking-[0.05em] text-near-black md:mb-27 md:text-18">
               {subtitulo}
             </p>
           )}
