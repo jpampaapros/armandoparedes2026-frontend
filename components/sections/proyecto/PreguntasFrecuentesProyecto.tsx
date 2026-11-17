@@ -8,7 +8,7 @@ export function PreguntasFrecuentesProyecto({ titulo = "Preguntas frecuentes", p
   return (
     <section
       aria-labelledby="proyecto-faq"
-      className={`grid md:grid-cols-2 px-24 md:px-80 ${ocultar_en_movil ? "hidden md:block" : ""} ${margin}`}
+      className={`${ocultar_en_movil ? "hidden md:grid" : "grid"} md:grid-cols-2 px-24 md:px-80 ${margin}`}
     >
       <div className="w-full h-full flex flex-col justify-center items-start">
         <div className="md:w-310">
