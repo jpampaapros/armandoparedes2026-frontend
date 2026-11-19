@@ -36,20 +36,31 @@ export function DescripcionProyecto({ titulo, descripcion, imagen, cambiar_lado,
         .replace(/\r\n|\r|\n/g, '<br style="display: none" />')
     : `${head}<span class="font-medium text-peach"> ${tail}</span>`;
 
-  const imageCell = (
-    <div className="relative h-430 w-full md:h-772">
-      {imagen?.url ? (
+  // La imagen se muestra completa (sin recorte): con dimensiones conocidas se respeta
+  // su proporción natural; si faltan, se encaja dentro de la caja con object-contain.
+  const imageCell = imagen?.url ? (
+    imagen.width && imagen.height ? (
+      <Image
+        src={imagen.url}
+        alt={imagen.alt || ""}
+        width={imagen.width}
+        height={imagen.height}
+        sizes="(max-width: 768px) 100vw, 50vw"
+        className="block h-auto w-full"
+      />
+    ) : (
+      <div className="relative h-430 w-full md:h-full">
         <Image
           src={imagen.url}
           alt={imagen.alt || ""}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover"
+          className="object-contain"
         />
-      ) : (
-        <div className="h-full w-full bg-neutral-100" />
-      )}
-    </div>
+      </div>
+    )
+  ) : (
+    <div className="h-430 w-full bg-neutral-100 md:h-full" />
   );
 
   const textCell = (

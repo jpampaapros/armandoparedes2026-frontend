@@ -79,6 +79,12 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
     return { slides: flat, tabStarts: starts };
   }, [tabs]);
 
+  // Proporción del marco: la de la primera imagen con dimensiones (las de una galería suelen compartirla).
+  const frameRatio = useMemo(() => {
+    const ref = slides.find((s) => s.imagen?.width && s.imagen?.height)?.imagen;
+    return ref ? `${ref.width} / ${ref.height}` : undefined;
+  }, [slides]);
+
   const [api, setApi] = useState<EmblaCarouselType>();
   const [selected, setSelected] = useState(0);
   // Pestaña a la que pertenece el slide seleccionado.
@@ -146,10 +152,15 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
         ))}
       </div>
 
-      {/* El carrusel va en absolute: su alto no entra en el flujo. El marco es el único que mide, y overflow recorta la foto. */}
+      {/* El carrusel va en absolute: su alto no entra en el flujo. El marco es el único que mide.
+          Con dimensiones conocidas, el marco toma la proporción de la primera imagen para que se vea completa. */}
       <div
         className="relative w-full shrink-0 overflow-hidden"
-        style={{ height: "calc(640 * var(--fx))", maxHeight: "calc(640 * var(--fx))", contain: "size" }}
+        style={
+          frameRatio
+            ? { aspectRatio: frameRatio }
+            : { height: "calc(640 * var(--fx))", maxHeight: "calc(640 * var(--fx))", contain: "size" }
+        }
       >
         <div className="absolute inset-0">
         {/* Con loop, seguir avanzando en el último slide vuelve al primero (drag y autoplay). */}
@@ -170,7 +181,7 @@ export function GaleriaProyecto(props: GaleriaProyectoProps) {
                   fill
                   sizes="(max-width: 768px) 100vw, 75vw"
                   draggable={false}
-                  className="object-cover"
+                  className="object-contain"
                 />
               ) : (
                 <div className="h-full w-full bg-neutral-800" />
